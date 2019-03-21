@@ -1,0 +1,10 @@
+.title-vertical-bar {
+    width: 5px;
+    margin-top: 0px;
+    height: 100px;
+    background: #344645;
+}
+
+.title-button {
+    margin-top: -10px;
+}
