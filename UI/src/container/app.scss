@@ -1,14 +1,44 @@
 $light-grey-color: #343645;
 $light-cyan-color:#7bcdc4;
 $blue-color: #3079e4;
+$dark-grey: #cfcdd8;
+
+.p-15 {
+  padding: 15px;
+}
+
+.p-x-15 {
+  padding-left: 15px !important;
+  padding-right: 15px !important;
+}
 
 html {
   font-size: 62.5%; /* 10px = 1rem */
+  background-color: #fff;
 }
 
 body {
   font-size: 1.6rem;
   background-color: #dedede;
+}
+
+
+/* Constants */
+.dark-grey-color {color: $dark-grey !important;}
+.dark-grey-background {background-color: $dark-grey !important;}
+.light-grey-color {color: $dark-grey !important;}
+.light-grey-background {background-color: $light-grey-color !important;}
+.no-margin {margin: 0 !important;}
+
+.grey-link {
+  color: $light-grey-color;
+  text-decoration: none;
+}
+
+.grey-link:hover {
+  color: $light-grey-color;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .page-title {
@@ -120,10 +150,11 @@ body {
 
 .home-page {
   overflow: hidden;
-  background-image: url('/assets/images/background.jpg');
+  background-image: url('/assets/images/background.png');
   background-position: 50%;
   background-size: cover;
   background-repeat: no-repeat;
+  background-color: transparent;
 }
 
 .home-page__banner {
@@ -133,6 +164,7 @@ body {
 
 .home-page__content {
   justify-content: center;
+  height: calc(100vh - 423px);
 }
 
 .button-section {
@@ -169,10 +201,193 @@ body {
   font-weight: 500;
 }
 
+.page-section {
+  margin: 35px 0; 
+}
+
+#recommendations {
+  width: 100%;
+  height: 350px;
+}
+
+.section-title {
+  font-size: 34px;
+  color: $light-grey-color;
+  padding: 10px 0px;
+}
+
+.section-description {
+  font-size: 20px;
+  margin-bottom: 15px;
+}
+
 .feedback-input {
   width: 100%;
   height: 500px;
   margin-bottom: 30px;
+}
+
+.speedmeter {
+  width: 200px;
+  height: 200px;
+  margin: auto;
+}
+
+/* custom progress bar */
+.btn-progress-bar {
+  display: flex;
+  padding: 15px 0;
+}
+
+.progress-title-btn {
+  width: 300px;
+  height: 50px;
+  padding: 0 15px;
+  border-radius: 30px;
+  background-color: $light-grey-color;
+  color: #fff;
+  text-align: center;
+  line-height: 2.4;
+  font-size: 20px;
+  z-index: 110;
+}
+
+.bar-value-wrapper {
+  position: relative;
+  display: flex;
+  width: 100%;
+  height: 4px;
+  background-color: $light-grey-color;
+  margin-left: -10px;
+  align-self: center;
+}
+
+.bar-value {
+  width: 0%;
+  height: 4px;
+  background-color: $blue-color;
+  z-index: 100;
+}
+
+.bar-value.val-20 {
+  width: 20%;
+}
+
+.bar-value.val-40 {
+  width: 40%;
+}
+
+.bar-value.val-60 {
+  width: 60%;
+}
+
+.bar-value.val-80 {
+  width: 80%;
+}
+
+.bar-value.val-100 {
+  width: 100%;
+}
+
+.bar-result {
+  width: 250px;
+  padding: 0 25px;
+  font-size: 20px;
+  align-self: center;
+  font-weight: 500;
+  color: $light-grey-color;
+  text-align: center;
+}
+
+/* rule button */
+.rule-btn {
+  width: 100%;
+  height: 50px;
+  background-color: $dark-grey;
+  box-shadow: 0 2px 2px $dark-grey;
+  margin-bottom: 15px;
+  display: flex;
+}
+
+.rule-btn .rule-text {
+  margin: auto;
+  color: $light-grey-color;
+}
+
+.rule-btn.primary-rule .rule-text {
+  color: #fff;
+}
+
+.rule-btn.primary-rule {
+  background-color: $light-grey-color;
+  color: #fff;
+  box-shadow: 0 2px 2px $light-grey-color;
+}
+
+/* Round button and input */
+.round-btn {
+  width: 100%;
+  padding: 10px 0;
+  color: #fff;
+  background-color: $light-grey-color;
+  border-radius: 20px;
+  box-shadow: 0 2px 2px $light-grey-color;
+  text-align: center;
+}
+
+.round-input {
+  width: 100%;
+  height: 40px;
+  border-radius: 20px;
+  background-color: $dark-grey;
+  box-shadow: 0 2px 2px $dark-grey;
+  border: none;
+  text-indent: 15px;
+  outline: none;
+}
+
+.round-input:focus,
+.round-input:active {
+  border: none;
+}
+
+.category-tab {
+  position: relative;
+  width: 100%;
+  background: $light-cyan-color;
+  display: flex;
+  padding: 15px 0;
+  border-radius: 20px;
+  cursor: pointer;
+}
+
+.category-item {
+  width: 15%;
+  font-size: 14px;
+  font-weight: 500;
+  color: $light-grey-color;
+  text-align: center;
+}
+
+.category-item:hover,
+.category-item.active {
+  color: #fff;
+}
+
+.diagonal {
+  width: 100px;
+  height: 5px;
+  padding: 0;
+  border-bottom: 2px solid #fff;
+  -webkit-transform: translateY(20px) translateX(5px) rotate(-55deg);
+  margin: 0;
+  margin-top: -13px;
+}
+
+@media (max-width: 1220px) {
+  .category-tab {
+    display: none;
+  }
 }
 
 @media (max-width: 1199px) {
@@ -191,13 +406,17 @@ body {
   }
 }
 
-@media (max-width: 545px) {
+@media (max-width: 575px) {
   .page-title {
     font-size: 28px;
   }
 
   .green-button {
     font-size: 24px;
+  }
+
+  .round-btn {
+    margin-bottom: 15px;
   }
 }
 

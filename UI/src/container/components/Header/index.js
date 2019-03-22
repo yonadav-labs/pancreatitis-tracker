@@ -8,39 +8,36 @@ class Header extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+			isToggle: false
 		};
+
+		this.toggle = this.toggle.bind(this);
 	}
 
-	componentDidMount() {
-		jQuery(document).ready(() => {
-			jQuery("#menu-toggle").click((e) => {
-				e.preventDefault();
-				jQuery("#wrapper").toggleClass("toggled");
-			});
-
-			jQuery(window).resize(() =>  {
-				if (jQuery(window).width()<=768) {
-					jQuery("#wrapper").removeClass("toggled");
-				} else {
-					jQuery("#wrapper").addClass("toggled");
-				}
-			});
-		});
+	toggle() {
+		this.setState({isToggle: !this.state.isToggle});
 	}
 
 	render() {
 		return (
 			<div className="custom-header">
 				<nav className="navbar navbar-expand navbar-dark bg-primary custom-navbar">
-					<a href="#menu-toggle" id="menu-toggle" className="navbar-brand">
+					<Link
+						to="#"
+						id="menu-toggle"
+						onClick={this.toggle}
+						className="navbar-brand"
+					>
 						<span className="navbar-toggler-icon">
 						</span>
-					</a>
+					</Link>
 					<button className="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarsExample02" aria-controls="navbarsExample02" aria-expanded="false" aria-label="Toggle navigation">
 						<span className="navbar-toggler-icon"></span>
 					</button>
 					<div className="collapse navbar-collapse" id="navbarsExample02">
-						<Link to="/" className="header-logo">ARIEL</Link>
+						<Link to="/" className="header-logo">
+							<img src="/assets/images/logo.png" alt="header logo" />
+						</Link>
 						{/* <ul className="navbar-nav mr-auto">
 							<li className="nav-item active"> <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a> </li>
 							<li className="nav-item"> <a className="nav-link" href="#">Link</a> </li>
@@ -48,18 +45,18 @@ class Header extends React.Component {
 						<form className="form-inline my-2 my-md-0"> </form>
 					</div>
 				</nav>
-				<div id="wrapper" className="">
+				<div id="wrapper" className={!this.state.isToggle ? "" : "toggled"}>
 					<div id="sidebar-wrapper">
-						<span className="close-menu-icon">
+						<span className="close-menu-icon" onClick={this.toggle}>
 							<img src="/assets/images/icons/cross.svg" />
 						</span>
 						<ul className="sidebar-nav">
 							<li className="sidebar-brand">
-								<Link to="">User Account</Link>
+								<Link to="/account-info">User Account</Link>
 							</li>
-							<li><Link to="">Patient Data</Link></li>
-							<li><Link to="">APSC Outputs</Link></li>
-							<li><Link to="">Feedback</Link></li>
+							<li><Link to="/patient">Patient Data</Link></li>
+							<li><Link to="/outputs">APSC Outputs</Link></li>
+							<li><Link to="/feedback">Feedback</Link></li>
 							<li><Link to="/contact">Contact Us</Link></li>
 						</ul>
 					</div>

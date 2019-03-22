@@ -112,7 +112,10 @@ body {
 }
 
 .close-menu-icon {
-	padding: 10px;
+	position: absolute;
+    top: 25px;
+	left: 10px;
+	cursor: pointer;
 }
 
 .close-menu-icon img {
