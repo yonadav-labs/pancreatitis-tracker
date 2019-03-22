@@ -56,7 +56,7 @@ class Account extends React.Component {
 											type="text"
 											id="name"
 											className="round-input"
-											placeholder="Joe Doe"
+											placeholder="John Doe"
 											value={physician.name}
 											onChange={this.changeInfo}
 										/>
@@ -93,7 +93,7 @@ class Account extends React.Component {
 											type="text"
 											id="name"
 											className="round-input"
-											placeholder="Joe Doe"
+											placeholder="John Doe"
 											value={patient.name}
 											onChange={this.changePatient}
 										/>
