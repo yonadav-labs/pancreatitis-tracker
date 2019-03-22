@@ -1,5 +1,7 @@
 $light-grey-color: #343645;
+$grey-text-color: #6f6f70;
 $light-cyan-color:#7bcdc4;
+$bright-cyan-color:#a5f6ed;
 $blue-color: #3079e4;
 $dark-grey: #cfcdd8;
 
@@ -26,9 +28,15 @@ body {
 /* Constants */
 .dark-grey-color {color: $dark-grey !important;}
 .dark-grey-background {background-color: $dark-grey !important;}
-.light-grey-color {color: $dark-grey !important;}
+.light-grey-color {color: $light-grey-color !important;}
 .light-grey-background {background-color: $light-grey-color !important;}
+.grey-color-text {color: $grey-text-color !important;}
 .no-margin {margin: 0 !important;}
+.align-self-center {align-self: center;}
+.no-decoration,
+.no-decoration:hover {
+  text-decoration: none;
+}
 
 .grey-link {
   color: $light-grey-color;
@@ -173,12 +181,44 @@ body {
 
 .green-button {
   position: relative;
-  background-color: #7bcdc4;
+  display: inline-block;
+  background-color: $light-cyan-color;
   border-radius: 50px;
   color: #343645;
-  box-shadow: 0 2px 2px 0 #7bcdc4;
+  box-shadow: 0 2px 2px 0 $light-cyan-color;
   padding: 15px 35px;
   font-size: 30px;
+  outline: none !important;
+  border: none;
+}
+
+.green-button.title-button {
+  cursor: default;
+}
+
+a.green-button:hover {
+  color: $light-grey-color;
+}
+
+.btn.green-button:hover {
+  outline: none !important;
+  border: none;
+  background-color: $bright-cyan-color;
+  box-shadow: 0 2px 2px $bright-cyan-color;
+  color: #fff;
+}
+
+.btn.green-button:focus {
+  outline: none !important;
+  border: none;
+  box-shadow: 0 2px 2px $bright-cyan-color;
+}
+
+.btn.green-button:active {
+  outline: none !important;
+  border: none;
+  background-color: #69dfd3;
+  box-shadow: 0 2px 2px #69dfd3;
 }
 
 .vertical-bar {
@@ -202,7 +242,7 @@ body {
 }
 
 .page-section {
-  margin: 35px 0; 
+  margin: 35px 0 0; 
 }
 
 #recommendations {
@@ -212,7 +252,7 @@ body {
 
 .section-title {
   font-size: 34px;
-  color: $light-grey-color;
+  color: $grey-text-color;
   padding: 10px 0px;
 }
 
@@ -236,7 +276,7 @@ body {
 /* custom progress bar */
 .btn-progress-bar {
   display: flex;
-  padding: 15px 0;
+  padding: 10px 0;
 }
 
 .progress-title-btn {
@@ -311,7 +351,9 @@ body {
 
 .rule-btn .rule-text {
   margin: auto;
-  color: $light-grey-color;
+  color: $grey-text-color;
+  font-size: 20px;
+  font-weight: 500;
 }
 
 .rule-btn.primary-rule .rule-text {
@@ -384,6 +426,41 @@ body {
   margin-top: -13px;
 }
 
+.order-title {
+  color: $light-cyan-color;
+  font-size: 40px;
+}
+
+.order-subtitle {
+  color: #000;
+  font-size: 40px;
+}
+
+.order-description {
+  max-width: 650px;
+  color: $grey-text-color;
+  font-size: 20px;
+  margin: 30px auto;
+}
+
+.provider-section {
+  width: 650px;
+  background: #fff;
+  box-shadow: 0 2px 2px #eee;
+  border: 1px solid #eee;
+  text-align: left;
+  margin: 0 auto 30px;
+  padding: 30px;
+}
+
+.provider-select {
+  width: 100%;
+  height: 40px;
+  background: #fff;
+  color: #344645;
+  text-indent: 10px;
+}
+
 @media (max-width: 1220px) {
   .category-tab {
     display: none;
@@ -403,6 +480,10 @@ body {
 
   .home-page__banner {
     padding: 100px 0 50px;
+  }
+
+  .round-btn {
+    margin: 15px 0;
   }
 }
 

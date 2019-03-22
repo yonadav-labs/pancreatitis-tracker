@@ -52,7 +52,7 @@ class Header extends React.Component {
 						</span>
 						<ul className="sidebar-nav">
 							<li className="sidebar-brand">
-								<Link to="/account-info">User Account</Link>
+								<Link to="/account">User Account</Link>
 							</li>
 							<li><Link to="/patient">Patient Data</Link></li>
 							<li><Link to="/outputs">APSC Outputs</Link></li>

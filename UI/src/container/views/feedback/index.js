@@ -12,7 +12,6 @@ class Feedback extends React.Component {
 	}
 
 	changeValue = (e) => {
-		console.log('sd= ', e.target.value);
 		this.setState({ feedback: e.target.value });
 	}
 
@@ -21,8 +20,9 @@ class Feedback extends React.Component {
 			<div className="app-content">
 				<Title title="Feedback" />
 				<div className="container">
-					<div className="page-subtitle">
-						QuickTutor® invented its unique connection and messaging system to provide all users with security and choice. On QuickTutor®, a Learner has to send a connection request to a Tutor, and then that Tutor has to accept the connection request in order for the users to message each other and set-up tutoring sessions.
+					<div className="page-subtitle grey-color-text text-center">
+						The beauty of the APSC tool lies in its ability to be dynamically updated and improved
+						over the time. Please provide any comments and suggestions for improvements below.
 					</div>
 					<div>
 						<textarea

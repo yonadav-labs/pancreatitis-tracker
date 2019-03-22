@@ -1,5 +1,4 @@
 import React from 'react';
-import GreenButton from '../GreenButton';
 import './index.css';
 
 class Title extends React.Component {
@@ -8,7 +7,7 @@ class Title extends React.Component {
 			<div className="title-wrapper">
 				<div className="button-section">
 					<hr className="title-vertical-bar"></hr>
-					<GreenButton className="title-button" text={this.props.title} />
+					<div className="green-button title-button">{this.props.title}</div>
 				</div>
 			</div>
 		);

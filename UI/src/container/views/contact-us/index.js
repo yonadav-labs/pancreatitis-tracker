@@ -3,6 +3,14 @@ import Title from '../../components/Title';
 import GreenButton from "../../components/GreenButton";
 
 class ContactUs extends React.Component {
+	constructor(props) {
+		super(props);
+	}
+
+	goToOrder = () => {
+		this.props.history.push('/order');
+	}
+
 	render () {
 		return (
 			<div className="app-content">
@@ -13,7 +21,7 @@ class ContactUs extends React.Component {
 					</div>
 					<div className="d-flex justify-content-between">
 						<GreenButton text="Email" />
-						<GreenButton text="Order ArielDx" />
+						<GreenButton text="Order ArielDx" onClick={this.goToOrder} />
 					</div>
 				</div>
 			</div>

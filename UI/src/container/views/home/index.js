@@ -1,5 +1,5 @@
 import React from "react";
-import GreenButton from '../../components/GreenButton';
+import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 
 const Home = () => {
@@ -10,7 +10,7 @@ const Home = () => {
 			</div>
 			<div className="home-page__content">
 				<div className="button-section">
-					<GreenButton text="Get Started" />
+					<Link to="/account-info" className="no-decoration green-button">Get Started</Link>
 					<hr className="vertical-bar"></hr>
 				</div>
 			</div>
