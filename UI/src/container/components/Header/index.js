@@ -51,7 +51,7 @@ class Header extends React.Component {
 							<img src="/assets/images/icons/cross.svg" />
 						</span>
 						<ul className="sidebar-nav">
-							<li className="sidebar-brand">
+							<li className="">
 								<Link to="/account">User Account</Link>
 							</li>
 							<li><Link to="/patient">Patient Data</Link></li>

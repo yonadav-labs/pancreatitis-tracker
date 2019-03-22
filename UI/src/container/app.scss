@@ -1,5 +1,6 @@
 $light-grey-color: #343645;
 $grey-text-color: #6f6f70;
+$dark-grey-text-color: #707070;
 $light-cyan-color:#7bcdc4;
 $bright-cyan-color:#a5f6ed;
 $blue-color: #3079e4;
@@ -31,6 +32,7 @@ body {
 .light-grey-color {color: $light-grey-color !important;}
 .light-grey-background {background-color: $light-grey-color !important;}
 .grey-color-text {color: $grey-text-color !important;}
+.dark-grey-text-color {color: $dark-grey-text-color};
 .no-margin {margin: 0 !important;}
 .align-self-center {align-self: center;}
 .no-decoration,
@@ -187,7 +189,8 @@ body {
   color: #343645;
   box-shadow: 0 2px 2px 0 $light-cyan-color;
   padding: 15px 35px;
-  font-size: 30px;
+  font-size: 32px;
+  font-weight: 500;
   outline: none !important;
   border: none;
 }
@@ -230,9 +233,9 @@ a.green-button:hover {
 
 .page-subtitle {
   margin: 50px auto;
-  font-size: 24px;
+  font-size: 30px;
   font-weight: 500;
-  color: $light-grey-color;
+  color: $dark-grey-text-color;
 }
 
 .page-description {
@@ -242,7 +245,7 @@ a.green-button:hover {
 }
 
 .page-section {
-  margin: 35px 0 0; 
+  margin: 35px 0; 
 }
 
 #recommendations {
@@ -372,19 +375,21 @@ a.green-button:hover {
   padding: 10px 0;
   color: #fff;
   background-color: $light-grey-color;
-  border-radius: 20px;
+  border-radius: 30px;
   box-shadow: 0 2px 2px $light-grey-color;
+  font-size: 24px;
   text-align: center;
 }
 
 .round-input {
   width: 100%;
-  height: 40px;
-  border-radius: 20px;
+  height: 55px;
+  border-radius: 30px;
   background-color: $dark-grey;
   box-shadow: 0 2px 2px $dark-grey;
   border: none;
-  text-indent: 15px;
+  text-indent: 25px;
+  font-size: 24px;
   outline: none;
 }
 

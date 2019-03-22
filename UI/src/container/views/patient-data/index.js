@@ -35,11 +35,11 @@ class PatientData extends React.Component {
 			<div className="app-content">
 				<Title title="Patient Data" />
 				<div className="container">
-					<div className="page-subtitle text-center dark-grey-color">
+					<div className="page-subtitle text-center">
 						Please enter as much patient information as possible and
 						currently available to ensure the most accurate characterization
 					</div>
-					<div className="page-section no-margin">
+					<div className="page-section">
 						<div className="mb-5">
 							<div className="category-tab">
 								<span className="category-item active">Basic Info</span>

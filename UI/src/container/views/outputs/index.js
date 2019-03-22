@@ -58,7 +58,7 @@ class Outputs extends React.Component {
 									<CustomProgressBar title="GLASGOW" value="60" text="3 out of 5" />
 									<CustomProgressBar title="APACHE II" value="60" text="3 out of 5" />
 									<CustomProgressBar title="JSS" value="60" text="3 out of 5" />
-									<CustomProgressBar title="MARSHALL" value="60" text="v" />
+									<CustomProgressBar title="MARSHALL" value="60" text="3 out of 5" />
 									<CustomProgressBar title="POP Mort. %" value="60" text="60%" />
 								</div>
 							</div>
