@@ -109,7 +109,7 @@ class PatientData extends React.Component {
 							<div className="col-xs-12 col-sm-6">
 								<div className="row mb-5">
 									<div className="col-xs-12 col-sm-6">
-										<div className="round-btn grey-label">weight</div>
+										<div className="round-btn grey-label">Weight</div>
 									</div>
 									<div className="col-xs-12 col-sm-6">
 										<input

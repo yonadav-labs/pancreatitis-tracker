@@ -49,7 +49,7 @@ class Account extends React.Component {
 							<div className="col-sm-12 col-md-9 align-self-center">
 								<div className="row mb-5">
 									<div className="col-xs-12 col-sm-12 col-md-4">
-										<div className="round-btn grey-label">Patient Name</div>
+										<div className="round-btn grey-label">Physician Name</div>
 									</div>
 									<div className="col-xs-12 col-sm-12 col-md-8">
 										<input
@@ -71,7 +71,7 @@ class Account extends React.Component {
 											type="text"
 											id="email"
 											className="round-input"
-											placeholder="joedoe@abc.com"
+											placeholder="johndoe@abc.com"
 											value={physician.email}
 											onChange={this.changeInfo}
 										/>
@@ -108,7 +108,7 @@ class Account extends React.Component {
 											type="text"
 											id="email"
 											className="round-input"
-											placeholder="joedoe@abc.com"
+											placeholder="johndoe@abc.com"
 											value={patient.email}
 											onChange={this.changePatient}
 										/>
