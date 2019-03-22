@@ -461,6 +461,11 @@ a.green-button:hover {
   text-indent: 10px;
 }
 
+.space-between-section {
+  display: flex;
+  justify-content: space-between;
+}
+
 @media (max-width: 1220px) {
   .category-tab {
     display: none;
@@ -498,6 +503,15 @@ a.green-button:hover {
 
   .round-btn {
     margin-bottom: 15px;
+  }
+
+  .space-between-section {
+    display: block;
+
+    .green-button {
+      width: 100%;
+      margin-bottom: 15px;
+    }
   }
 }
 

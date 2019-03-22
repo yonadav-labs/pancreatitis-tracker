@@ -100,7 +100,7 @@ class Outputs extends React.Component {
 								</div>
 							</div>
 						</div>
-						<div className="row d-flex justify-content-between mb-5">
+						<div className="row space-between-section mb-5">
 							<GreenButton text="Fax" />
 							<GreenButton text="Save as PDF" />
 						</div>

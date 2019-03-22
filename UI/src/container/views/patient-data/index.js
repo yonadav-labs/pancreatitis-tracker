@@ -33,7 +33,7 @@ class PatientData extends React.Component {
 		const {basicInfo} = this.state;
 		return (
 			<div className="app-content">
-				<Title title="Account Info" />
+				<Title title="Patient Data" />
 				<div className="container">
 					<div className="page-subtitle text-center dark-grey-color">
 						Please enter as much patient information as possible and
