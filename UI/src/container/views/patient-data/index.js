@@ -1,36 +1,95 @@
 import React from "react";
 import Title from '../../components/Title';
-import GreenButton from "../../components/GreenButton";
-// import { Link } from "react-router-dom";
+import BasicInfo from './basic-info';
+import PhysicalExam from "./physical-exam";
+import VitalSigns from './vital-sign';
+import XRayOther from './x-ray-other';
+import ArterialGases from './arterial-gases';
+import Chemistry from './chemistry';
+import Hematology from './hematology';
+
+import StepZilla from "react-stepzilla";
+import 'react-stepzilla/src/css/main.css';
 
 class PatientData extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			basicInfo: {
+			data: {
 				sex: '',
 				age: '',
 				height: '',
 				weight: '',
-				stat1: '',
-				stat2: '',
-				stat3: '',
-				stat4: ''
+				bmi: '',
+				ph: '',
+				pao2: '',
+				paco2: '',
+				hco3: '',
+				spo2: '',
+				fio2: '',
+				baseExcess: '',
+				sodium: '',
+				potassium: '',
+				chloride: '',
+				bicarbonate: '',
+				bun: '',
+				creatinine: '',
+				glucose: '',
+				calcium: '',
+				albumin: '',
+				ast: '',
+				ldh: '',
+				whiteBloodCellCount: '',
+				plateletCount: '',
+				hematocrit: '',
+				crp: '',
+				peritonitis: '',
+				score: '',
+				eyeResponse: '',
+				verbalResponse: '',
+				motorResponse: '',
+				temperature: '',
+				systolicBp: '',
+				DiastolicBp: '',
+				Map: '',
+				heartRate: '',
+				RespiratoryRate: '',
+				pleuralEffusion: '',
+				oliguria: '',
+				respiratoryFailure: '',
+				chronicHealthPoints: '',
+				fluidReponsivity:  ''
 			}
 		};
 
-		this.changeInfo = this.changeInfo.bind(this);
+		this.updateInfo = this.updateInfo.bind(this);
 	}
 
-	changeInfo(e) {
-		let params = this.state.basicInfo;
-		params[e.target.id] = e.target.value;
+	updateInfo(data) {
+		let params = Object.assign({}, this.state.data, data);
 
-		this.setState({ basicInfo: params });
+		this.setState({ data: params });
 	}
+
+	changeStep = (step) => {
+		console.log('AAAA: ', step);
+	}
+
+
 
 	render () {
-		const {basicInfo} = this.state;
+		const steps = [
+			{name: 'Basic info', component: <BasicInfo updateInfo={this.updateInfo} data={this.state.data} />},
+			{name: 'Physical Exam', component: <PhysicalExam updateInfo={this.updateInfo} data={this.state.data} />},
+			{name: 'Vital Signs', component: <VitalSigns updateInfo={this.updateInfo} data={this.state.data} />},
+			{name: 'X-Ray/Other', component: <XRayOther updateInfo={this.updateInfo} data={this.state.data} />},
+			{name: 'Arterial Gases', component: <ArterialGases updateInfo={this.updateInfo} data={this.state.data} />},
+			{name: 'Chemistry', component: <Chemistry updateInfo={this.updateInfo} data={this.state.data} />},
+			{name: 'Hematology', component: <Hematology updateInfo={this.updateInfo} data={this.state.data} />}
+		];
+
+		console.log('======', this.state);
+
 		return (
 			<div className="app-content">
 				<Title title="Patient Data" />
@@ -41,155 +100,13 @@ class PatientData extends React.Component {
 					</div>
 					<div className="page-section">
 						<div className="mb-5">
-							<div className="category-tab">
-								<span className="category-item active">Basic Info</span>
-								<span className="diagonal"></span>
-								<span className="category-item">Phys.Exam</span>
-								<span className="diagonal"></span>
-								<span className="category-item">Vitals</span>
-								<span className="diagonal"></span>
-								<span className="category-item">X-Ray/Other</span>
-								<span className="diagonal"></span>
-								<span className="category-item">Arterial Gases</span>
-								<span className="diagonal"></span>
-								<span className="category-item">Lab Chemistries</span>
-								<span className="diagonal"></span>
-								<span className="category-item">Hematology</span>
-							</div>
-						</div>
-						<div className="row">
-							<div className="col-xs-12 col-sm-6">
-								<div className="row mb-5">
-									<div className="col-xs-12 col-sm-6">
-										<div className="round-btn grey-label">Sex</div>
-									</div>
-									<div className="col-xs-12 col-sm-6">
-										<input
-											type="text"
-											id="sex"
-											className="round-input"
-											value={basicInfo.sex}
-											onChange={this.changeInfo}
-										/>
-									</div>
-								</div>
-							</div>
-							<div className="col-xs-12 col-sm-6">
-								<div className="row mb-5">
-									<div className="col-xs-12 col-sm-6">
-										<div className="round-btn grey-label">Age</div>
-									</div>
-									<div className="col-xs-12 col-sm-6">
-										<input
-											type="text"
-											id="age"
-											className="round-input"
-											value={basicInfo.age}
-											onChange={this.changeInfo}
-										/>
-									</div>
-								</div>
-							</div>
-							<div className="col-xs-12 col-sm-6">
-								<div className="row mb-5">
-									<div className="col-xs-12 col-sm-6">
-										<div className="round-btn grey-label">Height</div>
-									</div>
-									<div className="col-xs-12 col-sm-6">
-										<input
-											type="text"
-											id="height"
-											className="round-input"
-											value={basicInfo.height}
-											onChange={this.changeInfo}
-										/>
-									</div>
-								</div>
-							</div>
-							<div className="col-xs-12 col-sm-6">
-								<div className="row mb-5">
-									<div className="col-xs-12 col-sm-6">
-										<div className="round-btn grey-label">Weight</div>
-									</div>
-									<div className="col-xs-12 col-sm-6">
-										<input
-											type="text"
-											id="weight"
-											className="round-input"
-											value={basicInfo.weight}
-											onChange={this.changeInfo}
-										/>
-									</div>
-								</div>
-							</div>
-							<div className="col-xs-12 col-sm-6">
-								<div className="row mb-5">
-									<div className="col-xs-12 col-sm-6">
-										<div className="round-btn grey-label">Stat1</div>
-									</div>
-									<div className="col-xs-12 col-sm-6">
-										<input
-											type="text"
-											id="stat1"
-											className="round-input"
-											value={basicInfo.stat1}
-											onChange={this.changeInfo}
-										/>
-									</div>
-								</div>
-							</div>
-							<div className="col-xs-12 col-sm-6">
-								<div className="row mb-5">
-									<div className="col-xs-12 col-sm-6">
-										<div className="round-btn grey-label">Stat2</div>
-									</div>
-									<div className="col-xs-12 col-sm-6">
-										<input
-											type="text"
-											id="stat2"
-											className="round-input"
-											value={basicInfo.stat2}
-											onChange={this.changeInfo}
-										/>
-									</div>
-								</div>
-							</div>
-							<div className="col-xs-12 col-sm-6">
-								<div className="row mb-5">
-									<div className="col-xs-12 col-sm-6">
-										<div className="round-btn grey-label">Stat3</div>
-									</div>
-									<div className="col-xs-12 col-sm-6">
-										<input
-											type="text"
-											id="stat3"
-											className="round-input"
-											value={basicInfo.stat3}
-											onChange={this.changeInfo}
-										/>
-									</div>
-								</div>
-							</div>
-							<div className="col-xs-12 col-sm-6">
-								<div className="row mb-5">
-									<div className="col-xs-12 col-sm-6">
-										<div className="round-btn grey-label">Stat4</div>
-									</div>
-									<div className="col-xs-12 col-sm-6">
-										<input
-											type="text"
-											id="stat4"
-											className="round-input"
-											value={basicInfo.stat4}
-											onChange={this.changeInfo}
-										/>
-									</div>
-								</div>
-							</div>
-						</div>
-						<div className="pt-3 text-center">
-							<div>
-								<GreenButton text="Load Data" className="mt-3" />
+							<div className='step-progress'>
+								<StepZilla
+									steps={steps}
+									onStepChange={this.changeStep}
+									nextButtonCls="d-none"
+									backButtonCls="d-none"
+								/>
 							</div>
 						</div>
 					</div>

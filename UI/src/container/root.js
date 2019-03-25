@@ -4,11 +4,11 @@ import Home from "./views/home";
 import ContactUs from "./views/contact-us";
 import License from "./views/license";
 import Feedback from "./views/feedback";
-import Outputs from './views/outputs';
-import AccountInfo from './views/account-info';
-import Account from './views/account';
-import PatientData from './views/patient-data';
-import Order from './views/order';
+import Outputs from "./views/outputs";
+import AccountInfo from "./views/account-info";
+import Account from "./views/account";
+import PatientData from "./views/patient-data";
+import Order from "./views/order";
 import NotFound from "./components/not-found";
 import Header from "./components/Header";
 
@@ -26,7 +26,7 @@ const RootComponent = () => {
 				<Route exact path="/account" component={Account} />
 				<Route exact path="/patient" component={PatientData} />
 				<Route exact path="/order" component={Order} />
-				
+
 				<Route default component={NotFound} />
 			</Switch>
 		</div>

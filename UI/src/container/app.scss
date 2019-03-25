@@ -497,6 +497,16 @@ a.green-button:hover {
   }
 }
 
+.step-progress .progtrckr {
+  margin-bottom: 80px;
+  text-align: center;
+}
+
+ol.progtrckr li span {
+  font-size: 18px;
+  font-weight: 500;
+}
+
 @media (max-width: 575px) {
   .page-title {
     font-size: 28px;

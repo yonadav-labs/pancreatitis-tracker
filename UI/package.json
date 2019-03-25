@@ -60,6 +60,7 @@
     "react-router": "^4.3.1",
     "react-router-dom": "^4.3.1",
     "react-select": "^2.3.0",
+    "react-stepzilla": "^6.0.0",
     "react-table": "^6.9.1",
     "react-test-renderer": "^16.8.1",
     "react-toastify": "^4.5.2",
@@ -84,11 +85,6 @@
     "test": "node scripts/test.js",
     "eslint": "eslint ./ --no-cache",
     "beautify": "prettier --write src/**/*.js"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "npm run eslint && npm run beautify && git add --all"
-    }
   },
   "browserslist": [
     ">0.2%",

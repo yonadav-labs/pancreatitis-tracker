@@ -8372,6 +8372,11 @@ react-select@^2.3.0:
     react-input-autosize "^2.2.1"
     react-transition-group "^2.2.1"
 
+react-stepzilla@^6.0.0:
+  version "6.0.0"
+  resolved "https://registry.yarnpkg.com/react-stepzilla/-/react-stepzilla-6.0.0.tgz#30b045d85e41ef6ffd85e2b249bf2761f07886ea"
+  integrity sha512-0OcqqGuKDbMSHoqy5C3fMoEWN0O0DwooFP1eli8rHc7Kpnmc6JonwAN39dI71AjV5W5OsziB0L//fdePWqZHPw==
+
 react-table@^6.9.1:
   version "6.9.1"
   resolved "https://registry.yarnpkg.com/react-table/-/react-table-6.9.1.tgz#50a1713a4de90089f14dcb8cf0f313992ad93a20"
