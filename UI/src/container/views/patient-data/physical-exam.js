@@ -49,7 +49,7 @@ class PhysicalExam extends React.Component {
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">Score</div>
+								<div className="round-btn grey-label">Modified/revised score</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input

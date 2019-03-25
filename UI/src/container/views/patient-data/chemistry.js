@@ -35,6 +35,7 @@ class Chemistry extends React.Component {
 		const {chemistry} = this.state;
 		return (
 			<div>
+				<h2 className="section-title">Chem 7 Fishbone</h2>
 				<div className="row">
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
@@ -148,6 +149,9 @@ class Chemistry extends React.Component {
 							</div>
 						</div>
 					</div>
+				</div>
+				<h2 className="section-title">Liver Function Fishbone</h2>
+				<div className="row">
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
