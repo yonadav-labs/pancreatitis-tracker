@@ -55,6 +55,10 @@ body {
   font-size: 40px;
 }
 
+.home-page .page-title {
+  font-size: 60px;
+}
+
 .list-items {
   list-style-type: none;
   padding: 0;
@@ -160,11 +164,10 @@ body {
 
 .home-page {
   overflow: hidden;
-  background-image: url('/assets/images/background.png');
-  background-position: 50%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  background-color: transparent;
+    background: linear-gradient(rgba(255, 255, 255, 0.87), rgba(255, 255, 255, 0.95)), url(/assets/images/background.png);
+    background-size: contain;
+    background-repeat: repeat;
+    background-color: white;
 }
 
 .home-page__banner {
@@ -193,6 +196,10 @@ body {
   font-weight: 500;
   outline: none !important;
   border: none;
+}
+
+.home-page .green-button {
+  padding: 15px 55px;
 }
 
 .green-button.title-button {
@@ -225,7 +232,7 @@ a.green-button:hover {
 }
 
 .vertical-bar {
-  width: 5px;
+  width: 7px;
   margin-top: -10px;
   height: 2000px;
   background: #344645;
@@ -471,6 +478,36 @@ a.green-button:hover {
   justify-content: space-between;
 }
 
+.step-progress .progtrckr {
+  margin-bottom: 80px;
+  text-align: center;
+}
+
+ol.progtrckr li span {
+  font-size: 18px;
+  font-weight: 500;
+}
+
+ol.progtrckr li.progtrckr-done {
+  border-bottom: 4px solid $light-cyan-color;
+}
+
+ol.progtrckr li.progtrckr-doing,
+ol.progtrckr li.progtrckr-todo,
+ol.progtrckr li.progtrckr-done {
+  padding-bottom: 10px;
+}
+
+ol.progtrckr li.progtrckr-todo:before,
+ol.progtrckr li.progtrckr-doing:before {
+  margin-top: 10px;
+}
+
+ol.progtrckr li.progtrckr-done:before {
+  background-color: $light-cyan-color;
+  margin-top: 10px;
+}
+
 @media (max-width: 1220px) {
   .category-tab {
     display: none;
@@ -495,16 +532,6 @@ a.green-button:hover {
   .round-btn {
     margin: 15px 0;
   }
-}
-
-.step-progress .progtrckr {
-  margin-bottom: 80px;
-  text-align: center;
-}
-
-ol.progtrckr li span {
-  font-size: 18px;
-  font-weight: 500;
 }
 
 @media (max-width: 575px) {

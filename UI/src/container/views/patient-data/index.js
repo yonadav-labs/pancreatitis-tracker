@@ -65,6 +65,13 @@ class PatientData extends React.Component {
 		this.updateInfo = this.updateInfo.bind(this);
 	}
 
+	componentDidMount() {
+		jQuery("ol.progtrckr li span").on("click", (event) => {
+			event.preventDefault();
+			console.log("ADFDSFDSFS");
+		});
+	}
+
 	updateInfo(data) {
 		let params = Object.assign({}, this.state.data, data);
 
@@ -74,8 +81,6 @@ class PatientData extends React.Component {
 	changeStep = (step) => {
 		console.log('AAAA: ', step);
 	}
-
-
 
 	render () {
 		const steps = [
@@ -87,8 +92,6 @@ class PatientData extends React.Component {
 			{name: 'Chemistry', component: <Chemistry updateInfo={this.updateInfo} data={this.state.data} />},
 			{name: 'Hematology', component: <Hematology updateInfo={this.updateInfo} data={this.state.data} />}
 		];
-
-		console.log('======', this.state);
 
 		return (
 			<div className="app-content">
