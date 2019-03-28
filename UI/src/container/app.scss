@@ -405,6 +405,22 @@ a.green-button:hover {
   border: none;
 }
 
+.input-inline-select {
+  border-top-right-radius: 30px;
+  border-bottom-right-radius: 30px;
+  margin-left: -35px;
+  width: 70px;
+  text-align: center;
+  justify-content: center;
+  text-indent: 5px;
+  font-size: 18px;
+}
+
+.input-inline-select:focus,
+.input-inline-select:active {
+  outline: none;
+}
+
 .category-tab {
   position: relative;
   width: 100%;
@@ -495,7 +511,7 @@ ol.progtrckr li.progtrckr-done {
 ol.progtrckr li.progtrckr-doing,
 ol.progtrckr li.progtrckr-todo,
 ol.progtrckr li.progtrckr-done {
-  padding-bottom: 10px;
+  padding-bottom: 7px;
 }
 
 ol.progtrckr li.progtrckr-todo:before,
@@ -506,6 +522,25 @@ ol.progtrckr li.progtrckr-doing:before {
 ol.progtrckr li.progtrckr-done:before {
   background-color: $light-cyan-color;
   margin-top: 10px;
+}
+
+
+/* Radio Group */
+.radio-wrapper {
+  display: flex;
+  margin: 0 auto;
+  align-self: center;
+}
+
+.radio-item {
+  padding-right: 15px;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.radio-item__input {
+  width: 18px;
+  height: 18px;
 }
 
 @media (max-width: 1220px) {

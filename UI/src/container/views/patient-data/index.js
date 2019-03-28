@@ -59,6 +59,9 @@ class PatientData extends React.Component {
 				respiratoryFailure: '',
 				chronicHealthPoints: '',
 				fluidReponsivity:  ''
+			},
+			error: {
+
 			}
 		};
 
@@ -68,7 +71,6 @@ class PatientData extends React.Component {
 	componentDidMount() {
 		jQuery("ol.progtrckr li span").on("click", (event) => {
 			event.preventDefault();
-			console.log("ADFDSFDSFS");
 		});
 	}
 
@@ -84,14 +86,15 @@ class PatientData extends React.Component {
 
 	render () {
 		const steps = [
-			{name: 'Basic info', component: <BasicInfo updateInfo={this.updateInfo} data={this.state.data} />},
-			{name: 'Physical Exam', component: <PhysicalExam updateInfo={this.updateInfo} data={this.state.data} />},
-			{name: 'Vital Signs', component: <VitalSigns updateInfo={this.updateInfo} data={this.state.data} />},
-			{name: 'X-Ray/Other', component: <XRayOther updateInfo={this.updateInfo} data={this.state.data} />},
-			{name: 'Arterial Gases', component: <ArterialGases updateInfo={this.updateInfo} data={this.state.data} />},
-			{name: 'Chemistry', component: <Chemistry updateInfo={this.updateInfo} data={this.state.data} />},
-			{name: 'Hematology', component: <Hematology updateInfo={this.updateInfo} data={this.state.data} />}
+			{name: 'Basic info', component: <BasicInfo step={0} updateInfo={this.updateInfo} data={this.state.data} />},
+			{name: 'Physical Exam', component: <PhysicalExam step={1} updateInfo={this.updateInfo} data={this.state.data} />},
+			{name: 'Vital Signs', component: <VitalSigns step={2} updateInfo={this.updateInfo} data={this.state.data} />},
+			{name: 'X-Ray/Other', component: <XRayOther step={3} updateInfo={this.updateInfo} data={this.state.data} />},
+			{name: 'Arterial Gases', component: <ArterialGases step={4} updateInfo={this.updateInfo} data={this.state.data} />},
+			{name: 'Chemistry', component: <Chemistry step={5} updateInfo={this.updateInfo} data={this.state.data} />},
+			{name: 'Hematology', component: <Hematology step={6} updateInfo={this.updateInfo} data={this.state.data} />}
 		];
+		console.log('index: ', this.state);
 
 		return (
 			<div className="app-content">
@@ -107,6 +110,7 @@ class PatientData extends React.Component {
 								<StepZilla
 									steps={steps}
 									onStepChange={this.changeStep}
+									stepsNavigation={false}
 									nextButtonCls="d-none"
 									backButtonCls="d-none"
 								/>

@@ -22,7 +22,7 @@
     "sleep": 1
   },
   "rules": {
-    "react/jsx-no-bind": [2, { "ignoreRefs": true }],
+    "react/jsx-no-bind": "off",
     "react/jsx-no-duplicate-props": 2,
     "react/self-closing-comp": "off",
     "react/prefer-es6-class": 2,
