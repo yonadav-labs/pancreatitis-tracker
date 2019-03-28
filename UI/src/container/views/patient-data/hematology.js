@@ -28,6 +28,10 @@ class Hematology extends React.Component {
 		alert('Success!');
 	}
 
+	back = () => {
+		this.props.jumpToStep(this.props.step-1);
+	}
+
 	render() {
 		const {hematology} = this.state;
 		return (
@@ -117,8 +121,13 @@ class Hematology extends React.Component {
 				<div className="pt-3 text-center">
 					<div className="d-flex justify-content-between">
 						<GreenButton
+							text="Back"
+							className="mt-3"
+							onClick={this.back}
+						/>
+						<GreenButton
 							text="Submit"
-							className="mt-3 ml-auto"
+							className="mt-3"
 							onClick={this.next}
 						/>
 					</div>
