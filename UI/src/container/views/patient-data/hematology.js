@@ -24,6 +24,10 @@ class Hematology extends React.Component {
 		this.props.updateInfo(params);
 	}
 
+	next = () => {
+		alert('Success!');
+	}
+
 	render() {
 		const {hematology} = this.state;
 		return (
@@ -111,8 +115,12 @@ class Hematology extends React.Component {
 					</div>
 				</div>
 				<div className="pt-3 text-center">
-					<div>
-						<GreenButton text="Load Data" className="mt-3" />
+					<div className="d-flex justify-content-between">
+						<GreenButton
+							text="Submit"
+							className="mt-3 ml-auto"
+							onClick={this.next}
+						/>
 					</div>
 				</div>
 			</div>

@@ -31,6 +31,14 @@ class Chemistry extends React.Component {
 		this.props.updateInfo(params);
 	}
 
+	next = () => {
+		this.props.jumpToStep(this.props.step+1);
+	}
+
+	back = () => {
+		this.props.jumpToStep(this.props.step-1);
+	}
+
 	render() {
 		const {chemistry} = this.state;
 		return (
@@ -218,8 +226,17 @@ class Chemistry extends React.Component {
 					</div>
 				</div>
 				<div className="pt-3 text-center">
-					<div>
-						<GreenButton text="Load Data" className="mt-3" />
+					<div className="d-flex justify-content-between">
+						<GreenButton
+							text="Back"
+							className="mt-3"
+							onClick={this.back}
+						/>
+						<GreenButton
+							text="Next"
+							className="mt-3"
+							onClick={this.next}
+						/>
 					</div>
 				</div>
 			</div>
