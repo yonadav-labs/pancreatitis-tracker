@@ -11,16 +11,26 @@ The Ariel Acute Pancreatitis Severity Calculator has the following functions:
 ## Frontend UI
 
 ### Requirements
+* node > 8.10.0
+* yarn
+
 ### Installation
-* install node (higher than 8.10.0)
+* install node
 * install yarn
 * clone the repo
-* run UI
     ```
+    git clone https://github.com/Ariel-Precision-Medicine/ariel-severity-calculator-software.git
+    ```
+* install yarn packages
+    ```
+    cd UI
     yarn install
-    yarn start
     ```
+    
 ### Usage
+```
+yarn start
+```
 
 ## Backend API
 
