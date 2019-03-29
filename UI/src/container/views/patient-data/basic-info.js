@@ -1,7 +1,7 @@
 import React from 'react';
 import GreenButton from "../../components/GreenButton";
 import Select from 'react-select';
-// import {validateForm} from '../../utils/utils';
+import {validateForm} from '../../utils/utils';
 
 const sexOption = [
 	{ value: 'm', label: 'Male' },

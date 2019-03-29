@@ -103,6 +103,7 @@ class VitalSigns extends React.Component {
 		} else {
 			this.props.jumpToStep(this.props.step+1);
 		}
+
 	}
 
 	back = () => {
@@ -221,7 +222,7 @@ class VitalSigns extends React.Component {
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">Respiratory Rate</div>
+								<div className="round-btn grey-label">Resp. Rate</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input

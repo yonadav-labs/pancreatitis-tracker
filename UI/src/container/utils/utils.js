@@ -48,7 +48,7 @@ export function validateForm(rule, data) {
 		
 	if (rule) {
 		if (!data || data.value === '') {
-			isValidate = false;
+			isValidate = true;
 		} else {
 			switch(rule.type) {
 				case 'integer':
