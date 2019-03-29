@@ -76,7 +76,10 @@
     "no-var": 2,
     "object-shorthand": 2,
     "prefer-arrow-callback": 2,
-    "no-undef": "off"
+    "no-undef": "off",
+    // dev mode
+    "no-debugger": "off",
+    "no-unused-vars": "off"
   }
 }
   

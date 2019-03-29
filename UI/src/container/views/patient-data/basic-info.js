@@ -1,10 +1,11 @@
 import React from 'react';
 import GreenButton from "../../components/GreenButton";
-import RadioGroup from "../../components/RadioGroup";
+import Select from 'react-select';
+// import {validateForm} from '../../utils/utils';
 
 const sexOption = [
-	{ value: 'm', label: 'M' },
-	{ value: 's', label: 'S' }
+	{ value: 'm', label: 'Male' },
+	{ value: 'f', label: 'Female' }
 ];
 
 class BasicInfo extends React.Component {
@@ -12,13 +13,18 @@ class BasicInfo extends React.Component {
 		super(props);
 		this.state = {
 			basicInfo: {
-				sex: this.props.data.sex || {value: ''},
+				sex: this.props.data.sex || { value: 'm', label: 'Male' },
 				age: this.props.data.age || {value: '', unit: 'years'},
 				height: this.props.data.height || {value: '', unit: 'cm'},
 				weight: this.props.data.weight || {value: '', unit: 'kg'},
 				bmi: this.props.data.bmi || {value: '', unit: 'kg/m2'}
 			},
 			rules: {
+				sex: {
+					name: 'sex',
+					type: 'text',
+					required: true
+				},
 				age: {
 					name: 'age',
 					type: 'integer',
@@ -47,7 +53,8 @@ class BasicInfo extends React.Component {
 						{ min: 13, max: 100, unit: 'kg/m2' }
 					]
 				}
-			}
+			},
+			errors: {}
 		};
 
 		this.changeInfo = this.changeInfo.bind(this);
@@ -68,59 +75,36 @@ class BasicInfo extends React.Component {
 		this.setState({basicInfo: params});
 	}
 
-	validateForm = (rule, data) => {
-		let isValidate = true;
-			
-		if (rule) {
-			if (!data || data.value === '') {
-				isValidate = false;
-			} else if (rule.type === 'integer') {
-				rule.range.forEach((range) => {
-					/* eslint-disable no-debugger */
-					// debugger;
-					if (
-						range.unit === data.unit &&
-						(
-							range.min > parseInt(data.value, 10)
-							|| range.max < parseInt(data.value, 10)
-						)
-					) {
-						isValidate = false;
-					}
-				});
-			}
-		}
-
-		return isValidate;
-	}
-
 	next = () => {
-		const errors = [];
+		const errors = {};
 		const {rules, basicInfo} = this.state;
 
 		Object.keys(basicInfo).forEach((data) => {
 			if (rules[data]) {
-				if (!this.validateForm(rules[data], basicInfo[data])) {
-					errors.push({
-						msg: `${data} is not valid!`
-					});
+				if (!validateForm(rules[data], basicInfo[data])) {
+					errors[data] = {
+						msg: 'Value is invalid!'
+					};
 				}
 			}
 		});
 
-		this.props.jumpToStep(this.props.step+1);
+		if (Object.keys(errors).length > 0) {
+			this.setState({ errors });
+		} else {
+			this.props.jumpToStep(this.props.step+1);
+		}
 	}
 
 	changeSex = (val) => {
-		console.log('change sex: ', val);
 		let {basicInfo} = this.state;
-		basicInfo.sex.value = val;
+		basicInfo.sex = val;
 
 		this.setState({ basicInfo });
 	}
 
 	render() {
-		const {basicInfo} = this.state;
+		const {basicInfo, errors} = this.state;
 
 		return (
 			<div>
@@ -130,19 +114,16 @@ class BasicInfo extends React.Component {
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Sex</div>
 							</div>
-							<div className="col-xs-12 col-sm-6 d-flex">
-								{/* <input
-									type="text"
-									id="sex"
-									className="round-input"
-									value={basicInfo.sex.value}
-									onChange={this.changeInfo}
-								/> */}
-								<RadioGroup
+							<div className="col-xs-12 col-sm-6">
+								<Select
 									options={sexOption}
+									className="patient-select"
 									onChange={this.changeSex}
-									value={basicInfo.sex.value}
+									value={basicInfo.sex}
 								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.sex && errors.sex.msg}
+								</label>
 							</div>
 						</div>
 					</div>
@@ -151,7 +132,7 @@ class BasicInfo extends React.Component {
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Age</div>
 							</div>
-							<div className="col-xs-12 col-sm-6 d-flex">
+							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
 									id="age"
@@ -159,6 +140,9 @@ class BasicInfo extends React.Component {
 									value={basicInfo.age.value}
 									onChange={this.changeInfo}
 								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.age && errors.age.msg}
+								</label>
 							</div>
 						</div>
 					</div>
@@ -167,21 +151,26 @@ class BasicInfo extends React.Component {
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Height</div>
 							</div>
-							<div className="col-xs-12 col-sm-6 d-flex">
-								<input
-									type="text"
-									id="height"
-									className="round-input"
-									value={basicInfo.height.value}
-									onChange={this.changeInfo}
-								/>
-								<select
-									className="input-inline-select"
-									onChange={e => this.changeUnit('height', e.target.value)}
-								>
-									<option>cm</option>
-									<option>inch</option>
-								</select>
+							<div className="col-xs-12 col-sm-6">
+								<div className="d-flex">
+									<input
+										type="text"
+										id="height"
+										className="round-input"
+										value={basicInfo.height.value}
+										onChange={this.changeInfo}
+									/>
+									<select
+										className="input-inline-select"
+										onChange={e => this.changeUnit('height', e.target.value)}
+									>
+										<option>cm</option>
+										<option>inch</option>
+									</select>
+								</div>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.height && errors.height.msg}
+								</label>
 							</div>
 						</div>
 					</div>
@@ -190,21 +179,26 @@ class BasicInfo extends React.Component {
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Weight</div>
 							</div>
-							<div className="col-xs-12 col-sm-6 d-flex">
-								<input
-									type="text"
-									id="weight"
-									className="round-input"
-									value={basicInfo.weight.value}
-									onChange={this.changeInfo}
-								/>
-								<select
-									className="input-inline-select"
-									onChange={e => this.changeUnit('weight', e.target.value)}
-								>
-									<option>kg</option>
-									<option>lb</option>
-								</select>
+							<div className="col-xs-12 col-sm-6">
+								<div className="d-flex">
+									<input
+										type="text"
+										id="weight"
+										className="round-input"
+										value={basicInfo.weight.value}
+										onChange={this.changeInfo}
+									/>
+									<select
+										className="input-inline-select"
+										onChange={e => this.changeUnit('weight', e.target.value)}
+									>
+										<option>kg</option>
+										<option>lb</option>
+									</select>
+								</div>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.weight && errors.weight.msg}
+								</label>
 							</div>
 						</div>
 					</div>
@@ -221,6 +215,9 @@ class BasicInfo extends React.Component {
 									value={basicInfo.bmi.value}
 									onChange={this.changeInfo}
 								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.bmi && errors.bmi.msg}
+								</label>
 							</div>
 						</div>
 					</div>

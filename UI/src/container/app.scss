@@ -406,10 +406,11 @@ a.green-button:hover {
 }
 
 .input-inline-select {
+  width: 70px;
+  height: 57px;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
   margin-left: -35px;
-  width: 70px;
   text-align: center;
   justify-content: center;
   text-indent: 5px;
@@ -524,6 +525,10 @@ ol.progtrckr li.progtrckr-done:before {
   margin-top: 10px;
 }
 
+.warning-message {
+  font-size: 18px;
+}
+
 
 /* Radio Group */
 .radio-wrapper {
@@ -541,6 +546,21 @@ ol.progtrckr li.progtrckr-done:before {
 .radio-item__input {
   width: 18px;
   height: 18px;
+}
+
+/* Select Box */
+.patient-select {
+  width: 100%;
+  align-self: center;
+}
+
+.patient-select > div:first-child,
+.patient-select > span:first-child,
+.patient-select > div:nth-child(2),
+.patient-select > div:first-child:hover {
+  height: 55px;
+  border-color: $dark-grey;
+  box-shadow: 0 0 1px $dark-grey;
 }
 
 @media (max-width: 1220px) {

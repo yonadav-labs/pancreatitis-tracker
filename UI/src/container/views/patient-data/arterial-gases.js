@@ -1,34 +1,110 @@
 import React from 'react';
+import {validateForm} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
 
 class ArterialGases extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			vitalSigns: {
-				ph: this.props.data.ph || '',
-				pao2: this.props.data.pao2 || '',
-				paco2: this.props.data.paco2 || '',
-				hco3: this.props.data.hco3 || '',
-				spo2: this.props.data.spo2 || '',
-				fio2: this.props.data.fio2 || '',
-				baseExcess: this.props.data.baseExcess || ''
-			}
+			arterialGases: {
+				ph: this.props.data.ph || {value: '', unit: ''},
+				pao2: this.props.data.pao2 || {value: '', unit: 'mmHg'},
+				paco2: this.props.data.paco2 || {value: '', unit: 'mmHg'},
+				hco3_artieral: this.props.data.hco3_artieral || {value: '', unit: 'mmol/L'},
+				spo2: this.props.data.spo2 || {value: '', unit: '%'},
+				fio2: this.props.data.fio2 || {value: '', unit: '%'},
+				baseExcess: this.props.data.baseExcess || {value: '', unit: 'mEq/L'}
+			},
+			rules: {
+				ph: {
+					name: 'ph',
+					type: 'integer',
+					range: [
+						{ min: 7.14, max: 7.65, unit: ''}
+					],
+					required: true
+				},
+				pao2: {
+					name: 'pao2',
+					type: 'integer',
+					range: [{ min: 50, max: 75, unit: 'mmHg'}],
+					required: true
+				},
+				paco2: {
+					name: 'paco2',
+					type: 'integer',
+					range: [
+						{ min: 30, max: 50, unit: 'mmHg' }
+					],
+					required: true
+				},
+				hco3_artieral: {
+					name: 'hco3_artieral',
+					type: 'integer',
+					range: [
+						{ min: 13, max: 55, unit: 'mmol/L' }
+					],
+					required: true
+				},
+				spo2: {
+					name: 'spo2',
+					type: 'integer',
+					range: [
+						{ min: 80, max: 100, unit: '%' }
+					],
+					required: true
+				},
+				fio2: {
+					name: 'fio2',
+					type: 'integer',
+					range: [
+						{ min: 0.2, max: 1, unit: '%' }
+					],
+					required: true
+				},
+				baseExcess: {
+					name: 'baseExcess',
+					type: 'integer',
+					range: [
+						{ min: -5, max: 3, unit: 'mEq/L' }
+					],
+					required: true
+				}
+			},
+			errors: {}
 		};
 
 		this.changeInfo = this.changeInfo.bind(this);
 	}
 
 	changeInfo(e) {
-		let params = this.state.vitalSigns;
-		params[e.target.id] = e.target.value;
+		let params = this.state.arterialGases;
+		params[e.target.id].value = e.target.value;
 
-		this.setState({ vitalSigns: params });
+		this.setState({ arterialGases: params });
 		this.props.updateInfo(params);
 	}
 
 	next = () => {
-		this.props.jumpToStep(this.props.step+1);
+		const errors = {};
+		const {rules, arterialGases} = this.state;
+
+		Object.keys(arterialGases).forEach((data) => {
+			if (rules[data]) {
+				if (!validateForm(rules[data], arterialGases[data])) {
+					errors[data] = {
+						msg: 'Value is invalid!'
+					};
+				}
+			}
+		});
+
+		if (Object.keys(errors).length > 0) {
+			this.setState({ errors });
+		} else {
+			this.props.jumpToStep(this.props.step+1);
+		}
+
 	}
 
 	back = () => {
@@ -36,7 +112,7 @@ class ArterialGases extends React.Component {
 	}
 
 	render() {
-		const {vitalSigns} = this.state;
+		const {arterialGases, errors} = this.state;
 		return (
 			<div>
 				<div className="row">
@@ -50,89 +126,107 @@ class ArterialGases extends React.Component {
 									type="text"
 									id="ph"
 									className="round-input"
-									value={vitalSigns.ph}
+									value={arterialGases.ph.value}
 									onChange={this.changeInfo}
 								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.ph && errors.ph.msg}
+								</label>
 							</div>
 						</div>
 					</div>
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">paO2</div>
+								<div className="round-btn grey-label">PaO₂</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
 									id="pao2"
 									className="round-input"
-									value={vitalSigns.pao2}
+									value={arterialGases.pao2.value}
 									onChange={this.changeInfo}
 								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.pao2 && errors.pao2.msg}
+								</label>
 							</div>
 						</div>
 					</div>
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">paCO2</div>
+								<div className="round-btn grey-label">PaCO2</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
 									id="paco2"
 									className="round-input"
-									value={vitalSigns.paco2}
+									value={arterialGases.paco2.value}
 									onChange={this.changeInfo}
 								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.paco2 && errors.paco2.msg}
+								</label>
 							</div>
 						</div>
 					</div>
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">HCO3 a.k.a. Bicarbonate</div>
+								<div className="round-btn grey-label">HCO₃⁻ (arterial)</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
-									id="hco3"
+									id="hco3_artieral"
 									className="round-input"
-									value={vitalSigns.hco3}
+									value={arterialGases.hco3_artieral.value}
 									onChange={this.changeInfo}
 								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.hco3_artieral && errors.hco3_artieral.msg}
+								</label>
 							</div>
 						</div>
 					</div>
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">spO2</div>
+								<div className="round-btn grey-label">SpO2</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
 									id="spo2"
 									className="round-input"
-									value={vitalSigns.spo2}
+									value={arterialGases.spo2.value}
 									onChange={this.changeInfo}
 								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.spo2 && errors.spo2.msg}
+								</label>
 							</div>
 						</div>
 					</div>
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">fiO2</div>
+								<div className="round-btn grey-label">FiO2</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
 									id="fio2"
 									className="round-input"
-									value={vitalSigns.fio2}
+									value={arterialGases.fio2.value}
 									onChange={this.changeInfo}
 								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.fio2 && errors.fio2.msg}
+								</label>
 							</div>
 						</div>
 					</div>
@@ -146,9 +240,12 @@ class ArterialGases extends React.Component {
 									type="text"
 									id="baseExcess"
 									className="round-input"
-									value={vitalSigns.baseExcess}
+									value={arterialGases.baseExcess.value}
 									onChange={this.changeInfo}
 								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.baseExcess && errors.baseExcess.msg}
+								</label>
 							</div>
 						</div>
 					</div>

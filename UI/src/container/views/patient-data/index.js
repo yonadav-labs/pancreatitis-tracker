@@ -44,7 +44,7 @@ class PatientData extends React.Component {
 				hematocrit: '',
 				crp: '',
 				peritonitis: '',
-				score: '',
+				glasgowComaScore: '',
 				eyeResponse: '',
 				verbalResponse: '',
 				motorResponse: '',
