@@ -232,7 +232,7 @@ class Chemistry extends React.Component {
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">HCO₃⁻(serum)</div>
+								<div className="round-btn grey-label">HCO₃ (serum)</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input

@@ -41,7 +41,7 @@ class XRayOther extends React.Component {
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">Chest X-Ray / Pleural Effusion</div>
+								<div className="round-btn grey-label">Pleural Effusion</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input
@@ -89,7 +89,7 @@ class XRayOther extends React.Component {
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">Chronic Health Points</div>
+								<div className="round-btn grey-label">Chronic Health Problems</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input

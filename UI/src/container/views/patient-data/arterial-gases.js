@@ -157,7 +157,7 @@ class ArterialGases extends React.Component {
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">PaCO2</div>
+								<div className="round-btn grey-label">PaCO₂</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input
@@ -176,7 +176,7 @@ class ArterialGases extends React.Component {
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">HCO₃⁻ (arterial)</div>
+								<div className="round-btn grey-label">HCO₃ (arterial)</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input
@@ -195,7 +195,7 @@ class ArterialGases extends React.Component {
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">SpO2</div>
+								<div className="round-btn grey-label">SpO₂</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input
@@ -214,7 +214,7 @@ class ArterialGases extends React.Component {
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">FiO2</div>
+								<div className="round-btn grey-label">FiO₂</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input
