@@ -51,7 +51,7 @@ class BasicInfo extends React.Component {
 					type: 'integer',
 					range: [
 						{ min: 2.5, max: 227, unit: 'kg' },
-						{ min: 13, max: 100, unit: 'lb' }
+						{ min: 5.5, max: 500, unit: 'lb' }
 					]
 				},
 				bmi: {

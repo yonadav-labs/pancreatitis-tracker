@@ -17,6 +17,7 @@ class Chemistry extends React.Component {
 				calcium: this.props.data.calcium || { value: '', unit: 'mmol/L'},
 				albumin: this.props.data.albumin || { value: '', unit: 'mg/dL'},
 				ast: this.props.data.ast || { value: '', unit: 'U/L'},
+				alt: this.props.data.alt || { value: '', unit: 'U/L'},
 				ldh: this.props.data.ldh || { value: '', unit: 'IU/L'}
 			},
 			rules: {
@@ -97,7 +98,15 @@ class Chemistry extends React.Component {
 					name: 'ast',
 					type: 'integer',
 					range: [
-						{ min: 8, max: 350, unit: 'U/L' }
+						{ min: 8, max: 600, unit: 'U/L' }
+					],
+					required: true
+				},
+				alt: {
+					name: 'alt',
+					type: 'integer',
+					range: [
+						{ min: 8, max: 600, unit: 'U/L' }
 					],
 					required: true
 				},
@@ -105,7 +114,7 @@ class Chemistry extends React.Component {
 					name: 'ldh',
 					type: 'integer',
 					range: [
-						{ min: 40, max: 450, unit: 'IU/L' }
+						{ min: 48, max: 600, unit: 'IU/L' }
 					],
 					required: true
 				}
@@ -394,6 +403,25 @@ class Chemistry extends React.Component {
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.ast && errors.ast.msg}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div className="col-xs-12 col-sm-6">
+						<div className="row mb-5">
+							<div className="col-xs-12 col-sm-6">
+								<div className="round-btn grey-label">ALT</div>
+							</div>
+							<div className="col-xs-12 col-sm-6">
+								<input
+									type="text"
+									id="alt"
+									className="round-input"
+									value={chemistry.alt.value}
+									onChange={this.changeInfo}
+								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.alt && errors.alt.msg}
 								</label>
 							</div>
 						</div>

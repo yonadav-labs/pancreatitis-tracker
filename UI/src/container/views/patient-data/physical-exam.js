@@ -42,7 +42,7 @@ class PhysicalExam extends React.Component {
 		super(props);
 		this.state = {
 			physicalExam: {
-				peritonitis: this.props.data.peritonitis || { value: true, label: 'Yes' },
+				peritonitis: this.props.data.peritonitis || { value: '', label: '' },
 				glasgowComaScore: this.props.data.glasgowComaScore || {value: '', unit: 'a.u'},
 				eyeResponse: this.props.data.eyeResponse || {value: '', unit: 'a.u'},
 				verbalResponse: this.props.data.verbalResponse || {value: '', unit: 'a.u'},
