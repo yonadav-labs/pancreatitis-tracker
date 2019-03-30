@@ -8,6 +8,35 @@ const peritonitisOption = [
 	{ value: false, label: 'No' }
 ];
 
+const eyeResponseOption = [
+	{ value: 1, label: 'Does not open' },
+	{ value: 2, label: 'Opens in response to pain' },
+	{ value: 3, label: 'Open in response to voice' },
+	{ value: 4, label: 'Opens eyes spontaneously' }
+];
+
+const verbalResponseOption = [
+	{ value: 1, label: 'Makes no sound' },
+	{ value: 2, label: 'Makes sounds' },
+	{ value: 3, label: 'Inappropriate words' },
+	{ value: 4, label: 'Confused, disoriented;' },
+	{ value: 5, label: 'oriented, converses normally' }
+];
+
+const motorResponseOption = [
+	{ value: 1, label: 'makes no movement' },
+	{ value: 2, label: 'extension to painful stimuli' },
+	{ value: 3, label: 'abnormal flexion to painful stimuli' },
+	{ value: 4, label: 'flexion/withdrawal to painful stimuli' },
+	{ value: 5, label: 'localizes to painful stimuli' },
+	{ value: 6, label: 'obeys command' }
+];
+
+const pleuralEffusionOption = [
+	{ value: 'no chest x-ray', label: 'no chest x-ray' },
+	{ value: 'CXR, no effusion', label: 'CXR, no effusion' }
+];
+
 class PhysicalExam extends React.Component {
 	constructor(props) {
 		super(props);
@@ -17,12 +46,18 @@ class PhysicalExam extends React.Component {
 				glasgowComaScore: this.props.data.glasgowComaScore || {value: '', unit: 'a.u'},
 				eyeResponse: this.props.data.eyeResponse || {value: '', unit: 'a.u'},
 				verbalResponse: this.props.data.verbalResponse || {value: '', unit: 'a.u'},
-				motorResponse: this.props.data.motorResponse || {value: '', unit: 'a.u'}
+				motorResponse: this.props.data.motorResponse || {value: '', unit: 'a.u'},
+				pleuralEffusion: this.props.data.pleuralEffusion || { value: '', label: '' }
 			},
 			rules: {
 				peritonitis: {
 					name: 'peritonitis',
 					type: 'boolean',
+					required: true
+				},
+				pleuralEffusion: {
+					name: 'pleuralEffusion',
+					type: 'text',
 					required: true
 				},
 				glasgowComaScore: {
@@ -70,9 +105,9 @@ class PhysicalExam extends React.Component {
 		this.props.updateInfo(params);
 	}
 
-	changeOption = (val) => {
+	changeOption = (id, val) => {
 		let {physicalExam} = this.state;
-		physicalExam.peritonitis = val;
+		physicalExam[id] = {...physicalExam[id], ...val};
 
 		this.setState({ physicalExam });
 	}
@@ -94,6 +129,7 @@ class PhysicalExam extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
 		} else {
+			this.props.updateInfo(this.state.physicalExam);
 			this.props.jumpToStep(this.props.step+1);
 		}
 
@@ -117,7 +153,8 @@ class PhysicalExam extends React.Component {
 								<Select
 									options={peritonitisOption}
 									className="patient-select"
-									onChange={this.changeOption}
+									classNamePrefix="newselect"
+									onChange={(e) => this.changeOption('peritonitis', e)}
 									value={physicalExam.peritonitis}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -151,12 +188,12 @@ class PhysicalExam extends React.Component {
 								<div className="round-btn grey-label">Eye Response</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="eyeResponse"
-									className="round-input"
-									value={physicalExam.eyeResponse.value}
-									onChange={this.changeInfo}
+								<Select
+									options={eyeResponseOption}
+									className="patient-select"
+									classNamePrefix="newselect"
+									onChange={(e) => this.changeOption('eyeResponse', e)}
+									value={physicalExam.eyeResponse}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.eyeResponse && errors.eyeResponse.msg}
@@ -170,12 +207,12 @@ class PhysicalExam extends React.Component {
 								<div className="round-btn grey-label">Verbal Response</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="verbalResponse"
-									className="round-input"
-									value={physicalExam.verbalResponse.value}
-									onChange={this.changeInfo}
+								<Select
+									options={verbalResponseOption}
+									className="patient-select"
+									classNamePrefix="newselect"
+									onChange={(e) => this.changeOption('verbalResponse', e)}
+									value={physicalExam.verbalResponse}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.verbalResponse && errors.verbalResponse.msg}
@@ -189,15 +226,35 @@ class PhysicalExam extends React.Component {
 								<div className="round-btn grey-label">Motor Response</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="motorResponse"
-									className="round-input"
-									value={physicalExam.motorResponse.value}
-									onChange={this.changeInfo}
+								<Select
+									options={motorResponseOption}
+									className="patient-select"
+									classNamePrefix="newselect"
+									onChange={(e) => this.changeOption('motorResponse', e)}
+									value={physicalExam.motorResponse}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.motorResponse && errors.motorResponse.msg}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div className="col-xs-12 col-sm-6">
+						<div className="row mb-5">
+							<div className="col-xs-12 col-sm-6">
+								<div className="round-btn grey-label">Pleural Effusion</div>
+							</div>
+							<div className="col-xs-12 col-sm-6">
+								<Select
+									options={pleuralEffusionOption}
+									id="pleuralEffusion"
+									className="patient-select"
+									classNamePrefix="newselect"
+									onChange={(e) => this.changeOption('pleuralEffusion', e)}
+									value={physicalExam.pleuralEffusion}
+								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.physicalExam && errors.physicalExam.msg}
 								</label>
 							</div>
 						</div>

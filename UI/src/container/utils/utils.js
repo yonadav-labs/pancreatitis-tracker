@@ -64,6 +64,8 @@ export function validateForm(rule, data) {
 								isValidate = false;
 							}
 						});
+					} else {
+						isValidate = false;
 					}
 
 					break;

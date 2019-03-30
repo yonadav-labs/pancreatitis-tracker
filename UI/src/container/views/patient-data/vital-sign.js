@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 import {validateForm} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
 
@@ -10,7 +11,6 @@ class VitalSigns extends React.Component {
 				temperature: this.props.data.temperature || {value: '', unit: 'celcius'},
 				systolicBp: this.props.data.systolicBp || {value: '', unit: 'mmHg'},
 				DiastolicBp: this.props.data.DiastolicBp || {value: '', unit: 'mmHg'},
-				Map: this.props.data.Map || {value: '', unit: 'mmHg'},
 				heartRate: this.props.data.heartRate || {value: '', unit: 'bpm'},
 				RespiratoryRate: this.props.data.RespiratoryRate || {value: '', unit: 'bpm'}
 			},
@@ -35,14 +35,6 @@ class VitalSigns extends React.Component {
 					type: 'integer',
 					range: [
 						{ min: 50, max: 130, unit: 'mmHg' }
-					],
-					required: true
-				},
-				Map: {
-					name: 'Map',
-					type: 'integer',
-					range: [
-						{ min: 50, max: 165, unit: 'a.u' }
 					],
 					required: true
 				},
@@ -114,6 +106,7 @@ class VitalSigns extends React.Component {
 		const {vitalSigns, errors} = this.state;
 		return (
 			<div>
+				<ReactTooltip  effect='solid' />
 				<div className="row">
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
@@ -184,25 +177,6 @@ class VitalSigns extends React.Component {
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">MAP</div>
-							</div>
-							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="Map"
-									className="round-input"
-									value={vitalSigns.Map.value}
-									onChange={this.changeInfo}
-								/>
-								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.Map && errors.Map.msg}
-								</label>
-							</div>
-						</div>
-					</div>
-					<div className="col-xs-12 col-sm-6">
-						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Heart Rate</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
@@ -222,7 +196,7 @@ class VitalSigns extends React.Component {
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">Resp. Rate</div>
+								<div className="round-btn grey-label" data-tip="Respiratory Rate">Resp. Rate</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input

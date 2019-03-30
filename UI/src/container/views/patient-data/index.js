@@ -3,7 +3,6 @@ import Title from '../../components/Title';
 import BasicInfo from './basic-info';
 import PhysicalExam from "./physical-exam";
 import VitalSigns from './vital-sign';
-import XRayOther from './x-ray-other';
 import ArterialGases from './arterial-gases';
 import Chemistry from './chemistry';
 import Hematology from './hematology';
@@ -89,12 +88,11 @@ class PatientData extends React.Component {
 			{name: 'Basic info', component: <BasicInfo step={0} updateInfo={this.updateInfo} data={this.state.data} />},
 			{name: 'Physical Exam', component: <PhysicalExam step={1} updateInfo={this.updateInfo} data={this.state.data} />},
 			{name: 'Vital Signs', component: <VitalSigns step={2} updateInfo={this.updateInfo} data={this.state.data} />},
-			{name: 'X-Ray/Other', component: <XRayOther step={3} updateInfo={this.updateInfo} data={this.state.data} />},
-			{name: 'Arterial Gases', component: <ArterialGases step={4} updateInfo={this.updateInfo} data={this.state.data} />},
-			{name: 'Chemistry', component: <Chemistry step={5} updateInfo={this.updateInfo} data={this.state.data} />},
-			{name: 'Hematology', component: <Hematology step={6} updateInfo={this.updateInfo} data={this.state.data} />}
+			{name: 'Arterial Gases', component: <ArterialGases step={3} updateInfo={this.updateInfo} data={this.state.data} />},
+			{name: 'Chemistry', component: <Chemistry step={4} updateInfo={this.updateInfo} data={this.state.data} />},
+			{name: 'Hematology', component: <Hematology step={5} updateInfo={this.updateInfo} data={this.state.data} />}
 		];
-		console.log('index: ', this.state);
+		console.log('update state: ', this.state.data);
 
 		return (
 			<div className="app-content">

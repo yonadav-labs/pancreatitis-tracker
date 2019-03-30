@@ -8,6 +8,13 @@ const sexOption = [
 	{ value: 'f', label: 'Female' }
 ];
 
+const chronicHealthProblemsOption = [
+	{ value: 0, label: 'no chronic health problems' },
+	{ value: 1, label: 'nonsurgical' },
+	{ value: 2, label: 'elective postoperative' },
+	{ value: 3, label: 'emergency postoperative' }
+];
+
 class BasicInfo extends React.Component {
 	constructor(props) {
 		super(props);
@@ -17,7 +24,8 @@ class BasicInfo extends React.Component {
 				age: this.props.data.age || {value: '', unit: 'years'},
 				height: this.props.data.height || {value: '', unit: 'cm'},
 				weight: this.props.data.weight || {value: '', unit: 'kg'},
-				bmi: this.props.data.bmi || {value: '', unit: 'kg/m2'}
+				bmi: this.props.data.bmi || {value: '', unit: 'kg/m2'},
+				chronicHealthProblems: this.props.data.chronicHealthProblems || {value: ''}
 			},
 			rules: {
 				sex: {
@@ -65,7 +73,6 @@ class BasicInfo extends React.Component {
 		params[e.target.id].value = e.target.value;
 
 		this.setState({ basicInfo: params });
-		this.props.updateInfo(params);
 	}
 
 	changeUnit = (id, value) => {
@@ -92,13 +99,14 @@ class BasicInfo extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
 		} else {
+			this.props.updateInfo(this.state.basicInfo);
 			this.props.jumpToStep(this.props.step+1);
 		}
 	}
 
-	changeSex = (val) => {
+	changeOption = (id, val) => {
 		let {basicInfo} = this.state;
-		basicInfo.sex = val;
+		basicInfo[id] = {...basicInfo[id], ...val};
 
 		this.setState({ basicInfo });
 	}
@@ -112,13 +120,18 @@ class BasicInfo extends React.Component {
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">Sex</div>
+								<div
+									className="round-btn grey-label"
+								>
+									Sex
+								</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<Select
 									options={sexOption}
 									className="patient-select"
-									onChange={this.changeSex}
+									classNamePrefix="newselect"
+									onChange={(e) => this.changeOption('sex',e)}
 									value={basicInfo.sex}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -217,6 +230,29 @@ class BasicInfo extends React.Component {
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.bmi && errors.bmi.msg}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div className="col-xs-12 col-sm-6">
+						<div className="row mb-5">
+							<div className="col-xs-12 col-sm-6">
+								<div
+									className="round-btn grey-label"
+								>
+									Chronic Health Problems
+								</div>
+							</div>
+							<div className="col-xs-12 col-sm-6">
+								<Select
+									options={chronicHealthProblemsOption}
+									className="patient-select"
+									classNamePrefix="newselect"
+									onChange={(e) => this.changeOption('chronicHealthProblems',e)}
+									value={basicInfo.chronicHealthProblems}
+								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.chronicHealthProblems && errors.chronicHealthProblems.msg}
 								</label>
 							</div>
 						</div>

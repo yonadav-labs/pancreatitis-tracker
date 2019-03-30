@@ -1,5 +1,6 @@
 import React from 'react';
 import {validateForm} from '../../utils/utils';
+import ReactTooltip from 'react-tooltip';
 import GreenButton from "../../components/GreenButton";
 
 class Hematology extends React.Component {
@@ -75,7 +76,6 @@ class Hematology extends React.Component {
 
 		Object.keys(hematology).forEach((data) => {
 			if (rules[data]) {
-				debugger;
 				if (!validateForm(rules[data], hematology[data])) {
 					errors[data] = {
 						msg: 'Value is invalid!'
@@ -100,11 +100,12 @@ class Hematology extends React.Component {
 		const {hematology, errors} = this.state;
 		return (
 			<div>
+				<ReactTooltip  effect='solid' />
 				<div className="row">
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">WBC</div>
+								<div className="round-btn grey-label" data-tip="White Blood Cell Count">WBC</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input
@@ -123,7 +124,7 @@ class Hematology extends React.Component {
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">PLC</div>
+								<div className="round-btn grey-label" data-tip="Platelet Count">PLC</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<div className="d-flex">
@@ -151,7 +152,7 @@ class Hematology extends React.Component {
 					<div className="col-xs-12 col-sm-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">HCT</div>
+								<div className="round-btn grey-label" data-tip="Hematocrit">HCT</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input

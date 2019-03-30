@@ -177,7 +177,7 @@ body {
 
 .home-page__content {
   justify-content: center;
-  height: calc(100vh - 423px);
+  height: calc(100vh - 523px);
 }
 
 .button-section {
@@ -386,6 +386,7 @@ a.green-button:hover {
   box-shadow: 0 2px 2px $light-grey-color;
   font-size: 24px;
   text-align: center;
+  cursor: default;
 }
 
 .round-input {
@@ -552,16 +553,35 @@ ol.progtrckr li.progtrckr-done:before {
 .patient-select {
   width: 100%;
   align-self: center;
+  
+  &>div:first-child,
+  &>span:first-child,
+  &>div:nth-child(2),
+  &>div:first-child:hover {
+    height: 55px;
+    border-color: $dark-grey;
+    border-radius: 30px;
+    box-shadow: 0 0 1px $dark-grey;
+    background-color: $dark-grey;
+    font-size: 24px;
+    text-indent: 15px;
+  }
+
+  .newselect__dropdown-indicator {
+    color: $light-grey-color;
+  }
+
+  .newselect__menu {
+    font-size: 24px;
+  }
 }
 
-.patient-select > div:first-child,
-.patient-select > span:first-child,
-.patient-select > div:nth-child(2),
-.patient-select > div:first-child:hover {
-  height: 55px;
-  border-color: $dark-grey;
-  box-shadow: 0 0 1px $dark-grey;
+@media (max-width: 1399px) {
+  .home-page__banner {
+    padding: 150px 0 50px;
+  }
 }
+
 
 @media (max-width: 1220px) {
   .category-tab {
@@ -580,6 +600,10 @@ ol.progtrckr li.progtrckr-done:before {
     padding: 0 10px;
   }
 
+  .home-page .page-title {
+    font-size: 48px;
+  }
+
   .home-page__banner {
     padding: 100px 0 50px;
   }
@@ -590,6 +614,7 @@ ol.progtrckr li.progtrckr-done:before {
 }
 
 @media (max-width: 575px) {
+  .home-page .page-title,
   .page-title {
     font-size: 28px;
   }

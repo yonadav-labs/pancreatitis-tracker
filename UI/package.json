@@ -65,6 +65,7 @@
     "react-table": "^6.9.1",
     "react-test-renderer": "^16.8.1",
     "react-toastify": "^4.5.2",
+    "react-tooltip": "^3.10.0",
     "reactstrap": "^7.1.0",
     "redux": "^4.0.1",
     "redux-logger": "^3.0.6",
