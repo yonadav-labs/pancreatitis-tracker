@@ -86,6 +86,11 @@ class ArterialGases extends React.Component {
 		this.changeInfo = this.changeInfo.bind(this);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		const params = { ...this.state.arterialGases, ...nextProps.data};
+		this.setState({ arterialGases: params });
+	}
+
 	changeInfo(e) {
 		let params = this.state.arterialGases;
 		params[e.target.id].value = e.target.value;

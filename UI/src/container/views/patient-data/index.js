@@ -7,6 +7,10 @@ import ArterialGases from './arterial-gases';
 import Chemistry from './chemistry';
 import Hematology from './hematology';
 
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { setUpdatesPerPagePatientAction, loadPatientDataAction } from '../../actions/index';
+
 import StepZilla from "react-stepzilla";
 import 'react-stepzilla/src/css/main.css';
 
@@ -61,7 +65,8 @@ class PatientData extends React.Component {
 			},
 			error: {
 
-			}
+			},
+			step: 0
 		};
 
 		this.updateInfo = this.updateInfo.bind(this);
@@ -73,26 +78,37 @@ class PatientData extends React.Component {
 		});
 	}
 
+	componentWillReceiveProps(nextProps) {
+		/* eslint-disable eqeqeq */
+		if (this.state.data != nextProps.patient) {
+			this.setState({ data: nextProps.patient });
+		}
+	}
+
 	updateInfo(data) {
 		let params = Object.assign({}, this.state.data, data);
 
 		this.setState({ data: params });
+		this.props.setUpdatesPerPagePatientAction({ data: params, step: this.state.step + 1 });
 	}
 
 	changeStep = (step) => {
-		console.log('AAAA: ', step);
+		this.setState({ step });
+	}
+
+	loadPatientData = (files) => {
+		this.props.loadPatientDataAction(files);
 	}
 
 	render () {
 		const steps = [
-			{name: 'Basic info', component: <BasicInfo step={0} updateInfo={this.updateInfo} data={this.state.data} />},
+			{name: 'Basic info', component: <BasicInfo step={0} updateInfo={this.updateInfo} data={this.state.data} loadData={this.loadPatientData} />},
 			{name: 'Physical Exam', component: <PhysicalExam step={1} updateInfo={this.updateInfo} data={this.state.data} />},
 			{name: 'Vital Signs', component: <VitalSigns step={2} updateInfo={this.updateInfo} data={this.state.data} />},
 			{name: 'Arterial Gases', component: <ArterialGases step={3} updateInfo={this.updateInfo} data={this.state.data} />},
 			{name: 'Chemistry', component: <Chemistry step={4} updateInfo={this.updateInfo} data={this.state.data} />},
 			{name: 'Hematology', component: <Hematology step={5} updateInfo={this.updateInfo} data={this.state.data} />}
 		];
-		console.log('update state: ', this.state.data);
 
 		return (
 			<div className="app-content">
@@ -121,5 +137,17 @@ class PatientData extends React.Component {
 	}
 }
 
-export default PatientData;
+const mapStatetoProps = state => {
+	return {
+	  patient: state.patient
+	};
+};
 
+const mapDispatchToProps = dispatch => {
+	return Object.assign(
+		{ dispatch },
+		bindActionCreators({setUpdatesPerPagePatientAction, loadPatientDataAction}, dispatch)
+	);
+};
+  
+export default connect(mapStatetoProps, mapDispatchToProps)(PatientData);

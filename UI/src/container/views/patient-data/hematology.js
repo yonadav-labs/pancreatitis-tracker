@@ -55,6 +55,11 @@ class Hematology extends React.Component {
 		this.changeInfo = this.changeInfo.bind(this);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		const params = { ...this.state.hematology, ...nextProps.data};
+		this.setState({ hematology: params });
+	}
+
 	changeInfo(e) {
 		let params = this.state.hematology;
 		params[e.target.id].value = e.target.value;

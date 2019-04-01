@@ -9,7 +9,6 @@ export const isAuthTokenValid = access_token => {
 	const currentTime = Date.now() / 1000;
 	if ( decoded.exp < currentTime )
 	{
-		console.warn('access token expired');
 		return false;
 	}
   
@@ -55,7 +54,6 @@ export const postApiWithoutToken = (url, body) => {
 			return { ...response, success: true };
 		})
 		.catch(err => {
-			console.log('postApi with token error: ', err);
 			return { errors: [{ description: 'Server error' }], success: false };
 		});
 };
@@ -77,7 +75,6 @@ export const postApi = (url, body) => {
 				return { ...response, success: true };
 			})
 			.catch(err => {
-				console.log(' postApi error: ', err);
 				return { errors: [{ description: 'Server error' }], success: false };
 			});
 	}
@@ -103,10 +100,28 @@ export const getApi = (url, body) => {
 				return { data: response, success: true };
 			})
 			.catch(err => {
-				console.log(' getApi error: ', err);
 				return { errors: [{ description: 'Server error' }], success: false };
 			});
 	}
 	window.location.href = '/';
 	
+};
+
+export const uploadFormData = (url, files) => {
+	const fd = new FormData();
+	fd.append( 'csv_file', files[0] );
+
+	return fetch({
+		url: url,
+		type: 'POST',
+		body: fd
+	})
+		.then(response => response)
+		.then(response => response.json())
+		.then(response => {
+			return { data: response, success: true };
+		})
+		.catch(err => {
+			return { errors: [{ description: 'Server error' }], success: false };
+		});
 };

@@ -74,7 +74,7 @@
     "prefer-spread": 2,
     "no-useless-concat": 2,
     "no-var": 2,
-    "object-shorthand": 2,
+    "object-shorthand": "off",
     "prefer-arrow-callback": 2,
     "no-undef": "off",
     // dev mode

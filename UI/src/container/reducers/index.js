@@ -1,24 +1,21 @@
-// import _ from 'lodash';
-// import * as types from './constants';
+import * as types from './constants';
 
 const InitialState = {
-	val: 0,
-	rooms: [],
-	roomTypes: [],
-	phases: [],
-	products: [],
-	fine_products: [],
-	stages: [],
-	totalArea: 0
+	step: 0,
+	patient: {},
+	errorMsg: ''
 };
 
-export default function rootReducer(state = InitialState, action) {
+export default function patientReducer(state = InitialState, action) {
 	switch (action.type) {
-		case 'Plus':
-			return { ...state, val: state.val + 2 };
+		case types.PATIENTS.SET:
+			return {...state, patient: action.payload.data, step: action.payload.step};
 
-		case 'Minus':
-			return { ...state, val: state.val > 0 ? state.val - 1 : 0 };
+		case types.PATIENTS.GET:
+			return {...state, patient: action.payload.data, step: 0};
+		
+		case types.PATIENTS.ERROR:
+			return {...state, errorMsg: action.payload};
 
 		default:
 			return state;

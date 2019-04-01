@@ -125,6 +125,11 @@ class Chemistry extends React.Component {
 		this.changeInfo = this.changeInfo.bind(this);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		const params = { ...this.state.chemistry, ...nextProps.data};
+		this.setState({ chemistry: params });
+	}
+
 	changeInfo(e) {
 		let params = this.state.chemistry;
 		params[e.target.id].value = e.target.value;

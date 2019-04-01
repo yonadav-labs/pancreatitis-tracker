@@ -61,6 +61,11 @@ class VitalSigns extends React.Component {
 		this.changeInfo = this.changeInfo.bind(this);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		const params = { ...this.state.vitalSigns, ...nextProps.data};
+		this.setState({ vitalSigns: params });
+	}
+
 	changeInfo(e) {
 		let params = this.state.vitalSigns;
 		params[e.target.id].value = e.target.value;

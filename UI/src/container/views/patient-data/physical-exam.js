@@ -97,6 +97,11 @@ class PhysicalExam extends React.Component {
 		this.changeInfo = this.changeInfo.bind(this);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		const params = { ...this.state.physicalExam, ...nextProps.data};
+		this.setState({ physicalExam: params });
+	}
+
 	changeInfo(e) {
 		let params = this.state.physicalExam;
 		params[e.target.id].value = e.target.value;

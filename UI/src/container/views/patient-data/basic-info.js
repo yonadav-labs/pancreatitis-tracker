@@ -68,6 +68,11 @@ class BasicInfo extends React.Component {
 		this.changeInfo = this.changeInfo.bind(this);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		const params = { ...this.state.basicInfo, ...nextProps.data};
+		this.setState({ basicInfo: params });
+	}
+
 	changeInfo(e) {
 		let params = this.state.basicInfo;
 		params[e.target.id].value = e.target.value;
@@ -111,9 +116,19 @@ class BasicInfo extends React.Component {
 		this.setState({ basicInfo });
 	}
 
+	fileChange = (e) => {
+		console.log(e.target.files);
+		this.props.loadData(e.target.files);
+	}
+
+	showFileDialog = () => {
+		const fileDialog = document.getElementById("upload_input");
+		fileDialog.click();
+	}
+
 	render() {
 		const {basicInfo, errors} = this.state;
-
+		console.log(this.props.data, basicInfo);
 		return (
 			<div>
 				<div className="row">
@@ -260,7 +275,12 @@ class BasicInfo extends React.Component {
 				</div>
 				<div className="pt-3 text-center">
 					<div className="d-flex justify-content-between">
-						<GreenButton text="Load Data" className="mt-3" />
+						<GreenButton
+							text="Load Data"
+							className="mt-3"
+							onClick={this.showFileDialog}
+						/>
+						<input type="file" id="upload_input" className="d-none" onChange={this.fileChange} />
 						<GreenButton
 							text="Next"
 							className="mt-3"
