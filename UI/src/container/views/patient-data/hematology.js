@@ -102,7 +102,7 @@ class Hematology extends React.Component {
 			<div>
 				<ReactTooltip  effect='solid' />
 				<div className="row">
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label" data-tip="White Blood Cell Count">WBC</div>
@@ -121,7 +121,7 @@ class Hematology extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label" data-tip="Platelet Count">PLC</div>
@@ -149,7 +149,7 @@ class Hematology extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label" data-tip="Hematocrit">HCT</div>
@@ -168,7 +168,7 @@ class Hematology extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">CRP</div>

@@ -609,11 +609,15 @@ ol.progtrckr li.progtrckr-done:before {
   }
 
   .round-btn {
-    margin: 15px 0;
+    margin: 0;
   }
 }
 
 @media (max-width: 575px) {
+  .app-content {
+    padding: 0 10px;
+  }
+
   .home-page .page-title,
   .page-title {
     font-size: 28px;
@@ -621,6 +625,12 @@ ol.progtrckr li.progtrckr-done:before {
 
   .green-button {
     font-size: 24px;
+  }
+
+  .page-section {
+    .green-button {
+      font-size: 16px;
+    }
   }
 
   .round-btn {

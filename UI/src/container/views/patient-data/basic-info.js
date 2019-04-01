@@ -117,7 +117,7 @@ class BasicInfo extends React.Component {
 		return (
 			<div>
 				<div className="row">
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div
@@ -140,7 +140,7 @@ class BasicInfo extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Age</div>
@@ -159,7 +159,7 @@ class BasicInfo extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Height</div>
@@ -187,7 +187,7 @@ class BasicInfo extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Weight</div>
@@ -215,7 +215,7 @@ class BasicInfo extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">BMI</div>
@@ -234,7 +234,7 @@ class BasicInfo extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div

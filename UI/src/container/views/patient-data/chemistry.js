@@ -172,7 +172,7 @@ class Chemistry extends React.Component {
 			<div>
 				<h2 className="section-title">Chem 7 BMP + Calcium</h2>
 				<div className="row">
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Sodium</div>
@@ -201,7 +201,7 @@ class Chemistry extends React.Component {
 						</div>
 					</div>
 
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Chloride</div>
@@ -220,7 +220,7 @@ class Chemistry extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Potassium</div>
@@ -239,7 +239,7 @@ class Chemistry extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">HCO₃ (serum)</div>
@@ -263,7 +263,7 @@ class Chemistry extends React.Component {
 					<hr></hr>
 				</h2>
 				<div className="row">
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">BUN</div>
@@ -282,7 +282,7 @@ class Chemistry extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Glucose</div>
@@ -310,7 +310,7 @@ class Chemistry extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Creatinine</div>
@@ -329,7 +329,7 @@ class Chemistry extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Calcium</div>
@@ -360,7 +360,7 @@ class Chemistry extends React.Component {
 				</div>
 				<h2 className="section-title">Liver Function Panel</h2>
 				<div className="row">
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Albumin</div>
@@ -388,7 +388,7 @@ class Chemistry extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">AST</div>
@@ -407,7 +407,7 @@ class Chemistry extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">ALT</div>
@@ -426,7 +426,7 @@ class Chemistry extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">LDH</div>

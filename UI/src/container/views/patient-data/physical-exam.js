@@ -144,7 +144,7 @@ class PhysicalExam extends React.Component {
 		return (
 			<div>
 				<div className="row">
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Peritonitis</div>
@@ -163,7 +163,7 @@ class PhysicalExam extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Glasgow Coma Score</div>
@@ -182,7 +182,7 @@ class PhysicalExam extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Eye Response</div>
@@ -201,7 +201,7 @@ class PhysicalExam extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Verbal Response</div>
@@ -220,7 +220,7 @@ class PhysicalExam extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Motor Response</div>
@@ -239,7 +239,7 @@ class PhysicalExam extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-sm-6">
+					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">Pleural Effusion</div>
