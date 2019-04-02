@@ -144,7 +144,13 @@ class VitalSigns extends React.Component {
 					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">Systolic BP</div>
+								<div
+									className="round-btn grey-label"
+									data-multiline="true"
+									data-tip="In future (not MVP) may differentiate between standing and supine BP readings.<br /> Also in future may record patients 'normal/average/baseline BP' to compare to current."
+								>
+									Systolic BP
+								</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input
@@ -182,7 +188,13 @@ class VitalSigns extends React.Component {
 					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">Heart Rate</div>
+								<div
+									className="round-btn grey-label"
+									data-multiline="true"
+									data-tip="In future (not MVP) may differentiate between standing and supine HR readings"
+								>
+									Heart Rate
+								</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input
