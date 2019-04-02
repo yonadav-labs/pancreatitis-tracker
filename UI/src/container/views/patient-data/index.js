@@ -128,7 +128,7 @@ class PatientData extends React.Component {
 								<StepZilla
 									steps={steps}
 									onStepChange={this.changeStep}
-									stepsNavigation={false}
+									stepsNavigation={true}
 									nextButtonCls="d-none"
 									backButtonCls="d-none"
 								/>

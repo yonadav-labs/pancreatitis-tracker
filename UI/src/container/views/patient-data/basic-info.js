@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 import GreenButton from "../../components/GreenButton";
 import Select from 'react-select';
 import {validateForm, lbToKgConvert, inchToCmConvert} from '../../utils/utils';
@@ -158,6 +159,7 @@ class BasicInfo extends React.Component {
 
 		return (
 			<div>
+				<ReactTooltip  effect='solid' />
 				<div className="row">
 					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
@@ -278,6 +280,8 @@ class BasicInfo extends React.Component {
 							<div className="col-xs-12 col-sm-6">
 								<div
 									className="round-btn grey-label"
+									data-multiline="true"
+									data-tip="1) Liver: biopsy-proven cirrhosis<br>2) Cardiovascular: NYHA class IV heart failure<br>3) Respiratory: documented chronic hypoxia; <br> hypercapnia; <br> secondary polycythemia; <br> severe pulmonary hypertension; <br> COPD; <br> respirator dependency<br>4) Renal: on dialysis or <br>5) Immunocompromised"
 								>
 									Chronic Health Problems
 								</div>
@@ -301,13 +305,13 @@ class BasicInfo extends React.Component {
 					<div className="d-flex justify-content-between">
 						<GreenButton
 							text="Load Data"
-							className="mt-3"
+							className="mt-3 d-none"
 							onClick={this.showFileDialog}
 						/>
 						<input type="file" id="upload_input" className="d-none" onChange={this.fileChange} />
 						<GreenButton
 							text="Next"
-							className="mt-3"
+							className="mt-3 ml-auto"
 							onClick={this.next}
 						/>
 					</div>

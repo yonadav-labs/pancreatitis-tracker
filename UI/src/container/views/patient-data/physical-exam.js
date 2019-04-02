@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 import Select from 'react-select';
 import {validateForm} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
@@ -146,6 +147,7 @@ class PhysicalExam extends React.Component {
 		const {physicalExam, errors} = this.state;
 		return (
 			<div>
+				<ReactTooltip effect='solid' />
 				<div className="row">
 					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
@@ -169,7 +171,11 @@ class PhysicalExam extends React.Component {
 					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">Glasgow Coma Score</div>
+								<div
+									className="round-btn grey-label"
+									data-multiline="true"
+									data-tip="GCS is the sum of eye response, verbal response, and motor response. <br>They can input these individually and we can compute the sum, or <br>they can give us the sum."
+								>Glasgow Coma Score</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input
