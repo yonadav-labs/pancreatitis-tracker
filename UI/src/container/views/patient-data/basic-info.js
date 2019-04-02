@@ -1,7 +1,7 @@
 import React from 'react';
 import GreenButton from "../../components/GreenButton";
 import Select from 'react-select';
-import {validateForm} from '../../utils/utils';
+import {validateForm, lbToKgConvert, inchToCmConvert} from '../../utils/utils';
 
 const sexOption = [
 	{ value: 'm', label: 'Male' },
@@ -53,13 +53,6 @@ class BasicInfo extends React.Component {
 						{ min: 2.5, max: 227, unit: 'kg' },
 						{ min: 5.5, max: 500, unit: 'lb' }
 					]
-				},
-				bmi: {
-					name: 'bmi',
-					type: 'integer',
-					range: [
-						{ min: 13, max: 100, unit: 'kg/m2' }
-					]
 				}
 			},
 			errors: {}
@@ -73,9 +66,38 @@ class BasicInfo extends React.Component {
 		this.setState({ basicInfo: params });
 	}
 
+	calculateBMI(params) {
+		let bmiValue = '';
+		
+		if (
+			(params.weight.value !== '' && params.weight.value !== 0) &&
+			(params.height.value !== '' && params.height.value !== 0)
+		) {
+			let weightVal = parseFloat(params.weight.value);
+			if (params.weight.unit === 'lb') {
+				weightVal = lbToKgConvert(weightVal);
+			}
+
+			let heightVal = parseFloat(params.height.value) / 100;
+			if (params.height.unit === 'inch') {
+				heightVal = inchToCmConvert(heightVal);
+			}
+
+			bmiValue = (weightVal / Math.pow(heightVal, 2)).toFixed(2);
+		}
+
+		return bmiValue;
+	}
+
 	changeInfo(e) {
 		let params = this.state.basicInfo;
 		params[e.target.id].value = e.target.value;
+
+		let bmiValue = '';
+		if (e.target.id === 'weight' || e.target.id === 'height') {
+			bmiValue = this.calculateBMI(params);
+		}
+		params.bmi.value = bmiValue;
 
 		this.setState({ basicInfo: params });
 	}
@@ -83,6 +105,12 @@ class BasicInfo extends React.Component {
 	changeUnit = (id, value) => {
 		let params = this.state.basicInfo;
 		params[id].unit = value;
+
+		let bmiValue = '';
+		if (id === 'weight' || id === 'height') {
+			bmiValue = this.calculateBMI(params);
+		}
+		params.bmi.value = bmiValue;
 
 		this.setState({basicInfo: params});
 	}
@@ -240,11 +268,8 @@ class BasicInfo extends React.Component {
 									id="bmi"
 									className="round-input"
 									value={basicInfo.bmi.value}
-									onChange={this.changeInfo}
+									disabled
 								/>
-								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.bmi && errors.bmi.msg}
-								</label>
 							</div>
 						</div>
 					</div>

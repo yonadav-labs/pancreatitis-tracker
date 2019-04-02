@@ -135,3 +135,11 @@ export const validateAccount = (rule, data) => {
 
 	return isValidate;
 }
+
+export const lbToKgConvert = (lbs) => {
+	return lbs / 2.2046;
+}
+
+export const inchToCmConvert = (lbs) => {
+	return lbs * 2.54;
+}
