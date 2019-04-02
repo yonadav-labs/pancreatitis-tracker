@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
+import Select from 'react-select';
 import {validateForm} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
 
@@ -55,7 +56,11 @@ class VitalSigns extends React.Component {
 					required: true
 				}
 			},
-			errors: {}
+			errors: {},
+			temperateOption: [
+				{value: 'celcius', label: '°C'},
+				{value: 'fahrenheit', label: '°F'}
+			]
 		};
 
 		this.changeInfo = this.changeInfo.bind(this);
@@ -109,6 +114,7 @@ class VitalSigns extends React.Component {
 
 	render() {
 		const {vitalSigns, errors} = this.state;
+
 		return (
 			<div>
 				<ReactTooltip  effect='solid' />
@@ -124,11 +130,12 @@ class VitalSigns extends React.Component {
 										type="text"
 										id="temperature"
 										className="round-input"
-										value={vitalSigns.temperature.value}
+										value={vitalSigns.temperature && vitalSigns.temperature.value}
 										onChange={this.changeInfo}
 									/>
 									<select
 										className="input-inline-select"
+										defaultValue={vitalSigns.temperature && vitalSigns.temperature.unit}
 										onChange={e => this.changeUnit('temperature', e.target.value)}
 									>
 										<option value="celcius">°C</option>
@@ -157,7 +164,7 @@ class VitalSigns extends React.Component {
 									type="text"
 									id="systolicBp"
 									className="round-input"
-									value={vitalSigns.systolicBp.value}
+									value={vitalSigns.systolicBp && vitalSigns.systolicBp.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -176,7 +183,7 @@ class VitalSigns extends React.Component {
 									type="text"
 									id="DiastolicBp"
 									className="round-input"
-									value={vitalSigns.DiastolicBp.value}
+									value={vitalSigns.DiastolicBp && vitalSigns.DiastolicBp.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -201,7 +208,7 @@ class VitalSigns extends React.Component {
 									type="text"
 									id="heartRate"
 									className="round-input"
-									value={vitalSigns.heartRate.value}
+									value={vitalSigns.heartRate && vitalSigns.heartRate.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -220,7 +227,7 @@ class VitalSigns extends React.Component {
 									type="text"
 									id="RespiratoryRate"
 									className="round-input"
-									value={vitalSigns.RespiratoryRate.value}
+									value={vitalSigns.RespiratoryRate && vitalSigns.RespiratoryRate.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">

@@ -31,8 +31,7 @@ class BasicInfo extends React.Component {
 			rules: {
 				sex: {
 					name: 'sex',
-					type: 'text',
-					required: true
+					type: 'text'
 				},
 				age: {
 					name: 'age',
@@ -214,7 +213,7 @@ class BasicInfo extends React.Component {
 										type="text"
 										id="height"
 										className="round-input"
-										value={basicInfo.height.value}
+										value={basicInfo.height && basicInfo.height.value}
 										onChange={this.changeInfo}
 									/>
 									<select
@@ -242,7 +241,7 @@ class BasicInfo extends React.Component {
 										type="text"
 										id="weight"
 										className="round-input"
-										value={basicInfo.weight.value}
+										value={basicInfo.weight && basicInfo.weight.value}
 										onChange={this.changeInfo}
 									/>
 									<select
@@ -269,7 +268,7 @@ class BasicInfo extends React.Component {
 									type="text"
 									id="bmi"
 									className="round-input"
-									value={basicInfo.bmi.value}
+									value={basicInfo.bmi && basicInfo.bmi.value}
 									disabled
 								/>
 							</div>
