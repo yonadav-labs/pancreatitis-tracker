@@ -194,7 +194,7 @@ class BasicInfo extends React.Component {
 									type="text"
 									id="age"
 									className="round-input"
-									value={basicInfo.age.value}
+									value={basicInfo.age && basicInfo.age.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
