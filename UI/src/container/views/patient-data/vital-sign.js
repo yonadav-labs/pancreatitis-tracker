@@ -131,8 +131,8 @@ class VitalSigns extends React.Component {
 										className="input-inline-select"
 										onChange={e => this.changeUnit('temperature', e.target.value)}
 									>
-										<option value="celcius">C</option>
-										<option value="fahrenheit">F</option>
+										<option value="celcius">°C</option>
+										<option value="fahrenheit">°F</option>
 									</select>
 								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
