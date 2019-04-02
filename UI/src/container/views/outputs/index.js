@@ -50,7 +50,7 @@ class Outputs extends React.Component {
 									test will be displayed below.
 								</div>
 								<div>
-									<CustomProgressBar title="SRS" value="80" text="4 out of 5" />
+									<CustomProgressBar title="SIRS" value="80" text="4 out of 5" />
 									<CustomProgressBar title="HAPS" value="60" text="3 out of 5" />
 									<CustomProgressBar title="PANC3" value="60" text="3 out of 5" />
 									<CustomProgressBar title="POP" value="40" text="2 out of 5" />
