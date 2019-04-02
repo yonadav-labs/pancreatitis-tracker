@@ -10,10 +10,10 @@ const sexOption = [
 ];
 
 const chronicHealthProblemsOption = [
-	{ value: 0, label: 'no chronic health problems' },
-	{ value: 1, label: 'nonsurgical' },
-	{ value: 2, label: 'elective postoperative' },
-	{ value: 3, label: 'emergency postoperative' }
+	{ value: 0, label: 'No chronic health problems' },
+	{ value: 1, label: 'Nonsurgical' },
+	{ value: 2, label: 'Elective postoperative' },
+	{ value: 3, label: 'Emergency postoperative' }
 ];
 
 class BasicInfo extends React.Component {
