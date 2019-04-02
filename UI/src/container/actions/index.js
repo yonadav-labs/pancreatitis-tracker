@@ -1,5 +1,9 @@
 import * as types from '../reducers/constants';
-import { loadPatientDataApi } from './api';
+import {
+	loadPatientDataApi,
+	savePatientDataApi
+} from './api';
+import { RESOURCE } from 'webpack/lib/ModuleFilenameHelpers';
 
 export const setUpdatesPerPagePatientAction = (res) => {
 	return (dispatch) => {
@@ -15,6 +19,22 @@ export const loadPatientDataAction = (files) => {
 			})
 			.catch((err) => {
 				dispatch({ type: types.PATIENTS.ERROR, payload: 'uploading error' });
+			});
+	};
+};
+
+export const savePatientDataAction = (data, step) => {
+	return (dispatch) => {
+		savePatientDataApi(data, step)
+			.then((res) => {
+				if (res.success) {
+					dispatch({ type: types.PATIENTS.ADD, payload: data });
+				} else {
+					dispatch({ type: types.PATIENTS.ERROR, payload: res.msg });
+				}
+			})
+			.catch((err) => {
+				dispatch({ type: types.PATIENTS.ERROR, payload: 'Can\'t save data' });
 			});
 	};
 };

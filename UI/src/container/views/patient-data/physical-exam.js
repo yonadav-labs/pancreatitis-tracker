@@ -52,13 +52,11 @@ class PhysicalExam extends React.Component {
 			rules: {
 				peritonitis: {
 					name: 'peritonitis',
-					type: 'boolean',
-					required: true
+					type: 'boolean'
 				},
 				pleuralEffusion: {
 					name: 'pleuralEffusion',
-					type: 'text',
-					required: true
+					type: 'text'
 				},
 				glasgowComaScore: {
 					name: 'glasgowComaScore',

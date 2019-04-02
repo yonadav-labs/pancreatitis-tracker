@@ -11,3 +11,9 @@ export const loadPatientDataApi = (files) => {
 		resolve({ success: true, data: data });
 	});
 };
+
+export const savePatientDataApi = (data, step) => {
+	return new Promise((resolve) => {
+		resolve({ success: true, data: data, step: step });
+	});
+};

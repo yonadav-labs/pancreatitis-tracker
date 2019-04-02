@@ -11,9 +11,9 @@ export const isAuthTokenValid = access_token => {
 	{
 		return false;
 	}
-  
+	
 	return true;
-  
+	
 };
 
 export const getToken = () => {
@@ -48,13 +48,24 @@ export const postApiWithoutToken = (url, body) => {
 		},
 		body
 	})
-		.then(response => response)
-		.then(response => response.json())
 		.then(response => {
-			return { ...response, success: true };
+			if (response.ok) {
+				return response.json().then((res) => ({
+					...res,
+					success: true
+				}));
+			}
+
+			throw response;
 		})
 		.catch(err => {
-			return { errors: [{ description: 'Server error' }], success: false };
+			return err.text().then(errors => {
+				let errorResponse = JSON.parse(errors);
+				return {
+					msg: errorResponse.message,
+					success: false
+				};
+			});
 		});
 };
 
@@ -69,13 +80,25 @@ export const postApi = (url, body) => {
 			},
 			body
 		})
-			.then(response => response)
-			.then(response => response.json())
 			.then(response => {
-				return { ...response, success: true };
+				if (response.ok) {
+					return response.json().then((res) => ({
+						...res,
+						success: true
+					}));
+				}
+
+				throw response;
 			})
 			.catch(err => {
-				return { errors: [{ description: 'Server error' }], success: false };
+				return err.text().then(errors => {
+					let errorResponse = JSON.parse(errors);
+
+					return {
+						msg: errorResponse.message,
+						success: false
+					};
+				});
 			});
 	}
 	window.location.href = '/';
@@ -94,13 +117,24 @@ export const getApi = (url, body) => {
 			},
 			body
 		})
-			.then(response => response)
-			.then(response => response.json())
 			.then(response => {
-				return { data: response, success: true };
+				if (response.ok) {
+					return response.json().then((res) => ({
+						...res,
+						success: true
+					}));
+				}
+
+				throw response;
 			})
 			.catch(err => {
-				return { errors: [{ description: 'Server error' }], success: false };
+				return err.text().then(errors => {
+					let errorResponse = JSON.parse(errors);
+					return {
+						msg: errorResponse.message,
+						success: false
+					};
+				});
 			});
 	}
 	window.location.href = '/';
@@ -116,12 +150,23 @@ export const uploadFormData = (url, files) => {
 		type: 'POST',
 		body: fd
 	})
-		.then(response => response)
-		.then(response => response.json())
 		.then(response => {
-			return { data: response, success: true };
+			if (response.ok) {
+				return response.json().then((res) => ({
+					...res,
+					success: true
+				}));
+			}
+
+			throw response;
 		})
 		.catch(err => {
-			return { errors: [{ description: 'Server error' }], success: false };
+			return err.text().then(errors => {
+				let errorResponse = JSON.parse(errors);
+				return {
+					msg: errorResponse.message,
+					success: false
+				};
+			});
 		});
 };

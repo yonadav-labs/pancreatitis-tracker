@@ -47,51 +47,90 @@ export function validateForm(rule, data) {
 	let isValidate = true;
 		
 	if (rule) {
-		if (!data || data.value === '') {
-			isValidate = true;
-		} else {
-			switch(rule.type) {
-				case 'integer':
-					if (!isNaN(data.value)) {
-						rule.range.forEach((range) => {
-							if (
-								range.unit === data.unit &&
-								(
-									range.min > parseFloat(data.value, 10)
-									|| range.max < parseFloat(data.value, 10)
-								)
-							) {
-								isValidate = false;
-							}
-						});
-					} else {
-						isValidate = false;
-					}
-
-					break;
-				
-				case 'email':
-					if (!validateEmail(data.value)) {
-						isValidate = false;
-					}
-
-					break;
-
-				case 'text':
-					if (typeof data.value !== "string" || data.value === ""){
-						isValidate = false;
-					}
-					break;
-				
-				case 'boolean':
-					if (typeof data.value !== "boolean" || data.value === ""){
-						isValidate = false;
-					}
-					break;
-				
-				default: break;
+		if (!rule.required) {
+			if (!data || data.value === '') {
+				return true;
 			}
 		}
+
+		switch(rule.type) {
+			case 'integer':
+				if (!isNaN(data.value)) {
+					rule.range.forEach((range) => {
+						if (
+							range.unit === data.unit &&
+							(
+								range.min > parseFloat(data.value, 10)
+								|| range.max < parseFloat(data.value, 10)
+							)
+						) {
+							isValidate = false;
+						}
+					});
+				} else {
+					isValidate = false;
+				}
+
+				break;
+			
+			case 'email':
+				if (!validateEmail(data.value)) {
+					isValidate = false;
+				}
+
+				break;
+			
+			case 'phone':
+				if (!validatePhoneNumber(data.value)) {
+					isValidate = false;
+				}
+
+				break;
+
+			case 'text':
+				if (typeof data.value !== "string" || data.value === ""){
+					isValidate = false;
+				}
+				break;
+			
+			case 'boolean':
+				if (typeof data.value !== "boolean" || data.value === ""){
+					isValidate = false;
+				}
+				break;
+			
+			default: break;
+		}
+	}
+
+	return isValidate;
+}
+
+export const validateAccount = (rule, data) => {
+	let isValidate = true;
+
+	switch(rule.type) {
+		case 'email':
+			if (!validateEmail(data)) {
+				isValidate = false;
+			}
+
+			break;
+		
+		case 'phone':
+			if (!validatePhoneNumber(data)) {
+				isValidate = false;
+			}
+
+			break;
+
+		case 'text':
+			if (typeof data !== "string" || data === ""){
+				isValidate = false;
+			}
+			break;
+
+		default: break;
 	}
 
 	return isValidate;

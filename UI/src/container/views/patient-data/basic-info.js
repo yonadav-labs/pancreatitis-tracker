@@ -117,7 +117,6 @@ class BasicInfo extends React.Component {
 	}
 
 	fileChange = (e) => {
-		console.log(e.target.files);
 		this.props.loadData(e.target.files);
 	}
 
@@ -128,7 +127,7 @@ class BasicInfo extends React.Component {
 
 	render() {
 		const {basicInfo, errors} = this.state;
-		console.log(this.props.data, basicInfo);
+
 		return (
 			<div>
 				<div className="row">

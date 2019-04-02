@@ -2,6 +2,7 @@ import React from "react";
 import Title from '../../components/Title';
 import GreenButton from "../../components/GreenButton";
 import { Link } from "react-router-dom";
+import {validateAccount} from '../../utils/utils';
 
 class AccountInfo extends React.Component {
 	constructor(props) {
@@ -20,7 +21,41 @@ class AccountInfo extends React.Component {
 				lastName: '',
 				email: '',
 				confirmEmail: ''
-			}
+			},
+			rules: {
+				firstName: {
+					name: 'sex',
+					type: 'text',
+					required: true
+				},
+				lastName: {
+					name: 'lastName',
+					type: 'text',
+					required: true
+				},
+				email: {
+					name: 'email',
+					type: 'email',
+					required: true
+				},
+				confirmEmail: {
+					name: 'confirmEmail',
+					type: 'email',
+					required: true
+				},
+				phone: {
+					name: 'phone',
+					type: 'phone',
+					required: true
+				},
+				confirmPhone: {
+					name: 'confirmPhone',
+					type: 'phone',
+					required: true
+				}
+			},
+			errors: {},
+			patientErrors: {}
 		};
 
 		this.changePhysician = this.changePhysician.bind(this);
@@ -41,15 +76,67 @@ class AccountInfo extends React.Component {
 		this.setState({ patient: params });
 	}
 
+	saveAccount = () => {
+		const errors = {};
+		const patientErrors = {};
+		const {rules, physician, patient} = this.state;
+		console.log('======= save accout ======', physician);
+
+		Object.keys(physician).forEach((data) => {
+			if (rules[data]) {
+				if (!validateAccount(rules[data], physician[data])) {
+					errors[data] = {
+						msg: 'Value is invalid!'
+					};
+				}
+			}
+		});
+
+		Object.keys(patient).forEach((data) => {
+			if (rules[data]) {
+				if (!validateAccount(rules[data], patient[data])) {
+					patientErrors[data] = {
+						msg: 'Value is invalid!'
+					};
+				}
+			}
+		});
+
+		if (physician.email !== physician.confirmEmail) {
+			errors.confirmEmail = { msg: 'email is not matching!'};
+			errors.email = { msg: 'email is not matching!'};
+		}
+
+		if (patient.email !== patient.confirmEmail) {
+			patientErrors.confirmEmail = { msg: 'email is not matching!'};
+			patientErrors.email = { msg: 'email is not matching!'};
+		}
+
+		if (physician.phone !== physician.confirmPhone) {
+			errors.phone = { msg: 'phone number is not matching!'};
+			errors.confirmPhone = { msg: 'phone number is not matching!'};
+		}
+
+		if (
+			Object.keys(errors).length > 0 ||
+			Object.keys(patientErrors).length > 0
+		) {
+			this.setState({ errors: errors, patientErrors: patientErrors });
+		} else {
+			console.log('======', errors, "===========", patientErrors);
+		}
+	}
+
 	render () {
-		const {physician, patient} = this.state;
+		const {physician, patient, errors, patientErrors} = this.state;
+
 		return (
 			<div className="app-content">
 				<Title title="Account Info" />
 				<div className="container">
 					<div className="page-section">
 						<div className="row">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="row justify-content-center mb-3 pb-3">
 									<GreenButton text="Physician" />
 								</div>
@@ -65,6 +152,9 @@ class AccountInfo extends React.Component {
 											value={physician.firstName}
 											onChange={this.changePhysician}
 										/>
+										<label className="color-danger pt-2 text-danger text-center warning-message">
+											{errors.firstName && errors.firstName.msg}
+										</label>
 									</div>
 								</div>
 								<div className="row mb-5">
@@ -79,6 +169,9 @@ class AccountInfo extends React.Component {
 											value={physician.lastName}
 											onChange={this.changePhysician}
 										/>
+										<label className="color-danger pt-2 text-danger text-center warning-message">
+											{errors.lastName && errors.lastName.msg}
+										</label>
 									</div>
 								</div>
 								<div className="row mb-5">
@@ -87,12 +180,15 @@ class AccountInfo extends React.Component {
 									</div>
 									<div className="col-xs-12 col-sm-6">
 										<input
-											type="text"
+											type="email"
 											id="email"
 											className="round-input"
 											value={physician.email}
 											onChange={this.changePhysician}
 										/>
+										<label className="color-danger pt-2 text-danger text-center warning-message">
+											{errors.email && errors.email.msg}
+										</label>
 									</div>
 								</div>
 								<div className="row mb-5">
@@ -107,6 +203,9 @@ class AccountInfo extends React.Component {
 											value={physician.confirmEmail}
 											onChange={this.changePhysician}
 										/>
+										<label className="color-danger pt-2 text-danger text-center warning-message">
+											{errors.confirmEmail && errors.confirmEmail.msg}
+										</label>
 									</div>
 								</div>
 								<div className="row mb-5">
@@ -121,6 +220,9 @@ class AccountInfo extends React.Component {
 											value={physician.phone}
 											onChange={this.changePhysician}
 										/>
+										<label className="color-danger pt-2 text-danger text-center warning-message">
+											{errors.phone && errors.phone.msg}
+										</label>
 									</div>
 								</div>
 								<div className="row mb-5">
@@ -135,10 +237,13 @@ class AccountInfo extends React.Component {
 											value={physician.confirmPhone}
 											onChange={this.changePhysician}
 										/>
+										<label className="color-danger pt-2 text-danger text-center warning-message">
+											{errors.confirmPhone && errors.confirmPhone.msg}
+										</label>
 									</div>
 								</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="row justify-content-center mb-3 pb-3">
 									<GreenButton text="Patient" />
 								</div>
@@ -154,6 +259,9 @@ class AccountInfo extends React.Component {
 											value={patient.firstName}
 											onChange={this.changePatient}
 										/>
+										<label className="color-danger pt-2 text-danger text-center warning-message">
+											{patientErrors.firstName && patientErrors.firstName.msg}
+										</label>
 									</div>
 								</div>
 								<div className="row mb-5">
@@ -168,6 +276,9 @@ class AccountInfo extends React.Component {
 											value={patient.lastName}
 											onChange={this.changePatient}
 										/>
+										<label className="color-danger pt-2 text-danger text-center warning-message">
+											{patientErrors.lastName && patientErrors.lastName.msg}
+										</label>
 									</div>
 								</div>
 								<div className="row mb-5">
@@ -176,12 +287,15 @@ class AccountInfo extends React.Component {
 									</div>
 									<div className="col-xs-12 col-sm-6">
 										<input
-											type="text"
+											type="email"
 											id="email"
 											className="round-input"
 											value={patient.email}
 											onChange={this.changePatient}
 										/>
+										<label className="color-danger pt-2 text-danger text-center warning-message">
+											{patientErrors.email && patientErrors.email.msg}
+										</label>
 									</div>
 								</div>
 								<div className="row mb-5">
@@ -196,6 +310,9 @@ class AccountInfo extends React.Component {
 											value={patient.confirmEmail}
 											onChange={this.changePatient}
 										/>
+										<label className="color-danger pt-2 text-danger text-center warning-message">
+											{patientErrors.confirmEmail && patientErrors.confirmEmail.msg}
+										</label>
 									</div>
 								</div>
 							</div>
@@ -207,7 +324,7 @@ class AccountInfo extends React.Component {
 								</Link>
 							</div>
 							<div>
-								<GreenButton text="Submit" className="mt-3" />
+								<GreenButton text="Submit" className="mt-3" onClick={this.saveAccount} />
 							</div>
 						</div>
 					</div>

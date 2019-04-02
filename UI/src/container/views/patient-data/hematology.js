@@ -93,7 +93,8 @@ class Hematology extends React.Component {
 			this.setState({ errors });
 		} else {
 			this.setState({ errors: {} });
-			alert('Sucess!');
+			this.props.savePatientData(hematology, this.props.step);
+			alert('success');
 		}
 	}
 
@@ -103,6 +104,7 @@ class Hematology extends React.Component {
 
 	render() {
 		const {hematology, errors} = this.state;
+
 		return (
 			<div>
 				<ReactTooltip  effect='solid' />
