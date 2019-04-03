@@ -16,6 +16,16 @@ class ArterialGases extends React.Component {
 				fio2: this.props.data.fio2 || {value: '', unit: '%'},
 				baseExcess: this.props.data.baseExcess || {value: '', unit: 'mEq/L'}
 			},
+			units: {
+				o2Saturation: this.props.units.o2Saturation || '%',
+				ph: this.props.units.ph || '',
+				pao2: this.props.units.pao2 || 'mmHg',
+				paco2: this.props.units.paco2 || 'mmHg',
+				hco3_artieral: this.props.units.hco3_artieral || 'mmol/L',
+				spo2: this.props.units.spo2 || '%',
+				fio2: this.props.units.fio2 || '%',
+				baseExcess: this.props.units.baseExcess || 'mEq/L'
+			},
 			rules: {
 				o2Saturation: {
 					name: 'o2Saturation',
@@ -96,18 +106,19 @@ class ArterialGases extends React.Component {
 		params[e.target.id].value = e.target.value;
 
 		this.setState({ arterialGases: params });
-		this.props.updateInfo(params);
+		this.props.updateInfo(params, this.state.units);
 	}
 
 	next = () => {
 		const errors = {};
-		const {rules, arterialGases} = this.state;
+		const {rules, arterialGases, units} = this.state;
 
 		Object.keys(arterialGases).forEach((data) => {
 			if (rules[data]) {
-				if (!validateForm(rules[data], arterialGases[data])) {
+				const validateResponse = validateForm(rules[data], arterialGases[data], units[data]);
+				if (!validateResponse.success) {
 					errors[data] = {
-						msg: 'Value is invalid!'
+						msg: validateResponse.msg
 					};
 				}
 			}
@@ -116,6 +127,7 @@ class ArterialGases extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
 		} else {
+			this.props.updateInfo(arterialGases, units);
 			this.props.jumpToStep(this.props.step+1);
 		}
 

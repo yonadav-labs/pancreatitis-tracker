@@ -21,12 +21,20 @@ class BasicInfo extends React.Component {
 		super(props);
 		this.state = {
 			basicInfo: {
-				sex: this.props.data.sex || { value: 'm', label: 'Male' },
-				age: this.props.data.age || {value: '', unit: 'years'},
-				height: this.props.data.height || {value: '', unit: 'cm'},
-				weight: this.props.data.weight || {value: '', unit: 'kg'},
-				bmi: this.props.data.bmi || {value: '', unit: 'kg/m2'},
-				chronicHealthProblems: this.props.data.chronicHealthProblems || {value: ''}
+				sex: this.props.data.sex || {value: '', label: ''},
+				age: this.props.data.age || {value: '', label: ''},
+				height: this.props.data.height || {value: '', label: ''},
+				weight: this.props.data.weight || {value: '', label: ''},
+				bmi: this.props.data.bmi || {value: '', label: ''},
+				chronicHealthProblems: this.props.data.chronicHealthProblems || {value: '', label: ''}
+			},
+			units: {
+				sex: this.props.units.sex || '',
+				age: this.props.units.age || 'years',
+				height: this.props.units.height || 'cm',
+				weight: this.props.units.weight || 'kg',
+				bmi: this.props.units.bmi || 'kg/m2',
+				chronicHealthProblems: this.props.units.chronicHealthProblems || ''
 			},
 			rules: {
 				sex: {
@@ -66,7 +74,8 @@ class BasicInfo extends React.Component {
 		this.setState({ basicInfo: params });
 	}
 
-	calculateBMI(params) {
+	calculateBMI = (params) => {
+		const {units} = this.state;
 		let bmiValue = '';
 		
 		if (
@@ -74,12 +83,12 @@ class BasicInfo extends React.Component {
 			(params.height.value !== '' && params.height.value !== 0)
 		) {
 			let weightVal = parseFloat(params.weight.value);
-			if (params.weight.unit === 'lb') {
+			if (units.weight === 'lb') {
 				weightVal = lbToKgConvert(weightVal);
 			}
 
 			let heightVal = parseFloat(params.height.value) / 100;
-			if (params.height.unit === 'inch') {
+			if (units.height === 'inch') {
 				heightVal = inchToCmConvert(heightVal);
 			}
 
@@ -100,30 +109,33 @@ class BasicInfo extends React.Component {
 		params.bmi.value = bmiValue;
 
 		this.setState({ basicInfo: params });
+		this.props.updateInfo(params, this.state.units);
 	}
 
 	changeUnit = (id, value) => {
-		let params = this.state.basicInfo;
-		params[id].unit = value;
+		let {units, basicInfo} = this.state;
+		units[id] = value;
 
 		let bmiValue = '';
 		if (id === 'weight' || id === 'height') {
-			bmiValue = this.calculateBMI(params);
+			bmiValue = this.calculateBMI(basicInfo);
 		}
-		params.bmi.value = bmiValue;
+		basicInfo.bmi.value = bmiValue;
 
-		this.setState({basicInfo: params});
+		this.setState({basicInfo, units});
+		this.props.updateInfo(basicInfo, this.state.units);
 	}
 
 	next = () => {
 		const errors = {};
-		const {rules, basicInfo} = this.state;
+		const {rules, basicInfo, units} = this.state;
 
 		Object.keys(basicInfo).forEach((data) => {
 			if (rules[data]) {
-				if (!validateForm(rules[data], basicInfo[data])) {
+				const validateResponse = validateForm(rules[data], basicInfo[data], units[data]);
+				if (!validateResponse.success) {
 					errors[data] = {
-						msg: 'Value is invalid!'
+						msg: validateResponse.msg
 					};
 				}
 			}
@@ -132,7 +144,6 @@ class BasicInfo extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
 		} else {
-			this.props.updateInfo(this.state.basicInfo);
 			this.props.jumpToStep(this.props.step+1);
 		}
 	}
@@ -154,8 +165,8 @@ class BasicInfo extends React.Component {
 	}
 
 	render() {
-		const {basicInfo, errors} = this.state;
-
+		const {basicInfo, errors, units} = this.state;
+		console.log(this.state.errors);
 		return (
 			<div>
 				<ReactTooltip  effect='solid' />
@@ -175,7 +186,7 @@ class BasicInfo extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('sex',e)}
-									value={basicInfo.sex}
+									value={basicInfo.sex && basicInfo.sex.value}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.sex && errors.sex.msg}
@@ -218,6 +229,7 @@ class BasicInfo extends React.Component {
 									/>
 									<select
 										className="input-inline-select"
+										defaultValue={units.height}
 										onChange={e => this.changeUnit('height', e.target.value)}
 									>
 										<option>cm</option>
@@ -246,6 +258,7 @@ class BasicInfo extends React.Component {
 									/>
 									<select
 										className="input-inline-select"
+										defaultValue={units.weight}
 										onChange={e => this.changeUnit('weight', e.target.value)}
 									>
 										<option>kg</option>

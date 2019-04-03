@@ -20,6 +20,20 @@ class Chemistry extends React.Component {
 				alt: this.props.data.alt || { value: '', unit: 'U/L'},
 				ldh: this.props.data.ldh || { value: '', unit: 'IU/L'}
 			},
+			units: {
+				sodium: this.props.units.sodium || 'mmol/L',
+				potassium: this.props.units.potassium || 'mmol/L',
+				chloride: this.props.units.chloride || 'mmol/L',
+				hco3_serum: this.props.units.hco3_serum || 'mmol/L',
+				bun: this.props.units.bun || 'mg/dL',
+				creatinine: this.props.units.creatinine || 'mg/dL',
+				glucose: this.props.units.glucose || 'mmol/L',
+				calcium: this.props.units.calcium || 'mmol/L',
+				albumin: this.props.units.albumin || 'mg/dL',
+				ast: this.props.units.ast || 'U/L',
+				alt: this.props.units.alt || 'U/L',
+				ldh: this.props.units.ldh || 'IU/L'
+			},
 			rules: {
 				sodium: {
 					name: 'sodium',
@@ -135,25 +149,27 @@ class Chemistry extends React.Component {
 		params[e.target.id].value = e.target.value;
 
 		this.setState({ chemistry: params });
-		this.props.updateInfo(params);
+		this.props.updateInfo(params, this.state.units);
 	}
 
 	changeUnit = (id, value) => {
-		let params = this.state.chemistry;
-		params[id].unit = value;
+		let {units, chemistry} = this.state;
+		units[id] = value;
 
-		this.setState({basicInfo: params});
+		this.setState({ units });
+		this.props.updateInfo(chemistry, this.state.units);
 	}
 
 	next = () => {
 		const errors = {};
-		const {rules, chemistry} = this.state;
+		const {rules, chemistry, units} = this.state;
 
 		Object.keys(chemistry).forEach((data) => {
 			if (rules[data]) {
-				if (!validateForm(rules[data], chemistry[data])) {
+				const validateResponse = validateForm(rules[data], chemistry[data], units[data]);
+				if (!validateResponse.success) {
 					errors[data] = {
-						msg: 'Value is invalid!'
+						msg: validateResponse.msg
 					};
 				}
 			}
@@ -164,7 +180,6 @@ class Chemistry extends React.Component {
 		} else {
 			this.props.jumpToStep(this.props.step+1);
 		}
-
 	}
 
 	back = () => {
@@ -172,7 +187,8 @@ class Chemistry extends React.Component {
 	}
 
 	render() {
-		const {chemistry, errors} = this.state;
+		const {chemistry, errors, units} = this.state;
+		console.log('=====', units, chemistry);
 		return (
 			<div>
 				<h2 className="section-title">Chem 7 BMP + Calcium</h2>
@@ -193,6 +209,7 @@ class Chemistry extends React.Component {
 									/>
 									<select
 										className="input-inline-select"
+										defaultValue={units.sodium}
 										onChange={e => this.changeUnit('sodium', e.target.value)}
 									>
 										<option>mmol/L</option>
@@ -303,6 +320,7 @@ class Chemistry extends React.Component {
 									/>
 									<select
 										className="input-inline-select"
+										defaultValue={units.glucose}
 										onChange={e => this.changeUnit('glucose', e.target.value)}
 									>
 										<option>mmol/L</option>
@@ -350,6 +368,7 @@ class Chemistry extends React.Component {
 									/>
 									<select
 										className="input-inline-select"
+										defaultValue={units.calcium}
 										onChange={e => this.changeUnit('calcium', e.target.value)}
 									>
 										<option>mmol/L</option>
@@ -381,6 +400,7 @@ class Chemistry extends React.Component {
 									/>
 									<select
 										className="input-inline-select"
+										defaultValue={units.albumin}
 										onChange={e => this.changeUnit('albumin', e.target.value)}
 									>
 										<option>mg/dL</option>

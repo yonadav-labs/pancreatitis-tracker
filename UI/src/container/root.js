@@ -11,6 +11,7 @@ import PatientData from "./views/patient-data";
 import Order from "./views/order";
 import NotFound from "./components/not-found";
 import Header from "./components/Header";
+import About from "./views/about";
 
 const RootComponent = () => {
 	return (
@@ -26,6 +27,7 @@ const RootComponent = () => {
 				<Route exact path="/account" component={Account} />
 				<Route exact path="/patient" component={PatientData} />
 				<Route exact path="/order" component={Order} />
+				<Route exact path="/about" component={About} />
 
 				<Route default component={NotFound} />
 			</Switch>

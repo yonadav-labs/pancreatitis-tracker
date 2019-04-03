@@ -80,13 +80,12 @@ class AccountInfo extends React.Component {
 		const errors = {};
 		const patientErrors = {};
 		const {rules, physician, patient} = this.state;
-		console.log('======= save accout ======', physician);
 
 		Object.keys(physician).forEach((data) => {
 			if (rules[data]) {
 				if (!validateAccount(rules[data], physician[data])) {
 					errors[data] = {
-						msg: 'Value is invalid!'
+						msg: 'Value is invalid'
 					};
 				}
 			}
@@ -96,25 +95,25 @@ class AccountInfo extends React.Component {
 			if (rules[data]) {
 				if (!validateAccount(rules[data], patient[data])) {
 					patientErrors[data] = {
-						msg: 'Value is invalid!'
+						msg: 'Value is not valid'
 					};
 				}
 			}
 		});
 
 		if (physician.email !== physician.confirmEmail) {
-			errors.confirmEmail = { msg: 'email is not matching!'};
-			errors.email = { msg: 'email is not matching!'};
+			errors.confirmEmail = { msg: 'Email is not matching'};
+			errors.email = { msg: 'Email is not matching'};
 		}
 
 		if (patient.email !== patient.confirmEmail) {
-			patientErrors.confirmEmail = { msg: 'email is not matching!'};
-			patientErrors.email = { msg: 'email is not matching!'};
+			patientErrors.confirmEmail = { msg: 'Email is not matching'};
+			patientErrors.email = { msg: 'Email is not matching'};
 		}
 
 		if (physician.phone !== physician.confirmPhone) {
-			errors.phone = { msg: 'phone number is not matching!'};
-			errors.confirmPhone = { msg: 'phone number is not matching!'};
+			errors.phone = { msg: 'Phone number is not matching'};
+			errors.confirmPhone = { msg: 'Phone number is not matching'};
 		}
 
 		if (
@@ -123,7 +122,6 @@ class AccountInfo extends React.Component {
 		) {
 			this.setState({ errors: errors, patientErrors: patientErrors });
 		} else {
-			console.log('======', errors, "===========", patientErrors);
 		}
 	}
 

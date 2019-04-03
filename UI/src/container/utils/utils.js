@@ -43,13 +43,14 @@ export const validateEmail = (email) => {
 	}
 }
 
-export function validateForm(rule, data) {
+export function validateForm(rule, data, unit) {
 	let isValidate = true;
+	let errorMsg = 'Value is not valid';
 		
 	if (rule) {
 		if (!rule.required) {
 			if (!data || data.value === '') {
-				return true;
+				return { success: true, msg: ''};
 			}
 		}
 
@@ -58,13 +59,15 @@ export function validateForm(rule, data) {
 				if (!isNaN(data.value)) {
 					rule.range.forEach((range) => {
 						if (
-							range.unit === data.unit &&
+							// range.unit === data.unit &&
+							range.unit === unit &&
 							(
 								range.min > parseFloat(data.value, 10)
 								|| range.max < parseFloat(data.value, 10)
 							)
 						) {
 							isValidate = false;
+							errorMsg = `Valid in (${range.min}, ${range.max})`;
 						}
 					});
 				} else {
@@ -103,7 +106,7 @@ export function validateForm(rule, data) {
 		}
 	}
 
-	return isValidate;
+	return { success: isValidate, msg: errorMsg };
 }
 
 export const validateAccount = (rule, data) => {
