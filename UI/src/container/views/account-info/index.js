@@ -80,13 +80,12 @@ class AccountInfo extends React.Component {
 		const errors = {};
 		const patientErrors = {};
 		const {rules, physician, patient} = this.state;
-		console.log('======= save accout ======', physician);
 
 		Object.keys(physician).forEach((data) => {
 			if (rules[data]) {
 				if (!validateAccount(rules[data], physician[data])) {
 					errors[data] = {
-						msg: 'Value is invalid!'
+						msg: 'Value is invalid'
 					};
 				}
 			}
