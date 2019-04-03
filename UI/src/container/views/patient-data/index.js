@@ -23,56 +23,57 @@ class PatientData extends React.Component {
 		super(props);
 		this.state = {
 			data: {
-				sex: this.props.patient.sex || { value: 'm', label: 'Male' },
-				age: this.props.patient.age || {value: '', unit: 'years'},
-				height: this.props.patient.height || {value: '', unit: 'cm'},
-				weight: this.props.patient.weight || {value: '', unit: 'kg'},
-				bmi: this.props.patient.bmi || {value: '', unit: 'kg/m2'},
-				chronicHealthProblems: this.props.patient.chronicHealthProblems || {value: ''},
-				o2Saturation: this.props.patient.o2Saturation || {value: '', unit: '%'},
-				ph: this.props.patient.ph || {value: '', unit: ''},
-				pao2: this.props.patient.pao2 || {value: '', unit: 'mmHg'},
-				paco2: this.props.patient.paco2 || {value: '', unit: 'mmHg'},
-				hco3_artieral: this.props.patient.hco3_artieral || {value: '', unit: 'mmol/L'},
-				spo2: this.props.patient.spo2 || {value: '', unit: '%'},
-				fio2: this.props.patient.fio2 || {value: '', unit: '%'},
-				baseExcess: this.props.patient.baseExcess || {value: '', unit: 'mEq/L'},
-				sodium: this.props.patient.sodium || { value: '', unit: 'mmol/L'},
-				potassium: this.props.patient.potassium || { value: '', unit: 'mmol/L'},
-				chloride: this.props.patient.chloride || { value: '', unit: 'mmol/L'},
-				hco3_serum: this.props.patient.hco3_serum || { value: '', unit: 'mmol/L'},
-				bun: this.props.patient.bun || { value: '', unit: 'mg/dL'},
-				creatinine: this.props.patient.creatinine || { value: '', unit: 'mg/dL'},
-				glucose: this.props.patient.glucose || { value: '', unit: 'mmol/L'},
-				calcium: this.props.patient.calcium || { value: '', unit: 'mmol/L'},
-				albumin: this.props.patient.albumin || { value: '', unit: 'mg/dL'},
-				ast: this.props.patient.ast || { value: '', unit: 'U/L'},
-				alt: this.props.patient.alt || { value: '', unit: 'U/L'},
-				ldh: this.props.patient.ldh || { value: '', unit: 'IU/L'},
-				whiteBloodCellCount: this.props.patient.whiteBloodCellCount || { value: '', unit: '10^9 cells/L'},
-				plateletCount: this.props.patient.plateletCount || { value: '', unit: '10^3 units/mm^3'},
-				hematocrit: this.props.patient.hematocrit || { value: '', unit: '%'},
-				crp: this.props.patient.crp || { value: '', unit: 'mg/L'},
-				peritonitis: this.props.patient.peritonitis || { value: '', label: '' },
-				glasgowComaScore: this.props.patient.glasgowComaScore || {value: '', unit: 'a.u'},
-				eyeResponse: this.props.patient.eyeResponse || {value: '', unit: 'a.u'},
-				verbalResponse: this.props.patient.verbalResponse || {value: '', unit: 'a.u'},
-				motorResponse: this.props.patient.motorResponse || {value: '', unit: 'a.u'},
-				pleuralEffusion: this.props.patient.pleuralEffusion || { value: '', label: '' },
-				temperature: this.props.patient.temperature || {value: '', unit: 'celcius'},
-				systolicBp: this.props.patient.systolicBp || {value: '', unit: 'mmHg'},
-				DiastolicBp: this.props.patient.DiastolicBp || {value: '', unit: 'mmHg'},
-				heartRate: this.props.patient.heartRate || {value: '', unit: 'bpm'},
-				RespiratoryRate: this.props.patient.RespiratoryRate || {value: '', unit: 'bpm'},
-				Map: this.props.patient.Map ||  {value: '', label: '', unit: ''},
-				oliguria: this.props.patient.oliguria ||  {value: '', label: '', unit: ''},
-				respiratoryFailure: this.props.patient.respiratoryFailure ||  {value: '', label: '', unit: ''},
-				chronicHealthPoints: this.props.patient.chronicHealthPoints ||  {value: '', label: '', unit: ''},
-				fluidReponsivity: this.props.patient.fluidReponsivity || {value: '', label: '', unit: ''}
+				sex: this.props.patient.sex || {value: '', label: ''},
+				age: this.props.patient.age || {value: '', label: ''},
+				height: this.props.patient.height || {value: '', label: ''},
+				weight: this.props.patient.weight || {value: '', label: ''},
+				bmi: this.props.patient.bmi || {value: '', label: ''},
+				chronicHealthProblems: this.props.patient.chronicHealthProblems || {value: '', label: ''},
+				o2Saturation: this.props.patient.o2Saturation || {value: '', label: ''},
+				ph: this.props.patient.ph || {value: '', label: ''},
+				pao2: this.props.patient.pao2 || {value: '', label: ''},
+				paco2: this.props.patient.paco2 || {value: '', label: ''},
+				hco3_artieral: this.props.patient.hco3_artieral || {value: '', label: ''},
+				spo2: this.props.patient.spo2 || {value: '', label: ''},
+				fio2: this.props.patient.fio2 || {value: '', label: ''},
+				baseExcess: this.props.patient.baseExcess || {value: '', label: ''},
+				sodium: this.props.patient.sodium || {value: '', label: ''},
+				potassium: this.props.patient.potassium || {value: '', label: ''},
+				chloride: this.props.patient.chloride || {value: '', label: ''},
+				hco3_serum: this.props.patient.hco3_serum || {value: '', label: ''},
+				bun: this.props.patient.bun || {value: '', label: ''},
+				creatinine: this.props.patient.creatinine || {value: '', label: ''},
+				glucose: this.props.patient.glucose || {value: '', label: ''},
+				calcium: this.props.patient.calcium || {value: '', label: ''},
+				albumin: this.props.patient.albumin || {value: '', label: ''},
+				ast: this.props.patient.ast || {value: '', label: ''},
+				alt: this.props.patient.alt || {value: '', label: ''},
+				ldh: this.props.patient.ldh || {value: '', label: ''},
+				whiteBloodCellCount: this.props.patient.whiteBloodCellCount || {value: '', label: ''},
+				plateletCount: this.props.patient.plateletCount || {value: '', label: ''},
+				hematocrit: this.props.patient.hematocrit || {value: '', label: ''},
+				crp: this.props.patient.crp || {value: '', label: ''},
+				peritonitis: this.props.patient.peritonitis || {value: '', label: ''},
+				glasgowComaScore: this.props.patient.glasgowComaScore || {value: '', label: ''},
+				eyeResponse: this.props.patient.eyeResponse || {value: '', label: ''},
+				verbalResponse: this.props.patient.verbalResponse || {value: '', label: ''},
+				motorResponse: this.props.patient.motorResponse || {value: '', label: ''},
+				pleuralEffusion: this.props.patient.pleuralEffusion || {value: '', label: ''},
+				temperature: this.props.patient.temperature || {value: '', label: ''},
+				systolicBp: this.props.patient.systolicBp || {value: '', label: ''},
+				DiastolicBp: this.props.patient.DiastolicBp || {value: '', label: ''},
+				heartRate: this.props.patient.heartRate || {value: '', label: ''},
+				RespiratoryRate: this.props.patient.RespiratoryRate || {value: '', label: ''},
+				Map: this.props.patient.Map || {value: '', label: ''},
+				oliguria: this.props.patient.oliguria || {value: '', label: ''},
+				respiratoryFailure: this.props.patient.respiratoryFailure || {value: '', label: ''},
+				chronicHealthPoints: this.props.patient.chronicHealthPoints || {value: '', label: ''},
+				fluidReponsivity: this.props.patient.fluidReponsivity ||{value: '', label: ''}
 			},
 			error: {
 
 			},
+			units: { ...this.props.units },
 			step: 0
 		};
 
@@ -82,6 +83,7 @@ class PatientData extends React.Component {
 	componentDidMount() {
 		jQuery("ol.progtrckr li span").on("click", (event) => {
 			event.preventDefault();
+			event.stopPropagation();
 		});
 	}
 
@@ -92,11 +94,16 @@ class PatientData extends React.Component {
 		}
 	}
 
-	updateInfo(data) {
+	updateInfo(data, units) {
 		let params = Object.assign({}, this.state.data, data);
+		let unitParams = Object.assign({}, this.state.units, units);
 
-		this.setState({ data: params });
-		this.props.setUpdatesPerPagePatientAction({ data: params, step: this.state.step + 1 });
+		this.setState({ data: params, units: unitParams });
+		this.props.setUpdatesPerPagePatientAction({
+			data: params,
+			units: unitParams,
+			step: this.state.step + 1
+		});
 	}
 
 	changeStep = (step) => {
@@ -109,15 +116,13 @@ class PatientData extends React.Component {
 
 	render () {
 		const steps = [
-			{name: 'Basic info', component: <BasicInfo step={0} updateInfo={this.updateInfo} data={this.state.data} loadData={this.loadPatientData} />},
-			{name: 'Physical Exam', component: <PhysicalExam step={1} updateInfo={this.updateInfo} data={this.state.data} />},
-			{name: 'Vital Signs', component: <VitalSigns step={2} updateInfo={this.updateInfo} data={this.state.data} />},
-			{name: 'Arterial Gases', component: <ArterialGases step={3} updateInfo={this.updateInfo} data={this.state.data} />},
-			{name: 'Chemistry', component: <Chemistry step={4} updateInfo={this.updateInfo} data={this.state.data} />},
-			{name: 'Hematology', component: <Hematology step={5} updateInfo={this.updateInfo} data={this.state.data} savePatientData={this.props.savePatientDataAction} />}
+			{name: 'Basic info', component: <BasicInfo step={0} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} loadData={this.loadPatientData} />},
+			{name: 'Physical Exam', component: <PhysicalExam step={1} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
+			{name: 'Vital Signs', component: <VitalSigns step={2} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
+			{name: 'Arterial Gases', component: <ArterialGases step={3} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
+			{name: 'Chemistry', component: <Chemistry step={4} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
+			{name: 'Hematology', component: <Hematology step={5} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} savePatientData={this.props.savePatientDataAction} />}
 		];
-
-		console.log(this.state.data);
 
 		return (
 			<div className="app-content">
@@ -129,14 +134,15 @@ class PatientData extends React.Component {
 					</div>
 					<div className="page-section">
 						<div className="mb-5">
-							<div className='step-progress'>
-								<StepZilla
-									steps={steps}
-									onStepChange={this.changeStep}
-									stepsNavigation={true}
-									nextButtonCls="d-none"
-									backButtonCls="d-none"
-								/>
+							<div className='example'>
+								<div className='step-progress'>
+									<StepZilla
+										steps={steps}
+										onStepChange={(step) => this.changeStep(step)}
+										stepsNavigation={true}
+										showNavigation={false}
+									/>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -148,7 +154,8 @@ class PatientData extends React.Component {
 
 const mapStatetoProps = state => {
 	return {
-	  patient: state.patient
+		patient: state.patient,
+		units: state.units
 	};
 };
 
@@ -162,5 +169,5 @@ const mapDispatchToProps = dispatch => {
 		}, dispatch)
 	);
 };
-  
+	
 export default connect(mapStatetoProps, mapDispatchToProps)(PatientData);

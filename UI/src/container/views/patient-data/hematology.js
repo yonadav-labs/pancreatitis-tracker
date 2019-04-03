@@ -13,6 +13,12 @@ class Hematology extends React.Component {
 				hematocrit: this.props.data.hematocrit || { value: '', unit: '%'},
 				crp: this.props.data.crp || { value: '', unit: 'mg/L'}
 			},
+			units: {
+				whiteBloodCellCount: this.props.units.whiteBloodCellCount || '10^9 cells/L',
+				plateletCount: this.props.units.plateletCount || '10^3 units/mm^3',
+				hematocrit: this.props.units.hematocrit || '%',
+				crp: this.props.units.crp || 'mg/L'
+			},
 			rules: {
 				whiteBloodCellCount: {
 					name: 'whiteBloodCellCount',
@@ -65,25 +71,27 @@ class Hematology extends React.Component {
 		params[e.target.id].value = e.target.value;
 
 		this.setState({ hematology: params });
-		this.props.updateInfo(params);
+		this.props.updateInfo(params, this.state.units);
 	}
 
 	changeUnit = (id, value) => {
-		let params = this.state.hematology;
-		params[id].unit = value;
+		let { units, hematology } = this.state;
+		units[id] = value;
 
-		this.setState({basicInfo: params});
+		this.setState({ units });
+		this.props.updateInfo(hematology, this.state.units);
 	}
 
 	next = () => {
 		const errors = {};
-		const {rules, hematology} = this.state;
+		const {rules, hematology, units} = this.state;
 
 		Object.keys(hematology).forEach((data) => {
 			if (rules[data]) {
-				if (!validateForm(rules[data], hematology[data])) {
+				const validateResponse = validateForm(rules[data], hematology[data], units[data]);
+				if (!validateResponse.success) {
 					errors[data] = {
-						msg: 'Value is invalid!'
+						msg: validateResponse.msg
 					};
 				}
 			}
@@ -103,7 +111,7 @@ class Hematology extends React.Component {
 	}
 
 	render() {
-		const {hematology, errors} = this.state;
+		const {hematology, errors, units} = this.state;
 
 		return (
 			<div>
@@ -144,6 +152,7 @@ class Hematology extends React.Component {
 									/>
 									<select
 										className="input-inline-select"
+										defaultValue={units.plateletCount}
 										onChange={e => this.changeUnit('plateletCount', e.target.value)}
 									>
 										<option>10^3 units/mm^3</option>
@@ -197,6 +206,7 @@ class Hematology extends React.Component {
 									/>
 									<select
 										className="input-inline-select"
+										defaultValue={units.crp}
 										onChange={e => this.changeUnit('crp', e.target.value)}
 									>
 										<option>mg/L</option>

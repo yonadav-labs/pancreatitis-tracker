@@ -50,6 +50,14 @@ class PhysicalExam extends React.Component {
 				motorResponse: this.props.data.motorResponse || {value: '', unit: 'a.u'},
 				pleuralEffusion: this.props.data.pleuralEffusion || { value: '', label: '' }
 			},
+			units: {
+				peritonitis: '',
+				glasgowComaScore: 'a.u',
+				eyeResponse: 'a.u',
+				verbalResponse: 'a.u',
+				motorResponse: 'a.u',
+				pleuralEffusion: ''
+			},
 			rules: {
 				peritonitis: {
 					name: 'peritonitis',
@@ -106,7 +114,7 @@ class PhysicalExam extends React.Component {
 		params[e.target.id].value = e.target.value;
 
 		this.setState({ physicalExam: params });
-		this.props.updateInfo(params);
+		this.props.updateInfo(params, this.state.units);
 	}
 
 	changeOption = (id, val) => {
@@ -114,17 +122,19 @@ class PhysicalExam extends React.Component {
 		physicalExam[id] = {...physicalExam[id], ...val};
 
 		this.setState({ physicalExam });
+		this.props.updateInfo(physicalExam, this.state.units);
 	}
 
 	next = () => {
 		const errors = {};
-		const {rules, physicalExam} = this.state;
+		const {rules, physicalExam, units} = this.state;
 
 		Object.keys(physicalExam).forEach((data) => {
 			if (rules[data]) {
-				if (!validateForm(rules[data], physicalExam[data])) {
+				const validateResponse = validateForm(rules[data], physicalExam[data], units[data]);
+				if (!validateResponse.success) {
 					errors[data] = {
-						msg: 'Value is invalid!'
+						msg: validateResponse.msg
 					};
 				}
 			}
@@ -133,7 +143,6 @@ class PhysicalExam extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
 		} else {
-			this.props.updateInfo(this.state.physicalExam);
 			this.props.jumpToStep(this.props.step+1);
 		}
 
@@ -145,6 +154,7 @@ class PhysicalExam extends React.Component {
 
 	render() {
 		const {physicalExam, errors} = this.state;
+		console.log('phys: ', this.state.errors);
 		return (
 			<div>
 				<ReactTooltip effect='solid' />

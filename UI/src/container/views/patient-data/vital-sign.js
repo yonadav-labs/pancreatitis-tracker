@@ -15,6 +15,13 @@ class VitalSigns extends React.Component {
 				heartRate: this.props.data.heartRate || {value: '', unit: 'bpm'},
 				RespiratoryRate: this.props.data.RespiratoryRate || {value: '', unit: 'bpm'}
 			},
+			units: {
+				temperature: this.props.units.temperature || 'celcius',
+				systolicBp: this.props.units.systolicBp || 'mmHg',
+				DiastolicBp: this.props.units.DiastolicBp || 'mmHg',
+				heartRate: this.props.units.heartRate || 'bpm',
+				RespiratoryRate: this.props.units.RespiratoryRate || 'bpm'
+			},
 			rules: {
 				temperature: {
 					name: 'temperature',
@@ -76,25 +83,27 @@ class VitalSigns extends React.Component {
 		params[e.target.id].value = e.target.value;
 
 		this.setState({ vitalSigns: params });
-		this.props.updateInfo(params);
+		this.props.updateInfo(params, this.state.units);
 	}
 
 	changeUnit = (id, value) => {
-		let params = this.state.vitalSigns;
-		params[id].unit = value;
+		let {units, vitalSigns} = this.state;
+		units[id] = value;
 
-		this.setState({vitalSigns: params});
+		this.setState({ units });
+		this.props.updateInfo(vitalSigns, this.state.units);
 	}
 
 	next = () => {
 		const errors = {};
-		const {rules, vitalSigns} = this.state;
+		const {rules, vitalSigns, units} = this.state;
 
 		Object.keys(vitalSigns).forEach((data) => {
 			if (rules[data]) {
-				if (!validateForm(rules[data], vitalSigns[data])) {
+				const validateResponse = validateForm(rules[data], vitalSigns[data], units[data]);
+				if (!validateResponse.success) {
 					errors[data] = {
-						msg: 'Value is invalid!'
+						msg: validateResponse.msg
 					};
 				}
 			}
@@ -113,7 +122,7 @@ class VitalSigns extends React.Component {
 	}
 
 	render() {
-		const {vitalSigns, errors} = this.state;
+		const {vitalSigns, errors, units} = this.state;
 
 		return (
 			<div>
@@ -130,12 +139,12 @@ class VitalSigns extends React.Component {
 										type="text"
 										id="temperature"
 										className="round-input"
-										value={vitalSigns.temperature && vitalSigns.temperature.value}
+										value={units.temperature && vitalSigns.temperature.value}
 										onChange={this.changeInfo}
 									/>
 									<select
 										className="input-inline-select"
-										defaultValue={vitalSigns.temperature && vitalSigns.temperature.unit}
+										defaultValue={units.temperate}
 										onChange={e => this.changeUnit('temperature', e.target.value)}
 									>
 										<option value="celcius">°C</option>
