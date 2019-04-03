@@ -15,7 +15,7 @@ class About extends React.Component {
 	render () {
 		return (
 			<div className="app-content">
-				<Title title="Contact Us" />
+				<Title title="About" />
 				<div className="container">
 					<div className="page-description">
 						<p>Welcome to Ariel Precision Medicine's Acute Pancreatitis Severity Calculator (APSC).</p>

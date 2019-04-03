@@ -85,7 +85,7 @@ class AccountInfo extends React.Component {
 			if (rules[data]) {
 				if (!validateAccount(rules[data], physician[data])) {
 					errors[data] = {
-						msg: 'Value is invalid'
+						msg: 'Please provide a valid data'
 					};
 				}
 			}
@@ -95,7 +95,7 @@ class AccountInfo extends React.Component {
 			if (rules[data]) {
 				if (!validateAccount(rules[data], patient[data])) {
 					patientErrors[data] = {
-						msg: 'Value is not valid'
+						msg: 'Please provide a valid data'
 					};
 				}
 			}
@@ -245,72 +245,74 @@ class AccountInfo extends React.Component {
 								<div className="row justify-content-center mb-3 pb-3">
 									<GreenButton text="Patient" />
 								</div>
-								<div className="row mb-5">
-									<div className="col-xs-12 col-sm-6">
-										<div className="round-btn grey-label">First Name</div>
+								<div className="d-none">
+									<div className="row mb-5">
+										<div className="col-xs-12 col-sm-6">
+											<div className="round-btn grey-label">First Name</div>
+										</div>
+										<div className="col-xs-12 col-sm-6">
+											<input
+												type="text"
+												id="firstName"
+												className="round-input"
+												value={patient.firstName}
+												onChange={this.changePatient}
+											/>
+											<label className="color-danger pt-2 text-danger text-center warning-message">
+												{patientErrors.firstName && patientErrors.firstName.msg}
+											</label>
+										</div>
 									</div>
-									<div className="col-xs-12 col-sm-6">
-										<input
-											type="text"
-											id="firstName"
-											className="round-input"
-											value={patient.firstName}
-											onChange={this.changePatient}
-										/>
-										<label className="color-danger pt-2 text-danger text-center warning-message">
-											{patientErrors.firstName && patientErrors.firstName.msg}
-										</label>
+									<div className="row mb-5">
+										<div className="col-xs-12 col-sm-6">
+											<div className="round-btn grey-label">Last Name</div>
+										</div>
+										<div className="col-xs-12 col-sm-6">
+											<input
+												type="text"
+												id="lastName"
+												className="round-input"
+												value={patient.lastName}
+												onChange={this.changePatient}
+											/>
+											<label className="color-danger pt-2 text-danger text-center warning-message">
+												{patientErrors.lastName && patientErrors.lastName.msg}
+											</label>
+										</div>
 									</div>
-								</div>
-								<div className="row mb-5">
-									<div className="col-xs-12 col-sm-6">
-										<div className="round-btn grey-label">Last Name</div>
+									<div className="row mb-5">
+										<div className="col-xs-12 col-sm-6">
+											<div className="round-btn grey-label">Email</div>
+										</div>
+										<div className="col-xs-12 col-sm-6">
+											<input
+												type="email"
+												id="email"
+												className="round-input"
+												value={patient.email}
+												onChange={this.changePatient}
+											/>
+											<label className="color-danger pt-2 text-danger text-center warning-message">
+												{patientErrors.email && patientErrors.email.msg}
+											</label>
+										</div>
 									</div>
-									<div className="col-xs-12 col-sm-6">
-										<input
-											type="text"
-											id="lastName"
-											className="round-input"
-											value={patient.lastName}
-											onChange={this.changePatient}
-										/>
-										<label className="color-danger pt-2 text-danger text-center warning-message">
-											{patientErrors.lastName && patientErrors.lastName.msg}
-										</label>
-									</div>
-								</div>
-								<div className="row mb-5">
-									<div className="col-xs-12 col-sm-6">
-										<div className="round-btn grey-label">Email</div>
-									</div>
-									<div className="col-xs-12 col-sm-6">
-										<input
-											type="email"
-											id="email"
-											className="round-input"
-											value={patient.email}
-											onChange={this.changePatient}
-										/>
-										<label className="color-danger pt-2 text-danger text-center warning-message">
-											{patientErrors.email && patientErrors.email.msg}
-										</label>
-									</div>
-								</div>
-								<div className="row mb-5">
-									<div className="col-xs-12 col-sm-6">
-										<div className="round-btn grey-label">Confirm Email</div>
-									</div>
-									<div className="col-xs-12 col-sm-6">
-										<input
-											type="text"
-											id="confirmEmail"
-											className="round-input"
-											value={patient.confirmEmail}
-											onChange={this.changePatient}
-										/>
-										<label className="color-danger pt-2 text-danger text-center warning-message">
-											{patientErrors.confirmEmail && patientErrors.confirmEmail.msg}
-										</label>
+									<div className="row mb-5">
+										<div className="col-xs-12 col-sm-6">
+											<div className="round-btn grey-label">Confirm Email</div>
+										</div>
+										<div className="col-xs-12 col-sm-6">
+											<input
+												type="text"
+												id="confirmEmail"
+												className="round-input"
+												value={patient.confirmEmail}
+												onChange={this.changePatient}
+											/>
+											<label className="color-danger pt-2 text-danger text-center warning-message">
+												{patientErrors.confirmEmail && patientErrors.confirmEmail.msg}
+											</label>
+										</div>
 									</div>
 								</div>
 							</div>

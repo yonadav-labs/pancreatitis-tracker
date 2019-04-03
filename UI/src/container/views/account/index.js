@@ -79,7 +79,7 @@ class Account extends React.Component {
 								</div>
 							</div>
 						</div>
-						<div className="row p-5">
+						<div className="row p-5 d-none">
 							<div className="col-sm-12 col-md-3">
 								<img src="/assets/images/circle.svg" />
 							</div>
