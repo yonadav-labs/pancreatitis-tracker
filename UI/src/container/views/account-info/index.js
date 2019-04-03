@@ -85,7 +85,7 @@ class AccountInfo extends React.Component {
 			if (rules[data]) {
 				if (!validateAccount(rules[data], physician[data])) {
 					errors[data] = {
-						msg: 'Value is invalid'
+						msg: 'Please provide a valid data'
 					};
 				}
 			}
@@ -95,7 +95,7 @@ class AccountInfo extends React.Component {
 			if (rules[data]) {
 				if (!validateAccount(rules[data], patient[data])) {
 					patientErrors[data] = {
-						msg: 'Value is not valid'
+						msg: 'Please provide a valid data'
 					};
 				}
 			}

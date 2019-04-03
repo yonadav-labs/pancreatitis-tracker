@@ -45,7 +45,7 @@ export const validateEmail = (email) => {
 
 export function validateForm(rule, data, unit) {
 	let isValidate = true;
-	let errorMsg = 'Value is not valid';
+	let errorMsg = 'Please provide a valid data';
 		
 	if (rule) {
 		if (!rule.required) {

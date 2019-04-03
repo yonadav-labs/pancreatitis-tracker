@@ -416,6 +416,25 @@ class Chemistry extends React.Component {
 					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
+								<div className="round-btn grey-label">LDH</div>
+							</div>
+							<div className="col-xs-12 col-sm-6">
+								<input
+									type="text"
+									id="ldh"
+									className="round-input"
+									value={chemistry.ldh.value}
+									onChange={this.changeInfo}
+								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.ldh && errors.ldh.msg}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div className="col-xs-12 col-md-6">
+						<div className="row mb-5">
+							<div className="col-xs-12 col-sm-6">
 								<div className="round-btn grey-label">AST</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
@@ -447,25 +466,6 @@ class Chemistry extends React.Component {
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.alt && errors.alt.msg}
-								</label>
-							</div>
-						</div>
-					</div>
-					<div className="col-xs-12 col-md-6">
-						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">LDH</div>
-							</div>
-							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="ldh"
-									className="round-input"
-									value={chemistry.ldh.value}
-									onChange={this.changeInfo}
-								/>
-								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.ldh && errors.ldh.msg}
 								</label>
 							</div>
 						</div>
