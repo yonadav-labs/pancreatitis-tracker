@@ -13,14 +13,16 @@ class VitalSigns extends React.Component {
 				systolicBp: this.props.data.systolicBp || {value: '', unit: 'mmHg'},
 				DiastolicBp: this.props.data.DiastolicBp || {value: '', unit: 'mmHg'},
 				heartRate: this.props.data.heartRate || {value: '', unit: 'bpm'},
-				RespiratoryRate: this.props.data.RespiratoryRate || {value: '', unit: 'bpm'}
+				RespiratoryRate: this.props.data.RespiratoryRate || {value: '', unit: 'bpm'},
+				pulseOximetry: this.props.data.pulseOximetry || {value: '', unit: '%'}
 			},
 			units: {
 				temperature: this.props.units.temperature || 'celcius',
 				systolicBp: this.props.units.systolicBp || 'mmHg',
 				DiastolicBp: this.props.units.DiastolicBp || 'mmHg',
 				heartRate: this.props.units.heartRate || 'bpm',
-				RespiratoryRate: this.props.units.RespiratoryRate || 'bpm'
+				RespiratoryRate: this.props.units.RespiratoryRate || 'bpm',
+				pulseOximetry: this.props.units.pulseOximetry || '%'
 			},
 			rules: {
 				temperature: {
@@ -61,6 +63,14 @@ class VitalSigns extends React.Component {
 						{ min: 5, max: 50, unit: 'bpm' }
 					],
 					required: true
+				},
+				pulseOximetry: {
+					name: 'pulseOximetry',
+					type: 'integer',
+					range: [
+						{ min: 80, max: 100, unit: '%' }
+					],
+					required: true
 				}
 			},
 			errors: {},
@@ -91,7 +101,7 @@ class VitalSigns extends React.Component {
 		units[id] = value;
 
 		this.setState({ units });
-		this.props.updateInfo(vitalSigns, this.state.units);
+		this.props.updateInfo(vitalSigns, units);
 	}
 
 	next = () => {
@@ -123,6 +133,7 @@ class VitalSigns extends React.Component {
 
 	render() {
 		const {vitalSigns, errors, units} = this.state;
+		console.log(units);
 
 		return (
 			<div>
@@ -144,7 +155,7 @@ class VitalSigns extends React.Component {
 									/>
 									<select
 										className="input-inline-select"
-										defaultValue={units.temperate}
+										defaultValue={units.temperature}
 										onChange={e => this.changeUnit('temperature', e.target.value)}
 									>
 										<option value="celcius">°C</option>
@@ -241,6 +252,31 @@ class VitalSigns extends React.Component {
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.RespiratoryRate && errors.RespiratoryRate.msg}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div className="col-xs-12 col-md-6">
+						<div className="row mb-5">
+							<div className="col-xs-12 col-sm-6">
+								<div
+									className="round-btn grey-label"
+									data-multiline="true"
+									data-tip="O₂ saturation <br />&nbsp;&nbsp;&nbsp; -Dan Spagnolo"
+								>
+									Pulse Oximetry
+								</div>
+							</div>
+							<div className="col-xs-12 col-sm-6">
+								<input
+									type="text"
+									id="pulseOximetry"
+									className="round-input"
+									value={vitalSigns.pulseOximetry && vitalSigns.pulseOximetry.value}
+									onChange={this.changeInfo}
+								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.pulseOximetry && errors.pulseOximetry.msg}
 								</label>
 							</div>
 						</div>

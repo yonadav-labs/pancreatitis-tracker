@@ -127,8 +127,9 @@ class ArterialGases extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
 		} else {
-			this.props.updateInfo(arterialGases, units);
-			this.props.jumpToStep(this.props.step+1);
+			this.setState({ errors: {} });
+			this.props.savePatientData(arterialGases, this.props.step);
+			alert('Success');
 		}
 
 	}

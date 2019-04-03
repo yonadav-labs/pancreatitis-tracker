@@ -123,7 +123,7 @@ class BasicInfo extends React.Component {
 		basicInfo.bmi.value = bmiValue;
 
 		this.setState({basicInfo, units});
-		this.props.updateInfo(basicInfo, this.state.units);
+		this.props.updateInfo(basicInfo, units);
 	}
 
 	next = () => {

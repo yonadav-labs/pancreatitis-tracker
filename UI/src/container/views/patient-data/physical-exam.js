@@ -4,7 +4,7 @@ import Select from 'react-select';
 import {validateForm} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
 
-const peritonitisOption = [
+const booleanOption = [
 	{ value: true, label: 'Yes' },
 	{ value: false, label: 'No' }
 ];
@@ -43,24 +43,27 @@ class PhysicalExam extends React.Component {
 		super(props);
 		this.state = {
 			physicalExam: {
-				peritonitis: this.props.data.peritonitis || { value: '', label: '' },
-				glasgowComaScore: this.props.data.glasgowComaScore || {value: '', unit: 'a.u'},
+				abdominalGuarding: this.props.data.abdominalGuarding || { value: '', label: '' },
+				abdominalTenderness: this.props.data.abdominalTenderness || { value: '', label: '' },
 				eyeResponse: this.props.data.eyeResponse || {value: '', unit: 'a.u'},
 				verbalResponse: this.props.data.verbalResponse || {value: '', unit: 'a.u'},
 				motorResponse: this.props.data.motorResponse || {value: '', unit: 'a.u'},
 				pleuralEffusion: this.props.data.pleuralEffusion || { value: '', label: '' }
 			},
 			units: {
-				peritonitis: '',
-				glasgowComaScore: 'a.u',
+				abdominalGuarding: '',
 				eyeResponse: 'a.u',
 				verbalResponse: 'a.u',
 				motorResponse: 'a.u',
 				pleuralEffusion: ''
 			},
 			rules: {
-				peritonitis: {
-					name: 'peritonitis',
+				abdominalGuarding: {
+					name: 'abdominalGuarding',
+					type: 'boolean'
+				},
+				abdominalTenderness: {
+					name: 'abdominalTenderness',
 					type: 'boolean'
 				},
 				pleuralEffusion: {
@@ -154,7 +157,7 @@ class PhysicalExam extends React.Component {
 
 	render() {
 		const {physicalExam, errors} = this.state;
-		console.log('phys: ', this.state.errors);
+		console.log('phys: ', this.state);
 		return (
 			<div>
 				<ReactTooltip effect='solid' />
@@ -162,18 +165,24 @@ class PhysicalExam extends React.Component {
 					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">Peritonitis</div>
+								<div
+									className="round-btn grey-label"
+									data-multiline="true"
+									data-tip="tool tip: [contraction and tensing of the abdominal wall muscles in response to palpation]<br />-Dan Spagnolo"
+								>
+									Abdominal Guarding
+								</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<Select
-									options={peritonitisOption}
+									options={booleanOption}
 									className="patient-select"
 									classNamePrefix="newselect"
-									onChange={(e) => this.changeOption('peritonitis', e)}
-									value={physicalExam.peritonitis}
+									onChange={(e) => this.changeOption('abdominalGuarding', e)}
+									value={physicalExam.abdominalGuarding}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.peritonitis && errors.peritonitis.msg}
+									{errors.abdominalGuarding && errors.abdominalGuarding.msg}
 								</label>
 							</div>
 						</div>
@@ -184,23 +193,48 @@ class PhysicalExam extends React.Component {
 								<div
 									className="round-btn grey-label"
 									data-multiline="true"
-									data-tip="GCS is the sum of eye response, verbal response, and motor response. <br>They can input these individually and we can compute the sum, or <br>they can give us the sum."
-								>Glasgow Coma Score</div>
+									data-tip="tool tip: [pain after slowly pressing on the abdomen and then suddenly releasing the pressure] <br />-Dan Spagnolo"
+								>
+									Abdominal Tenderness
+								</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="glasgowComaScore"
-									className="round-input"
-									value={physicalExam.glasgowComaScore.value}
-									onChange={this.changeInfo}
+								<Select
+									options={booleanOption}
+									className="patient-select"
+									classNamePrefix="newselect"
+									onChange={(e) => this.changeOption('abdominalTenderness', e)}
+									value={physicalExam.abdominalTenderness}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.glasgowComaScore && errors.glasgowComaScore.msg}
+									{errors.abdominalTenderness && errors.abdominalTenderness.msg}
 								</label>
 							</div>
 						</div>
 					</div>
+					<div className="col-xs-12 col-md-6">
+						<div className="row mb-5">
+							<div className="col-xs-12 col-sm-6">
+								<div className="round-btn grey-label">Pleural Effusion</div>
+							</div>
+							<div className="col-xs-12 col-sm-6">
+								<Select
+									options={pleuralEffusionOption}
+									id="pleuralEffusion"
+									className="patient-select"
+									classNamePrefix="newselect"
+									onChange={(e) => this.changeOption('pleuralEffusion', e)}
+									value={physicalExam.pleuralEffusion}
+								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.physicalExam && errors.physicalExam.msg}
+								</label>
+							</div>
+						</div>
+					</div>
+				</div>
+				<h2 className="section-title">Glasgow Coma Score</h2>
+				<div className="row">
 					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
@@ -254,26 +288,6 @@ class PhysicalExam extends React.Component {
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.motorResponse && errors.motorResponse.msg}
-								</label>
-							</div>
-						</div>
-					</div>
-					<div className="col-xs-12 col-md-6">
-						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">Pleural Effusion</div>
-							</div>
-							<div className="col-xs-12 col-sm-6">
-								<Select
-									options={pleuralEffusionOption}
-									id="pleuralEffusion"
-									className="patient-select"
-									classNamePrefix="newselect"
-									onChange={(e) => this.changeOption('pleuralEffusion', e)}
-									value={physicalExam.pleuralEffusion}
-								/>
-								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.physicalExam && errors.physicalExam.msg}
 								</label>
 							</div>
 						</div>

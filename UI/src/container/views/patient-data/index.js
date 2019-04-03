@@ -117,11 +117,11 @@ class PatientData extends React.Component {
 	render () {
 		const steps = [
 			{name: 'Basic info', component: <BasicInfo step={0} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} loadData={this.loadPatientData} />},
-			{name: 'Physical Exam', component: <PhysicalExam step={1} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
-			{name: 'Vital Signs', component: <VitalSigns step={2} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
-			{name: 'Arterial Gases', component: <ArterialGases step={3} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
-			{name: 'Chemistry', component: <Chemistry step={4} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
-			{name: 'Hematology', component: <Hematology step={5} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} savePatientData={this.props.savePatientDataAction} />}
+			{name: 'Vital Signs', component: <VitalSigns step={1} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
+			{name: 'Physical Exam', component: <PhysicalExam step={2} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
+			{name: 'Chemistry', component: <Chemistry step={3} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
+			{name: 'Hematology', component: <Hematology step={4} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
+			{name: 'Arterial Gases', component: <ArterialGases step={5} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} savePatientData={this.props.savePatientDataAction} />}
 		];
 
 		return (

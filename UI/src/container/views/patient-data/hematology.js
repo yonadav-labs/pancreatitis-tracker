@@ -79,7 +79,7 @@ class Hematology extends React.Component {
 		units[id] = value;
 
 		this.setState({ units });
-		this.props.updateInfo(hematology, this.state.units);
+		this.props.updateInfo(hematology, units);
 	}
 
 	next = () => {
@@ -100,9 +100,7 @@ class Hematology extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
 		} else {
-			this.setState({ errors: {} });
-			this.props.savePatientData(hematology, this.props.step);
-			alert('success');
+			this.props.jumpToStep(this.props.step+1);
 		}
 	}
 
