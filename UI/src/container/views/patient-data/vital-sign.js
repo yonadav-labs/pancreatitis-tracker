@@ -111,7 +111,7 @@ class VitalSigns extends React.Component {
 		const {vitalSigns, errors} = this.state;
 		return (
 			<div>
-				<ReactTooltip  effect='solid' />
+				<ReactTooltip effect='solid' />
 				<div className="row">
 					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
