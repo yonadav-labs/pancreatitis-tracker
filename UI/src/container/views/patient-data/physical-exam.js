@@ -21,20 +21,20 @@ const verbalResponseOption = [
 	{ value: 2, label: 'Makes sounds' },
 	{ value: 3, label: 'Inappropriate words' },
 	{ value: 4, label: 'Confused, disoriented;' },
-	{ value: 5, label: 'oriented, converses normally' }
+	{ value: 5, label: 'Oriented, converses normally' }
 ];
 
 const motorResponseOption = [
-	{ value: 1, label: 'makes no movement' },
-	{ value: 2, label: 'extension to painful stimuli' },
-	{ value: 3, label: 'abnormal flexion to painful stimuli' },
-	{ value: 4, label: 'flexion/withdrawal to painful stimuli' },
-	{ value: 5, label: 'localizes to painful stimuli' },
-	{ value: 6, label: 'obeys command' }
+	{ value: 1, label: 'Makes no movement' },
+	{ value: 2, label: 'Extension to painful stimuli' },
+	{ value: 3, label: 'Abnormal flexion to painful stimuli' },
+	{ value: 4, label: 'Flexion/withdrawal to painful stimuli' },
+	{ value: 5, label: 'Localizes to painful stimuli' },
+	{ value: 6, label: 'Obeys command' }
 ];
 
 const pleuralEffusionOption = [
-	{ value: 'no chest x-ray', label: 'no chest x-ray' },
+	{ value: 'no chest x-ray', label: 'No chest x-ray' },
 	{ value: 'CXR, no effusion', label: 'CXR, no effusion' }
 ];
 

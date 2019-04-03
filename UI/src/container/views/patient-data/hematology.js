@@ -159,7 +159,13 @@ class Hematology extends React.Component {
 					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label" data-tip="Hematocrit">HCT</div>
+								<div
+									className="round-btn grey-label"
+									data-multiline="true"
+									data-tip="For future version (Not MVP) may capture patient's baseline HCT for comparison"
+								>
+									HCT
+								</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input

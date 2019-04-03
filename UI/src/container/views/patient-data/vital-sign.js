@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
+import Select from 'react-select';
 import {validateForm} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
 
@@ -55,7 +56,11 @@ class VitalSigns extends React.Component {
 					required: true
 				}
 			},
-			errors: {}
+			errors: {},
+			temperateOption: [
+				{value: 'celcius', label: '°C'},
+				{value: 'fahrenheit', label: '°F'}
+			]
 		};
 
 		this.changeInfo = this.changeInfo.bind(this);
@@ -109,6 +114,7 @@ class VitalSigns extends React.Component {
 
 	render() {
 		const {vitalSigns, errors} = this.state;
+
 		return (
 			<div>
 				<ReactTooltip effect='solid' />
@@ -124,15 +130,16 @@ class VitalSigns extends React.Component {
 										type="text"
 										id="temperature"
 										className="round-input"
-										value={vitalSigns.temperature.value}
+										value={vitalSigns.temperature && vitalSigns.temperature.value}
 										onChange={this.changeInfo}
 									/>
 									<select
 										className="input-inline-select"
+										defaultValue={vitalSigns.temperature && vitalSigns.temperature.unit}
 										onChange={e => this.changeUnit('temperature', e.target.value)}
 									>
-										<option value="celcius">C</option>
-										<option value="fahrenheit">F</option>
+										<option value="celcius">°C</option>
+										<option value="fahrenheit">°F</option>
 									</select>
 								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -144,14 +151,20 @@ class VitalSigns extends React.Component {
 					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">Systolic BP</div>
+								<div
+									className="round-btn grey-label"
+									data-multiline="true"
+									data-tip="In future (not MVP) may differentiate between standing and supine BP readings.<br /> Also in future may record patients 'normal/average/baseline BP' to compare to current."
+								>
+									Systolic BP
+								</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
 									id="systolicBp"
 									className="round-input"
-									value={vitalSigns.systolicBp.value}
+									value={vitalSigns.systolicBp && vitalSigns.systolicBp.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -170,7 +183,7 @@ class VitalSigns extends React.Component {
 									type="text"
 									id="DiastolicBp"
 									className="round-input"
-									value={vitalSigns.DiastolicBp.value}
+									value={vitalSigns.DiastolicBp && vitalSigns.DiastolicBp.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -182,14 +195,20 @@ class VitalSigns extends React.Component {
 					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">Heart Rate</div>
+								<div
+									className="round-btn grey-label"
+									data-multiline="true"
+									data-tip="In future (not MVP) may differentiate between standing and supine HR readings"
+								>
+									Heart Rate
+								</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
 									id="heartRate"
 									className="round-input"
-									value={vitalSigns.heartRate.value}
+									value={vitalSigns.heartRate && vitalSigns.heartRate.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -208,7 +227,7 @@ class VitalSigns extends React.Component {
 									type="text"
 									id="RespiratoryRate"
 									className="round-input"
-									value={vitalSigns.RespiratoryRate.value}
+									value={vitalSigns.RespiratoryRate && vitalSigns.RespiratoryRate.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
