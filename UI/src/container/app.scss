@@ -5,6 +5,7 @@ $light-cyan-color:#7bcdc4;
 $bright-cyan-color:#a5f6ed;
 $blue-color: #3079e4;
 $dark-grey: #cfcdd8;
+$bar-color: #24c9c9;
 
 .p-15 {
   padding: 15px;
@@ -306,16 +307,17 @@ a.green-button:hover {
   position: relative;
   display: flex;
   width: 100%;
-  height: 4px;
+  height: 10px;
   background-color: $light-grey-color;
   margin-left: -10px;
   align-self: center;
+  border-radius: 15px;
 }
 
 .bar-value {
   width: 0%;
-  height: 4px;
-  background-color: $blue-color;
+  height: 10px;
+  background-color: $bar-color;
   z-index: 100;
 }
 

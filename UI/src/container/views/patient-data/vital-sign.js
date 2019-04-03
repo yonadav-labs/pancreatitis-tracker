@@ -262,7 +262,7 @@ class VitalSigns extends React.Component {
 								<div
 									className="round-btn grey-label"
 									data-multiline="true"
-									data-tip="O₂ saturation <br />&nbsp;&nbsp;&nbsp; -Dan Spagnolo"
+									data-tip="O₂ saturation"
 								>
 									Pulse Oximetry
 								</div>

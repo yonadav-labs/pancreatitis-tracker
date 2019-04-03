@@ -20,7 +20,7 @@ const verbalResponseOption = [
 	{ value: 1, label: 'Makes no sound' },
 	{ value: 2, label: 'Makes sounds' },
 	{ value: 3, label: 'Inappropriate words' },
-	{ value: 4, label: 'Confused, disoriented;' },
+	{ value: 4, label: 'Confused, disoriented' },
 	{ value: 5, label: 'Oriented, converses normally' }
 ];
 
@@ -34,8 +34,9 @@ const motorResponseOption = [
 ];
 
 const pleuralEffusionOption = [
-	{ value: 'no chest x-ray', label: 'No chest x-ray' },
-	{ value: 'CXR, no effusion', label: 'CXR, no effusion' }
+	{ value: 'No CXR', label: 'No CXR' },
+	{ value: 'CXR with no effusion', label: 'CXR with no effusion' },
+	{ value: 'CXR with pleural effusion', label: 'CXR with pleural effusion' }
 ];
 
 class PhysicalExam extends React.Component {
@@ -168,7 +169,7 @@ class PhysicalExam extends React.Component {
 								<div
 									className="round-btn grey-label"
 									data-multiline="true"
-									data-tip="tool tip: [contraction and tensing of the abdominal wall muscles in response to palpation]<br />-Dan Spagnolo"
+									data-tip="Contraction and tensing of the abdominal wall muscles in response to palpation"
 								>
 									Abdominal Guarding
 								</div>
@@ -193,7 +194,7 @@ class PhysicalExam extends React.Component {
 								<div
 									className="round-btn grey-label"
 									data-multiline="true"
-									data-tip="tool tip: [pain after slowly pressing on the abdomen and then suddenly releasing the pressure] <br />-Dan Spagnolo"
+									data-tip="Pain after slowly pressing on the abdomen and then suddenly releasing the pressure"
 								>
 									Abdominal Tenderness
 								</div>
