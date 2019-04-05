@@ -308,7 +308,7 @@ class ArterialGases extends React.Component {
 							onClick={this.back}
 						/>
 						<GreenButton
-							text="Next"
+							text="Submit"
 							className="mt-3"
 							onClick={this.next}
 						/>

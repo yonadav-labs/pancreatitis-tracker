@@ -226,7 +226,7 @@ class Hematology extends React.Component {
 							onClick={this.back}
 						/>
 						<GreenButton
-							text="Submit"
+							text="Next"
 							className="mt-3"
 							onClick={this.next}
 						/>
