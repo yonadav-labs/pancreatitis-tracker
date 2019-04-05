@@ -18,6 +18,7 @@ from django.urls import path
 
 from general import views
 
+admin.site.site_header = "APSC administration"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
