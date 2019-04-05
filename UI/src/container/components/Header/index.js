@@ -54,11 +54,11 @@ class Header extends React.Component {
 							<li className="">
 								<Link to="/account">User Account</Link>
 							</li>
+							<li><Link to="/about">About</Link></li>
 							<li><Link to="/patient">Patient Data</Link></li>
 							<li><Link to="/outputs">APSC Outputs</Link></li>
 							<li><Link to="/feedback">Feedback</Link></li>
 							<li><Link to="/contact">Contact Us</Link></li>
-							<li><Link to="/about">About</Link></li>
 						</ul>
 					</div>
 				</div>
