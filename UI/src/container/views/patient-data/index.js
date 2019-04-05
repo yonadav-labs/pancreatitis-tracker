@@ -141,6 +141,7 @@ class PatientData extends React.Component {
 										onStepChange={(step) => this.changeStep(step)}
 										stepsNavigation={true}
 										showNavigation={false}
+										preventEnterSubmission={true}
 									/>
 								</div>
 							</div>
