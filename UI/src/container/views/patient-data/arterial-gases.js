@@ -11,7 +11,6 @@ class ArterialGases extends React.Component {
 				pao2: this.props.data.pao2 || {value: '', unit: 'mmHg'},
 				paco2: this.props.data.paco2 || {value: '', unit: 'mmHg'},
 				hco3_artieral: this.props.data.hco3_artieral || {value: '', unit: 'mmol/L'},
-				spo2: this.props.data.spo2 || {value: '', unit: '%'},
 				fio2: this.props.data.fio2 || {value: '', unit: '%'},
 				baseExcess: this.props.data.baseExcess || {value: '', unit: 'mEq/L'}
 			},
@@ -20,7 +19,6 @@ class ArterialGases extends React.Component {
 				pao2: this.props.units.pao2 || 'mmHg',
 				paco2: this.props.units.paco2 || 'mmHg',
 				hco3_artieral: this.props.units.hco3_artieral || 'mmol/L',
-				spo2: this.props.units.spo2 || '%',
 				fio2: this.props.units.fio2 || '%',
 				baseExcess: this.props.units.baseExcess || 'mEq/L'
 			},
@@ -52,14 +50,6 @@ class ArterialGases extends React.Component {
 					type: 'integer',
 					range: [
 						{ min: 13, max: 55, unit: 'mmol/L' }
-					],
-					required: true
-				},
-				spo2: {
-					name: 'spo2',
-					type: 'integer',
-					range: [
-						{ min: 80, max: 100, unit: '%' }
 					],
 					required: true
 				},
@@ -205,25 +195,6 @@ class ArterialGases extends React.Component {
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.hco3_artieral && errors.hco3_artieral.msg}
-								</label>
-							</div>
-						</div>
-					</div>
-					<div className="col-xs-12 col-md-6">
-						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">SpO₂</div>
-							</div>
-							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="spo2"
-									className="round-input"
-									value={arterialGases.spo2.value}
-									onChange={this.changeInfo}
-								/>
-								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.spo2 && errors.spo2.msg}
 								</label>
 							</div>
 						</div>
