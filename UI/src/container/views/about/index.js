@@ -8,8 +8,8 @@ class About extends React.Component {
 		super(props);
 	}
 
-	goToOrder = () => {
-		this.props.history.push('/order');
+	goToPatientData = () => {
+		this.props.history.push('/patient');
 	}
 
 	render () {
@@ -26,9 +26,8 @@ class About extends React.Component {
 						<p>For questions, please reach out and <Link to="/contact">contact us.</Link></p>
 						<p>For feedback and suggestions, please enter your thoughts in the feedback area of this application.</p>
 					</div>
-					<div className="space-between-section">
-						<GreenButton text="Email Us" />
-						<GreenButton text="Order ArielDx" onClick={this.goToOrder} />
+					<div className="text-center">
+						<GreenButton text="Patient Data" onClick={this.goToPatientData} />
 					</div>
 				</div>
 			</div>

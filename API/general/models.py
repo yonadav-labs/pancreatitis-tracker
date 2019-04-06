@@ -1,3 +1,12 @@
 from django.db import models
 
-# Create your models here.
+from django.contrib.auth.models import User
+
+class RunAlgorithm(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    input = models.TextField()
+    output = models.TextField()
+    run_at = models.DateTimeField()
+
+    def __str__(self):
+        return self.user.username

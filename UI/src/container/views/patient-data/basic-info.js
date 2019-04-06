@@ -174,6 +174,25 @@ class BasicInfo extends React.Component {
 					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
+								<div className="round-btn grey-label">Age</div>
+							</div>
+							<div className="col-xs-12 col-sm-6">
+								<input
+									type="text"
+									id="age"
+									className="round-input"
+									value={basicInfo.age && basicInfo.age.value}
+									onChange={this.changeInfo}
+								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.age && errors.age.msg}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div className="col-xs-12 col-md-6">
+						<div className="row mb-5">
+							<div className="col-xs-12 col-sm-6">
 								<div
 									className="round-btn grey-label"
 								>
@@ -190,25 +209,6 @@ class BasicInfo extends React.Component {
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.sex && errors.sex.msg}
-								</label>
-							</div>
-						</div>
-					</div>
-					<div className="col-xs-12 col-md-6">
-						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">Age</div>
-							</div>
-							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="age"
-									className="round-input"
-									value={basicInfo.age && basicInfo.age.value}
-									onChange={this.changeInfo}
-								/>
-								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.age && errors.age.msg}
 								</label>
 							</div>
 						</div>
