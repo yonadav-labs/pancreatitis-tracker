@@ -2,15 +2,23 @@ import React from "react";
 import Title from '../../components/Title';
 import CustomProgressBar from '../../components/CustomProgressBar';
 import GreenButton from "../../components/GreenButton";
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { loadClinicalScores } from '../../actions';
 
 class Outputs extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			recommendations: ''
+			recommendations: '',
+			clinicalScores: []
 		};
 
 		this.changeValue = this.changeValue.bind(this);
+	}
+
+	componentWillMount() {
+		this.props.loadClinicalScores();
 	}
 
 	changeValue(e) {
@@ -20,7 +28,14 @@ class Outputs extends React.Component {
 		this.setState(params);
 	}
 
+	componentWillReceiveProps(nextProps) {
+		if (nextProps.clinicalScores !== this.state.clinicalScores) {
+			this.setState({ clinicalScores: nextProps.clinicalScores });
+		}
+	}
+
 	render () {
+		const {clinicalScores} = this.state;
 		return (
 			<div className="app-content">
 				<Title title="Outputs" />
@@ -50,16 +65,16 @@ class Outputs extends React.Component {
 									test will be displayed below.
 								</div>
 								<div>
-									<CustomProgressBar title="SIRS" value="80" text="4 out of 5" />
-									<CustomProgressBar title="HAPS" value="60" text="3 out of 5" />
-									<CustomProgressBar title="PANC3" value="60" text="3 out of 5" />
-									<CustomProgressBar title="POP" value="40" text="2 out of 5" />
-									<CustomProgressBar title="RANSON" value="60" text="3 out of 5" />
-									<CustomProgressBar title="GLASGOW" value="60" text="3 out of 5" />
-									<CustomProgressBar title="APACHE II" value="60" text="3 out of 5" />
-									<CustomProgressBar title="JSS" value="60" text="3 out of 5" />
-									<CustomProgressBar title="MARSHALL" value="60" text="3 out of 5" />
-									<CustomProgressBar title="POP Mort. %" value="60" text="60%" />
+									{
+										clinicalScores.map((item, idx) => (
+											<CustomProgressBar
+												key={`custom-progress$${idx}`}
+												title={item.title}
+												value={item.value}
+												text={item.text}
+											/>
+										))
+									}
 								</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
@@ -111,5 +126,20 @@ class Outputs extends React.Component {
 	}
 }
 
-export default Outputs;
+const mapStatetoProps = state => {
+	return {
+		clinicalScores: state.clinicalScores
+	};
+};
+
+const mapDispatchToProps = dispatch => {
+	return Object.assign(
+		{ dispatch },
+		bindActionCreators({
+			loadClinicalScores
+		}, dispatch)
+	);
+};
+	
+export default connect(mapStatetoProps, mapDispatchToProps)(Outputs);
 

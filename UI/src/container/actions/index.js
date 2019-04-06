@@ -1,9 +1,29 @@
+import jwtDecode from 'jwt-decode';
 import * as types from '../reducers/constants';
 import {
 	loadPatientDataApi,
-	savePatientDataApi
+	savePatientDataApi,
+	loadClinicalScoresApi,
+	loginApi
 } from './api';
-import { RESOURCE } from 'webpack/lib/ModuleFilenameHelpers';
+
+export const loginAction = (username, password) => {
+	return (dispatch) => {
+		return loginApi(username, password).then((res) => {
+			if (res && res.success) {
+				dispatch({
+					type: types.LOGIN_SUCCESS,
+					payload: jwtDecode(res.user.token)
+				});
+			} else {
+				dispatch({
+					type: types.LOGIN_FAIL,
+					payload: res.error
+				});
+			}
+		});
+	};
+}
 
 export const setUpdatesPerPagePatientAction = (res) => {
 	return (dispatch) => {
@@ -38,3 +58,20 @@ export const savePatientDataAction = (data, step) => {
 			});
 	};
 };
+
+export const loadClinicalScores = () => {
+	return (dispatch) => {
+		loadClinicalScoresApi()
+			.then((res) => {
+				if (res.success) {
+					dispatch({ type: types.OUTPUTS.GET, payload: res.data });
+				} else {
+					dispatch({ type: types.OUTPUTS.ERROR, payload: res.msg });
+				}
+			})
+			.catch((err) => {
+				dispatch({ type: types.OUTPUTS.ERROR, payload: 'Can\'t save data' });
+			});
+	};
+};
+

@@ -4,7 +4,9 @@ const InitialState = {
 	step: 0,
 	patient: {},
 	units: {},
-	errorMsg: ''
+	clinicalScores: [],
+	errorMsg: '',
+	user: {}
 };
 
 export default function patientReducer(state = InitialState, action) {
@@ -25,6 +27,25 @@ export default function patientReducer(state = InitialState, action) {
 		
 		case types.PATIENTS.ERROR:
 			return {...state, errorMsg: action.payload};
+		
+		case types.OUTPUTS.GET:
+			return {...state, clinicalScores: action.payload};
+
+		case types.LOGIN_SUCCESS:
+			user = Object.assign({}, user, action.payload);
+			user.username = user.sub;
+			return {
+				...state,
+				user: user,
+				success: true
+			};
+
+		case types.LOGIN_FAIL:
+			return {
+				...state,
+				errorMsg: action.payload,
+				success: false
+			};
 
 		default:
 			return state;
