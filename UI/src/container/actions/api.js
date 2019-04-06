@@ -16,6 +16,7 @@ export const loadPatientDataApi = (files) => {
 };
 
 export const savePatientDataApi = (data) => {
+	console.log("DDFDF: ", data);
 	return postApi(SAVE_PATIENT_DATA, JSON.stringify(data))
 		.then((res) => {
 			if (res.success) {
@@ -31,15 +32,11 @@ export const savePatientDataApi = (data) => {
 			};
 		})
 		.catch(err => {
-			console.log('err', err);
 			return {
 				success: false,
 				msg: 'error catch'
 			};
 		});
-	// return new Promise((resolve) => {
-	// 	resolve({ success: true, data: data, step: step });
-	// });
 };
 
 export const loadClinicalScoresApi = () => {

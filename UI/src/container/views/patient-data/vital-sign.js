@@ -90,7 +90,12 @@ class VitalSigns extends React.Component {
 
 	changeInfo(e) {
 		let params = this.state.vitalSigns;
-		params[e.target.id].value = e.target.value;
+		const {rules} = this.state;
+		if (rules[e.target.id] && rules[e.target.id].type === "integer") {
+			params[e.target.id].value = parseFloat(e.target.value);
+		} else {
+			params[e.target.id].value = e.target.value;
+		}
 
 		this.setState({ vitalSigns: params });
 		this.props.updateInfo(params, this.state.units);

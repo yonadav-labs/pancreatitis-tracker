@@ -146,7 +146,12 @@ class Chemistry extends React.Component {
 
 	changeInfo(e) {
 		let params = this.state.chemistry;
-		params[e.target.id].value = e.target.value;
+		const {rules} = this.state;
+		if (rules[e.target.id] && rules[e.target.id].type === "integer") {
+			params[e.target.id].value = parseFloat(e.target.value);
+		} else {
+			params[e.target.id].value = e.target.value;
+		}
 
 		this.setState({ chemistry: params });
 		this.props.updateInfo(params, this.state.units);

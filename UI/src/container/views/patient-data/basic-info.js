@@ -99,8 +99,14 @@ class BasicInfo extends React.Component {
 	}
 
 	changeInfo(e) {
+		const {rules} = this.state;
 		let params = this.state.basicInfo;
-		params[e.target.id].value = e.target.value;
+
+		if (rules[e.target.id] && rules[e.target.id].type === "integer") {
+			params[e.target.id].value = parseFloat(e.target.value);
+		} else {
+			params[e.target.id].value = e.target.value;
+		}
 
 		let bmiValue = '';
 		if (e.target.id === 'weight' || e.target.id === 'height') {
