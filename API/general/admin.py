@@ -2,4 +2,7 @@ from django.contrib import admin
 
 from general.models import *
 
-admin.site.register(RunAlgorithm)
+class RunAlgorithmAdmin(admin.ModelAdmin):
+    list_display = ['user', 'run_at']
+
+admin.site.register(RunAlgorithm, RunAlgorithmAdmin)

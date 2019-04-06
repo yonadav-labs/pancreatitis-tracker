@@ -1,11 +1,12 @@
 import json
+import datetime
 
 from django.shortcuts import render
 from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 
 from algorithms import *
-
+from .models import *
 
 ALGORITHMS = [
     map.AlgorithmMap, 
@@ -65,8 +66,20 @@ def _run_algorithm(algorithm, data):
 def run_algorithms(request):
     data = json.loads(request.body.decode("utf-8"))
     results = []
+    output = {}
     for algorithm in ALGORITHMS:
-        results.append(_run_algorithm(algorithm, data))
+        result = _run_algorithm(algorithm, data)
+        results.append(result)
+
+        if result['is_capable']:
+            output[result['algorithm']] = result['score']
+
+    # track running
+    user = request.user if request.user.is_authenticated else None
+    RunAlgorithm.objects.create(user=user, 
+                                input=json.dumps(data, indent=2),
+                                output=json.dumps(output, indent=2),
+                                run_at=datetime.datetime.now())
 
     return JsonResponse(results, safe=False)
 
