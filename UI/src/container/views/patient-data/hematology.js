@@ -8,28 +8,28 @@ class Hematology extends React.Component {
 		super(props);
 		this.state = {
 			hematology: {
-				whiteBloodCellCount: this.props.data.whiteBloodCellCount || { value: '', unit: '10^9 cells/L'},
-				plateletCount: this.props.data.plateletCount || { value: '', unit: '10^3 units/mm^3'},
+				wbc: this.props.data.wbc || { value: '', unit: '10^9 cells/L'},
+				platelet_count: this.props.data.platelet_count || { value: '', unit: '10^3 units/mm^3'},
 				hematocrit: this.props.data.hematocrit || { value: '', unit: '%'},
 				crp: this.props.data.crp || { value: '', unit: 'mg/L'}
 			},
 			units: {
-				whiteBloodCellCount: this.props.units.whiteBloodCellCount || '10^9 cells/L',
-				plateletCount: this.props.units.plateletCount || '10^3 units/mm^3',
+				wbc: this.props.units.wbc || '10^9 cells/L',
+				platelet_count: this.props.units.platelet_count || '10^3 units/mm^3',
 				hematocrit: this.props.units.hematocrit || '%',
 				crp: this.props.units.crp || 'mg/L'
 			},
 			rules: {
-				whiteBloodCellCount: {
-					name: 'whiteBloodCellCount',
+				wbc: {
+					name: 'wbc',
 					type: 'integer',
 					range: [
 						{ min: 1, max: 50, unit: '10^9 cells/L'}
 					],
 					required: true
 				},
-				plateletCount: {
-					name: 'plateletCount',
+				platelet_count: {
+					name: 'platelet_count',
 					type: 'integer',
 					range: [
 						{ min: 50, max: 450, unit: '10^3 units/mm^3'},
@@ -123,13 +123,13 @@ class Hematology extends React.Component {
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
-									id="whiteBloodCellCount"
+									id="wbc"
 									className="round-input"
-									value={hematology.whiteBloodCellCount.value}
+									value={hematology.wbc.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.whiteBloodCellCount && errors.whiteBloodCellCount.msg}
+									{errors.wbc && errors.wbc.msg}
 								</label>
 							</div>
 						</div>
@@ -143,22 +143,22 @@ class Hematology extends React.Component {
 								<div className="d-flex">
 									<input
 										type="text"
-										id="plateletCount"
+										id="platelet_count"
 										className="round-input"
-										value={hematology.plateletCount.value}
+										value={hematology.platelet_count.value}
 										onChange={this.changeInfo}
 									/>
 									<select
 										className="input-inline-select"
-										defaultValue={units.plateletCount}
-										onChange={e => this.changeUnit('plateletCount', e.target.value)}
+										defaultValue={units.platelet_count}
+										onChange={e => this.changeUnit('platelet_count', e.target.value)}
 									>
 										<option>10^3 units/mm^3</option>
 										<option>platelets/µL</option>
 									</select>
 								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.plateletCount && errors.plateletCount.msg}
+									{errors.platelet_count && errors.platelet_count.msg}
 								</label>
 							</div>
 						</div>

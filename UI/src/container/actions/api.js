@@ -1,4 +1,7 @@
-export { uploadFormData } from './apiWrapper';
+import { uploadFormData, postApi, postApiWithoutToken } from './apiWrapper';
+import {
+	SAVE_PATIENT_DATA
+} from './api_url';
 
 export const loadPatientDataApi = (files) => {
 	// uploadFormData(url, files);
@@ -12,10 +15,31 @@ export const loadPatientDataApi = (files) => {
 	});
 };
 
-export const savePatientDataApi = (data, step) => {
-	return new Promise((resolve) => {
-		resolve({ success: true, data: data, step: step });
-	});
+export const savePatientDataApi = (data) => {
+	return postApi(SAVE_PATIENT_DATA, JSON.stringify(data))
+		.then((res) => {
+			if (res.success) {
+				return {
+					success: true,
+					data: res.data
+				};
+			}
+
+			return {
+				success: false,
+				msg: res.msg
+			};
+		})
+		.catch(err => {
+			console.log('err', err);
+			return {
+				success: false,
+				msg: 'error catch'
+			};
+		});
+	// return new Promise((resolve) => {
+	// 	resolve({ success: true, data: data, step: step });
+	// });
 };
 
 export const loadClinicalScoresApi = () => {
@@ -54,18 +78,18 @@ export const loginApi = (username, password) => {
 					success: true,
 					user: response
 				};
-			} else {
-				return {
-					success: false,
-					error: response.Message
-				}
 			}
+
+			return {
+				success: false,
+				error: response.Message
+			};
 		})
 		.catch((err) => {
-			console.log('login acttion err', err)
+			console.log('login acttion err', err);
 			return {
 				success: false,
 				error: err
-			}
+			};
 		});
-}
+};

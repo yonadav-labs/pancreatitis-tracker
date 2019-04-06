@@ -70,39 +70,46 @@ export const postApiWithoutToken = (url, body) => {
 };
 
 export const postApi = (url, body) => {
-	const access_token = getToken();
-	if (isAuthTokenValid(access_token)) {
-		return fetch(url, {
-			method: 'POST',
-			headers: {
-				'Content-Type': 'application/json',
-				'Authorization': 'Bearer ' + access_token
-			},
-			body
+	// const access_token = getToken();
+	const access_token = 'fake_token';
+	// if (isAuthTokenValid(access_token)) {
+	return fetch(url, {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json',
+			'Authorization': 'Bearer ' + access_token
+		},
+		body
+	})
+		.then(response => {
+			if (response.ok) {
+				return response.json().then((res) => ({
+					...res,
+					success: true
+				}));
+			}
+
+			throw response;
 		})
-			.then(response => {
-				if (response.ok) {
-					return response.json().then((res) => ({
-						...res,
-						success: true
-					}));
-				}
+		.catch(err => {
+			console.log(err);
+			return err.text().then(errors => {
+				let errorResponse = JSON.parse(errors);
 
-				throw response;
-			})
-			.catch(err => {
-				return err.text().then(errors => {
-					let errorResponse = JSON.parse(errors);
-
-					return {
-						msg: errorResponse.message,
-						success: false
-					};
-				});
+				return {
+					msg: errorResponse.message,
+					success: false
+				};
 			});
-	}
-	window.location.href = '/';
-	
+		});
+	// }
+
+	// return new Promise(resolve => {
+	// 	resolve({
+	// 		msg: 'Token is missing or not valid.',
+	// 		success: false
+	// 	});
+	// });
 };
 
 export const getApi = (url, body) => {

@@ -26,7 +26,7 @@ class BasicInfo extends React.Component {
 				height: this.props.data.height || {value: '', label: ''},
 				weight: this.props.data.weight || {value: '', label: ''},
 				bmi: this.props.data.bmi || {value: '', label: ''},
-				chronicHealthProblems: this.props.data.chronicHealthProblems || {value: '', label: ''}
+				chronic_health: this.props.data.chronic_health || {value: '', label: ''}
 			},
 			units: {
 				sex: this.props.units.sex || '',
@@ -34,7 +34,7 @@ class BasicInfo extends React.Component {
 				height: this.props.units.height || 'cm',
 				weight: this.props.units.weight || 'kg',
 				bmi: this.props.units.bmi || 'kg/m2',
-				chronicHealthProblems: this.props.units.chronicHealthProblems || ''
+				chronic_health: this.props.units.chronic_health || ''
 			},
 			rules: {
 				sex: {
@@ -303,11 +303,11 @@ class BasicInfo extends React.Component {
 									options={chronicHealthProblemsOption}
 									className="patient-select"
 									classNamePrefix="newselect"
-									onChange={(e) => this.changeOption('chronicHealthProblems',e)}
-									value={basicInfo.chronicHealthProblems}
+									onChange={(e) => this.changeOption('chronic_health',e)}
+									value={basicInfo.chronic_health}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.chronicHealthProblems && errors.chronicHealthProblems.msg}
+									{errors.chronic_health && errors.chronic_health.msg}
 								</label>
 							</div>
 						</div>

@@ -23,7 +23,7 @@ export default function patientReducer(state = InitialState, action) {
 			return {...state, patient: action.payload.data, step: 0};
 
 		case types.PATIENTS.ADD:
-			return {...state, patient: action.payload, step: action.step};
+			return {...state, clinicalScores: action.payload};
 		
 		case types.PATIENTS.ERROR:
 			return {...state, errorMsg: action.payload};

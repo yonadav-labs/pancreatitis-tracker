@@ -8,19 +8,19 @@ class ArterialGases extends React.Component {
 		this.state = {
 			arterialGases: {
 				ph: this.props.data.ph || {value: '', unit: ''},
-				pao2: this.props.data.pao2 || {value: '', unit: 'mmHg'},
-				paco2: this.props.data.paco2 || {value: '', unit: 'mmHg'},
+				paO2: this.props.data.paO2 || {value: '', unit: 'mmHg'},
+				paCO2: this.props.data.paCO2 || {value: '', unit: 'mmHg'},
 				hco3_artieral: this.props.data.hco3_artieral || {value: '', unit: 'mmol/L'},
-				fio2: this.props.data.fio2 || {value: '', unit: '%'},
-				baseExcess: this.props.data.baseExcess || {value: '', unit: 'mEq/L'}
+				fiO2: this.props.data.fiO2 || {value: '', unit: '%'},
+				base_excess: this.props.data.base_excess || {value: '', unit: 'mEq/L'}
 			},
 			units: {
 				ph: this.props.units.ph || '',
-				pao2: this.props.units.pao2 || 'mmHg',
-				paco2: this.props.units.paco2 || 'mmHg',
+				paO2: this.props.units.paO2 || 'mmHg',
+				paCO2: this.props.units.paCO2 || 'mmHg',
 				hco3_artieral: this.props.units.hco3_artieral || 'mmol/L',
-				fio2: this.props.units.fio2 || '%',
-				baseExcess: this.props.units.baseExcess || 'mEq/L'
+				fiO2: this.props.units.fiO2 || '%',
+				base_excess: this.props.units.base_excess || 'mEq/L'
 			},
 			rules: {
 				ph: {
@@ -31,14 +31,14 @@ class ArterialGases extends React.Component {
 					],
 					required: true
 				},
-				pao2: {
-					name: 'pao2',
+				paO2: {
+					name: 'paO2',
 					type: 'integer',
 					range: [{ min: 50, max: 75, unit: 'mmHg'}],
 					required: true
 				},
-				paco2: {
-					name: 'paco2',
+				paCO2: {
+					name: 'paCO2',
 					type: 'integer',
 					range: [
 						{ min: 30, max: 50, unit: 'mmHg' }
@@ -53,16 +53,16 @@ class ArterialGases extends React.Component {
 					],
 					required: true
 				},
-				fio2: {
-					name: 'fio2',
+				fiO2: {
+					name: 'fiO2',
 					type: 'integer',
 					range: [
 						{ min: 0.2, max: 1, unit: '%' }
 					],
 					required: true
 				},
-				baseExcess: {
-					name: 'baseExcess',
+				base_excess: {
+					name: 'base_excess',
 					type: 'integer',
 					range: [
 						{ min: -5, max: 3, unit: 'mEq/L' }
@@ -108,7 +108,7 @@ class ArterialGases extends React.Component {
 			this.setState({ errors });
 		} else {
 			this.setState({ errors: {} });
-			this.props.savePatientData(arterialGases, this.props.step);
+			this.props.savePatientData(arterialGases);
 			alert('Success');
 		}
 
@@ -150,13 +150,13 @@ class ArterialGases extends React.Component {
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
-									id="pao2"
+									id="paO2"
 									className="round-input"
-									value={arterialGases.pao2.value}
+									value={arterialGases.paO2.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.pao2 && errors.pao2.msg}
+									{errors.paO2 && errors.paO2.msg}
 								</label>
 							</div>
 						</div>
@@ -169,13 +169,13 @@ class ArterialGases extends React.Component {
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
-									id="paco2"
+									id="paCO2"
 									className="round-input"
-									value={arterialGases.paco2.value}
+									value={arterialGases.paCO2.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.paco2 && errors.paco2.msg}
+									{errors.paCO2 && errors.paCO2.msg}
 								</label>
 							</div>
 						</div>
@@ -207,13 +207,13 @@ class ArterialGases extends React.Component {
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
-									id="fio2"
+									id="fiO2"
 									className="round-input"
-									value={arterialGases.fio2.value}
+									value={arterialGases.fiO2.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.fio2 && errors.fio2.msg}
+									{errors.fiO2 && errors.fiO2.msg}
 								</label>
 							</div>
 						</div>
@@ -226,13 +226,13 @@ class ArterialGases extends React.Component {
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
-									id="baseExcess"
+									id="base_excess"
 									className="round-input"
-									value={arterialGases.baseExcess.value}
+									value={arterialGases.base_excess.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.baseExcess && errors.baseExcess.msg}
+									{errors.base_excess && errors.base_excess.msg}
 								</label>
 							</div>
 						</div>

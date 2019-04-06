@@ -10,18 +10,18 @@ class VitalSigns extends React.Component {
 		this.state = {
 			vitalSigns: {
 				temperature: this.props.data.temperature || {value: '', unit: 'celcius'},
-				systolicBp: this.props.data.systolicBp || {value: '', unit: 'mmHg'},
-				DiastolicBp: this.props.data.DiastolicBp || {value: '', unit: 'mmHg'},
-				heartRate: this.props.data.heartRate || {value: '', unit: 'bpm'},
-				RespiratoryRate: this.props.data.RespiratoryRate || {value: '', unit: 'bpm'},
+				bp_systolic: this.props.data.bp_systolic || {value: '', unit: 'mmHg'},
+				bp_diastolic: this.props.data.bp_diastolic || {value: '', unit: 'mmHg'},
+				heart_rate: this.props.data.heart_rate || {value: '', unit: 'bpm'},
+				resp_rate: this.props.data.resp_rate || {value: '', unit: 'bpm'},
 				pulseOximetry: this.props.data.pulseOximetry || {value: '', unit: '%'}
 			},
 			units: {
 				temperature: this.props.units.temperature || 'celcius',
-				systolicBp: this.props.units.systolicBp || 'mmHg',
-				DiastolicBp: this.props.units.DiastolicBp || 'mmHg',
-				heartRate: this.props.units.heartRate || 'bpm',
-				RespiratoryRate: this.props.units.RespiratoryRate || 'bpm',
+				bp_systolic: this.props.units.bp_systolic || 'mmHg',
+				bp_diastolic: this.props.units.bp_diastolic || 'mmHg',
+				heart_rate: this.props.units.heart_rate || 'bpm',
+				resp_rate: this.props.units.resp_rate || 'bpm',
 				pulseOximetry: this.props.units.pulseOximetry || '%'
 			},
 			rules: {
@@ -34,30 +34,30 @@ class VitalSigns extends React.Component {
 					],
 					required: true
 				},
-				systolicBp: {
-					name: 'systolicBp',
+				bp_systolic: {
+					name: 'bp_systolic',
 					type: 'integer',
 					range: [{ min: 70, max: 205, unit: 'mmHg'}],
 					required: true
 				},
-				DiastolicBp: {
-					name: 'DiastolicBp',
+				bp_diastolic: {
+					name: 'bp_diastolic',
 					type: 'integer',
 					range: [
 						{ min: 50, max: 130, unit: 'mmHg' }
 					],
 					required: true
 				},
-				heartRate: {
-					name: 'heartRate',
+				heart_rate: {
+					name: 'heart_rate',
 					type: 'integer',
 					range: [
 						{ min: 40, max: 190, unit: 'bpm' }
 					],
 					required: true
 				},
-				RespiratoryRate: {
-					name: 'RespiratoryRate',
+				resp_rate: {
+					name: 'resp_rate',
 					type: 'integer',
 					range: [
 						{ min: 5, max: 50, unit: 'bpm' }
@@ -182,13 +182,13 @@ class VitalSigns extends React.Component {
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
-									id="systolicBp"
+									id="bp_systolic"
 									className="round-input"
-									value={vitalSigns.systolicBp && vitalSigns.systolicBp.value}
+									value={vitalSigns.bp_systolic && vitalSigns.bp_systolic.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.systolicBp && errors.systolicBp.msg}
+									{errors.bp_systolic && errors.bp_systolic.msg}
 								</label>
 							</div>
 						</div>
@@ -201,13 +201,13 @@ class VitalSigns extends React.Component {
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
-									id="DiastolicBp"
+									id="bp_diastolic"
 									className="round-input"
-									value={vitalSigns.DiastolicBp && vitalSigns.DiastolicBp.value}
+									value={vitalSigns.bp_diastolic && vitalSigns.bp_diastolic.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.DiastolicBp && errors.DiastolicBp.msg}
+									{errors.bp_diastolic && errors.bp_diastolic.msg}
 								</label>
 							</div>
 						</div>
@@ -226,13 +226,13 @@ class VitalSigns extends React.Component {
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
-									id="heartRate"
+									id="heart_rate"
 									className="round-input"
-									value={vitalSigns.heartRate && vitalSigns.heartRate.value}
+									value={vitalSigns.heart_rate && vitalSigns.heart_rate.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.heartRate && errors.heartRate.msg}
+									{errors.heart_rate && errors.heart_rate.msg}
 								</label>
 							</div>
 						</div>
@@ -245,13 +245,13 @@ class VitalSigns extends React.Component {
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
-									id="RespiratoryRate"
+									id="resp_rate"
 									className="round-input"
-									value={vitalSigns.RespiratoryRate && vitalSigns.RespiratoryRate.value}
+									value={vitalSigns.resp_rate && vitalSigns.resp_rate.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.RespiratoryRate && errors.RespiratoryRate.msg}
+									{errors.resp_rate && errors.resp_rate.msg}
 								</label>
 							</div>
 						</div>

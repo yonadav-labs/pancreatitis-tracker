@@ -33,7 +33,7 @@ const motorResponseOption = [
 	{ value: 6, label: 'Obeys command' }
 ];
 
-const pleuralEffusionOption = [
+const pleural_effOption = [
 	{ value: 'No CXR', label: 'No CXR' },
 	{ value: 'CXR with no effusion', label: 'CXR with no effusion' },
 	{ value: 'CXR with pleural effusion', label: 'CXR with pleural effusion' }
@@ -49,14 +49,14 @@ class PhysicalExam extends React.Component {
 				eyeResponse: this.props.data.eyeResponse || {value: '', unit: 'a.u'},
 				verbalResponse: this.props.data.verbalResponse || {value: '', unit: 'a.u'},
 				motorResponse: this.props.data.motorResponse || {value: '', unit: 'a.u'},
-				pleuralEffusion: this.props.data.pleuralEffusion || { value: '', label: '' }
+				pleural_eff: this.props.data.pleural_eff || { value: '', label: '' }
 			},
 			units: {
 				abdominalGuarding: '',
 				eyeResponse: 'a.u',
 				verbalResponse: 'a.u',
 				motorResponse: 'a.u',
-				pleuralEffusion: ''
+				pleural_eff: ''
 			},
 			rules: {
 				abdominalGuarding: {
@@ -67,12 +67,12 @@ class PhysicalExam extends React.Component {
 					name: 'abdominalTenderness',
 					type: 'boolean'
 				},
-				pleuralEffusion: {
-					name: 'pleuralEffusion',
+				pleural_eff: {
+					name: 'pleural_eff',
 					type: 'text'
 				},
-				glasgowComaScore: {
-					name: 'glasgowComaScore',
+				glasgow_coma: {
+					name: 'glasgow_coma',
 					type: 'integer',
 					range: [{ min: 3, max: 15, unit: 'a.u'}],
 					required: true
@@ -220,12 +220,12 @@ class PhysicalExam extends React.Component {
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<Select
-									options={pleuralEffusionOption}
-									id="pleuralEffusion"
+									options={pleural_effOption}
+									id="pleural_eff"
 									className="patient-select"
 									classNamePrefix="newselect"
-									onChange={(e) => this.changeOption('pleuralEffusion', e)}
-									value={physicalExam.pleuralEffusion}
+									onChange={(e) => this.changeOption('pleural_eff', e)}
+									value={physicalExam.pleural_eff}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.physicalExam && errors.physicalExam.msg}

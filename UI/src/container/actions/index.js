@@ -23,7 +23,7 @@ export const loginAction = (username, password) => {
 			}
 		});
 	};
-}
+};
 
 export const setUpdatesPerPagePatientAction = (res) => {
 	return (dispatch) => {
@@ -43,9 +43,14 @@ export const loadPatientDataAction = (files) => {
 	};
 };
 
-export const savePatientDataAction = (data, step) => {
+export const savePatientDataAction = (data) => {
+	let params = {};
+	Object.keys(data).forEach(key => {
+		params[key] = data[key].value;
+	});
+
 	return (dispatch) => {
-		savePatientDataApi(data, step)
+		savePatientDataApi(params)
 			.then((res) => {
 				if (res.success) {
 					dispatch({ type: types.PATIENTS.ADD, payload: data });
