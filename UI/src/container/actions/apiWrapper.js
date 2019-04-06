@@ -84,7 +84,7 @@ export const postApi = (url, body) => {
 		.then(response => {
 			if (response.ok) {
 				return response.json().then((res) => ({
-					...res,
+					data: res,
 					success: true
 				}));
 			}

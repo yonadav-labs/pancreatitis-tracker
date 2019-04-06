@@ -55,7 +55,7 @@ export const savePatientDataAction = (data) => {
 		savePatientDataApi(params)
 			.then((res) => {
 				if (res.success) {
-					dispatch({ type: types.PATIENTS.ADD, payload: data });
+					dispatch({ type: types.PATIENTS.ADD, payload: res.data });
 				} else {
 					dispatch({ type: types.PATIENTS.ERROR, payload: res.msg });
 				}

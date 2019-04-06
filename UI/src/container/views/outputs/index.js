@@ -11,14 +11,10 @@ class Outputs extends React.Component {
 		super(props);
 		this.state = {
 			recommendations: '',
-			clinicalScores: []
+			clinicalScores: this.props.clinicalScores || []
 		};
 
 		this.changeValue = this.changeValue.bind(this);
-	}
-
-	componentWillMount() {
-		this.props.loadClinicalScores();
 	}
 
 	changeValue(e) {
@@ -29,13 +25,12 @@ class Outputs extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		if (nextProps.clinicalScores !== this.state.clinicalScores) {
-			this.setState({ clinicalScores: nextProps.clinicalScores });
-		}
+		this.setState({ clinicalScores: nextProps.clinicalScores });
 	}
 
 	render () {
 		const {clinicalScores} = this.state;
+		console.log(clinicalScores);
 		return (
 			<div className="app-content">
 				<Title title="Outputs" />
@@ -66,14 +61,18 @@ class Outputs extends React.Component {
 								</div>
 								<div>
 									{
-										clinicalScores.map((item, idx) => (
-											<CustomProgressBar
-												key={`custom-progress$${idx}`}
-												title={item.title}
-												value={item.value}
-												text={item.text}
-											/>
-										))
+										clinicalScores.map((item, idx) => {
+											if (!item.is_capable) {
+												return (
+													<CustomProgressBar
+														key={`custom-progress$${idx}`}
+														title={item.algorithm.replace('Algorithm', '')}
+														value={item.score}
+														text={`${item.score} of 5`}
+													/>
+												);
+											}
+										})
 									}
 								</div>
 							</div>
