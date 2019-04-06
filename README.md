@@ -45,13 +45,28 @@ To install the Acute Pancreatitis Severity Calculator on an UNIX-based system (O
 
 1. Clone the repo
 2. Install requirements
-   ```pip install -r requirements.txt```
-3. Run the project
-   ```python manage.py runserver```
+   ```
+   pip install -r requirements.txt
+   ```
+3. Setup database schema
+   ```
+   python manage.py makemigrations
+   python manage.py migrate
+   ```   
+4. Create a super user
+   ```
+   python manage.py createsuperuser
+   ```
+5. Run the project
+   ```
+   python manage.py runserver
+   ```
    *Note: It will run the project in development mode. If you want to deploy it more productively, you can deploy it on http server (like apache, nginx).*
-4. Call API endpoints
-5. Run tests
-   ```python manage.py test```
+6. Call API endpoints
+7. Run tests
+   ```
+   python manage.py test
+   ```
 
 #### API Endpoints
 ```GET /algorithms```
