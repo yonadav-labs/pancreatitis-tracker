@@ -62,16 +62,14 @@ class Outputs extends React.Component {
 								<div>
 									{
 										clinicalScores.map((item, idx) => {
-											if (item.is_capable) {
-												return (
-													<CustomProgressBar
-														key={`custom-progress$${idx}`}
-														title={item.algorithm.replace('Algorithm', '')}
-														value={item.score}
-														text={`${item.score} of 5`}
-													/>
-												);
-											}
+											return (
+												<CustomProgressBar
+													key={`custom-progress$${idx}`}
+													title={item.algorithm.replace('Algorithm', '')}
+													value={item.score}
+													text={`${item.score} of 5`}
+												/>
+											);
 										})
 									}
 								</div>

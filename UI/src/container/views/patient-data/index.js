@@ -9,6 +9,7 @@ import Hematology from './hematology';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
+import { withRouter } from "react-router";
 import {
 	setUpdatesPerPagePatientAction,
 	loadPatientDataAction,
@@ -121,7 +122,7 @@ class PatientData extends React.Component {
 			{name: 'Physical Exam', component: <PhysicalExam step={2} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
 			{name: 'Chemistry', component: <Chemistry step={3} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
 			{name: 'Hematology', component: <Hematology step={4} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
-			{name: 'Arterial Gases', component: <ArterialGases step={5} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} savePatientData={this.props.savePatientDataAction} />}
+			{name: 'Arterial Gases', component: <ArterialGases step={5} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} savePatientData={this.props.savePatientDataAction} history={this.props.history} />}
 		];
 
 		return (
@@ -171,4 +172,4 @@ const mapDispatchToProps = dispatch => {
 	);
 };
 	
-export default connect(mapStatetoProps, mapDispatchToProps)(PatientData);
+export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(PatientData));

@@ -1,6 +1,5 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
-import Select from 'react-select';
 import {validateForm} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
 

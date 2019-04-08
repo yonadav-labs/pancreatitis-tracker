@@ -118,7 +118,7 @@ class ArterialGases extends React.Component {
 		} else {
 			this.setState({ errors: {} });
 			this.props.savePatientData(arterialGases);
-			alert('Success');
+			this.props.history.push('/outputs');
 		}
 
 	}
@@ -128,6 +128,7 @@ class ArterialGases extends React.Component {
 	}
 
 	render() {
+		console.log(this.props);
 		const {arterialGases, errors} = this.state;
 		return (
 			<div>

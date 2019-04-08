@@ -588,6 +588,10 @@ ol.progtrckr li.progtrckr-done:before {
   width: 66px;
 }
 
+.empty-progress .react-sweet-progress-symbol {
+  visibility: hidden;
+}
+
 .react-sweet-progress-line {
   width: calc(100% - 60px);
 }
