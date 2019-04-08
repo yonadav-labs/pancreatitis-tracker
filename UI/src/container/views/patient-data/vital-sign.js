@@ -92,7 +92,12 @@ class VitalSigns extends React.Component {
 		let params = this.state.vitalSigns;
 		const {rules} = this.state;
 		if (rules[e.target.id] && rules[e.target.id].type === "integer") {
-			params[e.target.id].value = parseFloat(e.target.value);
+			if (!isNaN(parseFloat(e.target.value))) {
+				params[e.target.id].value = parseFloat(e.target.value);
+			} else {
+				params[e.target.id].value = e.target.value;
+			}
+
 		} else {
 			params[e.target.id].value = e.target.value;
 		}

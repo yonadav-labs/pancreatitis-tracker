@@ -578,6 +578,24 @@ ol.progtrckr li.progtrckr-done:before {
   }
 }
 
+.react-sweet-progress {
+  margin-left: -3px;
+}
+
+.react-sweet-progress-symbol {
+  font-size: 20px;
+  font-weight: 500;
+  width: 66px;
+}
+
+.react-sweet-progress-line {
+  width: calc(100% - 60px);
+}
+
+.react-sweet-progress-line-inner {
+  background-color: $light-cyan-color !important;
+}
+
 @media (max-width: 1399px) {
   .home-page__banner {
     padding: 150px 0 50px;

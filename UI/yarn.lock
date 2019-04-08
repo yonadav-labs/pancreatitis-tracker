@@ -8630,6 +8630,13 @@ react-stepzilla@^4.7.2:
   resolved "https://registry.yarnpkg.com/react-stepzilla/-/react-stepzilla-4.8.0.tgz#b775801fcc39b9852945473e5ce2410a98a0df66"
   integrity sha512-+yA3Hn+SvFFV402ZL+tQly8PW+9axlYFWkl8EOPooZ0YuL2OgF3uOUfXV729MMDYb6JMsSe85UhBPE80crNzDw==
 
+react-sweet-progress@^1.1.2:
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/react-sweet-progress/-/react-sweet-progress-1.1.2.tgz#b27c6baa7c08a12cf0896565431ba477af249892"
+  integrity sha512-FUfiKpox5LJ9YTeK/HsaLp/oOsuxWBJQir6oAYKLY5nsa2pb04PtxzddSy6Y1fn8osaILpXIcItJRQYnHp42CA==
+  dependencies:
+    classnames "^2.2.5"
+
 react-table@^6.9.1:
   version "6.9.1"
   resolved "https://registry.yarnpkg.com/react-table/-/react-table-6.9.1.tgz#50a1713a4de90089f14dcb8cf0f313992ad93a20"

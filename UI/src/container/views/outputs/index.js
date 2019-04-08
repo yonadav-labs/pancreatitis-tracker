@@ -30,7 +30,7 @@ class Outputs extends React.Component {
 
 	render () {
 		const {clinicalScores} = this.state;
-		console.log(clinicalScores);
+
 		return (
 			<div className="app-content">
 				<Title title="Outputs" />
@@ -52,7 +52,7 @@ class Outputs extends React.Component {
 					</div>
 					<div className="page-section">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<h2 className="section-title">Clinical Scoring Systems</h2>
 								<div className="section-description grey-color-text">
 									All scores default to gray. Upon entry of all of the necessary criteria,
@@ -62,7 +62,7 @@ class Outputs extends React.Component {
 								<div>
 									{
 										clinicalScores.map((item, idx) => {
-											if (!item.is_capable) {
+											if (item.is_capable) {
 												return (
 													<CustomProgressBar
 														key={`custom-progress$${idx}`}
@@ -76,7 +76,7 @@ class Outputs extends React.Component {
 									}
 								</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<h2 className="section-title">Mounzer Rules</h2>
 								<div className="section-description grey-color-text">
 									All scores default to gray. Upon entry of all of the necessary criteria,

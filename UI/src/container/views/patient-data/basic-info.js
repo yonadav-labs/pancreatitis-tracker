@@ -103,7 +103,11 @@ class BasicInfo extends React.Component {
 		let params = this.state.basicInfo;
 
 		if (rules[e.target.id] && rules[e.target.id].type === "integer") {
-			params[e.target.id].value = parseFloat(e.target.value);
+			if (!isNaN(parseFloat(e.target.value))) {
+				params[e.target.id].value = parseFloat(e.target.value);
+			} else {
+				params[e.target.id].value = e.target.value;
+			}
 		} else {
 			params[e.target.id].value = e.target.value;
 		}
@@ -172,7 +176,7 @@ class BasicInfo extends React.Component {
 
 	render() {
 		const {basicInfo, errors, units} = this.state;
-		console.log(this.state.errors);
+
 		return (
 			<div>
 				<ReactTooltip  effect='solid' />

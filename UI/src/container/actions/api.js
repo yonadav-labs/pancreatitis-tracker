@@ -16,7 +16,6 @@ export const loadPatientDataApi = (files) => {
 };
 
 export const savePatientDataApi = (data) => {
-	console.log("DDFDF: ", data);
 	return postApi(SAVE_PATIENT_DATA, JSON.stringify(data))
 		.then((res) => {
 			if (res.success) {
