@@ -50,7 +50,7 @@ To install the Acute Pancreatitis Severity Calculator on an UNIX-based system (O
    ```
 3. Setup database schema
    ```
-   python manage.py makemigrations
+   python manage.py makemigrations general
    python manage.py migrate
    ```   
 4. Create a super user
