@@ -119,10 +119,9 @@ class Account extends React.Component {
 						
 						<div className="pt-3 text-center">
 							<div>
-								<GreenButton text="Load Data" className="mt-3" />
+								<GreenButton text="Continue" className="mt-3" />
 							</div>
 						</div>
-
 					</div>
 				</div>
 			</div>
