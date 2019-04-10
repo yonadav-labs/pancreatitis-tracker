@@ -1,6 +1,7 @@
 import React from "react";
 import Title from '../../components/Title';
 import GreenButton from "../../components/GreenButton";
+import {validateAccount} from '../../utils/utils';
 // import { Link } from "react-router-dom";
 
 class Account extends React.Component {
@@ -33,6 +34,31 @@ class Account extends React.Component {
 		params[e.target.id] = e.target.value;
 
 		this.setState({ patient: params });
+	}
+
+	createAccount = () => {
+		const errors = {};
+		const {rules, physician} = this.state;
+
+		Object.keys(physician).forEach((data) => {
+			if (rules[data]) {
+				if (!validateAccount(rules[data], physician[data])) {
+					errors[data] = {
+						msg: 'Please enter valid data.'
+					};
+				}
+			}
+		});
+
+		if (physician.email !== physician.confirmEmail) {
+			errors.confirmEmail = { msg: 'Email is not matching'};
+			errors.email = { msg: 'Email is not matching'};
+		}
+
+		if (Object.keys(errors).length > 0) {
+			this.setState({ errors: errors });
+		} else {
+		}
 	}
 
 	render () {
