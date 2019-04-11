@@ -1,8 +1,12 @@
 import React from "react";
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
 import Title from '../../components/Title';
 import GreenButton from "../../components/GreenButton";
 import {validateAccount} from '../../utils/utils';
-// import { Link } from "react-router-dom";
+import {createAccount} from '../../actions';
+import { ToastContainer, toast } from "react-toastify";
+
 
 class Account extends React.Component {
 	constructor(props) {
@@ -15,7 +19,20 @@ class Account extends React.Component {
 			patient: {
 				name: '',
 				email: ''
-			}
+			},
+			rules: {
+				name: {
+					name: 'name',
+					type: 'text',
+					required: true
+				},
+				email: {
+					name: 'email',
+					type: 'email',
+					required: true
+				}
+			},
+			errors: {}
 		};
 
 		this.changeInfo = this.changeInfo.bind(this);
@@ -50,19 +67,32 @@ class Account extends React.Component {
 			}
 		});
 
-		if (physician.email !== physician.confirmEmail) {
-			errors.confirmEmail = { msg: 'Email is not matching'};
-			errors.email = { msg: 'Email is not matching'};
-		}
-
 		if (Object.keys(errors).length > 0) {
-			this.setState({ errors: errors });
+			this.setState({ errors });
 		} else {
+			this.setState({ errors });
+			this.props.createAccount({
+				username: physician.name,
+				email: physician.email
+			}).then((res) => {
+				if (res.success) {
+					toast.success('Successfully created!', {
+						position: toast.POSITION.TOP_CENTER
+					});
+
+					this.props.history.push('/patient');
+				} else {
+					toast.error('Account creation failed!', {
+						position: toast.POSITION.TOP_CENTER
+					});
+				}
+			});
 		}
 	}
 
 	render () {
-		const {physician, patient} = this.state;
+		const {physician, patient, errors} = this.state;
+
 		return (
 			<div className="app-content">
 				<Title title="Account Info" />
@@ -86,6 +116,9 @@ class Account extends React.Component {
 											value={physician.name}
 											onChange={this.changeInfo}
 										/>
+										<label className="color-danger pt-2 text-danger text-center warning-message">
+											{errors.name && errors.name.msg}
+										</label>
 									</div>
 								</div>
 								<div className="row mb-5">
@@ -101,6 +134,9 @@ class Account extends React.Component {
 											value={physician.email}
 											onChange={this.changeInfo}
 										/>
+										<label className="color-danger pt-2 text-danger text-center warning-message">
+											{errors.email && errors.email.msg}
+										</label>
 									</div>
 								</div>
 							</div>
@@ -123,6 +159,9 @@ class Account extends React.Component {
 											value={patient.name}
 											onChange={this.changePatient}
 										/>
+										<label className="color-danger pt-2 text-danger text-center warning-message">
+											{errors.name && errors.name.msg}
+										</label>
 									</div>
 								</div>
 								<div className="row mb-5">
@@ -138,6 +177,9 @@ class Account extends React.Component {
 											value={patient.email}
 											onChange={this.changePatient}
 										/>
+										<label className="color-danger pt-2 text-danger text-center warning-message">
+											{errors.email && errors.email.msg}
+										</label>
 									</div>
 								</div>
 							</div>
@@ -145,7 +187,11 @@ class Account extends React.Component {
 						
 						<div className="pt-3 text-center">
 							<div>
-								<GreenButton text="Continue" className="mt-3" />
+								<GreenButton
+									text="Continue"
+									className="mt-3"
+									onClick={this.createAccount}
+								/>
 							</div>
 						</div>
 					</div>
@@ -155,5 +201,18 @@ class Account extends React.Component {
 	}
 }
 
-export default Account;
+const mapStatetoProps = state => {
+	return {};
+};
+
+const mapDispatchToProps = dispatch => {
+	return Object.assign(
+		{ dispatch },
+		bindActionCreators({
+			createAccount
+		}, dispatch)
+	);
+};
+	
+export default connect(mapStatetoProps, mapDispatchToProps)(Account);
 

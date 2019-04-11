@@ -142,7 +142,6 @@ class VitalSigns extends React.Component {
 
 	render() {
 		const {vitalSigns, errors, units} = this.state;
-		console.log(units);
 
 		return (
 			<div>

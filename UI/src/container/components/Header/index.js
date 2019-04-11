@@ -1,6 +1,8 @@
 /* disable-eslint no-undef */
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { isAuthenticated } from '../../actions/apiWrapper';
+import { BASE_ROUTES, ALL_ROUTES } from '../../reducers/constants';
 import './index.scss';
 
 
@@ -19,6 +21,12 @@ class Header extends React.Component {
 	}
 
 	render() {
+		let routes = BASE_ROUTES;
+
+		if (isAuthenticated()) {
+			routes = ALL_ROUTES;
+		}
+
 		return (
 			<div className="custom-header">
 				<nav className="navbar navbar-expand navbar-dark bg-primary custom-navbar">
@@ -51,14 +59,13 @@ class Header extends React.Component {
 							<img src="/assets/images/icons/cross.svg" />
 						</span>
 						<ul className="sidebar-nav">
-							<li className="">
-								<Link to="/account">User Account</Link>
-							</li>
-							<li><Link to="/about">About</Link></li>
-							<li><Link to="/patient">Patient Data</Link></li>
-							<li><Link to="/outputs">APSC Outputs</Link></li>
-							<li><Link to="/feedback">Feedback</Link></li>
-							<li><Link to="/contact">Contact Us</Link></li>
+							{
+								routes.map((route, idx) => (
+									<li key={`route${idx}`}>
+										<Link to={route.url}>{route.routeName}</Link>
+									</li>
+								))
+							}
 						</ul>
 					</div>
 				</div>

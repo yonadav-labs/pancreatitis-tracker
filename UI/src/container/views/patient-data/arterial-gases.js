@@ -128,7 +128,6 @@ class ArterialGases extends React.Component {
 	}
 
 	render() {
-		console.log(this.props);
 		const {arterialGases, errors} = this.state;
 		return (
 			<div>

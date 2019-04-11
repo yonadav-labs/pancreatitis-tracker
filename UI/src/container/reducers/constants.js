@@ -16,5 +16,29 @@ export const OUTPUTS = {
 	ERROR: 'ERROR_OUTPUTS'
 };
 
+export const USER = {
+	GET: 'GET_USER',
+	SET: 'SET_USER',
+	REMOVE: 'REMOVE_USER',
+	ERROR: 'ERROR_USER',
+	CREATE_SUCCESS: 'CREATE_SUCCESS_USER'
+};
+
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
+
+export const BASE_ROUTES = [
+	{ url: "account", routeName: "User Account" },
+	{ url: "about", routeName: "About" },
+	{ url: "feedback", routeName: "Feedback" },
+	{ url: "contact", routeName: "Contact Us" }
+];
+
+export const ALL_ROUTES = [
+	{ url: "account", routeName: "User Account" },
+	{ url: "about", routeName: "About" },
+	{ url: "patient", routeName: "Patient Data" },
+	{ url: "outputs", routeName: "APSC Outputs" },
+	{ url: "feedback", routeName: "Feedback" },
+	{ url: "contact", routeName: "Contact Us" }
+];

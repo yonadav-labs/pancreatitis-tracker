@@ -40,6 +40,15 @@ export const getUserRole = () => {
 	
 };
 
+export const isAuthenticated = () => {
+	const token = getToken();
+	if (token) {
+		return true;
+	}
+
+	return false;
+};
+
 export const postApiWithoutToken = (url, body) => {
 	return fetch(url, {
 		method: 'POST',

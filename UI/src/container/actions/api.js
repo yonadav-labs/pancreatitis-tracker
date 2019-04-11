@@ -65,7 +65,6 @@ export const loginApi = (username, password) => {
 
 	return postApiWithoutToken(LOGIN_URL, loginData)
 		.then(response => {
-			console.log(response);
 			if (response && response.token) {
 				const decode = jwtDecode(response.token);
 
@@ -88,4 +87,10 @@ export const loginApi = (username, password) => {
 				error: err
 			};
 		});
+};
+
+export const createAccountApi = (data) => {
+	return new Promise((resolve, reject) => {
+		resolve({ success: true, data: {token: 'test_token1232321'} });
+	});
 };

@@ -4,7 +4,8 @@ import {
 	loadPatientDataApi,
 	savePatientDataApi,
 	loadClinicalScoresApi,
-	loginApi
+	loginApi,
+	createAccountApi
 } from './api';
 
 export const loginAction = (username, password) => {
@@ -82,3 +83,18 @@ export const loadClinicalScores = () => {
 	};
 };
 
+export const createAccount = (user) => {
+	return (dispatch) => {
+		return createAccountApi()
+			.then((res) => {
+				if (res.success) {
+					window.localStorage.setItem('token', res.data.token);
+					dispatch({ type: types.USER.CREATE_SUCCESS, payload: res.data });
+				} else {
+					dispatch({ type: types.USER.ERROR, payload: res.msg });
+				}
+
+				return res;
+			});
+	};
+};
