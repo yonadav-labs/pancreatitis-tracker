@@ -146,3 +146,14 @@ export const lbToKgConvert = (lbs) => {
 export const inchToCmConvert = (lbs) => {
 	return lbs * 2.54;
 }
+
+export const fToC = (fahrenheit) => {
+	var fTemp = fahrenheit;
+	var fToCel = (fTemp - 32) * 5 / 9;
+	return fToCel;
+}
+
+export const mgDlToMmolL = (value) => {
+	var calculated = value * 18.018018;
+	return calculated.toFixed(6);
+}

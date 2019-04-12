@@ -133,7 +133,6 @@ class BasicInfo extends React.Component {
 		basicInfo.bmi.value = bmiValue;
 
 		this.setState({basicInfo, units});
-		this.props.updateInfo(basicInfo, units);
 	}
 
 	next = () => {
@@ -154,6 +153,21 @@ class BasicInfo extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
 		} else {
+			let weight = { ...basicInfo.weight };
+			let height = { ...basicInfo.height };
+
+			if (units.weight === 'lb') {
+				weight.calculatedValue = lbToKgConvert(weight.value);
+			}
+	
+			if (units.height === 'inch') {
+				height.calculatedValue = inchToCmConvert(height.value) / 100;
+			}
+
+			basicInfo.weight = weight;
+			basicInfo.height = height;
+
+			this.props.updateInfo(basicInfo, this.state.units);
 			this.props.jumpToStep(this.props.step+1);
 		}
 	}

@@ -165,6 +165,23 @@ class Chemistry extends React.Component {
 		let {units, chemistry} = this.state;
 		units[id] = value;
 
+		let calucatedValue = chemistry[id].value;
+		// switch (value) {
+		// 	case 'mEq/L':
+		// 		break;
+		// 	case 'mg/dL':
+		// 		calucatedValue = mgDlToMmolL(calucatedValue);
+		// 		break;
+
+		// 	case 'g/L':
+		// 		calucatedValue = calucatedValue * 1000;
+		// 		break;
+			
+		// 	default: break;
+		// }
+
+		chemistry[id].value = calucatedValue;
+
 		this.setState({ units });
 		this.props.updateInfo(chemistry, units);
 	}

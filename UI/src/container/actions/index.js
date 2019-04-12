@@ -49,7 +49,11 @@ export const savePatientDataAction = (data) => {
 
 	Object.keys(data).forEach(key => {
 		if (data[key].value && data[key].value !== '') {
-			params[key] = data[key].value;
+			if (data[key].calculatedValue) {
+				params[key] = data[key].calculatedValue;
+			} else {
+				params[key] = data[key].value;
+			}
 		}
 	});
 
@@ -63,7 +67,7 @@ export const savePatientDataAction = (data) => {
 		delete params.hco3_artieral;
 	}
 
-	console.log('api: ', params);
+	console.log('sdf: ', params);
 	return (dispatch) => {
 		savePatientDataApi(params)
 			.then((res) => {

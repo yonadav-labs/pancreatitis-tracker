@@ -2,6 +2,9 @@ import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import {validateForm} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
+import {
+	fToC
+} from '../../utils/utils';
 
 class VitalSigns extends React.Component {
 	constructor(props) {
@@ -102,7 +105,6 @@ class VitalSigns extends React.Component {
 		}
 
 		this.setState({ vitalSigns: params });
-		this.props.updateInfo(params, this.state.units);
 	}
 
 	changeUnit = (id, value) => {
@@ -110,12 +112,11 @@ class VitalSigns extends React.Component {
 		units[id] = value;
 
 		this.setState({ units });
-		this.props.updateInfo(vitalSigns, units);
 	}
 
 	next = () => {
+		const {vitalSigns, units, rules} = this.state;
 		const errors = {};
-		const {rules, vitalSigns, units} = this.state;
 
 		Object.keys(vitalSigns).forEach((data) => {
 			if (rules[data]) {
@@ -131,6 +132,14 @@ class VitalSigns extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
 		} else {
+			if (units.temperature === 'fahrenheit') {
+				let temperature = Object.assign({}, vitalSigns.temperature);
+				
+				temperature.calculatedValue = fToC(temperature.value);
+				vitalSigns.temperature = temperature;
+			}
+
+			this.props.updateInfo(vitalSigns, units);
 			this.props.jumpToStep(this.props.step+1);
 		}
 
