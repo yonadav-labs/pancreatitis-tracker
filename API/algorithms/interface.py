@@ -154,7 +154,7 @@ class AlgorithmInterface:
         return temperature
 
     @classmethod
-    def glasgow_coma_scale(self, eye_score, verbal_score, motor_score):
+    def glasgow_coma_scale(self):
         """
         Compute Glasgow Coma Scale based on eye, verbal, and motor response.
 
@@ -171,6 +171,11 @@ class AlgorithmInterface:
         Returns:
           glasgow_coma: int, used to assess comma status
         """
+        _ = self.request
+        eye_score = _.get('eye_score')
+        verbal_score = _.get('verbal_score')
+        motor_score = _.get('motor_score')
+        
         glasgow_coma = None
         if all(v is not None for v in [eye_score, verbal_score, motor_score]):
             glasgow_coma = eye_score + verbal_score + motor_score
