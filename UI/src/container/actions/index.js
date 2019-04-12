@@ -46,12 +46,24 @@ export const loadPatientDataAction = (files) => {
 
 export const savePatientDataAction = (data) => {
 	let params = {};
+
 	Object.keys(data).forEach(key => {
 		if (data[key].value && data[key].value !== '') {
 			params[key] = data[key].value;
 		}
 	});
 
+	if (params.hasOwnProperty('hco3_serum')) {
+		params.bicarbonate = params.hco3_serum;
+		delete params.hco3_serum;
+	}
+
+	if (params.hasOwnProperty('hco3_artieral')) {
+		params.bicarbonate = params.hco3_artieral;
+		delete params.hco3_artieral;
+	}
+
+	console.log('api: ', params);
 	return (dispatch) => {
 		savePatientDataApi(params)
 			.then((res) => {
