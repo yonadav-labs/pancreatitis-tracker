@@ -159,34 +159,19 @@ class AlgorithmInterface:
         Compute Glasgow Coma Scale based on eye, verbal, and motor response.
 
         Args:
-          eye_score: int, 1= open spontaneously, 2=open to verbal command
-            3=open in response to pain, 4=no response
-          verbal_score: 1=talk-oriented, 2=confused speech oriented,
-            3=inappropriate words, 4=incomprehensible sounds,
-            4=no response
-          motor_score: 1=obeys commands, 2=localizes pain,
-            3=flexion-withdrawal, 4=abnormal flexion,
-            5=extension, 6=no response
+          eye_score: int, 4= open spontaneously, 3=open to verbal command
+            2=open in response to pain, 1=no response
+          verbal_score: 5=talk-oriented, 4=confused speech oriented,
+            3=inappropriate words, 2=incomprehensible sounds,
+            1=no response
+          motor_score: 6=obeys commands, 5=localizes pain,
+            4=flexion-withdrawal, 3=abnormal flexion,
+            2=extension, 1=no response
 
         Returns:
           glasgow_coma: int, used to assess comma status
         """
         glasgow_coma = None
         if all(v is not None for v in [eye_score, verbal_score, motor_score]):
-            glasgow_coma = 0
-            if eye_score == 1: glasgow_coma += 4 # Open Spontaneously
-            if eye_score == 2: glasgow_coma += 3 # Open to Verbal Command
-            if eye_score == 3: glasgow_coma += 2 # Open in response to pain
-            if eye_score == 4: glasgow_coma += 1  # No Response
-            if verbal_score == 1: glasgow_coma += 5 # Talk-Oriented
-            if verbal_score == 2: glasgow_coma += 4 # Confused Speech Disoriented
-            if verbal_score == 3: glasgow_coma += 3 # Inappropriate words
-            if verbal_score == 4: glasgow_coma += 2  # Incomprehensible sounds
-            if verbal_score == 5: glasgow_coma += 1 # No Response
-            if motor_score == 1: glasgow_coma += 6 # Obeys Command
-            if motor_score == 2: glasgow_coma += 5 # Localizes Pain
-            if motor_score == 3: glasgow_coma += 4 # Flexion - Withdrawal
-            if motor_score == 4: glasgow_coma += 3  # Abnormal flexion
-            if motor_score == 5: glasgow_coma += 2 # Extension
-            if motor_score == 6: glasgow_coma += 1 # No Response
+            glasgow_coma = eye_score + verbal_score + motor_score
         return glasgow_coma
