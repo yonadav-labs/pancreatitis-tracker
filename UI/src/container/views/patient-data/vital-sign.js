@@ -13,7 +13,7 @@ class VitalSigns extends React.Component {
 				bp_diastolic: this.props.data.bp_diastolic || {value: '', unit: 'mmHg'},
 				heart_rate: this.props.data.heart_rate || {value: '', unit: 'bpm'},
 				resp_rate: this.props.data.resp_rate || {value: '', unit: 'bpm'},
-				pulseOximetry: this.props.data.pulseOximetry || {value: '', unit: '%'}
+				spO2: this.props.data.spO2 || {value: '', unit: '%'}
 			},
 			units: {
 				temperature: this.props.units.temperature || 'celcius',
@@ -21,7 +21,7 @@ class VitalSigns extends React.Component {
 				bp_diastolic: this.props.units.bp_diastolic || 'mmHg',
 				heart_rate: this.props.units.heart_rate || 'bpm',
 				resp_rate: this.props.units.resp_rate || 'bpm',
-				pulseOximetry: this.props.units.pulseOximetry || '%'
+				spO2: this.props.units.spO2 || '%'
 			},
 			rules: {
 				temperature: {
@@ -63,8 +63,8 @@ class VitalSigns extends React.Component {
 					],
 					required: true
 				},
-				pulseOximetry: {
-					name: 'pulseOximetry',
+				spO2: {
+					name: 'spO2',
 					type: 'integer',
 					range: [
 						{ min: 80, max: 100, unit: '%' }
@@ -278,13 +278,13 @@ class VitalSigns extends React.Component {
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
-									id="pulseOximetry"
+									id="spO2"
 									className="round-input"
-									value={vitalSigns.pulseOximetry && vitalSigns.pulseOximetry.value}
+									value={vitalSigns.spO2 && vitalSigns.spO2.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.pulseOximetry && errors.pulseOximetry.msg}
+									{errors.spO2 && errors.spO2.msg}
 								</label>
 							</div>
 						</div>

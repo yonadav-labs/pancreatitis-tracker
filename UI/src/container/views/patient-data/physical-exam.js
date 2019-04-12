@@ -102,7 +102,8 @@ class PhysicalExam extends React.Component {
 					required: true
 				}
 			},
-			errors: {}
+			errors: {},
+			glasgow_coma: 0
 		};
 
 		this.changeInfo = this.changeInfo.bind(this);
@@ -131,16 +132,18 @@ class PhysicalExam extends React.Component {
 	}
 
 	changeOption = (id, val) => {
-		let {physicalExam} = this.state;
+		let {physicalExam, glasgow_coma} = this.state;
 		physicalExam[id] = {...physicalExam[id], ...val};
 
-		this.setState({ physicalExam });
+		glasgow_coma += val.value;
+
+		this.setState({ physicalExam, glasgow_coma });
 		this.props.updateInfo(physicalExam, this.state.units);
 	}
 
 	next = () => {
 		const errors = {};
-		const {rules, physicalExam, units} = this.state;
+		const {rules, physicalExam, units, glasgow_coma} = this.state;
 
 		Object.keys(physicalExam).forEach((data) => {
 			if (rules[data]) {
@@ -152,6 +155,21 @@ class PhysicalExam extends React.Component {
 				}
 			}
 		});
+
+		if (glasgow_coma !== 0) {
+			const msg = 'Value should be selected.';
+			if (physicalExam.verbalResponse.value === '') {
+				errors.verbalResponse = { msg: msg };
+			}
+
+			if (physicalExam.motorResponse.value === '') {
+				errors.motorResponse = { msg: msg };
+			}
+
+			if (physicalExam.eyeResponse.value === '') {
+				errors.eyeResponse = { msg: msg };
+			}
+		}
 
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });

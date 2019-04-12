@@ -10,7 +10,7 @@ class Chemistry extends React.Component {
 				sodium: this.props.data.sodium || { value: '', unit: 'mmol/L'},
 				potassium: this.props.data.potassium || { value: '', unit: 'mmol/L'},
 				chloride: this.props.data.chloride || { value: '', unit: 'mmol/L'},
-				bicarbonate: this.props.data.bicarbonate || { value: '', unit: 'mmol/L'},
+				hco3_serum: this.props.data.hco3_serum || { value: '', unit: 'mmol/L'},
 				bun: this.props.data.bun || { value: '', unit: 'mg/dL'},
 				creatinine: this.props.data.creatinine || { value: '', unit: 'mg/dL'},
 				glucose: this.props.data.glucose || { value: '', unit: 'mmol/L'},
@@ -24,7 +24,7 @@ class Chemistry extends React.Component {
 				sodium: this.props.units.sodium || 'mmol/L',
 				potassium: this.props.units.potassium || 'mmol/L',
 				chloride: this.props.units.chloride || 'mmol/L',
-				bicarbonate: this.props.units.bicarbonate || 'mmol/L',
+				hco3_serum: this.props.units.hco3_serum || 'mmol/L',
 				bun: this.props.units.bun || 'mg/dL',
 				creatinine: this.props.units.creatinine || 'mg/dL',
 				glucose: this.props.units.glucose || 'mmol/L',
@@ -58,8 +58,8 @@ class Chemistry extends React.Component {
 					],
 					required: true
 				},
-				bicarbonate: {
-					name: 'bicarbonate',
+				hco3_serum: {
+					name: 'hco3_serum',
 					type: 'integer',
 					range: [
 						{ min: 13, max: 55, unit: 'mmol/L' }
@@ -278,13 +278,13 @@ class Chemistry extends React.Component {
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
-									id="bicarbonate"
+									id="hco3_serum"
 									className="round-input"
-									value={chemistry.bicarbonate.value}
+									value={chemistry.hco3_serum.value}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.bicarbonate && errors.bicarbonate.msg}
+									{errors.hco3_serum && errors.hco3_serum.msg}
 								</label>
 							</div>
 						</div>
