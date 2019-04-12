@@ -23,15 +23,22 @@ ALGORITHMS = [
     sirs.AlgorithmSirs
 ]
 
+def get_preprocessed_data(request):
+    data = json.loads(request.body.decode("utf-8"))
+    data['arterial_pressure'] = map.AlgorithmMap(data).evaluate()
+    data['glasgow_coma'] = map.AlgorithmMap(data).glasgow_coma_scale()
+    return data
+
+
 @csrf_exempt
 def get_algorithms(request):
     results = []
-    req = {}
+    data = {}
     if request.method == 'POST':
-        req = json.loads(request.body.decode("utf-8"))
+        data = get_preprocessed_data(request)
 
     for algorithm in ALGORITHMS:
-        algo = algorithm(req)
+        algo = algorithm(data)
         result = {
             "algorithm": algo.__class__.__name__,
             "params": algo.params(),
@@ -64,7 +71,7 @@ def _run_algorithm(algorithm, data):
 
 @csrf_exempt
 def run_algorithms(request):
-    data = json.loads(request.body.decode("utf-8"))
+    data = get_preprocessed_data(request)
     results = []
     output = {}
     for algorithm in ALGORITHMS:
@@ -95,6 +102,6 @@ def run_algorithm(request, algorithm):
     if not algo:
         return JsonResponse({"msg": "No matching algorithm"}, safe=False)
 
-    data = json.loads(request.body.decode("utf-8"))
+    data = get_preprocessed_data(request)
 
     return JsonResponse(_run_algorithm(algo, data), safe=False)
