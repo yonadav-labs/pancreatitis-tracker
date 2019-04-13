@@ -157,3 +157,19 @@ export const mgDlToMmolL = (value) => {
 	var calculated = value * 18.018018;
 	return calculated.toFixed(6);
 }
+
+export const sodiumConvert = (val) => {
+	return val;
+}
+
+export const glucoseConvert = (val) => {
+	return val * 0.0554994394556615;
+}
+
+export const calciumConvert = (val) => {
+	return val * 0.25;
+}
+
+export const albuminConvert = (val) => {
+	return val * 0.1;
+}

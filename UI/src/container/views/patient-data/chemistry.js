@@ -1,5 +1,11 @@
 import React from 'react';
-import {validateForm} from '../../utils/utils';
+import {
+	validateForm,
+	sodiumConvert,
+	glucoseConvert,
+	calciumConvert,
+	albuminConvert
+} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
 
 class Chemistry extends React.Component {
@@ -165,22 +171,22 @@ class Chemistry extends React.Component {
 		let {units, chemistry} = this.state;
 		units[id] = value;
 
-		let calucatedValue = chemistry[id].value;
+		let calculatedValue = chemistry[id].value;
 		// switch (value) {
 		// 	case 'mEq/L':
 		// 		break;
 		// 	case 'mg/dL':
-		// 		calucatedValue = mgDlToMmolL(calucatedValue);
+		// 		calculatedValue = mgDlToMmolL(calculatedValue);
 		// 		break;
 
 		// 	case 'g/L':
-		// 		calucatedValue = calucatedValue * 1000;
+		// 		calculatedValue = calculatedValue * 1000;
 		// 		break;
 			
 		// 	default: break;
 		// }
 
-		chemistry[id].value = calucatedValue;
+		chemistry[id].value = calculatedValue;
 
 		this.setState({ units });
 		this.props.updateInfo(chemistry, units);
@@ -204,6 +210,33 @@ class Chemistry extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
 		} else {
+			let sodium = { ...chemistry.sodium };
+			let calcium = { ...chemistry.calcium };
+			let glucose= { ...chemistry.glucose };
+			let albumin = { ...chemistry.albumin };
+
+			if (units.sodium === 'mEq/L') {
+				sodium.calculatedValue = sodiumConvert(sodium.value);
+			}
+
+			if (units.calcium === 'mg/dL') {
+				calcium.calculatedValue = calciumConvert(calcium.value);
+			}
+
+			if (units.glucose === 'mg/dL') {
+				glucose.calculatedValue = glucoseConvert(glucose.value);
+			}
+
+			if (units.albumin === 'g/L') {
+				albumin.calculatedValue = albuminConvert(albumin.value);
+			}
+
+			chemistry.sodium = sodium;
+			chemistry.calcium = calcium;
+			chemistry.glucose = glucose;
+			chemistry.albumin = albumin;
+
+			this.props.updateInfo(chemistry, this.state.units);
 			this.props.jumpToStep(this.props.step+1);
 		}
 	}

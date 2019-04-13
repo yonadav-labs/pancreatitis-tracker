@@ -116,7 +116,6 @@ class PatientData extends React.Component {
 	}
 
 	render () {
-		console.log('AA: ', this.state.data);
 		const steps = [
 			{name: 'Basic info', component: <BasicInfo step={0} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} loadData={this.loadPatientData} />},
 			{name: 'Vital Signs', component: <VitalSigns step={1} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},

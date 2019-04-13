@@ -67,7 +67,6 @@ export const savePatientDataAction = (data) => {
 		delete params.hco3_artieral;
 	}
 
-	console.log('sdf: ', params);
 	return (dispatch) => {
 		savePatientDataApi(params)
 			.then((res) => {
