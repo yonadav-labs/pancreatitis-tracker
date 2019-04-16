@@ -90,7 +90,7 @@ class AlgorithmInterface:
             return (height, weight)
 
     @classmethod
-    def calculate_bmi(self, height, weight, bmi):
+    def calculate_bmi(self):
         """
         Estimate body mass index from height and weight in metric.
 
@@ -102,8 +102,13 @@ class AlgorithmInterface:
         Returns:
           bmi: body mass index, kg/m^2
         """
-        if bmi is None:
-            if height is not None and weight is not None:
+        _ = self.request
+        pabmiO2 = _.get('bmi')
+        weight = _.get('weight')
+        height = _.get('height')
+
+        if not bmi:
+            if height and weight:
                 bmi = weight / height**2
         return bmi
 
