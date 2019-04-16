@@ -108,7 +108,7 @@ class AlgorithmInterface:
         return bmi
 
     @classmethod
-    def arterialbg_from_pulseox(self, paO2, spO2):
+    def arterialbg_from_pulseox(self):
         """
         Imputes PaO2 (from ABG) from SpO2 (from pulse oximeter reading).
 
@@ -125,8 +125,12 @@ class AlgorithmInterface:
         NOTE: May choose not to approximate if PaO2 > 0.96 because
         approximation worsens at edges of sigmoid.
         """
-        if paO2 is None:
-            if spO2 is not None:
+        _ = self.request
+        paO2 = _.get('paO2')
+        spO2 = _.get('spO2')
+
+        if not paO2:
+            if spO2:
                 c1, c2, denominator = 11700, 50, (1/float(spO2) - 1)
                 term1 = (
                           (c1 / denominator) + 

@@ -27,6 +27,9 @@ def get_preprocessed_data(request):
     data = json.loads(request.body.decode("utf-8"))
     data['arterial_pressure'] = map.AlgorithmMap(data).evaluate()
     data['glasgow_coma'] = map.AlgorithmMap(data).glasgow_coma_scale()
+    data['paO2'] = map.AlgorithmMap(data).arterialbg_from_pulseox()
+    data['sirs_score'] = sirs.AlgorithmSirs(data).evaluate()
+    # peritonitis
     return data
 
 

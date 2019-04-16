@@ -22,7 +22,7 @@ class AlgorithmMap(AlgorithmInterface):
             return None
 
         arterial_pressure = _.get('arterial_pressure')
-        if not arterial_pressure and _['bp_systolic'] and _['bp_diastolic']:
+        if not arterial_pressure:
             pulse_pressure = _['bp_systolic'] - _['bp_diastolic']
             arterial_pressure = _['bp_diastolic'] + pulse_pressure / 3
         return arterial_pressure
