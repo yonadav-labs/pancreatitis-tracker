@@ -44,7 +44,7 @@ class AlgorithmMarshall(AlgorithmInterface):
         if _["ph"] < ph_lim1: marshall_score += 1
         if _["ph"] < ph_lim2: marshall_score += 1
 
-        if _.get("fluid_responsive") is not None:
-            if not _["fluid_responsive"]: marshall_score += 1
+        if _.get("fluid_responsive") == False:
+            marshall_score += 1
 
         return marshall_score

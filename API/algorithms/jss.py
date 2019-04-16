@@ -25,9 +25,9 @@ class AlgorithmJss(AlgorithmInterface):
     Returns:
       jss_score: JSS score if conditions met, else None
     """
-    required_fields = ['age', 'calcium', 'crp', 'ldh', 'platelet_count', 'sirs_score']
-    optional_fields = ['bun', 'creatinine', 'base_excess', 'bp_systolic', 'paO2', 
-                       'oliguria', 'resp_failure']
+    required_fields = ['age', 'calcium', 'crp', 'ldh', 'platelet_count', 'sirs_score', 'paO2']
+    semi_req_fields = [['base_excess', 'bp_systolic'], ['bun', 'creatinine']]
+    optional_fields = ['oliguria', 'resp_failure']
 
     def evaluate(self):
         _ = self.request

@@ -13,6 +13,7 @@ class AlgorithmInterface:
 
     required_fields = []
     optional_fields = []
+    semi_req_fields = []
 
     @classmethod
     def __init__(self, request):
@@ -20,7 +21,10 @@ class AlgorithmInterface:
 
     @classmethod
     def can_process(self):
-        return all([self.request.get(ii) is not None for ii in self.required_fields])
+        if not all([self.request.get(ii) is not None for ii in self.required_fields]):
+            return False
+        semi_req = [all(self.request.get(jj) for jj in ii) for ii in self.semi_req_fields]
+        return any(semi_req)
 
     @classmethod
     def __repr__(self):

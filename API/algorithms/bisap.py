@@ -19,8 +19,7 @@ class AlgorithmBisap(AlgorithmInterface):
     Returns:
       bisap_score: BISAP score if conditions met, else None
     """
-    required_fields = ['age', 'bun', 'pleural_eff', 'sirs_score']
-    optional_fields = ['impaired_state', 'glasgow_coma']
+    required_fields = ['age', 'bun', 'pleural_eff', 'sirs_score', 'glasgow_coma']
 
     def evaluate(self):
         _ = self.request
