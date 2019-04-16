@@ -44,27 +44,27 @@ class PhysicalExam extends React.Component {
 		super(props);
 		this.state = {
 			physicalExam: {
-				abdominalGuarding: this.props.data.abdominalGuarding || { value: '', label: '' },
-				abdominalTenderness: this.props.data.abdominalTenderness || { value: '', label: '' },
+				guarding: this.props.data.guarding || { value: '', label: '' },
+				tenderness: this.props.data.tenderness || { value: '', label: '' },
 				eye_score: this.props.data.eye_score || {value: '', unit: 'a.u'},
 				verbal_score: this.props.data.verbal_score || {value: '', unit: 'a.u'},
 				motor_score: this.props.data.motor_score || {value: '', unit: 'a.u'},
 				pleural_eff: this.props.data.pleural_eff || { value: '', label: '' }
 			},
 			units: {
-				abdominalGuarding: '',
+				guarding: '',
 				eye_score: 'a.u',
 				verbal_score: 'a.u',
 				motor_score: 'a.u',
 				pleural_eff: ''
 			},
 			rules: {
-				abdominalGuarding: {
-					name: 'abdominalGuarding',
+				guarding: {
+					name: 'guarding',
 					type: 'boolean'
 				},
-				abdominalTenderness: {
-					name: 'abdominalTenderness',
+				tenderness: {
+					name: 'tenderness',
 					type: 'boolean'
 				},
 				pleural_eff: {
@@ -208,11 +208,11 @@ class PhysicalExam extends React.Component {
 									options={booleanOption}
 									className="patient-select"
 									classNamePrefix="newselect"
-									onChange={(e) => this.changeOption('abdominalGuarding', e)}
-									value={physicalExam.abdominalGuarding}
+									onChange={(e) => this.changeOption('guarding', e)}
+									value={physicalExam.guarding}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.abdominalGuarding && errors.abdominalGuarding.msg}
+									{errors.guarding && errors.guarding.msg}
 								</label>
 							</div>
 						</div>
@@ -233,11 +233,11 @@ class PhysicalExam extends React.Component {
 									options={booleanOption}
 									className="patient-select"
 									classNamePrefix="newselect"
-									onChange={(e) => this.changeOption('abdominalTenderness', e)}
-									value={physicalExam.abdominalTenderness}
+									onChange={(e) => this.changeOption('tenderness', e)}
+									value={physicalExam.tenderness}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.abdominalTenderness && errors.abdominalTenderness.msg}
+									{errors.tenderness && errors.tenderness.msg}
 								</label>
 							</div>
 						</div>

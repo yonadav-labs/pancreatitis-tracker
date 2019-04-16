@@ -55,6 +55,8 @@ class PatientData extends React.Component {
 				hematocrit: this.props.patient.hematocrit || {value: '', label: ''},
 				crp: this.props.patient.crp || {value: '', label: ''},
 				peritonitis: this.props.patient.peritonitis || {value: '', label: ''},
+				guarding: this.props.data.guarding || { value: '', label: '' },
+				tenderness: this.props.data.tenderness || { value: '', label: '' },
 				eye_score: this.props.patient.eye_score || {value: '', label: ''},
 				verbal_score: this.props.patient.verbal_score || {value: '', label: ''},
 				motor_score: this.props.patient.motor_score || {value: '', label: ''},
@@ -67,7 +69,6 @@ class PatientData extends React.Component {
 				Map: this.props.patient.Map || {value: '', label: ''},
 				oliguria: this.props.patient.oliguria || {value: '', label: ''},
 				resp_failure: this.props.patient.resp_failure || {value: '', label: ''},
-				chronicHealthPoints: this.props.patient.chronicHealthPoints || {value: '', label: ''},
 				fluid_responsive: this.props.patient.fluid_responsive ||{value: '', label: ''}
 			},
 			error: {
