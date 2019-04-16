@@ -41,7 +41,6 @@ class PatientData extends React.Component {
 				sodium: this.props.patient.sodium || {value: '', label: ''},
 				potassium: this.props.patient.potassium || {value: '', label: ''},
 				chloride: this.props.patient.chloride || {value: '', label: ''},
-				bicarbonate: this.props.patient.bicarbonate || {value: '', label: ''},
 				hco3_serum: this.props.patient.hco3_serum || {value: '', label: ''},
 				bun: this.props.patient.bun || {value: '', label: ''},
 				creatinine: this.props.patient.creatinine || {value: '', label: ''},

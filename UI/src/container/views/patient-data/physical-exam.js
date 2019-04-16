@@ -49,7 +49,7 @@ class PhysicalExam extends React.Component {
 				eye_score: this.props.data.eye_score || {value: '', unit: 'a.u'},
 				verbal_score: this.props.data.verbal_score || {value: '', unit: 'a.u'},
 				motor_score: this.props.data.motor_score || {value: '', unit: 'a.u'},
-				pleural_eff: this.props.data.pleural_eff || { value: null, label: '' }
+				pleural_eff: this.props.data.pleural_eff || { value: '', label: '' }
 			},
 			units: {
 				abdominalGuarding: '',

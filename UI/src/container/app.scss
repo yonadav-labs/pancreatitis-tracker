@@ -292,6 +292,7 @@ a.green-button:hover {
 
 .progress-title-btn {
   width: 300px;
+  max-width: 182px;
   height: 50px;
   padding: 0 15px;
   border-radius: 30px;
@@ -342,8 +343,8 @@ a.green-button:hover {
 }
 
 .bar-result {
-  width: 250px;
-  padding: 0 25px;
+  width: 100px;
+  padding: 0;
   font-size: 20px;
   align-self: center;
   font-weight: 500;
@@ -592,12 +593,12 @@ ol.progtrckr li.progtrckr-done:before {
   visibility: hidden;
 }
 
-.react-sweet-progress-line {
-  width: calc(100% - 60px);
-}
-
 .react-sweet-progress-line-inner {
   background-color: $light-cyan-color !important;
+}
+
+.react-sweet-progress-symbol {
+  display: none;
 }
 
 @media (max-width: 1399px) {

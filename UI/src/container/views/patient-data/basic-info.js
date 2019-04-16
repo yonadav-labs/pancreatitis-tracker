@@ -158,10 +158,14 @@ class BasicInfo extends React.Component {
 
 			if (units.weight === 'lb') {
 				weight.calculatedValue = lbToKgConvert(weight.value);
+			} else {
+				weight.calculatedValue = weight.value;
 			}
 	
 			if (units.height === 'inch') {
 				height.calculatedValue = inchToCmConvert(height.value) / 100;
+			} else {
+				height.calculatedValue = height.value;
 			}
 
 			basicInfo.weight = weight;

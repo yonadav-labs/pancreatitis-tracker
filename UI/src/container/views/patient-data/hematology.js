@@ -9,13 +9,13 @@ class Hematology extends React.Component {
 		this.state = {
 			hematology: {
 				wbc: this.props.data.wbc || { value: '', unit: '10^9 cells/L'},
-				platelet_count: this.props.data.platelet_count || { value: '', unit: '10^3 units/mm^3'},
+				platelet_count: this.props.data.platelet_count || { value: '', unit: '10^3 units/µL'},
 				hematocrit: this.props.data.hematocrit || { value: '', unit: '%'},
 				crp: this.props.data.crp || { value: '', unit: 'mg/L'}
 			},
 			units: {
 				wbc: this.props.units.wbc || '10^9 cells/L',
-				platelet_count: this.props.units.platelet_count || '10^3 units/mm^3',
+				platelet_count: this.props.units.platelet_count || '10^3 units/µL',
 				hematocrit: this.props.units.hematocrit || '%',
 				crp: this.props.units.crp || 'mg/L'
 			},
@@ -32,8 +32,8 @@ class Hematology extends React.Component {
 					name: 'platelet_count',
 					type: 'integer',
 					range: [
-						{ min: 50, max: 450, unit: 'units/µL'},
-						{ min: 150000, max: 400000, unit: '10^3 units/µL'}
+						{ min: 50, max: 450, unit: '10^3 units/µL'},
+						{ min: 50000, max: 450000, unit: 'units/µL'}
 					],
 					required: true
 				},
@@ -50,7 +50,7 @@ class Hematology extends React.Component {
 					type: 'integer',
 					range: [
 						{ min: 0, max: 20, unit: 'mg/L' },
-						{ min: 1, max: 3, unit: 'mg/dL' }
+						{ min: 0, max: 2, unit: 'mg/dL' }
 					],
 					required: true
 				}
@@ -84,7 +84,7 @@ class Hematology extends React.Component {
 	}
 
 	changeUnit = (id, value) => {
-		let { units, hematology } = this.state;
+		let { units } = this.state;
 		units[id] = value;
 
 		this.setState({ units });
@@ -108,6 +108,25 @@ class Hematology extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
 		} else {
+			let crp = { ...hematology.crp };
+			let platelet_count = { ...hematology.platelet_count };
+
+			if (units.platelet_count === 'units/µL') {
+				platelet_count.calculatedValue = platelet_count.value / 1000;
+			} else {
+				platelet_count.calculatedValue = platelet_count.value;
+			}
+
+			if (units.crp === 'mg/dL') {
+				crp.calculatedValue = crp.value * 10;
+			} else {
+				crp.calculatedValue = crp.value;
+			}
+
+			hematology.platelet_count = platelet_count;
+			hematology.crp = crp;
+
+			this.props.updateInfo(hematology, this.state.units);
 			this.props.jumpToStep(this.props.step+1);
 		}
 	}
@@ -161,8 +180,8 @@ class Hematology extends React.Component {
 										defaultValue={units.platelet_count}
 										onChange={e => this.changeUnit('platelet_count', e.target.value)}
 									>
-										<option>10^3 units/mm^3</option>
-										<option>platelets/µL</option>
+										<option>10^3 units/µL</option>
+										<option>units/µL</option>
 									</select>
 								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -216,7 +235,7 @@ class Hematology extends React.Component {
 										onChange={e => this.changeUnit('crp', e.target.value)}
 									>
 										<option>mg/L</option>
-										<option>mq/dL</option>
+										<option>mg/dL</option>
 									</select>
 								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">

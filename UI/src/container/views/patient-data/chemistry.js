@@ -214,10 +214,14 @@ class Chemistry extends React.Component {
 
 			if (units.glucose === 'mg/dL') {
 				glucose.calculatedValue = glucoseConvert(glucose.value);
+			} else {
+				glucose.calculatedValue = glucose.value;
 			}
 
 			if (units.albumin === 'g/dL') {
 				albumin.calculatedValue = albumin.value * 10;
+			} else {
+				albumin.calculatedValue = albumin.value;
 			}
 
 			chemistry.glucose = glucose;

@@ -72,7 +72,8 @@ class Outputs extends React.Component {
 													key={`custom-progress$${idx}`}
 													title={item.algorithm.replace('Algorithm', '')}
 													value={item.score}
-													text={`${item.score} of 5`}
+													scoreRange={item.score_range}
+													item={item}
 												/>
 											);
 										})

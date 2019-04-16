@@ -1,4 +1,5 @@
 import React from 'react';
+import ReactTooltip from 'react-tooltip';
 import { Progress } from 'react-sweet-progress';
 import "react-sweet-progress/lib/style.css";
 
@@ -13,19 +14,39 @@ const theme = {
 
 
 class CustomProgressBar extends React.PureComponent {
+	rangeToPercent(number, min, max){
+		return ((number - min) / (max - min)) * 100;
+	}
+
 	render() {
+		let percent = this.props.value;
+		let text = '';
+
+		if (this.props.scoreRange && this.props.item.is_capable) {
+			percent = this.rangeToPercent(
+				this.props.value,
+				this.props.scoreRange.min,
+				this.props.scoreRange.max
+			);
+			text = `${this.props.value} / ${this.props.scoreRange.max}`;
+		}
+
 		return (
 			<div className="btn-progress-bar">
-				<div className="progress-title-btn">{this.props.title}</div>
+				<ReactTooltip  effect='solid' />
+				<div className="progress-title-btn" data-tip={percent ? `${percent}%` : '0%'}>{this.props.title}</div>
 				<Progress
-					percent={this.props.value ? this.props.value.toFixed(1): 0}
+					percent={percent ? percent.toFixed(1): 0}
 					theme={theme.valid}
-					className={this.props.value ? '' : 'empty-progress'}
+					className={percent ? '' : 'empty-progress'}
 				/>
-				{/* <div className="bar-value-wrapper">
-					<span className={`bar-value val-${this.props.value}`}></span>
-				</div>
-				<span className="bar-result"> {this.props.text} </span> */}
+				{
+					text !== ''
+						? (
+							<span className="bar-result"> {text} </span>
+						)
+						: null
+				}
 			</div>
 		);
 	}
