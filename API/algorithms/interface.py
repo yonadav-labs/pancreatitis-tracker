@@ -28,13 +28,15 @@ class AlgorithmInterface:
 
     @classmethod
     def __repr__(self):
-        return 'Required parameters: ({})\nOptional parameters: ({})'.format(
+        return 'Required parameters: ({})\nEither/Or parameters: ({})\nOptional parameters: ({})'.format(
             ', '.join(self.required_fields),
+            ', '.join(self.semi_req_fields),
             ', '.join(self.optional_fields))
 
     @classmethod
     def params(self):
         return { "required": self.required_fields,
+                 "either/or": self.semi_req_fields,
                  "optional": self.optional_fields}
 
     @abstractmethod
