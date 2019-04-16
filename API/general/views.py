@@ -10,8 +10,8 @@ from .models import *
 
 ALGORITHMS = [
     map.AlgorithmMap, 
-    marshall.AlgorithmMarshall, 
-    early_warning.AlgorithmEarlyWarning, 
+    # marshall.AlgorithmMarshall, 
+    # early_warning.AlgorithmEarlyWarning, 
     apache.AlgorithmApache,
     bisap.AlgorithmBisap, 
     glasgow.AlgorithmGlasgow, 
@@ -25,8 +25,14 @@ ALGORITHMS = [
 
 def get_preprocessed_data(request):
     data = json.loads(request.body.decode("utf-8"))
+    data['glasgow_coma'] = interface.AlgorithmInterface(data).glasgow_coma_scale()
+    data['paO2'] = interface.AlgorithmInterface(data).arterialbg_from_pulseox()
+    data['bmi'] = interface.AlgorithmInterface(data).calculate_bmi()
+    data['bicarbonate'] = interface.AlgorithmInterface(data).get_bicarbonate()
+    data['peritonitis'] = interface.AlgorithmInterface(data).get_peritonitis()
+    
     data['arterial_pressure'] = map.AlgorithmMap(data).evaluate()
-    data['glasgow_coma'] = map.AlgorithmMap(data).glasgow_coma_scale()
+    data['sirs_score'] = sirs.AlgorithmSirs(data).evaluate()
     return data
 
 

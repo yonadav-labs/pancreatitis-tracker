@@ -18,7 +18,7 @@ class AlgorithmSirs(AlgorithmInterface):
       sirs_score: SIRS score if conditions met, else None
     """
     required_fields = ['temperature', 'heart_rate', 'wbc']
-    optional_fields = ['resp_rate', 'paCO2']
+    semi_req_fields = [['resp_rate'], ['paCO2']]
 
     def evaluate(self):
         _ = self.request
@@ -36,8 +36,10 @@ class AlgorithmSirs(AlgorithmInterface):
         sirs_score = 0
         if _["temperature"] >= temp_upper or _["temperature"] <= temp_lower: 
             sirs_score += 1
-        if _["heart_rate"] >= hr_limit: sirs_score += 1
-        if _["wbc"] >= wbc_upper or _["wbc"] <= wbc_lower: sirs_score += 1 
+        if _["heart_rate"] >= hr_limit: 
+            sirs_score += 1
+        if _["wbc"] >= wbc_upper or _["wbc"] <= wbc_lower: 
+            sirs_score += 1 
 
         resp_rate = _.get("resp_rate")
         paCO2 = _.get("paCO2")

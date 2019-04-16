@@ -33,7 +33,7 @@ class AlgorithmApache(AlgorithmInterface):
     required_fields = ['age', 'temperature', 'arterial_pressure', 'heart_rate', 
                        'resp_rate', 'sodium', 'potassium', 'creatinine', 'hematocrit', 
                        'wbc', 'glasgow_coma', 'chronic_health']
-    optional_fields = ['ph', 'bicarbonate', 'paO2', 'paCO2', 'fiO2']
+    semi_req_fields = [['ph', 'paO2', 'paCO2', 'fiO2'], ['bicarbonate']]
 
     def evaluate(self):
         _ = self.request

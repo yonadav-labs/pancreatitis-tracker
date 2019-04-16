@@ -13,6 +13,7 @@ class AlgorithmInterface:
 
     required_fields = []
     optional_fields = []
+    semi_req_fields = []
 
     @classmethod
     def __init__(self, request):
@@ -20,17 +21,22 @@ class AlgorithmInterface:
 
     @classmethod
     def can_process(self):
-        return all([self.request.get(ii) is not None for ii in self.required_fields])
+        if not all([self.request.get(ii) is not None for ii in self.required_fields]):
+            return False
+        semi_req = [all(self.request.get(jj) for jj in ii) for ii in self.semi_req_fields]
+        return not self.semi_req_fields or any(semi_req)
 
     @classmethod
     def __repr__(self):
-        return 'Required parameters: ({})\nOptional parameters: ({})'.format(
+        return 'Required parameters: ({})\nEither/Or parameters: ({})\nOptional parameters: ({})'.format(
             ', '.join(self.required_fields),
+            ', '.join(self.semi_req_fields),
             ', '.join(self.optional_fields))
 
     @classmethod
     def params(self):
         return { "required": self.required_fields,
+                 "either/or": self.semi_req_fields,
                  "optional": self.optional_fields}
 
     @abstractmethod
@@ -90,7 +96,7 @@ class AlgorithmInterface:
             return (height, weight)
 
     @classmethod
-    def calculate_bmi(self, height, weight, bmi):
+    def calculate_bmi(self):
         """
         Estimate body mass index from height and weight in metric.
 
@@ -102,13 +108,40 @@ class AlgorithmInterface:
         Returns:
           bmi: body mass index, kg/m^2
         """
-        if bmi is None:
-            if height is not None and weight is not None:
+        _ = self.request
+        bmi = _.get('bmi')
+        weight = _.get('weight')
+        height = _.get('height')
+
+        if not bmi:
+            if height and weight:
                 bmi = weight / height**2
         return bmi
 
     @classmethod
-    def arterialbg_from_pulseox(self, paO2, spO2):
+    def get_bicarbonate(self):
+        _ = self.request
+        bicarbonate = _.get('bicarbonate')
+        hco3_arterial = _.get('hco3_arterial')
+        hco3_serum = _.get('hco3_serum')
+
+        if not bicarbonate:
+            bicarbonate = hco3_arterial if hco3_arterial else hco3_serum
+        return bicarbonate
+
+    @classmethod
+    def get_peritonitis(self):
+        _ = self.request
+        peritonitis = _.get('peritonitis')
+        guarding = _.get('guarding')
+        tenderness = _.get('tenderness')
+
+        if not peritonitis:
+            peritonitis = guarding or tenderness
+        return peritonitis
+
+    @classmethod
+    def arterialbg_from_pulseox(self):
         """
         Imputes PaO2 (from ABG) from SpO2 (from pulse oximeter reading).
 
@@ -125,8 +158,12 @@ class AlgorithmInterface:
         NOTE: May choose not to approximate if PaO2 > 0.96 because
         approximation worsens at edges of sigmoid.
         """
-        if paO2 is None:
-            if spO2 is not None:
+        _ = self.request
+        paO2 = _.get('paO2')
+        spO2 = _.get('spO2')
+
+        if not paO2:
+            if spO2:
                 c1, c2, denominator = 11700, 50, (1/float(spO2) - 1)
                 term1 = (
                           (c1 / denominator) + 
