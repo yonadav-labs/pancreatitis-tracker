@@ -45,8 +45,7 @@ class Chemistry extends React.Component {
 					name: 'sodium',
 					type: 'integer',
 					range: [
-						{ min: 100, max: 190, unit: 'mmol/L'},
-						{ min: 135, max: 145, unit: 'mEq/L' }
+						{ min: 100, max: 190, unit: 'mmol/L'}
 					],
 					required: true
 				},
@@ -109,8 +108,8 @@ class Chemistry extends React.Component {
 					name: 'albumin',
 					type: 'integer',
 					range: [
-						{ min: 3, max: 6, unit: 'mg/dL' },
-						{ min: 30, max: 60, unit: 'g/L' }
+						{ min: 3, max: 6, unit: 'g/L' },
+						{ min: 30, max: 60, unit: 'g/dL' }
 					],
 					required: true
 				},
@@ -210,29 +209,17 @@ class Chemistry extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
 		} else {
-			let sodium = { ...chemistry.sodium };
-			let calcium = { ...chemistry.calcium };
 			let glucose= { ...chemistry.glucose };
 			let albumin = { ...chemistry.albumin };
-
-			if (units.sodium === 'mEq/L') {
-				sodium.calculatedValue = sodiumConvert(sodium.value);
-			}
-
-			if (units.calcium === 'mg/dL') {
-				calcium.calculatedValue = calciumConvert(calcium.value);
-			}
 
 			if (units.glucose === 'mg/dL') {
 				glucose.calculatedValue = glucoseConvert(glucose.value);
 			}
 
-			if (units.albumin === 'g/L') {
-				albumin.calculatedValue = albuminConvert(albumin.value);
+			if (units.albumin === 'g/dL') {
+				albumin.calculatedValue = albumin.value * 10;
 			}
 
-			chemistry.sodium = sodium;
-			chemistry.calcium = calcium;
 			chemistry.glucose = glucose;
 			chemistry.albumin = albumin;
 
@@ -272,7 +259,6 @@ class Chemistry extends React.Component {
 										onChange={e => this.changeUnit('sodium', e.target.value)}
 									>
 										<option>mmol/L</option>
-										<option>mEq/L</option>
 									</select>
 								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">

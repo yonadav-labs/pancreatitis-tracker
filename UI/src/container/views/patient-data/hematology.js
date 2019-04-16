@@ -32,8 +32,8 @@ class Hematology extends React.Component {
 					name: 'platelet_count',
 					type: 'integer',
 					range: [
-						{ min: 50, max: 450, unit: '10^3 units/mm^3'},
-						{ min: 150000, max: 400000, unit: 'platelets/µL'}
+						{ min: 50, max: 450, unit: 'units/µL'},
+						{ min: 150000, max: 400000, unit: '10^3 units/µL'}
 					],
 					required: true
 				},
@@ -50,7 +50,7 @@ class Hematology extends React.Component {
 					type: 'integer',
 					range: [
 						{ min: 0, max: 20, unit: 'mg/L' },
-						{ min: 1, max: 3, unit: 'g/L' }
+						{ min: 1, max: 3, unit: 'mg/dL' }
 					],
 					required: true
 				}
@@ -217,7 +217,7 @@ class Hematology extends React.Component {
 										onChange={e => this.changeUnit('crp', e.target.value)}
 									>
 										<option>mg/L</option>
-										<option>q/L</option>
+										<option>mq/dL</option>
 									</select>
 								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
