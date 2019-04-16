@@ -158,7 +158,6 @@ class PhysicalExam extends React.Component {
 			}
 		});
 
-		debugger;
 		if (glasgow_coma !== 0) {
 			const msg = 'Value should be selected.';
 			if (physicalExam.verbalResponse.value === '') {
