@@ -115,6 +115,10 @@ class PatientData extends React.Component {
 		this.props.loadPatientDataAction(files);
 	}
 
+	savePaientData = () => {
+		this.props.savePatientDataAction(this.state.data);
+	}
+
 	render () {
 		const steps = [
 			{name: 'Basic info', component: <BasicInfo step={0} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} loadData={this.loadPatientData} />},
@@ -122,9 +126,9 @@ class PatientData extends React.Component {
 			{name: 'Physical Exam', component: <PhysicalExam step={2} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
 			{name: 'Chemistry', component: <Chemistry step={3} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
 			{name: 'Hematology', component: <Hematology step={4} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
-			{name: 'Arterial Gases', component: <ArterialGases step={5} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} savePatientData={this.props.savePatientDataAction} history={this.props.history} />}
+			{name: 'Arterial Gases', component: <ArterialGases step={5} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} savePatientData={this.savePaientData} history={this.props.history} />}
 		];
-
+		console.log('== index ===', this.state.data);
 		return (
 			<div className="app-content">
 				<Title title="Patient Data" />

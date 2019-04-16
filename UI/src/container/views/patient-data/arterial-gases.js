@@ -117,7 +117,7 @@ class ArterialGases extends React.Component {
 			this.setState({ errors });
 		} else {
 			this.setState({ errors: {} });
-			this.props.savePatientData(arterialGases);
+			this.props.savePatientData();
 			this.props.history.push('/outputs');
 		}
 
