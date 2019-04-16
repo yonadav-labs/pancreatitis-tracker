@@ -121,12 +121,8 @@ class PatientData extends React.Component {
 		this.props.savePatientDataAction(this.state.data)
 			.then(res => {
 				console.log(res);
-				if (res.success) {
-					toast.success('Successfully created!', {
-						position: toast.POSITION.TOP_CENTER
-					});
-				} else {
-					toast.success('Successfully else!', {
+				if (res && res.success && res.data.is_approx_paO2) {
+					toast.warn('PaO2 approximation was used.', {
 						position: toast.POSITION.TOP_CENTER
 					});
 				}

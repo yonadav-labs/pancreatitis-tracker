@@ -131,7 +131,7 @@ class Outputs extends React.Component {
 
 const mapStatetoProps = state => {
 	return {
-		clinicalScores: state.clinicalScores
+		clinicalScores: state.clinicalScores.results
 	};
 };
 
