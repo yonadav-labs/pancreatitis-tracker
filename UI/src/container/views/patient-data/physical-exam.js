@@ -46,16 +46,16 @@ class PhysicalExam extends React.Component {
 			physicalExam: {
 				abdominalGuarding: this.props.data.abdominalGuarding || { value: '', label: '' },
 				abdominalTenderness: this.props.data.abdominalTenderness || { value: '', label: '' },
-				eyeResponse: this.props.data.eyeResponse || {value: '', unit: 'a.u'},
-				verbalResponse: this.props.data.verbalResponse || {value: '', unit: 'a.u'},
-				motorResponse: this.props.data.motorResponse || {value: '', unit: 'a.u'},
+				eye_score: this.props.data.eye_score || {value: '', unit: 'a.u'},
+				verbal_score: this.props.data.verbal_score || {value: '', unit: 'a.u'},
+				motor_score: this.props.data.motor_score || {value: '', unit: 'a.u'},
 				pleural_eff: this.props.data.pleural_eff || { value: null, label: '' }
 			},
 			units: {
 				abdominalGuarding: '',
-				eyeResponse: 'a.u',
-				verbalResponse: 'a.u',
-				motorResponse: 'a.u',
+				eye_score: 'a.u',
+				verbal_score: 'a.u',
+				motor_score: 'a.u',
 				pleural_eff: ''
 			},
 			rules: {
@@ -77,24 +77,24 @@ class PhysicalExam extends React.Component {
 					range: [{ min: 3, max: 15, unit: 'a.u'}],
 					required: true
 				},
-				eyeResponse: {
-					name: 'eyeResponse',
+				eye_score: {
+					name: 'eye_score',
 					type: 'integer',
 					range: [
 						{ min: 1, max: 4, unit: 'a.u' }
 					],
 					required: true
 				},
-				verbalResponse: {
-					name: 'verbalResponse',
+				verbal_score: {
+					name: 'verbal_score',
 					type: 'integer',
 					range: [
 						{ min: 1, max: 5, unit: 'a.u' }
 					],
 					required: true
 				},
-				motorResponse: {
-					name: 'motorResponse',
+				motor_score: {
+					name: 'motor_score',
 					type: 'integer',
 					range: [
 						{ min: 1, max: 6, unit: 'a.u' }
@@ -135,7 +135,7 @@ class PhysicalExam extends React.Component {
 		let {physicalExam, glasgow_coma} = this.state;
 		physicalExam[id] = {...physicalExam[id], ...val};
 
-		if (id === 'eyeResponse' || id === 'verbalResponse' || id === 'motorResponse') {
+		if (id === 'eye_score' || id === 'verbal_score' || id === 'motor_score') {
 			glasgow_coma += val.value;
 		}
 
@@ -160,16 +160,16 @@ class PhysicalExam extends React.Component {
 
 		if (glasgow_coma !== 0) {
 			const msg = 'Value should be selected.';
-			if (physicalExam.verbalResponse.value === '') {
-				errors.verbalResponse = { msg: msg };
+			if (physicalExam.verbal_score.value === '') {
+				errors.verbal_score = { msg: msg };
 			}
 
-			if (physicalExam.motorResponse.value === '') {
-				errors.motorResponse = { msg: msg };
+			if (physicalExam.motor_score.value === '') {
+				errors.motor_score = { msg: msg };
 			}
 
-			if (physicalExam.eyeResponse.value === '') {
-				errors.eyeResponse = { msg: msg };
+			if (physicalExam.eye_score.value === '') {
+				errors.eye_score = { msg: msg };
 			}
 		}
 
@@ -275,11 +275,11 @@ class PhysicalExam extends React.Component {
 									options={eyeResponseOption}
 									className="patient-select"
 									classNamePrefix="newselect"
-									onChange={(e) => this.changeOption('eyeResponse', e)}
-									value={physicalExam.eyeResponse}
+									onChange={(e) => this.changeOption('eye_score', e)}
+									value={physicalExam.eye_score}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.eyeResponse && errors.eyeResponse.msg}
+									{errors.eye_score && errors.eye_score.msg}
 								</label>
 							</div>
 						</div>
@@ -294,11 +294,11 @@ class PhysicalExam extends React.Component {
 									options={verbalResponseOption}
 									className="patient-select"
 									classNamePrefix="newselect"
-									onChange={(e) => this.changeOption('verbalResponse', e)}
-									value={physicalExam.verbalResponse}
+									onChange={(e) => this.changeOption('verbal_score', e)}
+									value={physicalExam.verbal_score}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.verbalResponse && errors.verbalResponse.msg}
+									{errors.verbal_score && errors.verbal_score.msg}
 								</label>
 							</div>
 						</div>
@@ -313,11 +313,11 @@ class PhysicalExam extends React.Component {
 									options={motorResponseOption}
 									className="patient-select"
 									classNamePrefix="newselect"
-									onChange={(e) => this.changeOption('motorResponse', e)}
-									value={physicalExam.motorResponse}
+									onChange={(e) => this.changeOption('motor_score', e)}
+									value={physicalExam.motor_score}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.motorResponse && errors.motorResponse.msg}
+									{errors.motor_score && errors.motor_score.msg}
 								</label>
 							</div>
 						</div>
