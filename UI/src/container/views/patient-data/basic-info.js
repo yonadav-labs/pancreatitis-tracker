@@ -166,6 +166,7 @@ class BasicInfo extends React.Component {
 
 			basicInfo.weight = weight;
 			basicInfo.height = height;
+			basicInfo.bmi.value = parseFloat(basicInfo.bmi.value);
 
 			this.props.updateInfo(basicInfo, this.state.units);
 			this.props.jumpToStep(this.props.step+1);

@@ -34,9 +34,9 @@ const motorResponseOption = [
 ];
 
 const pleural_effOption = [
-	{ value: 'No CXR', label: 'No CXR' },
-	{ value: 'CXR with no effusion', label: 'CXR with no effusion' },
-	{ value: 'CXR with pleural effusion', label: 'CXR with pleural effusion' }
+	{ value: null, label: 'No CXR' },
+	{ value: false, label: 'CXR with no effusion' },
+	{ value: true, label: 'CXR with pleural effusion' }
 ];
 
 class PhysicalExam extends React.Component {
@@ -49,7 +49,7 @@ class PhysicalExam extends React.Component {
 				eyeResponse: this.props.data.eyeResponse || {value: '', unit: 'a.u'},
 				verbalResponse: this.props.data.verbalResponse || {value: '', unit: 'a.u'},
 				motorResponse: this.props.data.motorResponse || {value: '', unit: 'a.u'},
-				pleural_eff: this.props.data.pleural_eff || { value: '', label: '' }
+				pleural_eff: this.props.data.pleural_eff || { value: null, label: '' }
 			},
 			units: {
 				abdominalGuarding: '',
@@ -69,7 +69,7 @@ class PhysicalExam extends React.Component {
 				},
 				pleural_eff: {
 					name: 'pleural_eff',
-					type: 'text'
+					type: ''
 				},
 				glasgow_coma: {
 					name: 'glasgow_coma',
@@ -135,7 +135,9 @@ class PhysicalExam extends React.Component {
 		let {physicalExam, glasgow_coma} = this.state;
 		physicalExam[id] = {...physicalExam[id], ...val};
 
-		glasgow_coma += val.value;
+		if (id === 'eyeResponse' || id === 'verbalResponse' || id === 'motorResponse') {
+			glasgow_coma += val.value;
+		}
 
 		this.setState({ physicalExam, glasgow_coma });
 		this.props.updateInfo(physicalExam, this.state.units);
@@ -156,6 +158,7 @@ class PhysicalExam extends React.Component {
 			}
 		});
 
+		debugger;
 		if (glasgow_coma !== 0) {
 			const msg = 'Value should be selected.';
 			if (physicalExam.verbalResponse.value === '') {

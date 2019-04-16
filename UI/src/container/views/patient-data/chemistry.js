@@ -417,7 +417,6 @@ class Chemistry extends React.Component {
 										onChange={e => this.changeUnit('calcium', e.target.value)}
 									>
 										<option>mmol/L</option>
-										<option>mg/dL</option>
 									</select>
 								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -448,8 +447,8 @@ class Chemistry extends React.Component {
 										defaultValue={units.albumin}
 										onChange={e => this.changeUnit('albumin', e.target.value)}
 									>
-										<option>mg/dL</option>
 										<option>g/L</option>
+										<option>g/dL</option>
 									</select>
 								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
