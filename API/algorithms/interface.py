@@ -103,7 +103,7 @@ class AlgorithmInterface:
           bmi: body mass index, kg/m^2
         """
         _ = self.request
-        pabmiO2 = _.get('bmi')
+        bmi = _.get('bmi')
         weight = _.get('weight')
         height = _.get('height')
 
@@ -111,6 +111,28 @@ class AlgorithmInterface:
             if height and weight:
                 bmi = weight / height**2
         return bmi
+
+    @classmethod
+    def get_bicarbonate(self):
+        _ = self.request
+        bicarbonate = _.get('bicarbonate')
+        hco3_arterial = _.get('hco3_arterial')
+        hco3_serum = _.get('hco3_serum')
+
+        if not bicarbonate:
+            bicarbonate = hco3_arterial if hco3_arterial else hco3_serum
+        return bicarbonate
+
+    @classmethod
+    def get_peritonitis(self):
+        _ = self.request
+        peritonitis = _.get('peritonitis')
+        guarding = _.get('guarding')
+        tenderness = _.get('tenderness')
+
+        if not peritonitis:
+            peritonitis = guarding or tenderness
+        return peritonitis
 
     @classmethod
     def arterialbg_from_pulseox(self):
