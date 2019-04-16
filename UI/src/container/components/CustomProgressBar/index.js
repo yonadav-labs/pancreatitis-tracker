@@ -21,6 +21,7 @@ class CustomProgressBar extends React.PureComponent {
 	render() {
 		let percent = this.props.value;
 		let text = '';
+		let tooltip = '';
 
 		if (this.props.scoreRange && this.props.item.is_capable) {
 			percent = this.rangeToPercent(
@@ -31,10 +32,18 @@ class CustomProgressBar extends React.PureComponent {
 			text = `${this.props.value} / ${this.props.scoreRange.max}`;
 		}
 
+		this.props.item.params.required.forEach((attr, idx) => {
+			tooltip += attr;
+			if (idx < this.props.item.params.required.length - 1) {
+				tooltip += ', ';
+			}
+		});
+
+
 		return (
 			<div className="btn-progress-bar">
 				<ReactTooltip  effect='solid' />
-				<div className="progress-title-btn" data-tip={percent ? `${percent}%` : '0%'}>{this.props.title}</div>
+				<div className="progress-title-btn" data-tip={tooltip}>{this.props.title}</div>
 				<Progress
 					percent={percent ? percent.toFixed(1): 0}
 					theme={theme.valid}
