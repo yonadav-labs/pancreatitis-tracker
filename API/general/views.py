@@ -10,8 +10,8 @@ from .models import *
 
 ALGORITHMS = [
     map.AlgorithmMap, 
-    marshall.AlgorithmMarshall, 
-    early_warning.AlgorithmEarlyWarning, 
+    # marshall.AlgorithmMarshall, 
+    # early_warning.AlgorithmEarlyWarning, 
     apache.AlgorithmApache,
     bisap.AlgorithmBisap, 
     glasgow.AlgorithmGlasgow, 
