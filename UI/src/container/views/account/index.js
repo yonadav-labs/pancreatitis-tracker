@@ -5,7 +5,7 @@ import Title from '../../components/Title';
 import GreenButton from "../../components/GreenButton";
 import {validateAccount} from '../../utils/utils';
 import {createAccount} from '../../actions';
-import { ToastContainer, toast } from "react-toastify";
+import { toast } from "react-toastify";
 
 
 class Account extends React.Component {

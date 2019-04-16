@@ -18,6 +18,8 @@ import {
 
 import StepZilla from "react-stepzilla";
 import 'react-stepzilla/src/css/main.css';
+import { toast } from "react-toastify";
+
 
 class PatientData extends React.Component {
 	constructor(props) {
@@ -116,7 +118,19 @@ class PatientData extends React.Component {
 	}
 
 	savePaientData = () => {
-		this.props.savePatientDataAction(this.state.data);
+		this.props.savePatientDataAction(this.state.data)
+			.then(res => {
+				console.log(res);
+				if (res.success) {
+					toast.success('Successfully created!', {
+						position: toast.POSITION.TOP_CENTER
+					});
+				} else {
+					toast.success('Successfully else!', {
+						position: toast.POSITION.TOP_CENTER
+					});
+				}
+			});
 	}
 
 	render () {
