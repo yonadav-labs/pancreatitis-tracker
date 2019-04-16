@@ -17,6 +17,7 @@ class AlgorithmHaps(AlgorithmInterface):
       haps_score: HAPS score if conditions met, else None
     """
     required_fields = ['sex', 'hematocrit', 'creatinine', 'peritonitis']
+    score_range = { 'min': 0, 'max': 3, 'threshold': 1 }
 
     def evaluate(self):
         _ = self.request

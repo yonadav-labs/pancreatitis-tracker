@@ -22,6 +22,7 @@ class AlgorithmPop(AlgorithmInterface):
       pop_score: POP score if conditions met, else None
     """
     required_fields = ['age', 'arterial_pressure', 'ph', 'bun', 'calcium', 'paO2', 'fiO2']
+    score_range = { 'min': 0, 'max': 40, 'threshold': 9 }
     
     def evaluate(self):
         _ = self.request

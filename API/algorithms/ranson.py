@@ -18,6 +18,7 @@ class AlgorithmRanson(AlgorithmInterface):
       ranson_score: Ranson score if conditions met, else None
     """
     required_fields = ['age', 'wbc', 'glucose', 'ldh', 'ast']
+    score_range = { 'min': 0, 'max': 5, 'threshold': 2 }
 
     def evaluate(self):
         _ = self.request

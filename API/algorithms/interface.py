@@ -14,6 +14,7 @@ class AlgorithmInterface:
     required_fields = []
     optional_fields = []
     semi_req_fields = []
+    score_range = {}
 
     @classmethod
     def __init__(self, request):

@@ -19,6 +19,7 @@ class AlgorithmSirs(AlgorithmInterface):
     """
     required_fields = ['temperature', 'heart_rate', 'wbc']
     semi_req_fields = [['resp_rate'], ['paCO2']]
+    score_range = { 'min': 0, 'max': 4, 'threshold': 2 }
 
     def evaluate(self):
         _ = self.request

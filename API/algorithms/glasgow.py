@@ -24,6 +24,7 @@ class AlgorithmGlasgow(AlgorithmInterface):
       glasgow_score: Glasgow score if conditions met, else None
     """
     required_fields = ['age', 'wbc', 'glucose', 'bun', 'paO2', 'calcium', 'albumin', 'ldh']
+    score_range = { 'min': 0, 'max': 9, 'threshold': 2 }
 
     def evaluate(self):
         _ = self.request

@@ -20,6 +20,7 @@ class AlgorithmBisap(AlgorithmInterface):
       bisap_score: BISAP score if conditions met, else None
     """
     required_fields = ['age', 'bun', 'pleural_eff', 'sirs_score', 'glasgow_coma']
+    score_range = { 'min': 0, 'max': 5, 'threshold': 2 }
 
     def evaluate(self):
         _ = self.request

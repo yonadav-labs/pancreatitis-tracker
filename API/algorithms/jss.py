@@ -28,6 +28,7 @@ class AlgorithmJss(AlgorithmInterface):
     required_fields = ['age', 'calcium', 'crp', 'ldh', 'platelet_count', 'sirs_score', 'paO2']
     semi_req_fields = [['base_excess', 'bp_systolic'], ['bun', 'creatinine']]
     optional_fields = ['oliguria', 'resp_failure']
+    score_range = { 'min': 0, 'max': 9, 'threshold': 2 }
 
     def evaluate(self):
         _ = self.request

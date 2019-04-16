@@ -48,6 +48,7 @@ def get_algorithms(request):
         result = {
             "algorithm": algo.__class__.__name__,
             "params": algo.params(),
+            "score_range": algo.score_range
         }
 
         if request.method == 'GET':
@@ -65,6 +66,7 @@ def _run_algorithm(algorithm, data):
         "algorithm": algo.__class__.__name__,
         "is_capable": algo.can_process(),
         "params": algo.params(),
+        "score_range": algo.score_range        
     }
 
     if algo.can_process():
