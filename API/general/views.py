@@ -9,7 +9,7 @@ from algorithms import *
 from .models import *
 
 ALGORITHMS = [
-    map.AlgorithmMap, 
+    # map.AlgorithmMap, 
     # marshall.AlgorithmMarshall, 
     # early_warning.AlgorithmEarlyWarning, 
     apache.AlgorithmApache,
