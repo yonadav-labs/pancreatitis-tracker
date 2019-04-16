@@ -25,6 +25,8 @@ ALGORITHMS = [
 
 def get_preprocessed_data(request):
     data = json.loads(request.body.decode("utf-8"))
+    is_approx_paO2 = data.get('spO2') and not data.get('paO2')
+
     data['glasgow_coma'] = interface.AlgorithmInterface(data).glasgow_coma_scale()
     data['paO2'] = interface.AlgorithmInterface(data).arterialbg_from_pulseox()
     data['bmi'] = interface.AlgorithmInterface(data).calculate_bmi()
@@ -33,15 +35,17 @@ def get_preprocessed_data(request):
     
     data['arterial_pressure'] = map.AlgorithmMap(data).evaluate()
     data['sirs_score'] = sirs.AlgorithmSirs(data).evaluate()
-    return data
+    return data, is_approx_paO2
 
 
 @csrf_exempt
 def get_algorithms(request):
-    results = []
+    res = { 'results': [] }
     data = {}
+
     if request.method == 'POST':
-        data = get_preprocessed_data(request)
+        data, is_approx_paO2 = get_preprocessed_data(request)
+        res['is_approx_paO2'] = is_approx_paO2
 
     for algorithm in ALGORITHMS:
         algo = algorithm(data)
@@ -53,11 +57,11 @@ def get_algorithms(request):
 
         if request.method == 'GET':
             result["description"] = algo.__doc__
-            results.append(result)
+            res['results'].append(result)
         elif algo.can_process():
-            results.append(result)
+            res['results'].append(result)
 
-    return JsonResponse(results, safe=False)
+    return JsonResponse(res, safe=False)
 
 
 def _run_algorithm(algorithm, data):
@@ -72,19 +76,23 @@ def _run_algorithm(algorithm, data):
     if algo.can_process():
         result['score'] = algo.evaluate()
     else:
-        result['msg'] = 'Please check required fields.'
+        result['msg'] = 'Please check required and either/or fields.'
 
     return result
 
 
 @csrf_exempt
 def run_algorithms(request):
-    data = get_preprocessed_data(request)
-    results = []
+    data, is_approx_paO2 = get_preprocessed_data(request)
+    res = { 
+        'results': [],
+        'is_approx_paO2': is_approx_paO2
+    }
     output = {}
+
     for algorithm in ALGORITHMS:
         result = _run_algorithm(algorithm, data)
-        results.append(result)
+        res['results'].append(result)
 
         if result['is_capable']:
             output[result['algorithm']] = result['score']
@@ -96,7 +104,7 @@ def run_algorithms(request):
                                 output=json.dumps(output, indent=2),
                                 run_at=datetime.datetime.now())
 
-    return JsonResponse(results, safe=False)
+    return JsonResponse(res, safe=False)
 
 
 @csrf_exempt
@@ -110,6 +118,6 @@ def run_algorithm(request, algorithm):
     if not algo:
         return JsonResponse({"msg": "No matching algorithm"}, safe=False)
 
-    data = get_preprocessed_data(request)
+    data, is_approx_paO2 = get_preprocessed_data(request)
 
     return JsonResponse(_run_algorithm(algo, data), safe=False)
