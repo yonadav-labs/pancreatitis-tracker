@@ -182,7 +182,6 @@ class BasicInfo extends React.Component {
 	changeOption = (id, val) => {
 		let {basicInfo} = this.state;
 		basicInfo[id] = {...basicInfo[id], ...val};
-		console.log(basicInfo);
 
 		this.setState({ basicInfo });
 	}
