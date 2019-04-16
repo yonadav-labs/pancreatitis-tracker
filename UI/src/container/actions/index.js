@@ -57,16 +57,6 @@ export const savePatientDataAction = (data) => {
 		}
 	});
 
-	if (params.hasOwnProperty('hco3_serum')) {
-		params.bicarbonate = params.hco3_serum;
-		delete params.hco3_serum;
-	}
-
-	if (params.hasOwnProperty('hco3_artieral')) {
-		params.bicarbonate = params.hco3_artieral;
-		delete params.hco3_artieral;
-	}
-
 	return (dispatch) => {
 		savePatientDataApi(params)
 			.then((res) => {
