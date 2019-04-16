@@ -178,6 +178,7 @@ class BasicInfo extends React.Component {
 	changeOption = (id, val) => {
 		let {basicInfo} = this.state;
 		basicInfo[id] = {...basicInfo[id], ...val};
+		console.log(basicInfo);
 
 		this.setState({ basicInfo });
 	}
@@ -233,7 +234,7 @@ class BasicInfo extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('sex',e)}
-									value={basicInfo.sex && basicInfo.sex.value}
+									value={basicInfo.sex}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.sex && errors.sex.msg}

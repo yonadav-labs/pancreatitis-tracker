@@ -49,7 +49,7 @@ class PhysicalExam extends React.Component {
 				eyeResponse: this.props.data.eyeResponse || {value: '', unit: 'a.u'},
 				verbalResponse: this.props.data.verbalResponse || {value: '', unit: 'a.u'},
 				motorResponse: this.props.data.motorResponse || {value: '', unit: 'a.u'},
-				pleural_eff: this.props.data.pleural_eff || { value: null, label: '' }
+				pleural_eff: this.props.data.pleural_eff || { value: '', label: '' }
 			},
 			units: {
 				abdominalGuarding: '',
