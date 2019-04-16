@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router";
 import Title from '../../components/Title';
 import CustomProgressBar from '../../components/CustomProgressBar';
 import GreenButton from "../../components/GreenButton";
@@ -26,6 +27,10 @@ class Outputs extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		this.setState({ clinicalScores: nextProps.clinicalScores });
+	}
+
+	goToPatientPage = () => {
+		this.props.history.push('/patient');
 	}
 
 	render () {
@@ -113,7 +118,7 @@ class Outputs extends React.Component {
 							</div>
 						</div>
 						<div className="row space-between-section mb-5">
-							<GreenButton text="Fax" />
+							<GreenButton text="Back" onClick={this.goToPatientPage} />
 							<GreenButton text="Save as PDF" />
 						</div>
 					</div>
@@ -138,5 +143,5 @@ const mapDispatchToProps = dispatch => {
 	);
 };
 	
-export default connect(mapStatetoProps, mapDispatchToProps)(Outputs);
+export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(Outputs));
 
