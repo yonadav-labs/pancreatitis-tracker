@@ -88,7 +88,6 @@ class Hematology extends React.Component {
 		units[id] = value;
 
 		this.setState({ units });
-		this.props.updateInfo(hematology, units);
 	}
 
 	next = () => {

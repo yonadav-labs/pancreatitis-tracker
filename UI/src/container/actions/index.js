@@ -57,6 +57,9 @@ export const savePatientDataAction = (data) => {
 		}
 	});
 
+	params.pleural_eff = data.pleural_eff.value;
+	console.log('==========', params);
+
 	return (dispatch) => {
 		savePatientDataApi(params)
 			.then((res) => {
