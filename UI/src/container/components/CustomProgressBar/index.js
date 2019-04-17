@@ -9,6 +9,12 @@ const theme = {
 			symbol: '%',
 			color: '#a5f6ed'
 		}
+	},
+	invalid: {
+		default: {
+			symbol: '%',
+			color: '#e12512'
+		}
 	}
 };
 
@@ -39,10 +45,14 @@ class CustomProgressBar extends React.PureComponent {
 			}
 		});
 
+		let isFlag = false;
+		if (this.props.scoreRange.threshold >= this.props.value) {
+			isFlag = true;
+		}
 
 		return (
-			<div className="btn-progress-bar">
-				<ReactTooltip  effect='solid' />
+			<div className={isFlag ? "btn-progress-bar critical" : "btn-progress-bar"}>
+				<ReactTooltip  effect='solid' className="tooltop-bar" />
 				<div className="progress-title-btn" data-tip={tooltip}>{this.props.title}</div>
 				<Progress
 					percent={percent ? percent.toFixed(1): 0}

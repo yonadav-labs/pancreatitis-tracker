@@ -6,6 +6,7 @@ $bright-cyan-color:#a5f6ed;
 $blue-color: #3079e4;
 $dark-grey: #cfcdd8;
 $bar-color: #24c9c9;
+$red-color: #e12512;
 
 .p-15 {
   padding: 15px;
@@ -580,7 +581,7 @@ ol.progtrckr li.progtrckr-done:before {
 }
 
 .react-sweet-progress {
-  margin-left: -3px;
+  margin-left: -5px;
 }
 
 .react-sweet-progress-symbol {
@@ -597,8 +598,17 @@ ol.progtrckr li.progtrckr-done:before {
   background-color: $light-cyan-color !important;
 }
 
+.btn-progress-bar.critical .react-sweet-progress-line-inner {
+  background-color: $red-color !important;
+}
+
 .react-sweet-progress-symbol {
   display: none;
+}
+
+.tooltop-bar {
+  max-width: 250px;
+  text-align: center;
 }
 
 @media (max-width: 1399px) {

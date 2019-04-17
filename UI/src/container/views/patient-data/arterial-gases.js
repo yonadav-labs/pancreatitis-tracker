@@ -25,7 +25,7 @@ class ArterialGases extends React.Component {
 			rules: {
 				ph: {
 					name: 'ph',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 7.14, max: 7.65, unit: ''}
 					],
@@ -33,13 +33,13 @@ class ArterialGases extends React.Component {
 				},
 				paO2: {
 					name: 'paO2',
-					type: 'integer',
+					type: 'float',
 					range: [{ min: 50, max: 75, unit: 'mmHg'}],
 					required: true
 				},
 				paCO2: {
 					name: 'paCO2',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 30, max: 50, unit: 'mmHg' }
 					],
@@ -47,7 +47,7 @@ class ArterialGases extends React.Component {
 				},
 				hco3_artieral: {
 					name: 'hco3_artieral',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 13, max: 55, unit: 'mmol/L' }
 					],
@@ -55,7 +55,7 @@ class ArterialGases extends React.Component {
 				},
 				fiO2: {
 					name: 'fiO2',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 0.2, max: 1, unit: '%' }
 					],
@@ -63,7 +63,7 @@ class ArterialGases extends React.Component {
 				},
 				base_excess: {
 					name: 'base_excess',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: -5, max: 3, unit: 'mEq/L' }
 					],
@@ -95,7 +95,6 @@ class ArterialGases extends React.Component {
 		}
 
 		this.setState({ arterialGases: params });
-		this.props.updateInfo(params, this.state.units);
 	}
 
 	next = () => {
@@ -116,6 +115,17 @@ class ArterialGases extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
 		} else {
+			let temp = Object.assign({}, arterialGases);
+			
+			Object.keys(arterialGases).forEach((attr) => {
+				if (rules[attr] && (rules[attr].type === "integer" || rules[attr].type === "float")) {
+					if (!isNaN(parseFloat(arterialGases[attr].value))) {
+						temp[attr].value = parseFloat(arterialGases[attr].value);
+					}
+				}
+			});
+
+			this.props.updateInfo(temp, this.state.units);
 			this.setState({ errors: {} });
 			this.props.savePatientData();
 			this.props.history.push('/outputs');
@@ -157,13 +167,18 @@ class ArterialGases extends React.Component {
 								<div className="round-btn grey-label">PaO₂</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="paO2"
-									className="round-input"
-									value={arterialGases.paO2.value}
-									onChange={this.changeInfo}
-								/>
+								<div className="d-flex">
+									<input
+										type="text"
+										id="paO2"
+										className="round-input"
+										value={arterialGases.paO2.value}
+										onChange={this.changeInfo}
+									/>
+									<select className="input-inline-select">
+										<option value="mmHg">mmHg</option>
+									</select>
+								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.paO2 && errors.paO2.msg}
 								</label>
@@ -176,13 +191,18 @@ class ArterialGases extends React.Component {
 								<div className="round-btn grey-label">PaCO₂</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="paCO2"
-									className="round-input"
-									value={arterialGases.paCO2.value}
-									onChange={this.changeInfo}
-								/>
+								<div className="d-flex">
+									<input
+										type="text"
+										id="paCO2"
+										className="round-input"
+										value={arterialGases.paCO2.value}
+										onChange={this.changeInfo}
+									/>
+									<select className="input-inline-select">
+										<option value="mmHg">mmHg</option>
+									</select>
+								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.paCO2 && errors.paCO2.msg}
 								</label>
@@ -195,13 +215,18 @@ class ArterialGases extends React.Component {
 								<div className="round-btn grey-label">HCO₃⁻ (arterial)</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="hco3_artieral"
-									className="round-input"
-									value={arterialGases.hco3_artieral.value}
-									onChange={this.changeInfo}
-								/>
+								<div className="d-flex">
+									<input
+										type="text"
+										id="hco3_artieral"
+										className="round-input"
+										value={arterialGases.hco3_artieral.value}
+										onChange={this.changeInfo}
+									/>
+									<select className="input-inline-select">
+										<option value="mmol/L">mmol/L</option>
+									</select>
+								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.hco3_artieral && errors.hco3_artieral.msg}
 								</label>
@@ -233,13 +258,18 @@ class ArterialGases extends React.Component {
 								<div className="round-btn grey-label">Base Excess</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="base_excess"
-									className="round-input"
-									value={arterialGases.base_excess.value}
-									onChange={this.changeInfo}
-								/>
+								<div className="d-flex">
+									<input
+										type="text"
+										id="base_excess"
+										className="round-input"
+										value={arterialGases.base_excess.value}
+										onChange={this.changeInfo}
+									/>
+									<select className="input-inline-select">
+										<option value="mEq/L">mEq/L</option>
+									</select>
+								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.base_excess && errors.base_excess.msg}
 								</label>

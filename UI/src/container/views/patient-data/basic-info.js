@@ -48,7 +48,7 @@ class BasicInfo extends React.Component {
 				},
 				height: {
 					name: 'height',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 20, max: 214, unit: 'cm' },
 						{ min: 19.8, max: 84, unit: 'inch' }
@@ -56,7 +56,7 @@ class BasicInfo extends React.Component {
 				},
 				weight: {
 					name: 'weight',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 2.5, max: 227, unit: 'kg' },
 						{ min: 5.5, max: 500, unit: 'lb' }
@@ -99,18 +99,9 @@ class BasicInfo extends React.Component {
 	}
 
 	changeInfo(e) {
-		const {rules} = this.state;
 		let params = this.state.basicInfo;
 
-		if (rules[e.target.id] && rules[e.target.id].type === "integer") {
-			if (!isNaN(parseFloat(e.target.value))) {
-				params[e.target.id].value = parseFloat(e.target.value);
-			} else {
-				params[e.target.id].value = e.target.value;
-			}
-		} else {
-			params[e.target.id].value = e.target.value;
-		}
+		params[e.target.id].value = e.target.value;
 
 		let bmiValue = '';
 		if (e.target.id === 'weight' || e.target.id === 'height') {
@@ -153,8 +144,18 @@ class BasicInfo extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
 		} else {
-			let weight = { ...basicInfo.weight };
-			let height = { ...basicInfo.height };
+			let temp = Object.assign({}, basicInfo);
+			
+			Object.keys(basicInfo).forEach((attr) => {
+				if (rules[attr] && (rules[attr].type === "integer" || rules[attr].type === "float")) {
+					if (!isNaN(parseFloat(basicInfo[attr].value))) {
+						temp[attr].value = parseFloat(basicInfo[attr].value);
+					}
+				}
+			});
+
+			let weight = { ...temp.weight };
+			let height = { ...temp.height };
 
 			if (units.weight === 'lb') {
 				weight.calculatedValue = lbToKgConvert(weight.value);
@@ -168,13 +169,13 @@ class BasicInfo extends React.Component {
 				height.calculatedValue = height.value;
 			}
 
-			basicInfo.weight = weight;
-			basicInfo.height = height;
-			if (basicInfo.bmi.value !== '') {
-				basicInfo.bmi.value = parseFloat(basicInfo.bmi.value);
+			temp.weight = weight;
+			temp.height = height;
+			if (temp.bmi.value !== '') {
+				temp.bmi.value = parseFloat(temp.bmi.value);
 			}
 
-			this.props.updateInfo(basicInfo, this.state.units);
+			this.props.updateInfo(temp, this.state.units);
 			this.props.jumpToStep(this.props.step+1);
 		}
 	}
@@ -201,7 +202,7 @@ class BasicInfo extends React.Component {
 
 		return (
 			<div>
-				<ReactTooltip  effect='solid' />
+				<ReactTooltip  effect='solid' className="tooltop-bar" />
 				<div className="row">
 					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
@@ -309,13 +310,18 @@ class BasicInfo extends React.Component {
 								<div className="round-btn grey-label">BMI</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="bmi"
-									className="round-input"
-									value={basicInfo.bmi && basicInfo.bmi.value}
-									disabled
-								/>
+								<div className="d-flex">
+									<input
+										type="text"
+										id="bmi"
+										className="round-input"
+										value={basicInfo.bmi && basicInfo.bmi.value}
+										disabled
+									/>
+									<select className="input-inline-select">
+										<option value="kg/m2">kg/m2</option>
+									</select>
+								</div>
 							</div>
 						</div>
 					</div>

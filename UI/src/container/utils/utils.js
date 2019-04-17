@@ -43,6 +43,23 @@ export const validateEmail = (email) => {
 	}
 }
 
+export const isFloat = n => {
+    return n === +n && n !== (n|0);
+}
+
+export const isInteger = n => {
+    return n === +n && n === (n|0);
+}
+
+export const count = (s1, letter) => {
+	if (typeof (s1) === "string") {
+		return ( s1.match( RegExp(letter,'g') ) || [] ).length;
+	}
+
+	let convertedString = s1.toString();
+	return ( convertedString.match( RegExp(letter,'g') ) || [] ).length;
+}
+
 export function validateForm(rule, data, unit) {
 	let isValidate = true;
 	let errorMsg = 'Please enter valid data.';
@@ -55,21 +72,50 @@ export function validateForm(rule, data, unit) {
 		}
 
 		switch(rule.type) {
+			case 'float':
+				if (count(data.value, '\\.') < 2) {
+
+					if (!isNaN(parseFloat(data.value))) {
+						rule.range.forEach((range) => {
+							if (
+								// range.unit === data.unit &&
+								range.unit === unit &&
+								(
+									range.min > parseFloat(data.value, 10)
+									|| range.max < parseFloat(data.value, 10)
+								)
+							) {
+								isValidate = false;
+								errorMsg = `Valid in (${range.min}, ${range.max})`;
+							}
+						});
+					} else {
+						isValidate = false;
+					}
+				} else {
+					isValidate = false;
+				}
+
+				break;
+
 			case 'integer':
-				if (!isNaN(data.value)) {
-					rule.range.forEach((range) => {
-						if (
-							// range.unit === data.unit &&
-							range.unit === unit &&
-							(
-								range.min > parseFloat(data.value, 10)
-								|| range.max < parseFloat(data.value, 10)
-							)
-						) {
-							isValidate = false;
-							errorMsg = `Valid in (${range.min}, ${range.max})`;
-						}
-					});
+				if (count(data.value, '\\.') == 0) {
+					if (isInteger(parseInt(data.value))) {
+						rule.range.forEach((range) => {
+							if (
+								range.unit === unit &&
+								(
+									range.min > parseFloat(data.value, 10)
+									|| range.max < parseFloat(data.value, 10)
+								)
+							) {
+								isValidate = false;
+								errorMsg = `Valid in (${range.min}, ${range.max})`;
+							}
+						});
+					} else {
+						isValidate = false;
+					}
 				} else {
 					isValidate = false;
 				}

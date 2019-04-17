@@ -22,7 +22,7 @@ class Hematology extends React.Component {
 			rules: {
 				wbc: {
 					name: 'wbc',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 1, max: 50, unit: '10^9 cells/L'}
 					],
@@ -30,7 +30,7 @@ class Hematology extends React.Component {
 				},
 				platelet_count: {
 					name: 'platelet_count',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 50, max: 450, unit: '10^3 units/µL'},
 						{ min: 50000, max: 450000, unit: 'units/µL'}
@@ -39,7 +39,7 @@ class Hematology extends React.Component {
 				},
 				hematocrit: {
 					name: 'hematocrit',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 36.1, max: 50.3, unit: '%'}
 					],
@@ -47,7 +47,7 @@ class Hematology extends React.Component {
 				},
 				crp: {
 					name: 'crp',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 0, max: 20, unit: 'mg/L' },
 						{ min: 0, max: 2, unit: 'mg/dL' }
@@ -108,8 +108,18 @@ class Hematology extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
 		} else {
-			let crp = { ...hematology.crp };
-			let platelet_count = { ...hematology.platelet_count };
+			let temp = Object.assign({}, hematology);
+			
+			Object.keys(hematology).forEach((attr) => {
+				if (rules[attr] && (rules[attr].type === "integer" || rules[attr].type === "float")) {
+					if (!isNaN(parseFloat(hematology[attr].value))) {
+						temp[attr].value = parseFloat(hematology[attr].value);
+					}
+				}
+			});
+
+			let crp = { ...temp.crp };
+			let platelet_count = { ...temp.platelet_count };
 
 			if (units.platelet_count === 'units/µL') {
 				platelet_count.calculatedValue = platelet_count.value / 1000;
@@ -123,10 +133,10 @@ class Hematology extends React.Component {
 				crp.calculatedValue = crp.value;
 			}
 
-			hematology.platelet_count = platelet_count;
-			hematology.crp = crp;
+			temp.platelet_count = platelet_count;
+			temp.crp = crp;
 
-			this.props.updateInfo(hematology, this.state.units);
+			this.props.updateInfo(temp, this.state.units);
 			this.props.jumpToStep(this.props.step+1);
 		}
 	}
@@ -140,7 +150,7 @@ class Hematology extends React.Component {
 
 		return (
 			<div>
-				<ReactTooltip  effect='solid' />
+				<ReactTooltip  effect='solid' className="tooltop-bar" />
 				<div className="row">
 					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
@@ -148,13 +158,18 @@ class Hematology extends React.Component {
 								<div className="round-btn grey-label" data-tip="White Blood Cell Count">WBC</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="wbc"
-									className="round-input"
-									value={hematology.wbc.value}
-									onChange={this.changeInfo}
-								/>
+								<div className="d-flex">
+									<input
+										type="text"
+										id="wbc"
+										className="round-input"
+										value={hematology.wbc.value}
+										onChange={this.changeInfo}
+									/>
+									<select className="input-inline-select">
+										<option value="10^9 cells/L">10^9 cells/L</option>
+									</select>
+								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.wbc && errors.wbc.msg}
 								</label>
@@ -202,13 +217,18 @@ class Hematology extends React.Component {
 								</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="hematocrit"
-									className="round-input"
-									value={hematology.hematocrit.value}
-									onChange={this.changeInfo}
-								/>
+								<div className="d-flex">
+									<input
+										type="text"
+										id="hematocrit"
+										className="round-input"
+										value={hematology.hematocrit.value}
+										onChange={this.changeInfo}
+									/>
+									<select className="input-inline-select">
+										<option value="%">%</option>
+									</select>
+								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.hematocrit && errors.hematocrit.msg}
 								</label>

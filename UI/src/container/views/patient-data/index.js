@@ -120,7 +120,6 @@ class PatientData extends React.Component {
 	savePaientData = () => {
 		this.props.savePatientDataAction(this.state.data)
 			.then(res => {
-				console.log(res);
 				if (res && res.success && res.data.is_approx_paO2) {
 					toast.warn('PaO2 approximation was used.', {
 						position: toast.POSITION.TOP_CENTER

@@ -43,7 +43,7 @@ class Chemistry extends React.Component {
 			rules: {
 				sodium: {
 					name: 'sodium',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 100, max: 190, unit: 'mmol/L'}
 					],
@@ -51,13 +51,13 @@ class Chemistry extends React.Component {
 				},
 				potassium: {
 					name: 'potassium',
-					type: 'integer',
+					type: 'float',
 					range: [{ min: 2.2, max: 7.5, unit: 'mmol/L'}],
 					required: true
 				},
 				chloride: {
 					name: 'chloride',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 60, max: 120, unit: 'mmol/L' }
 					],
@@ -65,7 +65,7 @@ class Chemistry extends React.Component {
 				},
 				hco3_serum: {
 					name: 'hco3_serum',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 13, max: 55, unit: 'mmol/L' }
 					],
@@ -73,7 +73,7 @@ class Chemistry extends React.Component {
 				},
 				bun: {
 					name: 'bun',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 5, max: 90, unit: 'mg/dL' }
 					],
@@ -81,7 +81,7 @@ class Chemistry extends React.Component {
 				},
 				creatinine: {
 					name: 'creatinine',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 0.5, max: 5.0, unit: 'mg/dL' }
 					],
@@ -89,7 +89,7 @@ class Chemistry extends React.Component {
 				},
 				glucose: {
 					name: 'glucose',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 60, max: 250, unit: 'mmol/L' },
 						{ min: 3.3, max: 13.9, unit: 'mg/dL' }
@@ -98,7 +98,7 @@ class Chemistry extends React.Component {
 				},
 				calcium: {
 					name: 'calcium',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 1, max: 3, unit: 'mmol/L' }
 					],
@@ -106,7 +106,7 @@ class Chemistry extends React.Component {
 				},
 				albumin: {
 					name: 'albumin',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 3, max: 6, unit: 'g/L' },
 						{ min: 30, max: 60, unit: 'g/dL' }
@@ -115,7 +115,7 @@ class Chemistry extends React.Component {
 				},
 				ast: {
 					name: 'ast',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 8, max: 600, unit: 'U/L' }
 					],
@@ -123,7 +123,7 @@ class Chemistry extends React.Component {
 				},
 				alt: {
 					name: 'alt',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 8, max: 600, unit: 'U/L' }
 					],
@@ -131,7 +131,7 @@ class Chemistry extends React.Component {
 				},
 				ldh: {
 					name: 'ldh',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 48, max: 600, unit: 'IU/L' }
 					],
@@ -171,20 +171,6 @@ class Chemistry extends React.Component {
 		units[id] = value;
 
 		let calculatedValue = chemistry[id].value;
-		// switch (value) {
-		// 	case 'mEq/L':
-		// 		break;
-		// 	case 'mg/dL':
-		// 		calculatedValue = mgDlToMmolL(calculatedValue);
-		// 		break;
-
-		// 	case 'g/L':
-		// 		calculatedValue = calculatedValue * 1000;
-		// 		break;
-			
-		// 	default: break;
-		// }
-
 		chemistry[id].value = calculatedValue;
 
 		this.setState({ units });
@@ -209,8 +195,18 @@ class Chemistry extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
 		} else {
-			let glucose= { ...chemistry.glucose };
-			let albumin = { ...chemistry.albumin };
+			let temp = Object.assign({}, chemistry);
+			
+			Object.keys(chemistry).forEach((attr) => {
+				if (rules[attr] && (rules[attr].type === "integer" || rules[attr].type === "float")) {
+					if (!isNaN(parseFloat(chemistry[attr].value))) {
+						temp[attr].value = parseFloat(chemistry[attr].value);
+					}
+				}
+			});
+
+			let glucose= { ...temp.glucose };
+			let albumin = { ...temp.albumin };
 
 			if (units.glucose === 'mg/dL') {
 				glucose.calculatedValue = glucoseConvert(glucose.value);
@@ -224,10 +220,10 @@ class Chemistry extends React.Component {
 				albumin.calculatedValue = albumin.value;
 			}
 
-			chemistry.glucose = glucose;
-			chemistry.albumin = albumin;
+			temp.glucose = glucose;
+			temp.albumin = albumin;
 
-			this.props.updateInfo(chemistry, this.state.units);
+			this.props.updateInfo(temp, this.state.units);
 			this.props.jumpToStep(this.props.step+1);
 		}
 	}
@@ -278,13 +274,18 @@ class Chemistry extends React.Component {
 								<div className="round-btn grey-label">Chloride</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="chloride"
-									className="round-input"
-									value={chemistry.chloride.value}
-									onChange={this.changeInfo}
-								/>
+								<div className="d-flex">
+									<input
+										type="text"
+										id="chloride"
+										className="round-input"
+										value={chemistry.chloride.value}
+										onChange={this.changeInfo}
+									/>
+									<select className="input-inline-select">
+										<option value="mmol/L">mmol/L</option>
+									</select>
+								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.chloride && errors.chloride.msg}
 								</label>
@@ -297,13 +298,18 @@ class Chemistry extends React.Component {
 								<div className="round-btn grey-label">Potassium</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="potassium"
-									className="round-input"
-									value={chemistry.potassium.value}
-									onChange={this.changeInfo}
-								/>
+								<div className="d-flex">
+									<input
+										type="text"
+										id="potassium"
+										className="round-input"
+										value={chemistry.potassium.value}
+										onChange={this.changeInfo}
+									/>
+									<select className="input-inline-select">
+										<option value="mmol/L">mmol/L</option>
+									</select>
+								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.potassium && errors.potassium.msg}
 								</label>
@@ -316,13 +322,18 @@ class Chemistry extends React.Component {
 								<div className="round-btn grey-label">HCO₃⁻ (serum)</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="hco3_serum"
-									className="round-input"
-									value={chemistry.hco3_serum.value}
-									onChange={this.changeInfo}
-								/>
+								<div className="d-flex">
+									<input
+										type="text"
+										id="hco3_serum"
+										className="round-input"
+										value={chemistry.hco3_serum.value}
+										onChange={this.changeInfo}
+									/>
+									<select className="input-inline-select">
+										<option value="mmol/L">mmol/L</option>
+									</select>
+								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.hco3_serum && errors.hco3_serum.msg}
 								</label>
@@ -340,13 +351,18 @@ class Chemistry extends React.Component {
 								<div className="round-btn grey-label">BUN</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="bun"
-									className="round-input"
-									value={chemistry.bun.value}
-									onChange={this.changeInfo}
-								/>
+								<div className="d-flex">
+									<input
+										type="text"
+										id="bun"
+										className="round-input"
+										value={chemistry.bun.value}
+										onChange={this.changeInfo}
+									/>
+									<select className="input-inline-select">
+										<option value="mg/dL">mg/dL</option>
+									</select>
+								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.bun && errors.bun.msg}
 								</label>
@@ -388,13 +404,18 @@ class Chemistry extends React.Component {
 								<div className="round-btn grey-label">Creatinine</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="creatinine"
-									className="round-input"
-									value={chemistry.creatinine.value}
-									onChange={this.changeInfo}
-								/>
+								<div className="d-flex">
+									<input
+										type="text"
+										id="creatinine"
+										className="round-input"
+										value={chemistry.creatinine.value}
+										onChange={this.changeInfo}
+									/>
+									<select className="input-inline-select">
+										<option value="mg/dL">mg/dL</option>
+									</select>
+								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.creatinine && errors.creatinine.msg}
 								</label>
@@ -467,13 +488,18 @@ class Chemistry extends React.Component {
 								<div className="round-btn grey-label">LDH</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="ldh"
-									className="round-input"
-									value={chemistry.ldh.value}
-									onChange={this.changeInfo}
-								/>
+								<div className="d-flex">
+									<input
+										type="text"
+										id="ldh"
+										className="round-input"
+										value={chemistry.ldh.value}
+										onChange={this.changeInfo}
+									/>
+									<select className="input-inline-select">
+										<option value="lU/L">lU/L</option>
+									</select>
+								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.ldh && errors.ldh.msg}
 								</label>
@@ -486,13 +512,18 @@ class Chemistry extends React.Component {
 								<div className="round-btn grey-label">AST</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="ast"
-									className="round-input"
-									value={chemistry.ast.value}
-									onChange={this.changeInfo}
-								/>
+								<div className="d-flex">
+									<input
+										type="text"
+										id="ast"
+										className="round-input"
+										value={chemistry.ast.value}
+										onChange={this.changeInfo}
+									/>
+									<select className="input-inline-select">
+										<option value="U/L">U/L</option>
+									</select>
+								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.ast && errors.ast.msg}
 								</label>
@@ -505,13 +536,18 @@ class Chemistry extends React.Component {
 								<div className="round-btn grey-label">ALT</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
-								<input
-									type="text"
-									id="alt"
-									className="round-input"
-									value={chemistry.alt.value}
-									onChange={this.changeInfo}
-								/>
+								<div className="d-flex">
+									<input
+										type="text"
+										id="alt"
+										className="round-input"
+										value={chemistry.alt.value}
+										onChange={this.changeInfo}
+									/>
+									<select className="input-inline-select">
+										<option value="U/L">U/L</option>
+									</select>
+								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.alt && errors.alt.msg}
 								</label>

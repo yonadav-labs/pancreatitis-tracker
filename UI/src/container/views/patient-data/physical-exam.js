@@ -73,13 +73,13 @@ class PhysicalExam extends React.Component {
 				},
 				glasgow_coma: {
 					name: 'glasgow_coma',
-					type: 'integer',
+					type: 'float',
 					range: [{ min: 3, max: 15, unit: 'a.u'}],
 					required: true
 				},
 				eye_score: {
 					name: 'eye_score',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 1, max: 4, unit: 'a.u' }
 					],
@@ -87,7 +87,7 @@ class PhysicalExam extends React.Component {
 				},
 				verbal_score: {
 					name: 'verbal_score',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 1, max: 5, unit: 'a.u' }
 					],
@@ -95,7 +95,7 @@ class PhysicalExam extends React.Component {
 				},
 				motor_score: {
 					name: 'motor_score',
-					type: 'integer',
+					type: 'float',
 					range: [
 						{ min: 1, max: 6, unit: 'a.u' }
 					],
@@ -190,7 +190,7 @@ class PhysicalExam extends React.Component {
 
 		return (
 			<div>
-				<ReactTooltip effect='solid' />
+				<ReactTooltip effect='solid' className="tooltop-bar" />
 				<div className="row">
 					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
