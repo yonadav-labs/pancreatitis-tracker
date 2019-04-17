@@ -74,32 +74,28 @@ class PhysicalExam extends React.Component {
 				glasgow_coma: {
 					name: 'glasgow_coma',
 					type: 'float',
-					range: [{ min: 3, max: 15, unit: 'a.u'}],
-					required: true
+					range: [{ min: 3, max: 15, unit: 'a.u'}]
 				},
 				eye_score: {
 					name: 'eye_score',
 					type: 'float',
 					range: [
 						{ min: 1, max: 4, unit: 'a.u' }
-					],
-					required: true
+					]
 				},
 				verbal_score: {
 					name: 'verbal_score',
 					type: 'float',
 					range: [
 						{ min: 1, max: 5, unit: 'a.u' }
-					],
-					required: true
+					]
 				},
 				motor_score: {
 					name: 'motor_score',
 					type: 'float',
 					range: [
 						{ min: 1, max: 6, unit: 'a.u' }
-					],
-					required: true
+					]
 				}
 			},
 			errors: {},

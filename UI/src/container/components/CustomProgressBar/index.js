@@ -46,7 +46,7 @@ class CustomProgressBar extends React.PureComponent {
 		});
 
 		let isFlag = false;
-		if (this.props.scoreRange.threshold >= this.props.value) {
+		if (this.props.scoreRange.threshold <= this.props.value) {
 			isFlag = true;
 		}
 

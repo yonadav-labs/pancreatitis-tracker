@@ -46,46 +46,40 @@ class Chemistry extends React.Component {
 					type: 'float',
 					range: [
 						{ min: 100, max: 190, unit: 'mmol/L'}
-					],
-					required: true
+					]
 				},
 				potassium: {
 					name: 'potassium',
 					type: 'float',
-					range: [{ min: 2.2, max: 7.5, unit: 'mmol/L'}],
-					required: true
+					range: [{ min: 2.2, max: 7.5, unit: 'mmol/L'}]
 				},
 				chloride: {
 					name: 'chloride',
 					type: 'float',
 					range: [
 						{ min: 60, max: 120, unit: 'mmol/L' }
-					],
-					required: true
+					]
 				},
 				hco3_serum: {
 					name: 'hco3_serum',
 					type: 'float',
 					range: [
 						{ min: 13, max: 55, unit: 'mmol/L' }
-					],
-					required: true
+					]
 				},
 				bun: {
 					name: 'bun',
 					type: 'float',
 					range: [
 						{ min: 5, max: 90, unit: 'mg/dL' }
-					],
-					required: true
+					]
 				},
 				creatinine: {
 					name: 'creatinine',
 					type: 'float',
 					range: [
 						{ min: 0.5, max: 5.0, unit: 'mg/dL' }
-					],
-					required: true
+					]
 				},
 				glucose: {
 					name: 'glucose',
@@ -93,16 +87,14 @@ class Chemistry extends React.Component {
 					range: [
 						{ min: 60, max: 250, unit: 'mmol/L' },
 						{ min: 3.3, max: 13.9, unit: 'mg/dL' }
-					],
-					required: true
+					]
 				},
 				calcium: {
 					name: 'calcium',
 					type: 'float',
 					range: [
 						{ min: 1, max: 3, unit: 'mmol/L' }
-					],
-					required: true
+					]
 				},
 				albumin: {
 					name: 'albumin',
@@ -110,32 +102,28 @@ class Chemistry extends React.Component {
 					range: [
 						{ min: 3, max: 6, unit: 'g/L' },
 						{ min: 30, max: 60, unit: 'g/dL' }
-					],
-					required: true
+					]
 				},
 				ast: {
 					name: 'ast',
 					type: 'float',
 					range: [
 						{ min: 8, max: 600, unit: 'U/L' }
-					],
-					required: true
+					]
 				},
 				alt: {
 					name: 'alt',
 					type: 'float',
 					range: [
 						{ min: 8, max: 600, unit: 'U/L' }
-					],
-					required: true
+					]
 				},
 				ldh: {
 					name: 'ldh',
 					type: 'float',
 					range: [
 						{ min: 48, max: 600, unit: 'IU/L' }
-					],
-					required: true
+					]
 				}
 			},
 			errors: {}

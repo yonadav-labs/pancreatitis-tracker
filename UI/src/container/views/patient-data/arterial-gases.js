@@ -28,46 +28,40 @@ class ArterialGases extends React.Component {
 					type: 'float',
 					range: [
 						{ min: 7.14, max: 7.65, unit: ''}
-					],
-					required: true
+					]
 				},
 				paO2: {
 					name: 'paO2',
 					type: 'float',
-					range: [{ min: 50, max: 75, unit: 'mmHg'}],
-					required: true
+					range: [{ min: 50, max: 75, unit: 'mmHg'}]
 				},
 				paCO2: {
 					name: 'paCO2',
 					type: 'float',
 					range: [
 						{ min: 30, max: 50, unit: 'mmHg' }
-					],
-					required: true
+					]
 				},
 				hco3_artieral: {
 					name: 'hco3_artieral',
 					type: 'float',
 					range: [
 						{ min: 13, max: 55, unit: 'mmol/L' }
-					],
-					required: true
+					]
 				},
 				fiO2: {
 					name: 'fiO2',
 					type: 'float',
 					range: [
 						{ min: 0.2, max: 1, unit: '%' }
-					],
-					required: true
+					]
 				},
 				base_excess: {
 					name: 'base_excess',
 					type: 'float',
 					range: [
 						{ min: -5, max: 3, unit: 'mEq/L' }
-					],
-					required: true
+					]
 				}
 			},
 			errors: {}

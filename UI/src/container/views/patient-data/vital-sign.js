@@ -33,46 +33,40 @@ class VitalSigns extends React.Component {
 					range: [
 						{ min: 28, max: 42, unit: 'celcius'},
 						{ min: 82.4, max: 107.6, unit: 'fahrenheit'}
-					],
-					required: true
+					]
 				},
 				bp_systolic: {
 					name: 'bp_systolic',
 					type: 'float',
-					range: [{ min: 70, max: 205, unit: 'mmHg'}],
-					required: true
+					range: [{ min: 70, max: 205, unit: 'mmHg'}]
 				},
 				bp_diastolic: {
 					name: 'bp_diastolic',
 					type: 'float',
 					range: [
 						{ min: 50, max: 130, unit: 'mmHg' }
-					],
-					required: true
+					]
 				},
 				heart_rate: {
 					name: 'heart_rate',
 					type: 'float',
 					range: [
 						{ min: 40, max: 190, unit: 'bpm' }
-					],
-					required: true
+					]
 				},
 				resp_rate: {
 					name: 'resp_rate',
 					type: 'float',
 					range: [
 						{ min: 5, max: 50, unit: 'bpm' }
-					],
-					required: true
+					]
 				},
 				spO2: {
 					name: 'spO2',
 					type: 'float',
 					range: [
 						{ min: 80, max: 100, unit: '%' }
-					],
-					required: true
+					]
 				}
 			},
 			errors: {},

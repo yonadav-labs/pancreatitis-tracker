@@ -25,8 +25,7 @@ class Hematology extends React.Component {
 					type: 'float',
 					range: [
 						{ min: 1, max: 50, unit: '10^9 cells/L'}
-					],
-					required: true
+					]
 				},
 				platelet_count: {
 					name: 'platelet_count',
@@ -34,16 +33,14 @@ class Hematology extends React.Component {
 					range: [
 						{ min: 50, max: 450, unit: '10^3 units/µL'},
 						{ min: 50000, max: 450000, unit: 'units/µL'}
-					],
-					required: true
+					]
 				},
 				hematocrit: {
 					name: 'hematocrit',
 					type: 'float',
 					range: [
 						{ min: 36.1, max: 50.3, unit: '%'}
-					],
-					required: true
+					]
 				},
 				crp: {
 					name: 'crp',
@@ -51,8 +48,7 @@ class Hematology extends React.Component {
 					range: [
 						{ min: 0, max: 20, unit: 'mg/L' },
 						{ min: 0, max: 2, unit: 'mg/dL' }
-					],
-					required: true
+					]
 				}
 			},
 			errors: {}
