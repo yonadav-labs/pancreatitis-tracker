@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 
 from general import views
-
+from general import auth
 admin.site.site_header = "APSC administration"
 
 urlpatterns = [
@@ -25,4 +25,5 @@ urlpatterns = [
     path('run_algorithms', views.run_algorithms),
     path('run_algorithm/<str:algorithm>', views.run_algorithm),
     path('algorithms', views.get_algorithms),
+    path('register', auth.register)
 ]
