@@ -55,7 +55,6 @@ class PatientData extends React.Component {
 				platelet_count: this.props.patient.platelet_count || {value: '', label: ''},
 				hematocrit: this.props.patient.hematocrit || {value: '', label: ''},
 				crp: this.props.patient.crp || {value: '', label: ''},
-				peritonitis: this.props.patient.peritonitis || {value: '', label: ''},
 				guarding: this.props.patient.guarding || { value: '', label: '' },
 				tenderness: this.props.patient.tenderness || { value: '', label: '' },
 				eye_score: this.props.patient.eye_score || {value: '', label: ''},
