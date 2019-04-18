@@ -32,7 +32,6 @@ class PatientData extends React.Component {
 				weight: this.props.patient.weight || {value: '', label: ''},
 				bmi: this.props.patient.bmi || {value: '', label: ''},
 				chronic_health: this.props.patient.chronic_health || {value: '', label: ''},
-				o2Saturation: this.props.patient.o2Saturation || {value: '', label: ''},
 				ph: this.props.patient.ph || {value: '', label: ''},
 				paO2: this.props.patient.paO2 || {value: '', label: ''},
 				paCO2: this.props.patient.paCO2 || {value: '', label: ''},
@@ -68,7 +67,6 @@ class PatientData extends React.Component {
 				bp_diastolic: this.props.patient.bp_diastolic || {value: '', label: ''},
 				heart_rate: this.props.patient.heart_rate || {value: '', label: ''},
 				resp_rate: this.props.patient.resp_rate || {value: '', label: ''},
-				fluid_responsive: this.props.patient.fluid_responsive ||{value: '', label: ''}
 			},
 			error: {
 
