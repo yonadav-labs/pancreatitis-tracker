@@ -13,18 +13,18 @@ class Chemistry extends React.Component {
 		super(props);
 		this.state = {
 			chemistry: {
-				sodium: this.props.data.sodium || { value: '', unit: 'mmol/L'},
-				potassium: this.props.data.potassium || { value: '', unit: 'mmol/L'},
-				chloride: this.props.data.chloride || { value: '', unit: 'mmol/L'},
-				hco3_serum: this.props.data.hco3_serum || { value: '', unit: 'mmol/L'},
-				bun: this.props.data.bun || { value: '', unit: 'mg/dL'},
-				creatinine: this.props.data.creatinine || { value: '', unit: 'mg/dL'},
-				glucose: this.props.data.glucose || { value: '', unit: 'mmol/L'},
-				calcium: this.props.data.calcium || { value: '', unit: 'mmol/L'},
-				albumin: this.props.data.albumin || { value: '', unit: 'mg/dL'},
-				ast: this.props.data.ast || { value: '', unit: 'U/L'},
-				alt: this.props.data.alt || { value: '', unit: 'U/L'},
-				ldh: this.props.data.ldh || { value: '', unit: 'IU/L'}
+				sodium: this.props.data.sodium,
+				potassium: this.props.data.potassium,
+				chloride: this.props.data.chloride,
+				hco3_serum: this.props.data.hco3_serum,
+				bun: this.props.data.bun,
+				creatinine: this.props.data.creatinine,
+				glucose: this.props.data.glucose,
+				calcium: this.props.data.calcium,
+				albumin: this.props.data.albumin,
+				ast: this.props.data.ast,
+				alt: this.props.data.alt,
+				ldh: this.props.data.ldh
 			},
 			units: {
 				sodium: this.props.units.sodium || 'mmol/L',
@@ -35,7 +35,7 @@ class Chemistry extends React.Component {
 				creatinine: this.props.units.creatinine || 'mg/dL',
 				glucose: this.props.units.glucose || 'mmol/L',
 				calcium: this.props.units.calcium || 'mmol/L',
-				albumin: this.props.units.albumin || 'mg/dL',
+				albumin: this.props.units.albumin || 'g/dL',
 				ast: this.props.units.ast || 'U/L',
 				alt: this.props.units.alt || 'U/L',
 				ldh: this.props.units.ldh || 'IU/L'
@@ -93,6 +93,7 @@ class Chemistry extends React.Component {
 					name: 'calcium',
 					type: 'float',
 					range: [
+						{ min: 2, max: 6, unit: 'mEq/L' },
 						{ min: 1, max: 3, unit: 'mmol/L' }
 					]
 				},
@@ -195,6 +196,7 @@ class Chemistry extends React.Component {
 
 			let glucose= { ...temp.glucose };
 			let albumin = { ...temp.albumin };
+			let calcium = { ...temp.calcium };
 
 			if (units.glucose === 'mg/dL') {
 				glucose.calculatedValue = glucoseConvert(glucose.value);
@@ -208,8 +210,15 @@ class Chemistry extends React.Component {
 				albumin.calculatedValue = albumin.value;
 			}
 
+			if (units.calcium === 'mEq/L') {
+				calcium.calculatedValue = calcium.value / 2;
+			} else {
+				calcium.calculatedValue = calcium.value;
+			}
+
 			temp.glucose = glucose;
 			temp.albumin = albumin;
+			temp.calcium = calcium;
 
 			this.props.updateInfo(temp, this.state.units);
 			this.props.jumpToStep(this.props.step+1);
@@ -413,7 +422,7 @@ class Chemistry extends React.Component {
 					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">Calcium</div>
+								<div className="round-btn grey-label">Total Calcium</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<div className="d-flex">
@@ -429,7 +438,8 @@ class Chemistry extends React.Component {
 										defaultValue={units.calcium}
 										onChange={e => this.changeUnit('calcium', e.target.value)}
 									>
-										<option>mmol/L</option>
+										<option value="mEq/L">mEq/L</option>
+										<option value="mmol/L">mmol/L</option>
 									</select>
 								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
