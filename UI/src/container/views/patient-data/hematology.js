@@ -8,10 +8,10 @@ class Hematology extends React.Component {
 		super(props);
 		this.state = {
 			hematology: {
-				wbc: this.props.data.wbc || { value: '', unit: '10^9 cells/L'},
-				platelet_count: this.props.data.platelet_count || { value: '', unit: '10^3 units/µL'},
-				hematocrit: this.props.data.hematocrit || { value: '', unit: '%'},
-				crp: this.props.data.crp || { value: '', unit: 'mg/L'}
+				wbc: this.props.data.wbc,
+				platelet_count: this.props.data.platelet_count,
+				hematocrit: this.props.data.hematocrit,
+				crp: this.props.data.crp
 			},
 			units: {
 				wbc: this.props.units.wbc || '10^9 cells/L',
@@ -86,7 +86,8 @@ class Hematology extends React.Component {
 		this.setState({ units });
 	}
 
-	next = () => {
+	isValidated = () => {
+		let isPageValidated = false;
 		const errors = {};
 		const {rules, hematology, units} = this.state;
 
@@ -132,7 +133,15 @@ class Hematology extends React.Component {
 			temp.platelet_count = platelet_count;
 			temp.crp = crp;
 
+			isPageValidated = true;
 			this.props.updateInfo(temp, this.state.units);
+		}
+
+		return isPageValidated;
+	}
+
+	next = () => {
+		if (this.isValidated()) {
 			this.props.jumpToStep(this.props.step+1);
 		}
 	}

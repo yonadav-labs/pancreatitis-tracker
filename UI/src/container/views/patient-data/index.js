@@ -68,9 +68,6 @@ class PatientData extends React.Component {
 				bp_diastolic: this.props.patient.bp_diastolic || {value: '', label: ''},
 				heart_rate: this.props.patient.heart_rate || {value: '', label: ''},
 				resp_rate: this.props.patient.resp_rate || {value: '', label: ''},
-				Map: this.props.patient.Map || {value: '', label: ''},
-				oliguria: this.props.patient.oliguria || {value: '', label: ''},
-				resp_failure: this.props.patient.resp_failure || {value: '', label: ''},
 				fluid_responsive: this.props.patient.fluid_responsive ||{value: '', label: ''}
 			},
 			error: {
@@ -81,6 +78,10 @@ class PatientData extends React.Component {
 		};
 
 		this.updateInfo = this.updateInfo.bind(this);
+	}
+
+	getState = () => {
+		return this.state.data;
 	}
 
 	componentDidMount() {
@@ -130,8 +131,8 @@ class PatientData extends React.Component {
 
 	render () {
 		const steps = [
-			{name: 'Basic info', component: <BasicInfo step={0} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} loadData={this.loadPatientData} />},
-			{name: 'Vital Signs', component: <VitalSigns step={1} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
+			{name: 'Basic info', component: <BasicInfo step={0} getState={this.getState} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} loadData={this.loadPatientData} />},
+			{name: 'Vital Signs', component: <VitalSigns step={1} getState={this.getState} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
 			{name: 'Physical Exam', component: <PhysicalExam step={2} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
 			{name: 'Chemistry', component: <Chemistry step={3} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
 			{name: 'Hematology', component: <Hematology step={4} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},

@@ -166,7 +166,8 @@ class Chemistry extends React.Component {
 		this.props.updateInfo(chemistry, units);
 	}
 
-	next = () => {
+	isValidated = () => {
+		let isPageValidated = false;
 		const errors = {};
 		const {rules, chemistry, units} = this.state;
 
@@ -220,7 +221,15 @@ class Chemistry extends React.Component {
 			temp.albumin = albumin;
 			temp.calcium = calcium;
 
+			isPageValidated = true;
 			this.props.updateInfo(temp, this.state.units);
+		}
+
+		return isPageValidated;
+	}
+
+	next = () => {
+		if (this.isValidated()) {
 			this.props.jumpToStep(this.props.step+1);
 		}
 	}

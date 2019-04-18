@@ -3,6 +3,7 @@ import ReactTooltip from 'react-tooltip';
 import GreenButton from "../../components/GreenButton";
 import Select from 'react-select';
 import {validateForm, lbToKgConvert, inchToCmConvert} from '../../utils/utils';
+import { isAbsolute } from 'upath';
 
 const sexOption = [
 	{ value: 'm', label: 'Male' },
@@ -19,14 +20,15 @@ const chronicHealthProblemsOption = [
 class BasicInfo extends React.Component {
 	constructor(props) {
 		super(props);
+
 		this.state = {
 			basicInfo: {
-				sex: this.props.data.sex || {value: '', label: ''},
-				age: this.props.data.age || {value: '', label: ''},
-				height: this.props.data.height || {value: '', label: ''},
-				weight: this.props.data.weight || {value: '', label: ''},
-				bmi: this.props.data.bmi || {value: '', label: ''},
-				chronic_health: this.props.data.chronic_health || {value: '', label: ''}
+				sex: this.props.data.sex,
+				age: this.props.data.age,
+				height: this.props.data.height,
+				weight: this.props.data.weight,
+				bmi: this.props.data.bmi,
+				chronic_health: this.props.data.chronic_health
 			},
 			units: {
 				sex: this.props.units.sex || '',
@@ -66,11 +68,10 @@ class BasicInfo extends React.Component {
 			errors: {}
 		};
 
-		this.changeInfo = this.changeInfo.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const params = { ...this.state.basicInfo, ...nextProps.data};
+		const params = Object.assign({}, this.state.basicInfo, nextProps.data);
 		this.setState({ basicInfo: params });
 	}
 
@@ -98,37 +99,10 @@ class BasicInfo extends React.Component {
 		return bmiValue;
 	}
 
-	changeInfo(e) {
-		let params = this.state.basicInfo;
-
-		params[e.target.id].value = e.target.value;
-
-		let bmiValue = '';
-		if (e.target.id === 'weight' || e.target.id === 'height') {
-			bmiValue = this.calculateBMI(params);
-		}
-		params.bmi.value = bmiValue;
-
-		this.setState({ basicInfo: params });
-		this.props.updateInfo(params, this.state.units);
-	}
-
-	changeUnit = (id, value) => {
-		let {units, basicInfo} = this.state;
-		units[id] = value;
-
-		let bmiValue = '';
-		if (id === 'weight' || id === 'height') {
-			bmiValue = this.calculateBMI(basicInfo);
-		}
-		basicInfo.bmi.value = bmiValue;
-
-		this.setState({basicInfo, units});
-	}
-
-	next = () => {
+	isValidated = () => {
 		const errors = {};
 		const {rules, basicInfo, units} = this.state;
+		let isPageValidate = false;
 
 		Object.keys(basicInfo).forEach((data) => {
 			if (rules[data]) {
@@ -175,7 +149,41 @@ class BasicInfo extends React.Component {
 				temp.bmi.value = parseFloat(temp.bmi.value);
 			}
 
+			isPageValidate = true;
 			this.props.updateInfo(temp, this.state.units);
+		}
+
+		return isPageValidate;
+	}
+
+	changeInfo = (e) => {
+		let params = Object.assign({}, this.state.basicInfo);
+		params[e.target.id].value = e.target.value;
+
+		let bmiValue = '';
+		if (e.target.id === 'weight' || e.target.id === 'height') {
+			bmiValue = this.calculateBMI(params);
+		}
+		params.bmi.value = bmiValue;
+
+		this.setState({ basicInfo: params });
+	}
+
+	changeUnit = (id, value) => {
+		let {units, basicInfo} = this.state;
+		units[id] = value;
+
+		let bmiValue = '';
+		if (id === 'weight' || id === 'height') {
+			bmiValue = this.calculateBMI(basicInfo);
+		}
+		basicInfo.bmi.value = bmiValue;
+
+		this.setState({basicInfo, units});
+	}
+
+	next = () => {
+		if (this.isValidated()) {
 			this.props.jumpToStep(this.props.step+1);
 		}
 	}
@@ -198,7 +206,6 @@ class BasicInfo extends React.Component {
 
 	render() {
 		const {basicInfo, errors, units} = this.state;
-		console.log('#$#$= ', basicInfo);
 
 		return (
 			<div>
@@ -249,7 +256,7 @@ class BasicInfo extends React.Component {
 					<div className="col-xs-12 col-md-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-sm-6">
-								<div className="round-btn grey-label">Height</div>
+								<div className="round-btn grey-label">height</div>
 							</div>
 							<div className="col-xs-12 col-sm-6">
 								<div className="d-flex">

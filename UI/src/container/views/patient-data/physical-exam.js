@@ -44,12 +44,12 @@ class PhysicalExam extends React.Component {
 		super(props);
 		this.state = {
 			physicalExam: {
-				guarding: this.props.data.guarding || { value: '', label: '' },
-				tenderness: this.props.data.tenderness || { value: '', label: '' },
-				eye_score: this.props.data.eye_score || {value: '', unit: 'a.u'},
-				verbal_score: this.props.data.verbal_score || {value: '', unit: 'a.u'},
-				motor_score: this.props.data.motor_score || {value: '', unit: 'a.u'},
-				pleural_eff: this.props.data.pleural_eff || { value: '', label: '' }
+				guarding: this.props.data.guarding,
+				tenderness: this.props.data.tenderness,
+				eye_score: this.props.data.eye_score,
+				verbal_score: this.props.data.verbal_score,
+				motor_score: this.props.data.motor_score,
+				pleural_eff: this.props.data.pleural_eff
 			},
 			units: {
 				guarding: '',
@@ -139,7 +139,8 @@ class PhysicalExam extends React.Component {
 		this.props.updateInfo(physicalExam, this.state.units);
 	}
 
-	next = () => {
+	isValidated = () => {
+		let isPageValdiated = false;
 		const errors = {};
 		const {rules, physicalExam, units, glasgow_coma} = this.state;
 
@@ -172,9 +173,16 @@ class PhysicalExam extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
 		} else {
-			this.props.jumpToStep(this.props.step+1);
+			isPageValdiated = true;
 		}
 
+		return isPageValdiated;
+	}
+
+	next = () => {
+		if (this.isValidated()) {
+			this.props.jumpToStep(this.props.step+1);
+		}
 	}
 
 	back = () => {

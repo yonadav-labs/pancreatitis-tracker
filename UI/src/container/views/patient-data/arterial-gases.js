@@ -7,12 +7,12 @@ class ArterialGases extends React.Component {
 		super(props);
 		this.state = {
 			arterialGases: {
-				ph: this.props.data.ph || {value: '', unit: ''},
-				paO2: this.props.data.paO2 || {value: '', unit: 'mmHg'},
-				paCO2: this.props.data.paCO2 || {value: '', unit: 'mmHg'},
-				hco3_artieral: this.props.data.hco3_artieral || {value: '', unit: 'mmol/L'},
-				fiO2: this.props.data.fiO2 || {value: '', unit: '%'},
-				base_excess: this.props.data.base_excess || {value: '', unit: 'mEq/L'}
+				ph: this.props.data.ph,
+				paO2: this.props.data.paO2,
+				paCO2: this.props.data.paCO2,
+				hco3_artieral: this.props.data.hco3_artieral,
+				fiO2: this.props.data.fiO2,
+				base_excess: this.props.data.base_excess
 			},
 			units: {
 				ph: this.props.units.ph || '',
@@ -91,7 +91,8 @@ class ArterialGases extends React.Component {
 		this.setState({ arterialGases: params });
 	}
 
-	next = () => {
+	isValidated = () => {
+		let isPageValidated = false;
 		const errors = {};
 		const {rules, arterialGases, units} = this.state;
 
@@ -121,10 +122,18 @@ class ArterialGases extends React.Component {
 
 			this.props.updateInfo(temp, this.state.units);
 			this.setState({ errors: {} });
+			
+			isPageValidated = true;
+		}
+
+		return isPageValidated;
+	}
+
+	next = () => {
+		if (this.isValidated()) {
 			this.props.savePatientData();
 			this.props.history.push('/outputs');
 		}
-
 	}
 
 	back = () => {

@@ -11,12 +11,12 @@ class VitalSigns extends React.Component {
 		super(props);
 		this.state = {
 			vitalSigns: {
-				temperature: this.props.data.temperature || {value: '', unit: 'celcius'},
-				bp_systolic: this.props.data.bp_systolic || {value: '', unit: 'mmHg'},
-				bp_diastolic: this.props.data.bp_diastolic || {value: '', unit: 'mmHg'},
-				heart_rate: this.props.data.heart_rate || {value: '', unit: 'bpm'},
-				resp_rate: this.props.data.resp_rate || {value: '', unit: 'bpm'},
-				spO2: this.props.data.spO2 || {value: '', unit: '%'}
+				temperature: this.props.data.temperature || {value: '', label: ''},
+				bp_systolic: this.props.data.bp_systolic || {value: '', label: ''},
+				bp_diastolic: this.props.data.bp_diastolic || {value: '', label: ''},
+				heart_rate: this.props.data.heart_rate || {value: '', label: ''},
+				resp_rate: this.props.data.resp_rate || {value: '', label: ''},
+				spO2: this.props.data.spO2 || {value: '', label: ''}
 			},
 			units: {
 				temperature: this.props.units.temperature || 'celcius',
@@ -102,13 +102,14 @@ class VitalSigns extends React.Component {
 	}
 
 	changeUnit = (id, value) => {
-		let {units, vitalSigns} = this.state;
+		let {units} = this.state;
 		units[id] = value;
 
 		this.setState({ units });
 	}
 
-	next = () => {
+	isValidated = () => {
+		let isPageValidated = false;
 		const {vitalSigns, units, rules} = this.state;
 		const errors = {};
 
@@ -143,10 +144,17 @@ class VitalSigns extends React.Component {
 				temp.temperature = temperature;
 			}
 
+			isPageValidated = true;
 			this.props.updateInfo(temp, units);
-			this.props.jumpToStep(this.props.step+1);
 		}
 
+		return isPageValidated;
+	}
+
+	next = () => {
+		if (this.isValidated()) {
+			this.props.jumpToStep(this.props.step+1);
+		}
 	}
 
 	back = () => {
