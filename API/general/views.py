@@ -1,9 +1,11 @@
+import jwt
 import json
 import datetime
 
 from django.shortcuts import render
-from django.http import JsonResponse
+from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.models import User
 
 from algorithms import *
 from .models import *
@@ -84,6 +86,12 @@ def _run_algorithm(algorithm, data):
 @csrf_exempt
 def run_algorithms(request):
     data, is_approx_paO2 = get_preprocessed_data(request)
+    try:
+        email = jwt.decode(request.META.get('HTTP_AUTHORIZATION'), settings.SECRET_KEY, algorithms=['HS256'])['email']
+        user = User.objects.filter(email=email)[0]
+    except Exception as e:
+        return HttpResponse('Unauthorized', status=401)
+
     res = { 
         'results': [],
         'is_approx_paO2': is_approx_paO2
@@ -98,7 +106,6 @@ def run_algorithms(request):
             output[result['algorithm']] = result['score']
 
     # track running
-    user = request.user if request.user.is_authenticated else None
     RunAlgorithm.objects.create(user=user, 
                                 input=json.dumps(data, indent=2),
                                 output=json.dumps(output, indent=2),
