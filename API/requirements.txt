@@ -1,4 +1,5 @@
 django==2.1.5
 django-cors-headers
 requests
-jwt
+cryptography
+PyJWT

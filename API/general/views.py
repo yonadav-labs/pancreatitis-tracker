@@ -6,6 +6,7 @@ from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
+from django.conf import settings
 
 from algorithms import *
 from .models import *
@@ -89,6 +90,8 @@ def run_algorithms(request):
     try:
         email = jwt.decode(request.META.get('HTTP_AUTHORIZATION'), settings.SECRET_KEY, algorithms=['HS256'])['email']
         user = User.objects.filter(email=email)[0]
+        if not user.is_active:
+            return HttpResponse('Unauthorized', status=401)
     except Exception as e:
         return HttpResponse('Unauthorized', status=401)
 

@@ -6,6 +6,7 @@ from django.http import JsonResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.conf import settings
+from django.shortcuts import redirect, reverse
 
 from general.utils import *
 
@@ -16,7 +17,7 @@ def register(request):
     """
     data = json.loads(request.body)
     user = User.objects.filter(email=data['email']).first()
-    jwt_code = jwt.encode({ 'email' : data['email'] }, settings.SECRET_KEY, algorithm='HS256')
+    jwt_code = jwt.encode({ 'email' : data['email'] }, settings.SECRET_KEY, algorithm='HS256').decode('ascii')
 
     if user and user.is_active:
         res = {
@@ -30,22 +31,25 @@ def register(request):
         }
     else:
         names = data['name'].split(' ')
-        user = User.objects.create_user(username=data['email'],
-                                        email=data['email'])
+        user = User.objects.create_user(username=data['email'], email=data['email'])
         user.first_name = names[0]
         user.last_name = names[1]
         user.is_active = False
         user.save()
 
-        email_body = 'Please go ahead and verify your email here: {}/verify/{}'.format(settings.FRONTEND_URL, jwt_code)
+        url = 'http://{}{}'.format(request.get_host(), reverse('verify_email', kwargs={ 'jwt_code': jwt_code }))
+        email_body = 'Hi {}, \n\nPlease go ahead and verify your email here: \n{}' \
+                     .format(data['name'], url)
         send_email([data['email']], 'Welcome to APSC', email_body)
         res = {
-            "status": "email-sent"
+            "status": "email-sent",
+            "msg": "Please check your email"
         }
 
     return JsonResponse(res, safe=True)
 
 
+@csrf_exempt
 def verify_email(request, jwt_code):
     try:
         email = jwt.decode(jwt_code, settings.SECRET_KEY, algorithms=['HS256'])['email']
@@ -53,10 +57,10 @@ def verify_email(request, jwt_code):
         if user:
             user.is_active = True
             user.save()
-            res = { "state": True }
+            url = '{}/about?jwt={}'.format(settings.FRONTEND_URL, jwt_code)
         else:
-            res = { "state": False }
+            url = '{}/account?msg=Invalid token'.format(settings.FRONTEND_URL)
     except Exception as e:
-        res = { "state": False }
+        url = '{}/account?msg=Invalid token'.format(settings.FRONTEND_URL)
 
-    return JsonResponse(res, safe=True)
+    return redirect(url)
