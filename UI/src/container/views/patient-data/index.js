@@ -65,7 +65,7 @@ class PatientData extends React.Component {
 				bp_systolic: this.props.patient.bp_systolic || {value: '', label: ''},
 				bp_diastolic: this.props.patient.bp_diastolic || {value: '', label: ''},
 				heart_rate: this.props.patient.heart_rate || {value: '', label: ''},
-				resp_rate: this.props.patient.resp_rate || {value: '', label: ''},
+				resp_rate: this.props.patient.resp_rate || {value: '', label: ''}
 			},
 			error: {
 

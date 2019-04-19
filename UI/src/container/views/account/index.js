@@ -82,7 +82,7 @@ class Account extends React.Component {
 
 					this.props.history.push('/about');
 				} else {
-					toast.error('Account creation failed!', {
+					toast.error(res.msg, {
 						position: toast.POSITION.TOP_CENTER
 					});
 				}

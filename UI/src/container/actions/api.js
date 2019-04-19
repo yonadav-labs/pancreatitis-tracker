@@ -1,6 +1,7 @@
 import { uploadFormData, postApi, postApiWithoutToken } from './apiWrapper';
 import {
-	SAVE_PATIENT_DATA
+	SAVE_PATIENT_DATA,
+	CREATE_ACCOUNT_URL
 } from './api_url';
 
 export const loadPatientDataApi = (files) => {
@@ -90,7 +91,39 @@ export const loginApi = (username, password) => {
 };
 
 export const createAccountApi = (data) => {
-	return new Promise((resolve, reject) => {
-		resolve({ success: true, data: {token: 'test_token1232321'} });
-	});
+	const params = JSON.stringify(data);
+
+	return postApiWithoutToken(CREATE_ACCOUNT_URL, params)
+		.then(response => {
+			if (response) {
+				switch (response.status) {
+					case 'authenticated':
+						window.localStorage.setItem('token', response.jwt);
+
+						return {
+							success: true,
+							token: response.jwt
+						};
+
+					default:
+						return {
+							success: false,
+							msg: response.msg
+						};
+				}
+			}
+
+
+			return {
+				success: false,
+				msg: 'Server is not available!'
+			};
+		})
+		.catch((err) => {
+			console.log('register acttion err', err);
+			return {
+				success: false,
+				msg: err
+			};
+		});
 };
