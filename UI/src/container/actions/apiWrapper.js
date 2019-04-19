@@ -83,14 +83,13 @@ export const postApiWithoutToken = (url, body) => {
 };
 
 export const postApi = (url, body) => {
-	// const access_token = getToken();
-	const access_token = 'fake_token';
-	// if (isAuthTokenValid(access_token)) {
+	const access_token = getToken();
+
 	return fetch(url, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json',
-			'Authorization': 'Bearer ' + access_token
+			'Authorization': access_token
 		},
 		body
 	})

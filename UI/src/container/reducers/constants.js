@@ -29,7 +29,6 @@ export const LOGIN_FAIL = 'LOGIN_FAIL';
 
 export const BASE_ROUTES = [
 	{ url: "account", routeName: "User Account" },
-	{ url: "about", routeName: "About" },
 	{ url: "feedback", routeName: "Feedback" },
 	{ url: "contact", routeName: "Contact Us" }
 ];

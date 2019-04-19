@@ -105,14 +105,21 @@ export const createAccountApi = (data) => {
 							token: response.jwt
 						};
 
+					case 'email-sent':
+						return {
+							success: false,
+							msg: response.msg,
+							error: false
+						};
+
 					default:
 						return {
 							success: false,
-							msg: response.msg
+							msg: response.msg,
+							error: true
 						};
 				}
 			}
-
 
 			return {
 				success: false,
