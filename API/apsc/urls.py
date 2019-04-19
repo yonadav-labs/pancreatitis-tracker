@@ -25,6 +25,7 @@ urlpatterns = [
     path('run_algorithms', views.run_algorithms),
     path('run_algorithm/<str:algorithm>', views.run_algorithm),
     path('algorithms', views.get_algorithms),
+    path('load_input_history', views.load_input_history),
 
     path('register', auth.register),
     path('verify_email/<str:jwt_code>', auth.verify_email, name='verify_email')
