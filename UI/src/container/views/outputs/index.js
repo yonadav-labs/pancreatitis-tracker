@@ -11,7 +11,7 @@ class Outputs extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			recommendations: '',
+			recommendations: 'Based on the patient\'s body composition, average daily fluid needs are maintenance fluid_ mL/day.',
 			clinicalScores: this.props.clinicalScores || []
 		};
 
@@ -42,10 +42,16 @@ class Outputs extends React.Component {
 				<div className="container">
 					<div className="page-section">
 						<div className="row">
+							<div className="col-md-12 mt-5">
+								<div className="section-description grey-color-text">
+									Scores and guidance based on measures recorded 3 hours from pain onset, and 2 hours from admission.
+								</div>
+							</div>
 							<h2 className="section-title p-x-15">Recommendations</h2>
 							<div className="col-xs-12 col-sm-12 col-md-9 recommendation">
 								<textarea
 									value={this.state.recommendations}
+									className="p-3"
 									onChange={this.changeValue}
 									id="recommendations"
 								/>
