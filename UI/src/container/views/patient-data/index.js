@@ -69,9 +69,7 @@ class PatientData extends React.Component {
 				heart_rate: this.props.patient.heart_rate || {value: '', label: ''},
 				resp_rate: this.props.patient.resp_rate || {value: '', label: ''}
 			},
-			error: {
-
-			},
+			error: {},
 			units: { ...this.props.units },
 			step: 0,
 			historyData: []
