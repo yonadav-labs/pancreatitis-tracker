@@ -71,6 +71,13 @@ export default function patientReducer(state = InitialState, action) {
 
 		case types.PATIENTS.GET_HISTORY_BY_DATE:
 			let patient = {};
+			Object.keys(state.patient).map((item) => {
+				patient[item] = {
+					value: '',
+					label: ''
+				};
+			});
+
 			const _historyData = state.historyData;
 
 			let idx = _.findIndex(_historyData, (o) => {
