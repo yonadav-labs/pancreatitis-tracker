@@ -15,6 +15,7 @@ class AlgorithmPanc3(AlgorithmInterface):
     Returns:
       panc3_score: Panc 3 score if conditions met, else 
     """
+    name = 'Panc 3'
     required_fields = ['bmi', 'hematocrit', 'pleural_eff']
     score_range = { 'min': 0, 'max': 3, 'threshold': 1 }
 

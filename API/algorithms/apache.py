@@ -30,6 +30,7 @@ class AlgorithmApache(AlgorithmInterface):
     Returns:
       apache_score: APACHE II score if conditions met, else None
     """
+    name = 'APACHE II'
     required_fields = ['age', 'temperature', 'arterial_pressure', 'heart_rate', 
                        'resp_rate', 'sodium', 'potassium', 'creatinine', 'hematocrit', 
                        'wbc', 'glasgow_coma', 'chronic_health']

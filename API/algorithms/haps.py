@@ -16,6 +16,7 @@ class AlgorithmHaps(AlgorithmInterface):
     Returns:
       haps_score: HAPS score if conditions met, else None
     """
+    name = 'HAPS'
     required_fields = ['sex', 'hematocrit', 'creatinine', 'peritonitis']
     score_range = { 'min': 0, 'max': 3, 'threshold': 1 }
 

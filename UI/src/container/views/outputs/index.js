@@ -70,7 +70,7 @@ class Outputs extends React.Component {
 											return (
 												<CustomProgressBar
 													key={`custom-progress$${idx}`}
-													title={item.algorithm.replace('Algorithm', '')}
+													title={item.algorithm}
 													value={item.score}
 													scoreRange={item.score_range}
 													item={item}

@@ -11,6 +11,7 @@ class AlgorithmInterface:
     """
     __metaclass__ = ABCMeta
 
+    name = ''
     required_fields = []
     optional_fields = []
     semi_req_fields = []

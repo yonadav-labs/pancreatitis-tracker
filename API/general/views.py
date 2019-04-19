@@ -53,7 +53,7 @@ def get_algorithms(request):
     for algorithm in ALGORITHMS:
         algo = algorithm(data)
         result = {
-            "algorithm": algo.__class__.__name__,
+            "algorithm": algo.name,
             "params": algo.params(),
             "score_range": algo.score_range
         }
@@ -70,7 +70,7 @@ def get_algorithms(request):
 def _run_algorithm(algorithm, data):
     algo = algorithm(data)
     result = {
-        "algorithm": algo.__class__.__name__,
+        "algorithm": algo.name,
         "is_capable": algo.can_process(),
         "params": algo.params(),
         "score_range": algo.score_range        
