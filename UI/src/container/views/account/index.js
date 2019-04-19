@@ -83,7 +83,7 @@ class Account extends React.Component {
 
 					this.props.history.push('/about');
 				} else {
-					this.setState({ pageError: res.msg });
+					this.setState({ pageError: res });
 				}
 			});
 		}
@@ -184,8 +184,14 @@ class Account extends React.Component {
 							</div>
 						</div>
 
-						<div className="pt-3 pb-3 text-danger text-center warning-message">
-							{this.state.pageError}
+						<div
+							className={
+								this.state.pageError && this.state.pageError.error
+									? "pt-3 pb-3 text-danger text-center warning-message"
+									: "pt-3 pb-3 text-success text-center warning-messag"
+							}
+						>
+							{this.state.pageError ? this.state.pageError.msg: ''}
 						</div>
 						
 						<div className="pt-3 text-center">

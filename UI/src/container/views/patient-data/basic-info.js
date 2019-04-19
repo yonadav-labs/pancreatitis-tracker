@@ -21,14 +21,15 @@ class BasicInfo extends React.Component {
 	constructor(props) {
 		super(props);
 
+		console.log('aaaa', this.props.data);
 		this.state = {
 			basicInfo: {
-				sex: this.props.data.sex,
-				age: this.props.data.age,
-				height: this.props.data.height,
-				weight: this.props.data.weight,
-				bmi: this.props.data.bmi,
-				chronic_health: this.props.data.chronic_health
+				sex: this.props.data.sex || {value: '', label: ''},
+				age: this.props.data.age || {value: '', label: ''},
+				height: this.props.data.height || {value: '', label: ''},
+				weight: this.props.data.weight || {value: '', label: ''},
+				bmi: this.props.data.bmi || {value: '', label: ''},
+				chronic_health: this.props.data.chronic_health || {value: '', label: ''}
 			},
 			units: {
 				sex: this.props.units.sex || '',
@@ -65,7 +66,9 @@ class BasicInfo extends React.Component {
 					]
 				}
 			},
-			errors: {}
+			errors: {},
+			historyDate: this.props.historyData && this.props.historyData[0]
+				? this.props.historyData[0].run_at : ''
 		};
 
 	}
@@ -195,8 +198,8 @@ class BasicInfo extends React.Component {
 		this.setState({ basicInfo });
 	}
 
-	fileChange = (e) => {
-		this.props.loadData(e.target.files);
+	loadHisotryData = () => {
+		this.props.loadInputHistoryAction(e.target.files);
 	}
 
 	showFileDialog = () => {
@@ -204,8 +207,14 @@ class BasicInfo extends React.Component {
 		fileDialog.click();
 	}
 
+	getHistoryByDate = (e) => {
+		this.props.getHistoryByDate(e.target.value);
+		this.setState({ historyDate: e.target.value });
+	}
+
 	render() {
-		const {basicInfo, errors, units} = this.state;
+		const {basicInfo, errors, units, historyDate} = this.state;
+		const {historyData} = this.props;
 
 		return (
 			<div>
@@ -360,12 +369,21 @@ class BasicInfo extends React.Component {
 				</div>
 				<div className="pt-3 text-center">
 					<div className="d-flex justify-content-between">
-						<GreenButton
-							text="Load Data"
-							className="mt-3 d-none"
-							onClick={this.showFileDialog}
-						/>
-						<input type="file" id="upload_input" className="d-none" onChange={this.fileChange} />
+						<select
+							className="btn green-button"
+							placeholder="Load Data"
+							value={historyDate}
+							onChange={this.getHistoryByDate}
+						>
+							{
+								historyData
+									? historyData.map((item, idx) => (
+										<option key={`history-${idx}`}>{item.run_at}</option>
+									))
+									: <option></option>
+							}
+						</select>
+
 						<GreenButton
 							text="Next"
 							className="mt-3 ml-auto"

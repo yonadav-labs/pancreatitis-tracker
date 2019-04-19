@@ -13,7 +13,9 @@ import { withRouter } from "react-router";
 import {
 	setUpdatesPerPagePatientAction,
 	loadPatientDataAction,
-	savePatientDataAction
+	savePatientDataAction,
+	loadInputHistoryAction,
+	getHistoryByDateAction
 } from '../../actions/index';
 
 import StepZilla from "react-stepzilla";
@@ -71,7 +73,8 @@ class PatientData extends React.Component {
 
 			},
 			units: { ...this.props.units },
-			step: 0
+			step: 0,
+			historyData: []
 		};
 
 		this.updateInfo = this.updateInfo.bind(this);
@@ -79,6 +82,10 @@ class PatientData extends React.Component {
 
 	getState = () => {
 		return this.state.data;
+	}
+
+	componentWillMount() {
+		this.props.loadInputHistoryAction();
 	}
 
 	componentDidMount() {
@@ -90,9 +97,8 @@ class PatientData extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		/* eslint-disable eqeqeq */
-		if (this.state.data != nextProps.patient) {
-			this.setState({ data: nextProps.patient });
-		}
+		const data = Object.assign({}, nextProps.patient);
+		this.setState({ data: data, historyData: nextProps.historyData });
 	}
 
 	updateInfo(data, units) {
@@ -115,6 +121,10 @@ class PatientData extends React.Component {
 		this.props.loadPatientDataAction(files);
 	}
 
+	loadHisotryData = () => {
+		this.props.loadInputHistoryAction();
+	}
+
 	savePaientData = () => {
 		this.props.savePatientDataAction(this.state.data)
 			.then(res => {
@@ -126,15 +136,20 @@ class PatientData extends React.Component {
 			});
 	}
 
+	getHistoryByDate = (date) => {
+		this.props.getHistoryByDateAction(date);
+	}
+
 	render () {
 		const steps = [
-			{name: 'Basic info', component: <BasicInfo step={0} getState={this.getState} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} loadData={this.loadPatientData} />},
+			{name: 'Basic info', component: <BasicInfo step={0} getState={this.getState} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} loadHisotryData={this.loadHisotryData} historyData={this.state.historyData} getHistoryByDate={this.getHistoryByDate} />},
 			{name: 'Vital Signs', component: <VitalSigns step={1} getState={this.getState} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
 			{name: 'Physical Exam', component: <PhysicalExam step={2} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
 			{name: 'Chemistry', component: <Chemistry step={3} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
 			{name: 'Hematology', component: <Hematology step={4} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
 			{name: 'Arterial Gases', component: <ArterialGases step={5} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} savePatientData={this.savePaientData} history={this.props.history} />}
 		];
+		console.log('===', this.state.data);
 
 		return (
 			<div className="app-content">
@@ -168,7 +183,8 @@ class PatientData extends React.Component {
 const mapStatetoProps = state => {
 	return {
 		patient: state.patient,
-		units: state.units
+		units: state.units,
+		historyData: state.historyData
 	};
 };
 
@@ -178,7 +194,9 @@ const mapDispatchToProps = dispatch => {
 		bindActionCreators({
 			setUpdatesPerPagePatientAction,
 			loadPatientDataAction,
-			savePatientDataAction
+			savePatientDataAction,
+			loadInputHistoryAction,
+			getHistoryByDateAction
 		}, dispatch)
 	);
 };

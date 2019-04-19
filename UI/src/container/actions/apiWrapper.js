@@ -132,14 +132,14 @@ export const getApi = (url, body) => {
 			method: 'GET',
 			headers: {
 				'Content-Type': 'application/json',
-				'Authorization': 'Bearer ' + access_token
+				'Authorization': access_token
 			},
 			body
 		})
 			.then(response => {
 				if (response.ok) {
 					return response.json().then((res) => ({
-						...res,
+						data: res,
 						success: true
 					}));
 				}

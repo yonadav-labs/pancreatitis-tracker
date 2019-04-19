@@ -5,7 +5,8 @@ import {
 	savePatientDataApi,
 	loadClinicalScoresApi,
 	loginApi,
-	createAccountApi
+	createAccountApi,
+	loadInputHistoryApi
 } from './api';
 
 export const loginAction = (username, password) => {
@@ -38,9 +39,27 @@ export const loadPatientDataAction = (files) => {
 			.then((res) => {
 				dispatch({ type: types.PATIENTS.GET, payload: res });
 			})
-			.catch((err) => {
+			.catch(() => {
 				dispatch({ type: types.PATIENTS.ERROR, payload: 'uploading error' });
 			});
+	};
+};
+
+export const loadInputHistoryAction = () => {
+	return (dispatch) => {
+		loadInputHistoryApi()
+			.then((res) => {
+				dispatch({ type: types.PATIENTS.GET_HISTORY, payload: res.data });
+			})
+			.catch(() => {
+				dispatch({ type: types.PATIENTS.ERROR, payload: 'uploading error' });
+			});
+	};
+};
+
+export const getHistoryByDateAction = date => {
+	return (dispatch) => {
+		dispatch({ type: types.PATIENTS.GET_HISTORY_BY_DATE, payload: date });
 	};
 };
 

@@ -1,11 +1,11 @@
-import { uploadFormData, postApi, postApiWithoutToken } from './apiWrapper';
+import { getApi, postApi, postApiWithoutToken } from './apiWrapper';
 import {
 	SAVE_PATIENT_DATA,
-	CREATE_ACCOUNT_URL
+	CREATE_ACCOUNT_URL,
+	LOAD_INPUT_HISOTRY
 } from './api_url';
 
 export const loadPatientDataApi = (files) => {
-	// uploadFormData(url, files);
 	const data = {
 		sex: {value: 'f', label: 'Female'},
 		height: {value: 24, unit: 'cm'}
@@ -14,6 +14,29 @@ export const loadPatientDataApi = (files) => {
 	return new Promise((resolve) => {
 		resolve({ success: true, data: data });
 	});
+};
+
+export const loadInputHistoryApi = () => {
+	return getApi(LOAD_INPUT_HISOTRY)
+		.then((res) => {
+			if (res.success) {
+				return {
+					success: true,
+					data: res
+				};
+			}
+
+			return {
+				success: false,
+				msg: res.msg
+			};
+		})
+		.catch(err => {
+			return {
+				success: false,
+				msg: 'error catch'
+			};
+		});
 };
 
 export const savePatientDataApi = (data) => {
