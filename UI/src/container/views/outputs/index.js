@@ -11,7 +11,7 @@ class Outputs extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			recommendations: '',
+			recommendations: 'Based on the patient\'s body composition, average daily fluid needs are maintenance fluid_ mL/day.',
 			clinicalScores: this.props.clinicalScores || []
 		};
 
@@ -42,10 +42,16 @@ class Outputs extends React.Component {
 				<div className="container">
 					<div className="page-section">
 						<div className="row">
+							<div className="col-md-12 mt-5">
+								<div className="section-description grey-color-text">
+									Scores and guidance based on measures recorded 3 hours from pain onset, and 2 hours from admission.
+								</div>
+							</div>
 							<h2 className="section-title p-x-15">Recommendations</h2>
 							<div className="col-xs-12 col-sm-12 col-md-9 recommendation">
 								<textarea
 									value={this.state.recommendations}
+									className="p-3"
 									onChange={this.changeValue}
 									id="recommendations"
 								/>
@@ -70,7 +76,7 @@ class Outputs extends React.Component {
 											return (
 												<CustomProgressBar
 													key={`custom-progress$${idx}`}
-													title={item.algorithm.replace('Algorithm', '')}
+													title={item.algorithm}
 													value={item.score}
 													scoreRange={item.score_range}
 													item={item}
@@ -84,10 +90,10 @@ class Outputs extends React.Component {
 								<h2 className="section-title">Mounzer Rules</h2>
 								<div className="section-description grey-color-text">
 									All scores default to gray. Upon entry of all of the necessary criteria,
-									the rules that indicate that organ failure is likely will highligh in red
+									the rules that indicate that organ failure is likely will highlight in red
 									and those that indicate that organ failure is not likely will highlight in green.
-									Borderline patients will have each rule hightlighted in yellow as they have
-									satisfied then clinical scoring requirements for a particular pair of rules,
+									Borderline patients will have each rule highlighted in yellow as they have
+									satisfied the clinical scoring requirements for a particular pair of rules,
 									 but do not fall within the likely OF rule or likely not OF rule associated with
 									those tests. Likelihood of organ failure is evaluated on a 95% CI.
 								</div>
@@ -97,8 +103,8 @@ class Outputs extends React.Component {
 										<div className="rule-btn"><span className="rule-text">Rule 1</span></div>
 										<div className="rule-btn"><span className="rule-text">Rule 3</span></div>
 										<div className="rule-btn"><span className="rule-text">Rule 5</span></div>
-										<div className="rule-btn"><span className="rule-text">Rule 6</span></div>
 										<div className="rule-btn"><span className="rule-text">Rule 7</span></div>
+										<div className="rule-btn"><span className="rule-text">Rule 9</span></div>
 										<div className="rule-btn"><span className="rule-text">Rule 11</span></div>
 									</div>
 									<div className="col-6">

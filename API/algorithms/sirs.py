@@ -17,6 +17,7 @@ class AlgorithmSirs(AlgorithmInterface):
     Returns:
       sirs_score: SIRS score if conditions met, else None
     """
+    name = 'SIRS'
     required_fields = ['temperature', 'heart_rate', 'wbc']
     semi_req_fields = [['resp_rate'], ['paCO2']]
     score_range = { 'min': 0, 'max': 4, 'threshold': 2 }
