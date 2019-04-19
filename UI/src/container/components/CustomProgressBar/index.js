@@ -27,7 +27,7 @@ class CustomProgressBar extends React.PureComponent {
 	render() {
 		let percent = this.props.value;
 		let text = '';
-		let tooltip = '';
+		let tooltip = 'Required fields: ';
 
 		if (this.props.scoreRange && this.props.item.is_capable) {
 			percent = this.rangeToPercent(

@@ -146,6 +146,9 @@ def load_input_history(request):
 
     res = []
     for ii in RunAlgorithm.objects.filter(user=user).order_by('-run_at')[:10]:
-        res.append({ 'run_at': datetime.datetime.strftime(ii.run_at, '%Y-%m-%d %H:%M:%S'), 'input_data': json.loads(ii.input) })
+        res.append({ 
+            'run_at': datetime.datetime.strftime(ii.run_at, '%Y-%m-%d %H:%M:%S'), 
+            'input_data': json.loads(ii.input) 
+        })
 
     return JsonResponse(res, safe=False)
