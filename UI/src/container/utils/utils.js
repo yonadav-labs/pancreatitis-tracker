@@ -60,6 +60,24 @@ export const count = (s1, letter) => {
 	return ( convertedString.match( RegExp(letter,'g') ) || [] ).length;
 }
 
+export const allLetter = (inputtxt) => {
+	if(/^[a-z ]+$/i.test(inputtxt)) {
+		return true;
+	}
+
+	return false;
+}
+
+export const hasOnlyOneSpace = (text) => {
+	if (count(text, '\\ ') < 2) {
+		if ((text.indexOf(' ') > 0) && (text.indexOf(' ') < (text.length - 1))) {
+			return true;
+		}
+	}
+
+	return false;
+}
+
 export function validateForm(rule, data, unit) {
 	let isValidate = true;
 	let errorMsg = 'Please enter valid data.';
@@ -175,6 +193,12 @@ export const validateAccount = (rule, data) => {
 
 		case 'text':
 			if (typeof data !== "string" || data === ""){
+				isValidate = false;
+			}
+			break;
+
+		case 'name':
+			if (data === "" || !allLetter(data) || !hasOnlyOneSpace(data)){
 				isValidate = false;
 			}
 			break;

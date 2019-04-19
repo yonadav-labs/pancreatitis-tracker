@@ -15,7 +15,8 @@ def register(request):
     """
     body format: { "name": "John Doe", "email": "some@email.com" } 
     """
-    data = json.loads(request.body)
+    print(request.body)
+    data = json.loads(request.body.decode('ascii'))
     user = User.objects.filter(email=data['email']).first()
     jwt_code = jwt.encode({ 'email' : data['email'] }, settings.SECRET_KEY, algorithm='HS256').decode('ascii')
 
