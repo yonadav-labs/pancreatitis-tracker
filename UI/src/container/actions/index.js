@@ -96,7 +96,7 @@ export const loadClinicalScores = () => {
 
 export const createAccount = (user) => {
 	return (dispatch) => {
-		return createAccountApi()
+		return createAccountApi(user)
 			.then((res) => {
 				if (res.success) {
 					window.localStorage.setItem('token', res.data.token);

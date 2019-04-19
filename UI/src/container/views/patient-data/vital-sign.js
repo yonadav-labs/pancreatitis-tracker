@@ -11,12 +11,12 @@ class VitalSigns extends React.Component {
 		super(props);
 		this.state = {
 			vitalSigns: {
-				temperature: this.props.data.temperature || {value: '', label: ''},
-				bp_systolic: this.props.data.bp_systolic || {value: '', label: ''},
-				bp_diastolic: this.props.data.bp_diastolic || {value: '', label: ''},
-				heart_rate: this.props.data.heart_rate || {value: '', label: ''},
-				resp_rate: this.props.data.resp_rate || {value: '', label: ''},
-				spO2: this.props.data.spO2 || {value: '', label: ''}
+				temperature: this.props.data.temperature,
+				bp_systolic: this.props.data.bp_systolic,
+				bp_diastolic: this.props.data.bp_diastolic,
+				heart_rate: this.props.data.heart_rate,
+				resp_rate: this.props.data.resp_rate,
+				spO2: this.props.data.spO2
 			},
 			units: {
 				temperature: this.props.units.temperature || 'celcius',

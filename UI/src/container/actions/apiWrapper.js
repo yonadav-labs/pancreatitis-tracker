@@ -20,6 +20,10 @@ export const getToken = () => {
 	return window.localStorage.getItem('token');
 };
 
+export const setToken = (token) => {
+	return window.localStorage.setItem('token', token);
+};
+
 export const getUserInfo = () => {
 	const token = window.localStorage.getItem('token');
 

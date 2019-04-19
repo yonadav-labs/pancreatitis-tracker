@@ -1,4 +1,5 @@
 import React from "react";
+import { withRouter } from "react-router";
 import {Link} from 'react-router-dom';
 import Title from '../../components/Title';
 import GreenButton from "../../components/GreenButton";
@@ -36,5 +37,5 @@ class About extends React.Component {
 	}
 }
 
-export default About;
+export default withRouter(About);
 

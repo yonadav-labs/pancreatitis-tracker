@@ -12,7 +12,7 @@ import Order from "./views/order";
 import NotFound from "./components/not-found";
 import Header from "./components/Header";
 import About from "./views/about";
-import { isAuthenticated } from "./actions/apiWrapper";
+import { isAuthenticated, getToken, setToken } from "./actions/apiWrapper";
 
 const RootComponent = () => {
 	return (
@@ -26,8 +26,7 @@ const RootComponent = () => {
 				<Route exact path="/account-info" component={AccountInfo} />
 				<Route exact path="/account" component={Account} />
 				<Route exact path="/order" component={Order} />
-				<Route exact path="/about" component={About} />
-				<Route path="/outputs" render={() => (
+				<Route exact path="/outputs" render={() => (
 					isAuthenticated()
 						? <Outputs />
 						: <Redirect to="/" />
@@ -37,12 +36,17 @@ const RootComponent = () => {
 						? <PatientData />
 						: <Redirect to="/" />
 				)} />
-				<Route path="/verify-email/:token" render={(props) => {
-					if (props.match && props.match.params && props.match.params.token){
-						window.localStorage.setItem('token', props.match.params.token);
-
+				<Route path="/about" render={(props) => {
+					if (props.location && props.location.search && props.location.search.indexOf('?jwt=') > -1){
+						setToken(props.location.search.replace('?jwt=', ''));
 						return (<About />);
 					}
+
+					const token = getToken();
+					if (token) {
+						return (<About />);
+					}
+
 					return (<Redirect to="/" />);
 				}} />
 

@@ -23,7 +23,7 @@ class Account extends React.Component {
 			rules: {
 				name: {
 					name: 'name',
-					type: 'text',
+					type: 'name',
 					required: true
 				},
 				email: {
@@ -32,7 +32,8 @@ class Account extends React.Component {
 					required: true
 				}
 			},
-			errors: {}
+			errors: {},
+			pageError: ''
 		};
 
 		this.changeInfo = this.changeInfo.bind(this);
@@ -72,7 +73,7 @@ class Account extends React.Component {
 		} else {
 			this.setState({ errors });
 			this.props.createAccount({
-				username: physician.name,
+				name: physician.name,
 				email: physician.email
 			}).then((res) => {
 				if (res.success) {
@@ -82,9 +83,7 @@ class Account extends React.Component {
 
 					this.props.history.push('/about');
 				} else {
-					toast.error('Account creation failed!', {
-						position: toast.POSITION.TOP_CENTER
-					});
+					this.setState({ pageError: res.msg });
 				}
 			});
 		}
@@ -111,7 +110,7 @@ class Account extends React.Component {
 										<input
 											type="text"
 											id="name"
-											className="round-input"
+											className="round-input capitalize"
 											placeholder="John Doe"
 											value={physician.name}
 											onChange={this.changeInfo}
@@ -183,6 +182,10 @@ class Account extends React.Component {
 									</div>
 								</div>
 							</div>
+						</div>
+
+						<div className="pt-3 pb-3 text-danger text-center warning-message">
+							{this.state.pageError}
 						</div>
 						
 						<div className="pt-3 text-center">

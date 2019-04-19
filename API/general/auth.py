@@ -38,7 +38,7 @@ def register(request):
         user.save()
 
         url = 'http://{}{}'.format(request.get_host(), reverse('verify_email', kwargs={ 'jwt_code': jwt_code }))
-        email_body = 'Hi {}, \n\nPlease go ahead and verify your email here: \n{}' \
+        email_body = 'Hi {}, \n\nPlease go ahead and verify your email here: \n{}\n\nThank you.' \
                      .format(data['name'], url)
         send_email([data['email']], 'Welcome to APSC', email_body)
         res = {
