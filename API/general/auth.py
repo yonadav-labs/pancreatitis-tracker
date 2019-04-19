@@ -15,8 +15,7 @@ def register(request):
     """
     body format: { "name": "John Doe", "email": "some@email.com" } 
     """
-    print(request.body)
-    data = json.loads(request.body.decode('ascii'))
+    data = json.loads(request.body.decode("ascii"))
     user = User.objects.filter(email=data['email']).first()
     jwt_code = jwt.encode({ 'email' : data['email'] }, settings.SECRET_KEY, algorithm='HS256').decode('ascii')
 
@@ -28,7 +27,7 @@ def register(request):
     elif user and not user.is_active:
         res = {
             "status": "unverified",
-            "msg": "Please verify your email"
+            "msg": "Please verify your email."
         }
     else:
         names = data['name'].split(' ')
@@ -39,12 +38,12 @@ def register(request):
         user.save()
 
         url = 'http://{}{}'.format(request.get_host(), reverse('verify_email', kwargs={ 'jwt_code': jwt_code }))
-        email_body = 'Hi {}, \n\nPlease go ahead and verify your email here: \n{}' \
+        email_body = 'Hi {}, \n\nPlease go ahead and verify your email here: \n{}\n\nThank you.' \
                      .format(data['name'], url)
         send_email([data['email']], 'Welcome to APSC', email_body)
         res = {
             "status": "email-sent",
-            "msg": "Please check your email"
+            "msg": "Verification email sent. Please check your email."
         }
 
     return JsonResponse(res, safe=True)

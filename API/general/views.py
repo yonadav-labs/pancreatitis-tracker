@@ -84,15 +84,20 @@ def _run_algorithm(algorithm, data):
     return result
 
 
-@csrf_exempt
-def run_algorithms(request):
-    data, is_approx_paO2 = get_preprocessed_data(request)
+def get_user(request):
     try:
         email = jwt.decode(request.META.get('HTTP_AUTHORIZATION'), settings.SECRET_KEY, algorithms=['HS256'])['email']
         user = User.objects.filter(email=email)[0]
-        if not user.is_active:
-            return HttpResponse('Unauthorized', status=401)
+        return user if user.is_active else None
     except Exception as e:
+        pass
+    
+
+@csrf_exempt
+def run_algorithms(request):
+    data, is_approx_paO2 = get_preprocessed_data(request)
+    user = get_user(request)
+    if not user:
         return HttpResponse('Unauthorized', status=401)
 
     res = { 
@@ -131,3 +136,16 @@ def run_algorithm(request, algorithm):
     data, is_approx_paO2 = get_preprocessed_data(request)
 
     return JsonResponse(_run_algorithm(algo, data), safe=False)
+
+
+@csrf_exempt
+def load_input_history(request):
+    user = get_user(request)
+    if not user:
+        return HttpResponse('Unauthorized', status=401)
+
+    res = []
+    for ii in RunAlgorithm.objects.filter(user=user).order_by('-run_at')[:10]:
+        res.append({ 'run_at': datetime.datetime.strftime(ii.run_at, '%Y-%m-%d %H:%M:%S'), 'input_data': json.loads(ii.input) })
+
+    return JsonResponse(res, safe=False)
