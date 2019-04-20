@@ -255,6 +255,7 @@ class Chemistry extends React.Component {
 									<input
 										type="text"
 										id="sodium"
+										maxlength="7"
 										className="round-input"
 										value={chemistry.sodium.value}
 										onChange={this.changeInfo}
@@ -284,6 +285,7 @@ class Chemistry extends React.Component {
 									<input
 										type="text"
 										id="chloride"
+										maxlength="7"
 										className="round-input"
 										value={chemistry.chloride.value}
 										onChange={this.changeInfo}
@@ -308,6 +310,7 @@ class Chemistry extends React.Component {
 									<input
 										type="text"
 										id="potassium"
+										maxlength="7"
 										className="round-input"
 										value={chemistry.potassium.value}
 										onChange={this.changeInfo}
@@ -332,6 +335,7 @@ class Chemistry extends React.Component {
 									<input
 										type="text"
 										id="hco3_serum"
+										maxlength="7"
 										className="round-input"
 										value={chemistry.hco3_serum.value}
 										onChange={this.changeInfo}
@@ -361,6 +365,7 @@ class Chemistry extends React.Component {
 									<input
 										type="text"
 										id="bun"
+										maxlength="7"
 										className="round-input"
 										value={chemistry.bun.value}
 										onChange={this.changeInfo}
@@ -385,6 +390,7 @@ class Chemistry extends React.Component {
 									<input
 										type="text"
 										id="glucose"
+										maxlength="7"
 										className="round-input"
 										value={chemistry.glucose.value}
 										onChange={this.changeInfo}
@@ -414,6 +420,7 @@ class Chemistry extends React.Component {
 									<input
 										type="text"
 										id="creatinine"
+										maxlength="7"
 										className="round-input"
 										value={chemistry.creatinine.value}
 										onChange={this.changeInfo}
@@ -438,6 +445,7 @@ class Chemistry extends React.Component {
 									<input
 										type="text"
 										id="calcium"
+										maxlength="7"
 										className="round-input"
 										value={chemistry.calcium.value}
 										onChange={this.changeInfo}
@@ -470,6 +478,7 @@ class Chemistry extends React.Component {
 									<input
 										type="text"
 										id="albumin"
+										maxlength="7"
 										className="round-input"
 										value={chemistry.albumin.value}
 										onChange={this.changeInfo}
@@ -499,6 +508,7 @@ class Chemistry extends React.Component {
 									<input
 										type="text"
 										id="ldh"
+										maxlength="7"
 										className="round-input"
 										value={chemistry.ldh.value}
 										onChange={this.changeInfo}
@@ -523,6 +533,7 @@ class Chemistry extends React.Component {
 									<input
 										type="text"
 										id="ast"
+										maxlength="7"
 										className="round-input"
 										value={chemistry.ast.value}
 										onChange={this.changeInfo}
@@ -547,6 +558,7 @@ class Chemistry extends React.Component {
 									<input
 										type="text"
 										id="alt"
+										maxlength="7"
 										className="round-input"
 										value={chemistry.alt.value}
 										onChange={this.changeInfo}

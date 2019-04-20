@@ -167,6 +167,7 @@ class Hematology extends React.Component {
 									<input
 										type="text"
 										id="wbc"
+										maxlength="7"
 										className="round-input"
 										value={hematology.wbc.value}
 										onChange={this.changeInfo}
@@ -191,6 +192,7 @@ class Hematology extends React.Component {
 									<input
 										type="text"
 										id="platelet_count"
+										maxlength="7"
 										className="round-input"
 										value={hematology.platelet_count.value}
 										onChange={this.changeInfo}
@@ -226,6 +228,7 @@ class Hematology extends React.Component {
 									<input
 										type="text"
 										id="hematocrit"
+										maxlength="7"
 										className="round-input"
 										value={hematology.hematocrit.value}
 										onChange={this.changeInfo}
@@ -250,6 +253,7 @@ class Hematology extends React.Component {
 									<input
 										type="text"
 										id="crp"
+										maxlength="7"
 										className="round-input"
 										value={hematology.crp.value}
 										onChange={this.changeInfo}
