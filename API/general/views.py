@@ -105,6 +105,9 @@ def run_algorithms(request):
         'is_approx_paO2': is_approx_paO2
     }
     output = {}
+    mounzer_input = {
+        'time': 48
+    }
 
     for algorithm in ALGORITHMS:
         result = _run_algorithm(algorithm, data)
@@ -112,9 +115,26 @@ def run_algorithms(request):
 
         if result['is_capable']:
             output[result['algorithm']] = result['score']
+            _key = result['algorithm'].replace('II', '').replace(' ', '').lower() + '_score'
+            mounzer_input[_key] = result['score']
 
     # calculate mounzer rules
-    
+    mounzer_output = []
+    for ii in range(1, 13):
+        mounzer_class = getattr(mounzer_rules, 'Rule{}'.format(ii))
+        rule = mounzer_class(mounzer_input)
+        result = {
+            "rule": rule.name,
+            "is_capable": rule.can_process(),
+            "params": rule.params()
+        }
+
+        if rule.can_process():
+            result['score'] = rule.evaluate()
+
+        mounzer_output.append(result)
+
+    res['mounzer_results'] = mounzer_output
     # track running
     RunAlgorithm.objects.create(user=user, 
                                 input=json.dumps(data, indent=2),

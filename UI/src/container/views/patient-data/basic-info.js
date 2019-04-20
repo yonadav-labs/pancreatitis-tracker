@@ -230,7 +230,7 @@ class BasicInfo extends React.Component {
 									type="text"
 									id="age"
 									className="round-input"
-									maxlength="7"
+									maxLength="7"
 									value={basicInfo.age && basicInfo.age.value}
 									onChange={this.changeInfo}
 								/>
@@ -273,7 +273,7 @@ class BasicInfo extends React.Component {
 									<input
 										type="text"
 										id="height"
-										maxlength="7"
+										maxLength="7"
 										className="round-input"
 										value={basicInfo.height && basicInfo.height.value}
 										onChange={this.changeInfo}
@@ -304,7 +304,7 @@ class BasicInfo extends React.Component {
 										type="text"
 										id="weight"
 										className="round-input"
-										maxlength="7"
+										maxLength="7"
 										value={basicInfo.weight && basicInfo.weight.value}
 										onChange={this.changeInfo}
 									/>
@@ -333,7 +333,7 @@ class BasicInfo extends React.Component {
 									<input
 										type="text"
 										id="bmi"
-										maxlength="7"
+										maxLength="7"
 										className="round-input"
 										value={basicInfo.bmi && basicInfo.bmi.value}
 										disabled

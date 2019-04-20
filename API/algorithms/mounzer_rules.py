@@ -63,7 +63,7 @@ class Rule1(MounzerRuleInterface):
 
         result = None
         if _['sirs_score'] == 0 and _['haps_score'] <= 1 and _['panc3_score'] == 0:
-            result = False
+            result = True
 
         return result
 
@@ -121,7 +121,7 @@ class Rule3(MounzerRuleInterface):
 
         result = None
         if _['bisap_score'] <= 1 and _['pop_score'] <= 1 and _['ranson_score'] <= 1:
-            result = False
+            result = True
 
         return result
 
@@ -179,7 +179,7 @@ class Rule5(MounzerRuleInterface):
 
         result = None
         if _['glasgow_score'] == 0 and _['apache_score'] <= 5 and _['jss_score'] <= 1:
-            result = False
+            result = True
 
         return result
 
@@ -237,8 +237,8 @@ class Rule7(MounzerRuleInterface):
             return None
 
         result = None
-        if sirs_score <= 1 and haps_score == 0 and panc3_score == 0:
-            result = False
+        if _['sirs_score'] <= 1 and _['haps_score'] == 0 and _['panc3_score'] == 0:
+            result = True
 
         return result
 
@@ -298,7 +298,7 @@ class Rule9(MounzerRuleInterface):
 
         result = None
         if _['bisap_score'] <= 1 and _['pop_score'] <= 9 and _['ranson_score'] <= 3:
-            result = False
+            result = True
 
         return result
 
@@ -358,7 +358,7 @@ class Rule11(MounzerRuleInterface):
 
         result = None
         if _['glasgow_score'] == 0 and _['apache_score'] <= 8 and _['jss_score'] <= 2:
-            result = False
+            result = True
 
         return result
 
