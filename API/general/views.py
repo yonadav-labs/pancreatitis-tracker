@@ -113,6 +113,8 @@ def run_algorithms(request):
         if result['is_capable']:
             output[result['algorithm']] = result['score']
 
+    # calculate mounzer rules
+    
     # track running
     RunAlgorithm.objects.create(user=user, 
                                 input=json.dumps(data, indent=2),
