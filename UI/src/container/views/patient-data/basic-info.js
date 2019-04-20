@@ -370,6 +370,48 @@ class BasicInfo extends React.Component {
 							</div>
 						</div>
 					</div>
+					<div className="col-xs-12 col-md-6">
+						<div className="row mb-5">
+							<div className="col-xs-12 col-sm-6">
+								<div
+									className="round-btn grey-label"
+								>
+									Onset Date
+								</div>
+							</div>
+							<div className="col-xs-12 col-sm-6">
+								<input
+									type="text"
+									id="onset_date"
+									className="round-input"
+								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.chronic_health && errors.chronic_health.msg}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div className="col-xs-12 col-md-6">
+						<div className="row mb-5">
+							<div className="col-xs-12 col-sm-6">
+								<div
+									className="round-btn grey-label"
+								>
+									Admission Date
+								</div>
+							</div>
+							<div className="col-xs-12 col-sm-6">
+								<input
+									type="text"
+									id="admission_date"
+									className="round-input"
+								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.chronic_health && errors.chronic_health.msg}
+								</label>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div className="pt-3 text-center">
 					<div className="d-flex justify-content-between">
