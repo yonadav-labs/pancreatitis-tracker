@@ -93,8 +93,8 @@ class Chemistry extends React.Component {
 					name: 'calcium',
 					type: 'float',
 					range: [
-						{ min: 2, max: 6, unit: 'mEq/L' },
-						{ min: 1, max: 3, unit: 'mmol/L' }
+						{ min: 1, max: 3, unit: 'mmol/L' },
+						{ min: 2, max: 6, unit: 'mEq/L' }
 					]
 				},
 				albumin: {
@@ -455,8 +455,8 @@ class Chemistry extends React.Component {
 										defaultValue={units.calcium}
 										onChange={e => this.changeUnit('calcium', e.target.value)}
 									>
-										<option value="mEq/L">mEq/L</option>
 										<option value="mmol/L">mmol/L</option>
+										<option value="mEq/L">mEq/L</option>
 									</select>
 								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
