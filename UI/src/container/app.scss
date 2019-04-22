@@ -615,6 +615,20 @@ ol.progtrckr li.progtrckr-done:before {
   text-align: center;
 }
 
+/* Load Data button */
+.load-option {
+  width: 100% !important;
+
+  .dropdown-item {
+    padding: 10px 10px !important;
+    font-size: 16px !important;
+
+    &:hover {
+      background-color: #007bff;
+    }
+  }
+}
+
 @media (max-width: 1399px) {
   .home-page__banner {
     padding: 150px 0 50px;

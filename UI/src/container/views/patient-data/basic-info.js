@@ -3,7 +3,7 @@ import ReactTooltip from 'react-tooltip';
 import GreenButton from "../../components/GreenButton";
 import Select from 'react-select';
 import {validateForm, lbToKgConvert, inchToCmConvert} from '../../utils/utils';
-import { isAbsolute } from 'upath';
+import DropdownMenu from '../../components/DropdownMenu';
 
 const sexOption = [
 	{ value: 'm', label: 'Male' },
@@ -207,9 +207,9 @@ class BasicInfo extends React.Component {
 		fileDialog.click();
 	}
 
-	getHistoryByDate = (e) => {
-		this.props.getHistoryByDate(e.target.value);
-		this.setState({ historyDate: e.target.value });
+	getHistoryByDate = (date) => {
+		this.props.getHistoryByDate(date);
+		this.setState({ historyDate: date });
 	}
 
 	render() {
@@ -230,7 +230,7 @@ class BasicInfo extends React.Component {
 									type="text"
 									id="age"
 									className="round-input"
-									maxlength="7"
+									maxLength="7"
 									value={basicInfo.age && basicInfo.age.value}
 									onChange={this.changeInfo}
 								/>
@@ -273,7 +273,7 @@ class BasicInfo extends React.Component {
 									<input
 										type="text"
 										id="height"
-										maxlength="7"
+										maxLength="7"
 										className="round-input"
 										value={basicInfo.height && basicInfo.height.value}
 										onChange={this.changeInfo}
@@ -304,7 +304,7 @@ class BasicInfo extends React.Component {
 										type="text"
 										id="weight"
 										className="round-input"
-										maxlength="7"
+										maxLength="7"
 										value={basicInfo.weight && basicInfo.weight.value}
 										onChange={this.changeInfo}
 									/>
@@ -333,7 +333,7 @@ class BasicInfo extends React.Component {
 									<input
 										type="text"
 										id="bmi"
-										maxlength="7"
+										maxLength="7"
 										className="round-input"
 										value={basicInfo.bmi && basicInfo.bmi.value}
 										disabled
@@ -373,21 +373,11 @@ class BasicInfo extends React.Component {
 				</div>
 				<div className="pt-3 text-center">
 					<div className="d-flex justify-content-between">
-						<select
-							className="btn green-button"
-							placeholder="Load Data"
-							value={historyDate}
-							onChange={this.getHistoryByDate}
-						>
-							{
-								historyData
-									? historyData.map((item, idx) => (
-										<option key={`history-${idx}`}>{item.run_at}</option>
-									))
-									: <option></option>
-							}
-						</select>
-
+						<DropdownMenu
+							onClick={this.getHistoryByDate}
+							text="Load Data"
+							data={historyData}
+						/>
 						<GreenButton
 							text="Next"
 							className="mt-3 ml-auto"

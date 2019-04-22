@@ -191,7 +191,7 @@ class PhysicalExam extends React.Component {
 
 	render() {
 		const {physicalExam, errors} = this.state;
-
+		console.log('phy: ', physicalExam);
 		return (
 			<div>
 				<ReactTooltip effect='solid' className="tooltop-bar" />
@@ -213,7 +213,7 @@ class PhysicalExam extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('guarding', e)}
-									value={physicalExam.guarding}
+									value={booleanOption.filter(option => option.value === physicalExam.guarding.value)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.guarding && errors.guarding.msg}
@@ -238,7 +238,7 @@ class PhysicalExam extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('tenderness', e)}
-									value={physicalExam.tenderness}
+									value={booleanOption.filter(option => option.value === physicalExam.tenderness.value)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.tenderness && errors.tenderness.msg}
@@ -258,7 +258,7 @@ class PhysicalExam extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('pleural_eff', e)}
-									value={physicalExam.pleural_eff}
+									value={pleural_effOption.filter(option => option.value === physicalExam.pleural_eff.value)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.physicalExam && errors.physicalExam.msg}
@@ -280,7 +280,7 @@ class PhysicalExam extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('eye_score', e)}
-									value={physicalExam.eye_score}
+									value={eyeResponseOption.filter(option => option.value === physicalExam.eye_score.value)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.eye_score && errors.eye_score.msg}
@@ -299,7 +299,7 @@ class PhysicalExam extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('verbal_score', e)}
-									value={physicalExam.verbal_score}
+									value={verbalResponseOption.filter(option => option.value === physicalExam.verbal_score.value)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.verbal_score && errors.verbal_score.msg}
@@ -318,7 +318,8 @@ class PhysicalExam extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('motor_score', e)}
-									value={physicalExam.motor_score}
+									value={motorResponseOption.filter(option => option.value === physicalExam.motor_score.value)}
+									
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.motor_score && errors.motor_score.msg}

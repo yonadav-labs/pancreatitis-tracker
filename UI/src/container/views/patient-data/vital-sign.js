@@ -178,7 +178,7 @@ class VitalSigns extends React.Component {
 									<input
 										type="text"
 										id="temperature"
-										maxlength="7"
+										maxLength="7"
 										className="round-input"
 										value={units.temperature && vitalSigns.temperature.value}
 										onChange={this.changeInfo}
@@ -214,7 +214,7 @@ class VitalSigns extends React.Component {
 									<input
 										type="text"
 										id="bp_systolic"
-										maxlength="7"
+										maxLength="7"
 										className="round-input"
 										value={vitalSigns.bp_systolic && vitalSigns.bp_systolic.value}
 										onChange={this.changeInfo}
@@ -239,7 +239,7 @@ class VitalSigns extends React.Component {
 									<input
 										type="text"
 										id="bp_diastolic"
-										maxlength="7"
+										maxLength="7"
 										className="round-input"
 										value={vitalSigns.bp_diastolic && vitalSigns.bp_diastolic.value}
 										onChange={this.changeInfo}
@@ -270,7 +270,7 @@ class VitalSigns extends React.Component {
 									<input
 										type="text"
 										id="heart_rate"
-										maxlength="7"
+										maxLength="7"
 										className="round-input"
 										value={vitalSigns.heart_rate && vitalSigns.heart_rate.value}
 										onChange={this.changeInfo}
@@ -295,7 +295,7 @@ class VitalSigns extends React.Component {
 									<input
 										type="text"
 										id="resp_rate"
-										maxlength="7"
+										maxLength="7"
 										className="round-input"
 										value={vitalSigns.resp_rate && vitalSigns.resp_rate.value}
 										onChange={this.changeInfo}
@@ -326,7 +326,7 @@ class VitalSigns extends React.Component {
 									<input
 										type="text"
 										id="spO2"
-										maxlength="7"
+										maxLength="7"
 										className="round-input"
 										value={vitalSigns.spO2 && vitalSigns.spO2.value}
 										onChange={this.changeInfo}

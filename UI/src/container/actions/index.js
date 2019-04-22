@@ -118,7 +118,9 @@ export const createAccount = (user) => {
 		return createAccountApi(user)
 			.then((res) => {
 				if (res.success) {
-					window.localStorage.setItem('token', res.data.token);
+					if (res.data && res.data.token) {
+						window.localStorage.setItem('token', res.data.token);
+					}
 					dispatch({ type: types.USER.CREATE_SUCCESS, payload: res.data });
 				} else {
 					dispatch({ type: types.USER.ERROR, payload: res.msg });

@@ -17,7 +17,7 @@ class Hematology extends React.Component {
 				wbc: this.props.units.wbc || '10^9 cells/L',
 				platelet_count: this.props.units.platelet_count || '10^3 units/µL',
 				hematocrit: this.props.units.hematocrit || '%',
-				crp: this.props.units.crp || 'mg/L'
+				crp: this.props.units.crp || 'mg/dL'
 			},
 			rules: {
 				wbc: {
@@ -124,8 +124,8 @@ class Hematology extends React.Component {
 				platelet_count.calculatedValue = platelet_count.value;
 			}
 
-			if (units.crp === 'mg/dL') {
-				crp.calculatedValue = crp.value * 10;
+			if (units.crp === 'mg/L') {
+				crp.calculatedValue = crp.value / 10;
 			} else {
 				crp.calculatedValue = crp.value;
 			}
@@ -167,7 +167,7 @@ class Hematology extends React.Component {
 									<input
 										type="text"
 										id="wbc"
-										maxlength="7"
+										maxLength="7"
 										className="round-input"
 										value={hematology.wbc.value}
 										onChange={this.changeInfo}
@@ -192,7 +192,7 @@ class Hematology extends React.Component {
 									<input
 										type="text"
 										id="platelet_count"
-										maxlength="7"
+										maxLength="7"
 										className="round-input"
 										value={hematology.platelet_count.value}
 										onChange={this.changeInfo}
@@ -228,7 +228,7 @@ class Hematology extends React.Component {
 									<input
 										type="text"
 										id="hematocrit"
-										maxlength="7"
+										maxLength="7"
 										className="round-input"
 										value={hematology.hematocrit.value}
 										onChange={this.changeInfo}
@@ -253,7 +253,7 @@ class Hematology extends React.Component {
 									<input
 										type="text"
 										id="crp"
-										maxlength="7"
+										maxLength="7"
 										className="round-input"
 										value={hematology.crp.value}
 										onChange={this.changeInfo}
@@ -263,8 +263,8 @@ class Hematology extends React.Component {
 										defaultValue={units.crp}
 										onChange={e => this.changeUnit('crp', e.target.value)}
 									>
-										<option>mg/L</option>
 										<option>mg/dL</option>
+										<option>mg/L</option>
 									</select>
 								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">

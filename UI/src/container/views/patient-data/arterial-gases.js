@@ -155,7 +155,7 @@ class ArterialGases extends React.Component {
 									type="text"
 									id="ph"
 									className="round-input"
-									maxlength="7"
+									maxLength="7"
 									value={arterialGases.ph.value}
 									onChange={this.changeInfo}
 								/>
@@ -175,7 +175,7 @@ class ArterialGases extends React.Component {
 									<input
 										type="text"
 										id="paO2"
-										maxlength="7"
+										maxLength="7"
 										className="round-input"
 										value={arterialGases.paO2.value}
 										onChange={this.changeInfo}
@@ -200,7 +200,7 @@ class ArterialGases extends React.Component {
 									<input
 										type="text"
 										id="paCO2"
-										maxlength="7"
+										maxLength="7"
 										className="round-input"
 										value={arterialGases.paCO2.value}
 										onChange={this.changeInfo}
@@ -226,7 +226,7 @@ class ArterialGases extends React.Component {
 										type="text"
 										id="hco3_artieral"
 										className="round-input"
-										maxlength="7"
+										maxLength="7"
 										value={arterialGases.hco3_artieral.value}
 										onChange={this.changeInfo}
 									/>
@@ -248,7 +248,7 @@ class ArterialGases extends React.Component {
 							<div className="col-xs-12 col-sm-6">
 								<input
 									type="text"
-									maxlength="7"
+									maxLength="7"
 									id="fiO2"
 									className="round-input"
 									value={arterialGases.fiO2.value}
@@ -270,7 +270,7 @@ class ArterialGases extends React.Component {
 									<input
 										type="text"
 										id="base_excess"
-										maxlength="7"
+										maxLength="7"
 										className="round-input"
 										value={arterialGases.base_excess.value}
 										onChange={this.changeInfo}
