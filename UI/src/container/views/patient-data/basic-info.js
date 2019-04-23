@@ -192,7 +192,7 @@ class BasicInfo extends React.Component {
 
 	changeOption = (id, val) => {
 		let {basicInfo} = this.state;
-		basicInfo[id] = {...basicInfo[id], ...val};
+		basicInfo[id] = val.value;
 
 		this.setState({ basicInfo });
 	}
@@ -253,7 +253,7 @@ class BasicInfo extends React.Component {
 									options={sexOption}
 									className="patient-select"
 									classNamePrefix="newselect"
-									onChange={(e) => this.changeOption('sex',e)}
+									onChange={(e) => this.changeOption('sex', e)}
 									value={sexOption.filter(option => option.value === basicInfo.sex)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -360,7 +360,7 @@ class BasicInfo extends React.Component {
 									options={chronicHealthProblemsOption}
 									className="patient-select"
 									classNamePrefix="newselect"
-									onChange={(e) => this.changeOption('chronic_health',e)}
+									onChange={(e) => this.changeOption('chronic_health', e)}
 									value={chronicHealthProblemsOption.filter(option => option.value === basicInfo.chronic_health)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">

@@ -84,22 +84,22 @@ export function validateForm(rule, data, unit) {
 		
 	if (rule) {
 		if (!rule.required) {
-			if (!data || data.value === '') {
+			if (!data || data === '') {
 				return { success: true, msg: ''};
 			}
 		}
 
 		switch(rule.type) {
 			case 'float':
-				if (count(data.value, '\\.') < 2) {
-					if (!isNaN(parseFloat(data.value))) {
+				if (count(data, '\\.') < 2) {
+					if (!isNaN(parseFloat(data))) {
 						rule.range.forEach((range) => {
 							if (
 								// range.unit === data.unit &&
 								range.unit === unit &&
 								(
-									range.min > parseFloat(data.value, 10)
-									|| range.max < parseFloat(data.value, 10)
+									range.min > parseFloat(data, 10)
+									|| range.max < parseFloat(data, 10)
 								)
 							) {
 								isValidate = false;
@@ -116,14 +116,14 @@ export function validateForm(rule, data, unit) {
 				break;
 
 			case 'integer':
-				if (count(data.value, '\\.') == 0) {
-					if (isInteger(parseInt(data.value))) {
+				if (count(data, '\\.') == 0) {
+					if (isInteger(parseInt(data))) {
 						rule.range.forEach((range) => {
 							if (
 								range.unit === unit &&
 								(
-									range.min > parseFloat(data.value, 10)
-									|| range.max < parseFloat(data.value, 10)
+									range.min > parseFloat(data, 10)
+									|| range.max < parseFloat(data, 10)
 								)
 							) {
 								isValidate = false;
@@ -140,27 +140,27 @@ export function validateForm(rule, data, unit) {
 				break;
 			
 			case 'email':
-				if (!validateEmail(data.value)) {
+				if (!validateEmail(data)) {
 					isValidate = false;
 				}
 
 				break;
 			
 			case 'phone':
-				if (!validatePhoneNumber(data.value)) {
+				if (!validatePhoneNumber(data)) {
 					isValidate = false;
 				}
 
 				break;
 
 			case 'text':
-				if (typeof data.value !== "string" || data.value === ""){
+				if (typeof data !== "string" || data === ""){
 					isValidate = false;
 				}
 				break;
 			
 			case 'boolean':
-				if (typeof data.value !== "boolean" || data.value === ""){
+				if (typeof data !== "boolean" || data === ""){
 					isValidate = false;
 				}
 				break;
