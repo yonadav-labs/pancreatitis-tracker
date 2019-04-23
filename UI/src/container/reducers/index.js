@@ -5,46 +5,46 @@ import * as types from './constants';
 const InitialState = {
 	step: 0,
 	patient: {
-		sex: {value: '', label: ''},
-		age: {value: '', label: ''},
-		height: {value: '', label: ''},
-		weight: {value: '', label: ''},
-		bmi: {value: '', label: ''},
-		chronic_health: {value: '', label: ''},
-		ph: {value: '', label: ''},
-		paO2: {value: '', label: ''},
-		paCO2: {value: '', label: ''},
-		hco3_artieral: {value: '', label: ''},
-		spO2: {value: '', label: ''},
-		fiO2: {value: '', label: ''},
-		base_excess: {value: '', label: ''},
-		sodium: {value: '', label: ''},
-		potassium: {value: '', label: ''},
-		chloride: {value: '', label: ''},
-		hco3_serum: {value: '', label: ''},
-		bun: {value: '', label: ''},
-		creatinine: {value: '', label: ''},
-		glucose: {value: '', label: ''},
-		calcium: {value: '', label: ''},
-		albumin: {value: '', label: ''},
-		ast: {value: '', label: ''},
-		alt: {value: '', label: ''},
-		ldh: {value: '', label: ''},
-		wbc: {value: '', label: ''},
-		platelet_count: {value: '', label: ''},
-		hematocrit: {value: '', label: ''},
-		crp: {value: '', label: ''},
-		guarding: { value: '', label: '' },
-		tenderness: { value: '', label: '' },
-		eye_score: {value: '', label: ''},
-		verbal_score: {value: '', label: ''},
-		motor_score: {value: '', label: ''},
-		pleural_eff: {value: '', label: ''},
-		temperature: {value: '', label: ''},
-		bp_systolic: {value: '', label: ''},
-		bp_diastolic: {value: '', label: ''},
-		heart_rate: {value: '', label: ''},
-		resp_rate: {value: '', label: ''}
+		sex: null,
+		age: null,
+		height: null,
+		weight: null,
+		bmi: null,
+		chronic_health: null,
+		ph: null,
+		paO2: null,
+		paCO2: null,
+		hco3_artieral: null,
+		spO2: null,
+		fiO2: null,
+		base_excess: null,
+		sodium: null,
+		potassium: null,
+		chloride: null,
+		hco3_serum: null,
+		bun: null,
+		creatinine: null,
+		glucose: null,
+		calcium: null,
+		albumin: null,
+		ast: null,
+		alt: null,
+		ldh: null,
+		wbc: null,
+		platelet_count: null,
+		hematocrit: null,
+		crp: null,
+		guarding: null,
+		tenderness: null,
+		eye_score: null,
+		verbal_score: null,
+		motor_score: null,
+		pleural_eff: null,
+		temperature: null,
+		bp_systolic: null,
+		bp_diastolic: null,
+		heart_rate: null,
+		resp_rate: null
 	},
 	units: {},
 	clinicalScores: [],
@@ -70,13 +70,7 @@ export default function patientReducer(state = InitialState, action) {
 			return {...state, historyData: action.payload.data};
 
 		case types.PATIENTS.GET_HISTORY_BY_DATE:
-			let patient = {};
-			Object.keys(state.patient).map((item) => {
-				patient[item] = {
-					value: '',
-					label: ''
-				};
-			});
+			let patient = {...state.patient};
 
 			const _historyData = state.historyData;
 
@@ -85,13 +79,7 @@ export default function patientReducer(state = InitialState, action) {
 			});
 
 			if (idx !== -1) {
-				const temp = _historyData[idx].input_data;
-				Object.keys(temp).map(item => {
-					patient[item] = {
-						value: temp[item] || '',
-						label: ''
-					};
-				});
+				patient = {..._historyData[idx].input_data};
 			}
 
 			return {...state, patient: patient};

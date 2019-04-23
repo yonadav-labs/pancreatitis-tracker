@@ -23,20 +23,20 @@ class BasicInfo extends React.Component {
 
 		this.state = {
 			basicInfo: {
-				sex: this.props.data.sex || {value: '', label: ''},
-				age: this.props.data.age || {value: '', label: ''},
-				height: this.props.data.height || {value: '', label: ''},
-				weight: this.props.data.weight || {value: '', label: ''},
-				bmi: this.props.data.bmi || {value: '', label: ''},
-				chronic_health: this.props.data.chronic_health || {value: '', label: ''}
+				sex: this.props.data.sex,
+				age: this.props.data.age,
+				height: this.props.data.height,
+				weight: this.props.data.weight,
+				bmi: this.props.data.bmi,
+				chronic_health: this.props.data.chronic_health
 			},
 			units: {
-				sex: this.props.units.sex || '',
-				age: this.props.units.age || 'years',
-				height: this.props.units.height || 'cm',
-				weight: this.props.units.weight || 'kg',
-				bmi: this.props.units.bmi || 'kg/m2',
-				chronic_health: this.props.units.chronic_health || ''
+				sex: this.props.units.sex,
+				age: this.props.units.age,
+				height: this.props.units.height,
+				weight: this.props.units.weight,
+				bmi: this.props.units.bmi,
+				chronic_health: this.props.units.chronic_health
 			},
 			rules: {
 				sex: {
@@ -46,7 +46,7 @@ class BasicInfo extends React.Component {
 				age: {
 					name: 'age',
 					type: 'integer',
-					range: [{ min: 0, max: 120, unit: 'years'}]
+					range: [{ min: 0, max: 120, unit: null}]
 				},
 				height: {
 					name: 'height',
@@ -82,15 +82,15 @@ class BasicInfo extends React.Component {
 		let bmiValue = '';
 		
 		if (
-			(params.weight.value !== '' && params.weight.value !== 0) &&
-			(params.height.value !== '' && params.height.value !== 0)
+			(params.weight !== '' && params.weight !== 0) &&
+			(params.height !== '' && params.height !== 0)
 		) {
-			let weightVal = parseFloat(params.weight.value);
+			let weightVal = parseFloat(params.weight);
 			if (units.weight === 'lb') {
 				weightVal = lbToKgConvert(weightVal);
 			}
 
-			let heightVal = parseFloat(params.height.value) / 100;
+			let heightVal = parseFloat(params.height) / 100;
 			if (units.height === 'inch') {
 				heightVal = inchToCmConvert(heightVal);
 			}
@@ -124,8 +124,8 @@ class BasicInfo extends React.Component {
 			
 			Object.keys(basicInfo).forEach((attr) => {
 				if (rules[attr] && (rules[attr].type === "integer" || rules[attr].type === "float")) {
-					if (!isNaN(parseFloat(basicInfo[attr].value))) {
-						temp[attr].value = parseFloat(basicInfo[attr].value);
+					if (!isNaN(parseFloat(basicInfo[attr]))) {
+						temp[attr] = parseFloat(basicInfo[attr]);
 					}
 				}
 			});
@@ -134,21 +134,21 @@ class BasicInfo extends React.Component {
 			let height = { ...temp.height };
 
 			if (units.weight === 'lb') {
-				weight.calculatedValue = lbToKgConvert(weight.value);
+				weight.calculatedValue = lbToKgConvert(weight);
 			} else {
-				weight.calculatedValue = weight.value;
+				weight.calculatedValue = weight;
 			}
 	
 			if (units.height === 'inch') {
-				height.calculatedValue = inchToCmConvert(height.value) / 100;
+				height.calculatedValue = inchToCmConvert(height) / 100;
 			} else {
-				height.calculatedValue = height.value;
+				height.calculatedValue = height;
 			}
 
 			temp.weight = weight;
 			temp.height = height;
-			if (temp.bmi.value !== '') {
-				temp.bmi.value = parseFloat(temp.bmi.value);
+			if (temp.bmi !== '') {
+				temp.bmi = parseFloat(temp.bmi);
 			}
 
 			isPageValidate = true;
@@ -160,13 +160,13 @@ class BasicInfo extends React.Component {
 
 	changeInfo = (e) => {
 		let params = Object.assign({}, this.state.basicInfo);
-		params[e.target.id].value = e.target.value;
+		params[e.target.id] = e.target.value;
 
 		let bmiValue = '';
 		if (e.target.id === 'weight' || e.target.id === 'height') {
 			bmiValue = this.calculateBMI(params);
 		}
-		params.bmi.value = bmiValue;
+		params.bmi = bmiValue;
 
 		this.setState({ basicInfo: params });
 	}
@@ -179,7 +179,7 @@ class BasicInfo extends React.Component {
 		if (id === 'weight' || id === 'height') {
 			bmiValue = this.calculateBMI(basicInfo);
 		}
-		basicInfo.bmi.value = bmiValue;
+		basicInfo.bmi = bmiValue;
 
 		this.setState({basicInfo, units});
 	}
@@ -230,7 +230,7 @@ class BasicInfo extends React.Component {
 									id="age"
 									className="round-input"
 									maxLength="7"
-									value={basicInfo.age && basicInfo.age.value}
+									value={basicInfo.age && basicInfo.age}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -254,7 +254,7 @@ class BasicInfo extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('sex',e)}
-									value={sexOption.filter(option => option.value === basicInfo.sex.value)}
+									value={sexOption.filter(option => option.value === basicInfo.sex)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.sex && errors.sex.msg}
@@ -274,7 +274,7 @@ class BasicInfo extends React.Component {
 										id="height"
 										maxLength=""
 										className="round-input"
-										value={basicInfo.height && basicInfo.height.value}
+										value={basicInfo.height && basicInfo.height}
 										onChange={this.changeInfo}
 									/>
 									<select
@@ -304,7 +304,7 @@ class BasicInfo extends React.Component {
 										id="weight"
 										className="round-input"
 										maxLength="5"
-										value={basicInfo.weight && basicInfo.weight.value}
+										value={basicInfo.weight && basicInfo.weight}
 										onChange={this.changeInfo}
 									/>
 									<select
@@ -334,7 +334,7 @@ class BasicInfo extends React.Component {
 										id="bmi"
 										maxLength="7"
 										className="round-input"
-										value={basicInfo.bmi && basicInfo.bmi.value}
+										value={basicInfo.bmi && basicInfo.bmi}
 										disabled
 									/>
 									<select className="input-inline-select">
@@ -361,7 +361,7 @@ class BasicInfo extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('chronic_health',e)}
-									value={chronicHealthProblemsOption.filter(option => option.value === basicInfo.chronic_health.value)}
+									value={chronicHealthProblemsOption.filter(option => option.value === basicInfo.chronic_health)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.chronic_health && errors.chronic_health.msg}

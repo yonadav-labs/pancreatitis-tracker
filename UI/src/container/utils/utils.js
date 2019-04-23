@@ -92,7 +92,6 @@ export function validateForm(rule, data, unit) {
 		switch(rule.type) {
 			case 'float':
 				if (count(data.value, '\\.') < 2) {
-					console.log('$$$$$$: ', isNaN(parseFloat(data.value)));
 					if (!isNaN(parseFloat(data.value))) {
 						rule.range.forEach((range) => {
 							if (

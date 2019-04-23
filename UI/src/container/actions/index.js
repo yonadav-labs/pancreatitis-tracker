@@ -33,18 +33,6 @@ export const setUpdatesPerPagePatientAction = (res) => {
 	};
 };
 
-export const loadPatientDataAction = (files) => {
-	return (dispatch) => {
-		loadPatientDataApi(files)
-			.then((res) => {
-				dispatch({ type: types.PATIENTS.GET, payload: res });
-			})
-			.catch(() => {
-				dispatch({ type: types.PATIENTS.ERROR, payload: 'uploading error' });
-			});
-	};
-};
-
 export const loadInputHistoryAction = () => {
 	return (dispatch) => {
 		loadInputHistoryApi()
