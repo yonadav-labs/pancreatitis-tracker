@@ -81,17 +81,17 @@ const InitialState = {
 		alt: 'U/L',
 		ldh: 'IU/L',
 
+		wbc: '10^9 cells/L',
+		platelet_count: '10^3 units/µL',
+		hematocrit: '%',
+		crp: 'mg/dL',
+
 		ph: null,
 		paO2: null,
 		paCO2: null,
 		hco3_artieral: null,
 		fiO2: null,
-		base_excess: null,
-		
-		wbc: null,
-		platelet_count: null,
-		hematocrit: null,
-		crp: null
+		base_excess: null
 	},
 	clinicalScores: [],
 	errorMsg: '',

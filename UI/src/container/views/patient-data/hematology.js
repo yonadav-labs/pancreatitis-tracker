@@ -14,10 +14,10 @@ class Hematology extends React.Component {
 				crp: this.props.data.crp
 			},
 			units: {
-				wbc: this.props.units.wbc || '10^9 cells/L',
-				platelet_count: this.props.units.platelet_count || '10^3 units/µL',
-				hematocrit: this.props.units.hematocrit || '%',
-				crp: this.props.units.crp || 'mg/dL'
+				wbc: this.props.units.wbc,
+				platelet_count: this.props.units.platelet_count,
+				hematocrit: this.props.units.hematocrit,
+				crp: this.props.units.crp
 			},
 			rules: {
 				wbc: {
@@ -67,12 +67,12 @@ class Hematology extends React.Component {
 		const {rules} = this.state;
 		if (rules[e.target.id] && rules[e.target.id].type === "integer") {
 			if (!isNaN(parseFloat(e.target.value))) {
-				params[e.target.id].value = parseFloat(e.target.value);
+				params[e.target.id] = parseFloat(e.target.value);
 			} else {
-				params[e.target.id].value = e.target.value;
+				params[e.target.id] = e.target.value;
 			}
 		} else {
-			params[e.target.id].value = e.target.value;
+			params[e.target.id] = e.target.value;
 		}
 
 		this.setState({ hematology: params });
@@ -109,8 +109,8 @@ class Hematology extends React.Component {
 			
 			Object.keys(hematology).forEach((attr) => {
 				if (rules[attr] && (rules[attr].type === "integer" || rules[attr].type === "float")) {
-					if (!isNaN(parseFloat(hematology[attr].value))) {
-						temp[attr].value = parseFloat(hematology[attr].value);
+					if (!isNaN(parseFloat(hematology[attr]))) {
+						temp[attr] = parseFloat(hematology[attr]);
 					}
 				}
 			});
@@ -119,15 +119,15 @@ class Hematology extends React.Component {
 			let platelet_count = { ...temp.platelet_count };
 
 			if (units.platelet_count === 'units/µL') {
-				platelet_count.calculatedValue = platelet_count.value / 1000;
+				platelet_count.calculatedValue = platelet_count / 1000;
 			} else {
-				platelet_count.calculatedValue = platelet_count.value;
+				platelet_count.calculatedValue = platelet_count;
 			}
 
 			if (units.crp === 'mg/L') {
-				crp.calculatedValue = crp.value / 10;
+				crp.calculatedValue = crp / 10;
 			} else {
-				crp.calculatedValue = crp.value;
+				crp.calculatedValue = crp;
 			}
 
 			temp.platelet_count = platelet_count;
@@ -169,7 +169,7 @@ class Hematology extends React.Component {
 										id="wbc"
 										maxLength="7"
 										className="round-input"
-										value={hematology.wbc.value}
+										value={hematology.wbc}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -194,7 +194,7 @@ class Hematology extends React.Component {
 										id="platelet_count"
 										maxLength="7"
 										className="round-input"
-										value={hematology.platelet_count.value}
+										value={hematology.platelet_count}
 										onChange={this.changeInfo}
 									/>
 									<select
@@ -230,7 +230,7 @@ class Hematology extends React.Component {
 										id="hematocrit"
 										maxLength="7"
 										className="round-input"
-										value={hematology.hematocrit.value}
+										value={hematology.hematocrit}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -255,7 +255,7 @@ class Hematology extends React.Component {
 										id="crp"
 										maxLength="7"
 										className="round-input"
-										value={hematology.crp.value}
+										value={hematology.crp}
 										onChange={this.changeInfo}
 									/>
 									<select
