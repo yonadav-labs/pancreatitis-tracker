@@ -19,12 +19,12 @@ class VitalSigns extends React.Component {
 				spO2: this.props.data.spO2
 			},
 			units: {
-				temperature: this.props.units.temperature || 'celcius',
-				bp_systolic: this.props.units.bp_systolic || 'mmHg',
-				bp_diastolic: this.props.units.bp_diastolic || 'mmHg',
-				heart_rate: this.props.units.heart_rate || 'bpm',
-				resp_rate: this.props.units.resp_rate || 'bpm',
-				spO2: this.props.units.spO2 || '%'
+				temperature: this.props.units.temperature,
+				bp_systolic: this.props.units.bp_systolic,
+				bp_diastolic: this.props.units.bp_diastolic,
+				heart_rate: this.props.units.heart_rate,
+				resp_rate: this.props.units.resp_rate,
+				spO2: this.props.units.spO2
 			},
 			rules: {
 				temperature: {
@@ -69,11 +69,7 @@ class VitalSigns extends React.Component {
 					]
 				}
 			},
-			errors: {},
-			temperateOption: [
-				{value: 'celcius', label: '°C'},
-				{value: 'fahrenheit', label: '°F'}
-			]
+			errors: {}
 		};
 
 		this.changeInfo = this.changeInfo.bind(this);
@@ -89,13 +85,13 @@ class VitalSigns extends React.Component {
 		const {rules} = this.state;
 		if (rules[e.target.id] && rules[e.target.id].type === "integer") {
 			if (!isNaN(parseFloat(e.target.value))) {
-				params[e.target.id].value = parseFloat(e.target.value);
+				params[e.target.id] = parseFloat(e.target.value);
 			} else {
-				params[e.target.id].value = e.target.value;
+				params[e.target.id] = e.target.value;
 			}
 
 		} else {
-			params[e.target.id].value = e.target.value;
+			params[e.target.id] = e.target.value;
 		}
 
 		this.setState({ vitalSigns: params });
@@ -131,8 +127,8 @@ class VitalSigns extends React.Component {
 			
 			Object.keys(vitalSigns).forEach((attr) => {
 				if (rules[attr] && (rules[attr].type === "integer" || rules[attr].type === "float")) {
-					if (!isNaN(parseFloat(vitalSigns[attr].value))) {
-						temp[attr].value = parseFloat(vitalSigns[attr].value);
+					if (!isNaN(parseFloat(vitalSigns[attr]))) {
+						temp[attr] = parseFloat(vitalSigns[attr]);
 					}
 				}
 			});
@@ -140,7 +136,7 @@ class VitalSigns extends React.Component {
 			if (units.temperature === 'fahrenheit') {
 				let temperature = Object.assign({}, temp.temperature);
 				
-				temperature.calculatedValue = fToC(temperature.value);
+				temperature.calculatedValue = fToC(temperature);
 				temp.temperature = temperature;
 			}
 
@@ -180,7 +176,7 @@ class VitalSigns extends React.Component {
 										id="temperature"
 										maxLength="7"
 										className="round-input"
-										value={units.temperature && vitalSigns.temperature.value}
+										value={vitalSigns.temperature}
 										onChange={this.changeInfo}
 									/>
 									<select
@@ -216,7 +212,7 @@ class VitalSigns extends React.Component {
 										id="bp_systolic"
 										maxLength="7"
 										className="round-input"
-										value={vitalSigns.bp_systolic && vitalSigns.bp_systolic.value}
+										value={vitalSigns.bp_systolic}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -241,7 +237,7 @@ class VitalSigns extends React.Component {
 										id="bp_diastolic"
 										maxLength="7"
 										className="round-input"
-										value={vitalSigns.bp_diastolic && vitalSigns.bp_diastolic.value}
+										value={vitalSigns.bp_diastolic}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -272,7 +268,7 @@ class VitalSigns extends React.Component {
 										id="heart_rate"
 										maxLength="7"
 										className="round-input"
-										value={vitalSigns.heart_rate && vitalSigns.heart_rate.value}
+										value={vitalSigns.heart_rate}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -297,7 +293,7 @@ class VitalSigns extends React.Component {
 										id="resp_rate"
 										maxLength="7"
 										className="round-input"
-										value={vitalSigns.resp_rate && vitalSigns.resp_rate.value}
+										value={vitalSigns.resp_rate}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -328,7 +324,7 @@ class VitalSigns extends React.Component {
 										id="spO2"
 										maxLength="7"
 										className="round-input"
-										value={vitalSigns.spO2 && vitalSigns.spO2.value}
+										value={vitalSigns.spO2}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
