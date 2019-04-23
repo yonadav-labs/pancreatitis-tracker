@@ -27,18 +27,18 @@ class Chemistry extends React.Component {
 				ldh: this.props.data.ldh
 			},
 			units: {
-				sodium: this.props.units.sodium || 'mmol/L',
-				potassium: this.props.units.potassium || 'mmol/L',
-				chloride: this.props.units.chloride || 'mmol/L',
-				hco3_serum: this.props.units.hco3_serum || 'mmol/L',
-				bun: this.props.units.bun || 'mg/dL',
-				creatinine: this.props.units.creatinine || 'mg/dL',
-				glucose: this.props.units.glucose || 'mmol/L',
-				calcium: this.props.units.calcium || 'mmol/L',
-				albumin: this.props.units.albumin || 'g/dL',
-				ast: this.props.units.ast || 'U/L',
-				alt: this.props.units.alt || 'U/L',
-				ldh: this.props.units.ldh || 'IU/L'
+				sodium: this.props.units.sodium,
+				potassium: this.props.units.potassium,
+				chloride: this.props.units.chloride,
+				hco3_serum: this.props.units.hco3_serum,
+				bun: this.props.units.bun,
+				creatinine: this.props.units.creatinine,
+				glucose: this.props.units.glucose,
+				calcium: this.props.units.calcium,
+				albumin: this.props.units.albumin,
+				ast: this.props.units.ast,
+				alt: this.props.units.alt,
+				ldh: this.props.units.ldh
 			},
 			rules: {
 				sodium: {
@@ -143,12 +143,12 @@ class Chemistry extends React.Component {
 		const {rules} = this.state;
 		if (rules[e.target.id] && rules[e.target.id].type === "integer") {
 			if (!isNaN(parseFloat(e.target.value))) {
-				params[e.target.id].value = parseFloat(e.target.value);
+				params[e.target.id] = parseFloat(e.target.value);
 			} else {
-				params[e.target.id].value = e.target.value;
+				params[e.target.id] = e.target.value;
 			}
 		} else {
-			params[e.target.id].value = e.target.value;
+			params[e.target.id] = e.target.value;
 		}
 
 		this.setState({ chemistry: params });
@@ -159,8 +159,8 @@ class Chemistry extends React.Component {
 		let {units, chemistry} = this.state;
 		units[id] = value;
 
-		let calculatedValue = chemistry[id].value;
-		chemistry[id].value = calculatedValue;
+		let calculatedValue = chemistry[id];
+		chemistry[id] = calculatedValue;
 
 		this.setState({ units });
 		this.props.updateInfo(chemistry, units);
@@ -189,8 +189,8 @@ class Chemistry extends React.Component {
 			
 			Object.keys(chemistry).forEach((attr) => {
 				if (rules[attr] && (rules[attr].type === "integer" || rules[attr].type === "float")) {
-					if (!isNaN(parseFloat(chemistry[attr].value))) {
-						temp[attr].value = parseFloat(chemistry[attr].value);
+					if (!isNaN(parseFloat(chemistry[attr]))) {
+						temp[attr] = parseFloat(chemistry[attr]);
 					}
 				}
 			});
@@ -200,21 +200,21 @@ class Chemistry extends React.Component {
 			let calcium = { ...temp.calcium };
 
 			if (units.glucose === 'mg/dL') {
-				glucose.calculatedValue = glucoseConvert(glucose.value);
+				glucose.calculatedValue = glucoseConvert(glucose);
 			} else {
-				glucose.calculatedValue = glucose.value;
+				glucose.calculatedValue = glucose;
 			}
 
 			if (units.albumin === 'g/L') {
-				albumin.calculatedValue = albumin.value / 10;
+				albumin.calculatedValue = albumin / 10;
 			} else {
-				albumin.calculatedValue = albumin.value;
+				albumin.calculatedValue = albumin;
 			}
 
 			if (units.calcium === 'mEq/L') {
-				calcium.calculatedValue = calcium.value / 2;
+				calcium.calculatedValue = calcium / 2;
 			} else {
-				calcium.calculatedValue = calcium.value;
+				calcium.calculatedValue = calcium;
 			}
 
 			temp.glucose = glucose;
@@ -257,7 +257,7 @@ class Chemistry extends React.Component {
 										id="sodium"
 										maxLength="7"
 										className="round-input"
-										value={chemistry.sodium.value}
+										value={chemistry.sodium}
 										onChange={this.changeInfo}
 									/>
 									<select
@@ -286,7 +286,7 @@ class Chemistry extends React.Component {
 										id="chloride"
 										maxLength="7"
 										className="round-input"
-										value={chemistry.chloride.value}
+										value={chemistry.chloride}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -311,7 +311,7 @@ class Chemistry extends React.Component {
 										id="potassium"
 										maxLength="7"
 										className="round-input"
-										value={chemistry.potassium.value}
+										value={chemistry.potassium}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -336,7 +336,7 @@ class Chemistry extends React.Component {
 										id="hco3_serum"
 										maxLength="7"
 										className="round-input"
-										value={chemistry.hco3_serum.value}
+										value={chemistry.hco3_serum}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -366,7 +366,7 @@ class Chemistry extends React.Component {
 										id="bun"
 										maxLength="7"
 										className="round-input"
-										value={chemistry.bun.value}
+										value={chemistry.bun}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -391,7 +391,7 @@ class Chemistry extends React.Component {
 										id="glucose"
 										maxLength="7"
 										className="round-input"
-										value={chemistry.glucose.value}
+										value={chemistry.glucose}
 										onChange={this.changeInfo}
 									/>
 									<select
@@ -421,7 +421,7 @@ class Chemistry extends React.Component {
 										id="creatinine"
 										maxLength="7"
 										className="round-input"
-										value={chemistry.creatinine.value}
+										value={chemistry.creatinine}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -446,7 +446,7 @@ class Chemistry extends React.Component {
 										id="calcium"
 										maxLength="7"
 										className="round-input"
-										value={chemistry.calcium.value}
+										value={chemistry.calcium}
 										onChange={this.changeInfo}
 									/>
 									<select
@@ -479,7 +479,7 @@ class Chemistry extends React.Component {
 										id="albumin"
 										maxLength="7"
 										className="round-input"
-										value={chemistry.albumin.value}
+										value={chemistry.albumin}
 										onChange={this.changeInfo}
 									/>
 									<select
@@ -509,7 +509,7 @@ class Chemistry extends React.Component {
 										id="ldh"
 										maxLength="7"
 										className="round-input"
-										value={chemistry.ldh.value}
+										value={chemistry.ldh}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -534,7 +534,7 @@ class Chemistry extends React.Component {
 										id="ast"
 										maxLength="7"
 										className="round-input"
-										value={chemistry.ast.value}
+										value={chemistry.ast}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -559,7 +559,7 @@ class Chemistry extends React.Component {
 										id="alt"
 										maxLength="7"
 										className="round-input"
-										value={chemistry.alt.value}
+										value={chemistry.alt}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
