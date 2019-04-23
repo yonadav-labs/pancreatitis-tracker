@@ -52,6 +52,7 @@ const InitialState = {
 		height: 'cm',
 		weight: 'kg',
 		bmi: 'kg/m2',
+		chronic_health: null,
 
 		temperature: 'celcius',
 		bp_systolic: 'mmHg',
@@ -60,7 +61,13 @@ const InitialState = {
 		resp_rate: 'bpm',
 		spO2: '%',	// spO2 pulse oximetry
 
-		chronic_health: null,
+		guarding: null,
+		tenderness: null,
+		eye_score: null,
+		verbal_score: null,
+		motor_score: null,
+		pleural_eff: null,
+
 		ph: null,
 		paO2: null,
 		paCO2: null,
@@ -82,13 +89,7 @@ const InitialState = {
 		wbc: null,
 		platelet_count: null,
 		hematocrit: null,
-		crp: null,
-		guarding: null,
-		tenderness: null,
-		eye_score: null,
-		verbal_score: null,
-		motor_score: null,
-		pleural_eff: null
+		crp: null
 	},
 	clinicalScores: [],
 	errorMsg: '',
