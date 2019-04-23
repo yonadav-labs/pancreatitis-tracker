@@ -55,20 +55,12 @@ export const savePatientDataAction = (data) => {
 	let params = {};
 
 	Object.keys(data).forEach(key => {
-		if (data[key].value && data[key].value !== '') {
+		if (data[key]) {
 			if (data[key].calculatedValue) {
 				params[key] = data[key].calculatedValue;
 			} else {
 				params[key] = data[key].value;
 			}
-		}
-	});
-
-	// set values for "Yes/No" select options.
-	const variableNames = ['pleural_eff', 'guarding', 'tenderness'];
-	variableNames.map(vaiarble => {
-		if (data[vaiarble] && data[vaiarble].value !== '') {
-			params[vaiarble] = data[vaiarble].value;
 		}
 	});
 

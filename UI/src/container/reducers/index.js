@@ -87,11 +87,11 @@ const InitialState = {
 		crp: 'mg/dL',
 
 		ph: null,
-		paO2: null,
-		paCO2: null,
-		hco3_artieral: null,
-		fiO2: null,
-		base_excess: null
+		paO2: 'mmHg',
+		paCO2: 'mmHg',
+		hco3_artieral: 'mmol/L',
+		fiO2: '%',
+		base_excess: 'mEq/L'
 	},
 	clinicalScores: [],
 	errorMsg: '',
