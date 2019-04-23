@@ -383,6 +383,18 @@ a.green-button:hover {
   box-shadow: 0 2px 2px $light-grey-color;
 }
 
+.has-mounzer {
+  background-color: $light-cyan-color;
+
+  .rule-text {
+    color: #fff;
+  }
+}
+
+.empty-mounzer {
+  border: 3px solid $light-grey-color;
+}
+
 /* Round button and input */
 .round-btn {
   width: 100%;

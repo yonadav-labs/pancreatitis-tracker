@@ -191,7 +191,7 @@ class PhysicalExam extends React.Component {
 
 	render() {
 		const {physicalExam, errors} = this.state;
-		console.log('phy: ', physicalExam);
+
 		return (
 			<div>
 				<ReactTooltip effect='solid' className="tooltop-bar" />

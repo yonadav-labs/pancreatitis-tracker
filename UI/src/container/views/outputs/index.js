@@ -16,6 +16,7 @@ class Outputs extends React.Component {
 		};
 
 		this.changeValue = this.changeValue.bind(this);
+		this.showMounzer = this.showMounzer.bind(this);
 	}
 
 	changeValue(e) {
@@ -33,8 +34,63 @@ class Outputs extends React.Component {
 		this.props.history.push('/patient');
 	}
 
+	getRuleId = (value) => {
+		const replaceName = 'Rule';
+		return parseInt(value.replace(replaceName, '').trim(), 10);
+	}
+
+	showMounzer = () => {
+		const mounzerResults = Object.assign([], this.props.mounzerResults);
+		let positiveMounzers = [];
+		let negativeMounzers = [];
+		let positiveCount = 0;
+		let negativeCount = 0;
+
+		mounzerResults.forEach((mounzer, idx) => {
+			if (mounzer.rule) {
+				if (this.getRuleId(mounzer.rule) % 2 === 1) {
+					let mounzerClass = '';
+					if (mounzer.is_capable) {
+						mounzerClass = 'empty-mounzer';
+
+						if (mounzer.score) {
+							mounzerClass = 'has-mounzer';
+							positiveCount += 1;
+						}
+					}
+
+					positiveMounzers.push(
+						<div key={`mounzer${idx}`} className={`rule-btn ${mounzerClass}`}>
+							<span className="rule-text">{mounzer.rule}</span>
+						</div>
+					);
+				}	else {
+					let mounzerClass = '';
+					if (mounzer.is_capable) {
+						mounzerClass = 'empty-mounzer';
+
+						if (mounzer.score) {
+							mounzerClass = 'has-mounzer';
+							negativeCount += 1;
+						}
+					}
+
+					negativeMounzers.push(
+						<div key={`mounzer${idx}`} className={`rule-btn ${mounzerClass}`}>
+							<span className="rule-text">{mounzer.rule}</span>
+						</div>
+					);
+				}
+			}
+		});
+
+		return { positiveMounzers, negativeMounzers, positiveCount, negativeCount };
+	}
+
 	render () {
 		const {clinicalScores} = this.state;
+		const { positiveMounzers, negativeMounzers, positiveCount, negativeCount} = this.showMounzer();
+		const valueOfSpeedMeter = negativeCount - positiveCount;
 
 		return (
 			<div className="app-content">
@@ -57,7 +113,11 @@ class Outputs extends React.Component {
 								/>
 							</div>
 							<div className="col-xs-12 col-sm-12 col-md-3 d-flex">
-								<img className="speedmeter" src="/assets/images/speedometer_0.png" alt="speedmeter image" />
+								<img
+									className="speedmeter"
+									src={`/assets/images/speedometer_${valueOfSpeedMeter}.png`}
+									alt="speedmeter image"
+								/>
 							</div>
 						</div>
 					</div>
@@ -72,17 +132,19 @@ class Outputs extends React.Component {
 								</div>
 								<div>
 									{
-										clinicalScores.map((item, idx) => {
-											return (
-												<CustomProgressBar
-													key={`custom-progress$${idx}`}
-													title={item.algorithm}
-													value={item.score}
-													scoreRange={item.score_range}
-													item={item}
-												/>
-											);
-										})
+										clinicalScores
+											? clinicalScores.map((item, idx) => {
+												return (
+													<CustomProgressBar
+														key={`custom-progress$${idx}`}
+														title={item.algorithm}
+														value={item.score}
+														scoreRange={item.score_range}
+														item={item}
+													/>
+												);
+											})
+											: null
 									}
 								</div>
 							</div>
@@ -99,22 +161,40 @@ class Outputs extends React.Component {
 								</div>
 								<div className="row">
 									<div className="col-6">
-										<div className="rule-btn primary-rule"><span className="rule-text">OF Unlikely</span></div>
-										<div className="rule-btn"><span className="rule-text">Rule 1</span></div>
-										<div className="rule-btn"><span className="rule-text">Rule 3</span></div>
-										<div className="rule-btn"><span className="rule-text">Rule 5</span></div>
-										<div className="rule-btn"><span className="rule-text">Rule 7</span></div>
-										<div className="rule-btn"><span className="rule-text">Rule 9</span></div>
-										<div className="rule-btn"><span className="rule-text">Rule 11</span></div>
+										<div className="rule-btn primary-rule">
+											<span className="rule-text">OF Unlikely</span>
+										</div>
+										{
+											positiveMounzers.length === 0
+												? (
+													<div>
+														<div className="rule-btn"><span className="rule-text">Rule 1</span></div>
+														<div className="rule-btn"><span className="rule-text">Rule 3</span></div>
+														<div className="rule-btn"><span className="rule-text">Rule 5</span></div>
+														<div className="rule-btn"><span className="rule-text">Rule 7</span></div>
+														<div className="rule-btn"><span className="rule-text">Rule 9</span></div>
+														<div className="rule-btn"><span className="rule-text">Rule 11</span></div>
+													</div>
+												)
+												: positiveMounzers
+										}
 									</div>
 									<div className="col-6">
 										<div className="rule-btn primary-rule"><span className="rule-text">OF Likely</span></div>
-										<div className="rule-btn"><span className="rule-text">Rule 2</span></div>
-										<div className="rule-btn"><span className="rule-text">Rule 4</span></div>
-										<div className="rule-btn"><span className="rule-text">Rule 6</span></div>
-										<div className="rule-btn"><span className="rule-text">Rule 8</span></div>
-										<div className="rule-btn"><span className="rule-text">Rule 10</span></div>
-										<div className="rule-btn"><span className="rule-text">Rule 12</span></div>
+										{
+											negativeMounzers.length === 0
+												? (
+													<div>
+														<div className="rule-btn"><span className="rule-text">Rule 2</span></div>
+														<div className="rule-btn"><span className="rule-text">Rule 4</span></div>
+														<div className="rule-btn"><span className="rule-text">Rule 6</span></div>
+														<div className="rule-btn"><span className="rule-text">Rule 8</span></div>
+														<div className="rule-btn"><span className="rule-text">Rule 10</span></div>
+														<div className="rule-btn"><span className="rule-text">Rule 12</span></div>
+													</div>
+												)
+												: negativeMounzers
+										}
 									</div>
 								</div>
 								<div className="row">
@@ -137,7 +217,8 @@ class Outputs extends React.Component {
 
 const mapStatetoProps = state => {
 	return {
-		clinicalScores: state.clinicalScores.results
+		clinicalScores: state.clinicalScores.results,
+		mounzerResults: state.clinicalScores.mounzer_results
 	};
 };
 
