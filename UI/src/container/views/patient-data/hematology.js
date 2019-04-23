@@ -46,8 +46,8 @@ class Hematology extends React.Component {
 					name: 'crp',
 					type: 'float',
 					range: [
-						{ min: 0, max: 20, unit: 'mg/L' },
-						{ min: 0, max: 2, unit: 'mg/dL' }
+						{ min: 0, max: 2, unit: 'mg/dL' },
+						{ min: 0, max: 20, unit: 'mg/L' }
 					]
 				}
 			},
@@ -90,7 +90,7 @@ class Hematology extends React.Component {
 		let isPageValidated = false;
 		const errors = {};
 		const {rules, hematology, units} = this.state;
-
+		console.log(hematology);
 		Object.keys(hematology).forEach((data) => {
 			if (rules[data]) {
 				const validateResponse = validateForm(rules[data], hematology[data], units[data]);
@@ -157,12 +157,12 @@ class Hematology extends React.Component {
 			<div>
 				<ReactTooltip  effect='solid' className="tooltop-bar" />
 				<div className="row">
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label" data-tip="White Blood Cell Count">WBC</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
 									<input
 										type="text"
@@ -182,12 +182,12 @@ class Hematology extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label" data-tip="Platelet Count">PLT</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
 									<input
 										type="text"
@@ -212,9 +212,9 @@ class Hematology extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div
 									className="round-btn grey-label"
 									data-multiline="true"
@@ -223,7 +223,7 @@ class Hematology extends React.Component {
 									HCT
 								</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
 									<input
 										type="text"
@@ -243,12 +243,12 @@ class Hematology extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">CRP</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
 									<input
 										type="text"

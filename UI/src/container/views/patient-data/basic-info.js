@@ -21,7 +21,6 @@ class BasicInfo extends React.Component {
 	constructor(props) {
 		super(props);
 
-		console.log('aaaa', this.props.data);
 		this.state = {
 			basicInfo: {
 				sex: this.props.data.sex || {value: '', label: ''},
@@ -213,19 +212,19 @@ class BasicInfo extends React.Component {
 	}
 
 	render() {
-		const {basicInfo, errors, units, historyDate} = this.state;
+		const {basicInfo, errors, units} = this.state;
 		const {historyData} = this.props;
 
 		return (
 			<div>
 				<ReactTooltip  effect='solid' className="tooltop-bar" />
 				<div className="row">
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">Age</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<input
 									type="text"
 									id="age"
@@ -240,22 +239,22 @@ class BasicInfo extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div
 									className="round-btn grey-label"
 								>
 									Sex
 								</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<Select
 									options={sexOption}
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('sex',e)}
-									value={basicInfo.sex}
+									value={sexOption.filter(option => option.value === basicInfo.sex.value)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.sex && errors.sex.msg}
@@ -263,17 +262,17 @@ class BasicInfo extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">height</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
 									<input
 										type="text"
 										id="height"
-										maxLength="7"
+										maxLength=""
 										className="round-input"
 										value={basicInfo.height && basicInfo.height.value}
 										onChange={this.changeInfo}
@@ -293,18 +292,18 @@ class BasicInfo extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">Weight</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
 									<input
 										type="text"
 										id="weight"
 										className="round-input"
-										maxLength="7"
+										maxLength="5"
 										value={basicInfo.weight && basicInfo.weight.value}
 										onChange={this.changeInfo}
 									/>
@@ -323,12 +322,12 @@ class BasicInfo extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">BMI</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
 									<input
 										type="text"
@@ -345,9 +344,9 @@ class BasicInfo extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div
 									className="round-btn grey-label"
 									data-multiline="true"
@@ -356,13 +355,13 @@ class BasicInfo extends React.Component {
 									Chronic Health Problems
 								</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<Select
 									options={chronicHealthProblemsOption}
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('chronic_health',e)}
-									value={basicInfo.chronic_health}
+									value={chronicHealthProblemsOption.filter(option => option.value === basicInfo.chronic_health.value)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.chronic_health && errors.chronic_health.msg}
@@ -370,16 +369,16 @@ class BasicInfo extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div
 									className="round-btn grey-label"
 								>
 									Onset Date
 								</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<input
 									type="text"
 									id="onset_date"
@@ -391,16 +390,16 @@ class BasicInfo extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div
 									className="round-btn grey-label"
 								>
 									Admission Date
 								</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<input
 									type="text"
 									id="admission_date"

@@ -168,12 +168,12 @@ class VitalSigns extends React.Component {
 			<div>
 				<ReactTooltip effect='solid' className="tooltop-bar" />
 				<div className="row">
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">Temperature</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
 									<input
 										type="text"
@@ -198,9 +198,9 @@ class VitalSigns extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div
 									className="round-btn grey-label"
 									data-multiline="true"
@@ -209,7 +209,7 @@ class VitalSigns extends React.Component {
 									Systolic BP
 								</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
 									<input
 										type="text"
@@ -229,12 +229,12 @@ class VitalSigns extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">Diastolic BP</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
 									<input
 										type="text"
@@ -254,9 +254,9 @@ class VitalSigns extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div
 									className="round-btn grey-label"
 									data-multiline="true"
@@ -265,7 +265,7 @@ class VitalSigns extends React.Component {
 									Heart Rate
 								</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
 									<input
 										type="text"
@@ -285,12 +285,12 @@ class VitalSigns extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label" data-tip="Respiratory Rate">Resp. Rate</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
 									<input
 										type="text"
@@ -310,9 +310,9 @@ class VitalSigns extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div
 									className="round-btn grey-label"
 									data-multiline="true"
@@ -321,7 +321,7 @@ class VitalSigns extends React.Component {
 									Pulse Oximetry
 								</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
 									<input
 										type="text"

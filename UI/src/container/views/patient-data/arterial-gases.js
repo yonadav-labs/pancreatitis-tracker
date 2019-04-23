@@ -145,12 +145,12 @@ class ArterialGases extends React.Component {
 		return (
 			<div>
 				<div className="row">
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">pH</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<input
 									type="text"
 									id="ph"
@@ -165,12 +165,12 @@ class ArterialGases extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">PaO₂</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
 									<input
 										type="text"
@@ -190,12 +190,12 @@ class ArterialGases extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">PaCO₂</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
 									<input
 										type="text"
@@ -215,12 +215,12 @@ class ArterialGases extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">HCO₃⁻ (arterial)</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
 									<input
 										type="text"
@@ -240,12 +240,12 @@ class ArterialGases extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">FiO₂</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<input
 									type="text"
 									maxLength="7"
@@ -260,12 +260,12 @@ class ArterialGases extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">Base Excess</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
 									<input
 										type="text"

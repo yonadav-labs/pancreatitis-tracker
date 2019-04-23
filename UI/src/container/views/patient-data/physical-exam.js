@@ -196,9 +196,9 @@ class PhysicalExam extends React.Component {
 			<div>
 				<ReactTooltip effect='solid' className="tooltop-bar" />
 				<div className="row">
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div
 									className="round-btn grey-label"
 									data-multiline="true"
@@ -207,7 +207,7 @@ class PhysicalExam extends React.Component {
 									Abdominal Guarding
 								</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<Select
 									options={booleanOption}
 									className="patient-select"
@@ -221,9 +221,9 @@ class PhysicalExam extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div
 									className="round-btn grey-label"
 									data-multiline="true"
@@ -232,7 +232,7 @@ class PhysicalExam extends React.Component {
 									Abdominal Tenderness
 								</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<Select
 									options={booleanOption}
 									className="patient-select"
@@ -246,12 +246,12 @@ class PhysicalExam extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">Pleural Effusion</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<Select
 									options={pleural_effOption}
 									id="pleural_eff"
@@ -269,12 +269,12 @@ class PhysicalExam extends React.Component {
 				</div>
 				<h2 className="section-title">Glasgow Coma Score</h2>
 				<div className="row">
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">Eye Response</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<Select
 									options={eyeResponseOption}
 									className="patient-select"
@@ -288,12 +288,12 @@ class PhysicalExam extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">Verbal Response</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<Select
 									options={verbalResponseOption}
 									className="patient-select"
@@ -307,12 +307,12 @@ class PhysicalExam extends React.Component {
 							</div>
 						</div>
 					</div>
-					<div className="col-xs-12 col-md-6">
+					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">Motor Response</div>
 							</div>
-							<div className="col-xs-12 col-sm-6">
+							<div className="col-xs-12 col-md-6">
 								<Select
 									options={motorResponseOption}
 									className="patient-select"

@@ -76,9 +76,13 @@ export const savePatientDataAction = (data) => {
 		}
 	});
 
-	if (data.pleural_eff && data.pleural_eff.value !== '') {
-		params.pleural_eff = data.pleural_eff.value;
-	}
+	// set values for "Yes/No" select options.
+	const variableNames = ['pleural_eff', 'guarding', 'tenderness'];
+	variableNames.map(vaiarble => {
+		if (data[vaiarble] && data[vaiarble].value !== '') {
+			params[vaiarble] = data[vaiarble].value;
+		}
+	});
 
 	return (dispatch) => {
 		return savePatientDataApi(params)
