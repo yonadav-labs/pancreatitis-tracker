@@ -18,7 +18,6 @@ class CustomDropdownMenu extends React.Component {
 	}
 
 	onItemClick = (e) => {
-		console.log('item click: ', e, e.target.value);
 		this.props.onClick(e.target.value);
 	}
 
@@ -34,7 +33,6 @@ class CustomDropdownMenu extends React.Component {
 							? this.props.data.map((item, idx) => (
 								<DropdownItem
 									key={`history-${idx}`}
-									
 									value={item.run_at}
 									onClick={this.onItemClick}
 								>

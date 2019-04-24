@@ -67,7 +67,9 @@ class PatientData extends React.Component {
 				bp_systolic: this.props.patient.bp_systolic || {value: '', label: ''},
 				bp_diastolic: this.props.patient.bp_diastolic || {value: '', label: ''},
 				heart_rate: this.props.patient.heart_rate || {value: '', label: ''},
-				resp_rate: this.props.patient.resp_rate || {value: '', label: ''}
+				resp_rate: this.props.patient.resp_rate || {value: '', label: ''},
+				admission_date: this.props.patient.admission_date || {value: '', label: ''},
+				onset_date: this.props.patient.onset_date || {value: '', label: ''}
 			},
 			error: {},
 			units: { ...this.props.units },
@@ -147,7 +149,6 @@ class PatientData extends React.Component {
 			{name: 'Hematology', component: <Hematology step={4} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
 			{name: 'Arterial Gases', component: <ArterialGases step={5} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} savePatientData={this.savePaientData} history={this.props.history} />}
 		];
-		console.log('===', this.state.data);
 
 		return (
 			<div className="app-content">
