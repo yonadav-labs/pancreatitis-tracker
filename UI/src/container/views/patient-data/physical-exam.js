@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import Select from 'react-select';
-import {validateForm} from '../../utils/utils';
+import {checkValidity} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
 
 const booleanOption = [
@@ -136,7 +136,7 @@ class PhysicalExam extends React.Component {
 
 		Object.keys(physicalExam).forEach((data) => {
 			if (rules[data]) {
-				const validateResponse = validateForm(rules[data], physicalExam[data], units[data]);
+				const validateResponse = checkValidity(rules[data], physicalExam[data], units[data]);
 				if (!validateResponse.success) {
 					errors[data] = {
 						msg: validateResponse.msg

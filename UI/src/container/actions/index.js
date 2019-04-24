@@ -8,6 +8,10 @@ import {
 	createAccountApi,
 	loadInputHistoryApi
 } from './api';
+import {
+	lbToKgConvert, 
+	inchTomConvert
+} from '../../utils/utils';
 
 export const loginAction = (username, password) => {
 	return (dispatch) => {
@@ -51,18 +55,17 @@ export const getHistoryByDateAction = date => {
 	};
 };
 
-export const savePatientDataAction = (data) => {
-	let params = {};
+export const savePatientDataAction = (data, units) => {
+	let params = {...data};
 
-	Object.keys(data).forEach(key => {
-		if (data[key]) {
-			if (data[key].calculatedValue) {
-				params[key] = data[key].calculatedValue;
-			} else {
-				params[key] = data[key].value;
-			}
-		}
-	});
+	// convert data in normalized unit
+	if (units.weight === 'lb') {
+		params.weight = lbToKgConvert(params.weight);
+	}
+
+	if (units.height === 'inch') {
+		params.height = inchTomConvert(params.height);
+	}
 
 	return (dispatch) => {
 		return savePatientDataApi(params)

@@ -1,5 +1,5 @@
 import React from 'react';
-import {validateForm} from '../../utils/utils';
+import {checkValidity} from '../../utils/utils';
 import ReactTooltip from 'react-tooltip';
 import GreenButton from "../../components/GreenButton";
 
@@ -93,7 +93,7 @@ class Hematology extends React.Component {
 		console.log(hematology);
 		Object.keys(hematology).forEach((data) => {
 			if (rules[data]) {
-				const validateResponse = validateForm(rules[data], hematology[data], units[data]);
+				const validateResponse = checkValidity(rules[data], hematology[data], units[data]);
 				if (!validateResponse.success) {
 					errors[data] = {
 						msg: validateResponse.msg

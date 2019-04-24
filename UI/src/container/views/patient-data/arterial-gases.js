@@ -1,5 +1,5 @@
 import React from 'react';
-import {validateForm} from '../../utils/utils';
+import {checkValidity} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
 
 class ArterialGases extends React.Component {
@@ -98,7 +98,7 @@ class ArterialGases extends React.Component {
 
 		Object.keys(arterialGases).forEach((data) => {
 			if (rules[data]) {
-				const validateResponse = validateForm(rules[data], arterialGases[data], units[data]);
+				const validateResponse = checkValidity(rules[data], arterialGases[data], units[data]);
 				if (!validateResponse.success) {
 					errors[data] = {
 						msg: validateResponse.msg

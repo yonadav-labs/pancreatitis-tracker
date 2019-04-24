@@ -2,7 +2,7 @@ import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import GreenButton from "../../components/GreenButton";
 import Select from 'react-select';
-import {validateForm, lbToKgConvert, inchToCmConvert} from '../../utils/utils';
+import {checkValidity} from '../../utils/utils';
 import DropdownMenu from '../../components/DropdownMenu';
 
 const sexOption = [
@@ -73,7 +73,7 @@ class BasicInfo extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const params = Object.assign({}, this.state.basicInfo, nextProps.data);
+		const params = {...this.state.basicInfo, ...nextProps.data};
 		this.setState({ basicInfo: params });
 	}
 
@@ -106,13 +106,13 @@ class BasicInfo extends React.Component {
 		const {rules, basicInfo, units} = this.state;
 		let isPageValidate = false;
 
-		Object.keys(basicInfo).forEach((data) => {
-			if (rules[data]) {
-				const validateResponse = validateForm(rules[data], basicInfo[data], units[data]);
-				if (!validateResponse.success) {
-					errors[data] = {
-						msg: validateResponse.msg
-					};
+		Object.keys(basicInfo).forEach((attr) => {
+			if (rules[attr]) {
+				const res = checkValidity(rules[attr], basicInfo[attr], units[attr]);
+				if (res.isValid) {
+					basicInfo[attr] = res.val;
+				} else {
+					errors[attr] = { msg: res.msg };
 				}
 			}
 		});
@@ -120,33 +120,16 @@ class BasicInfo extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
 		} else {
-			let temp = Object.assign({}, basicInfo);
-			
-			Object.keys(basicInfo).forEach((attr) => {
-				if (rules[attr] && (rules[attr].type === "integer" || rules[attr].type === "float")) {
-					if (!isNaN(parseFloat(basicInfo[attr]))) {
-						temp[attr] = parseFloat(basicInfo[attr]);
-					}
-				}
-			});
-
-			let weight = { ...temp.weight };
-			let height = { ...temp.height };
+			let temp = {...basicInfo};
 
 			if (units.weight === 'lb') {
-				weight.calculatedValue = lbToKgConvert(weight);
-			} else {
-				weight.calculatedValue = weight;
+				temp.weight = lbToKgConvert(temp.weight);
 			}
 	
 			if (units.height === 'inch') {
-				height.calculatedValue = inchToCmConvert(height) / 100;
-			} else {
-				height.calculatedValue = height;
+				temp.height = inchToCmConvert(temp.height) / 100;
 			}
 
-			temp.weight = weight;
-			temp.height = height;
 			if (temp.bmi !== '') {
 				temp.bmi = parseFloat(temp.bmi);
 			}
@@ -159,7 +142,7 @@ class BasicInfo extends React.Component {
 	}
 
 	changeInfo = (e) => {
-		let params = Object.assign({}, this.state.basicInfo);
+		let params = {...this.state.basicInfo};
 		params[e.target.id] = e.target.value;
 
 		let bmiValue = '';

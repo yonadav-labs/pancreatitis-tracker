@@ -78,14 +78,15 @@ export const hasOnlyOneSpace = (text) => {
 	return false;
 }
 
-export function validateForm(rule, data, unit) {
-	let isValidate = true;
+export function checkValidity(rule, data, unit) {
+	let isValid = true;
 	let errorMsg = 'Please enter valid data.';
-		
+	let value = data;
+
 	if (rule) {
 		if (!rule.required) {
 			if (!data || data === '') {
-				return { success: true, msg: ''};
+				return { isValid: true, msg: '', val: value };
 			}
 		}
 
@@ -93,127 +94,109 @@ export function validateForm(rule, data, unit) {
 			case 'float':
 				if (count(data, '\\.') < 2) {
 					if (!isNaN(parseFloat(data))) {
+						value = parseFloat(data);
 						rule.range.forEach((range) => {
-							if (
-								// range.unit === data.unit &&
-								range.unit === unit &&
-								(
-									range.min > parseFloat(data, 10)
-									|| range.max < parseFloat(data, 10)
-								)
-							) {
-								isValidate = false;
+							if (range.unit === unit && ( range.min > value || range.max < value ) ) {
+								isValid = false;
 								errorMsg = `Valid in (${range.min}, ${range.max})`;
 							}
 						});
 					} else {
-						isValidate = false;
+						isValid = false;
 					}
 				} else {
-					isValidate = false;
+					isValid = false;
 				}
 
 				break;
-
 			case 'integer':
 				if (count(data, '\\.') == 0) {
-					if (isInteger(parseInt(data))) {
+					if (!isNaN(parseInt(data))) {
+						value = parseInt(data);
 						rule.range.forEach((range) => {
-							if (
-								range.unit === unit &&
-								(
-									range.min > parseFloat(data, 10)
-									|| range.max < parseFloat(data, 10)
-								)
-							) {
-								isValidate = false;
+							if (range.unit === unit && ( range.min > value || range.max < value ) ) {
+								isValid = false;
 								errorMsg = `Valid in (${range.min}, ${range.max})`;
 							}
 						});
 					} else {
-						isValidate = false;
+						isValid = false;
 					}
 				} else {
-					isValidate = false;
+					isValid = false;
 				}
 
 				break;
-			
 			case 'email':
 				if (!validateEmail(data)) {
-					isValidate = false;
+					isValid = false;
 				}
 
 				break;
-			
 			case 'phone':
 				if (!validatePhoneNumber(data)) {
-					isValidate = false;
+					isValid = false;
 				}
 
 				break;
-
 			case 'text':
 				if (typeof data !== "string" || data === ""){
-					isValidate = false;
+					isValid = false;
 				}
 				break;
-			
 			case 'boolean':
 				if (typeof data !== "boolean" || data === ""){
-					isValidate = false;
+					isValid = false;
 				}
 				break;
-			
-			default: break;
 		}
 	}
 
-	return { success: isValidate, msg: errorMsg };
+	return { isValid: isValid, msg: errorMsg, val: value };
 }
 
 export const validateAccount = (rule, data) => {
-	let isValidate = true;
+	let isValid = true;
 
 	switch(rule.type) {
 		case 'email':
 			if (!validateEmail(data)) {
-				isValidate = false;
+				isValid = false;
 			}
 
 			break;
 		
 		case 'phone':
 			if (!validatePhoneNumber(data)) {
-				isValidate = false;
+				isValid = false;
 			}
 
 			break;
 
 		case 'text':
 			if (typeof data !== "string" || data === ""){
-				isValidate = false;
+				isValid = false;
 			}
 			break;
 
 		case 'name':
 			if (data === "" || !allLetter(data) || !hasOnlyOneSpace(data)){
-				isValidate = false;
+				isValid = false;
 			}
 			break;
 
 		default: break;
 	}
 
-	return isValidate;
+	return isValid;
 }
 
 export const lbToKgConvert = (lbs) => {
 	return lbs / 2.2046;
 }
 
-export const inchToCmConvert = (lbs) => {
-	return lbs * 2.54;
+export const inchTomConvert = (inch) => {
+	return inch * 2.54 / 100;
 }
 
 export const fToC = (fahrenheit) => {

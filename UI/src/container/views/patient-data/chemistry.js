@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-	validateForm,
+	checkValidity,
 	sodiumConvert,
 	glucoseConvert,
 	calciumConvert,
@@ -173,7 +173,7 @@ class Chemistry extends React.Component {
 
 		Object.keys(chemistry).forEach((data) => {
 			if (rules[data]) {
-				const validateResponse = validateForm(rules[data], chemistry[data], units[data]);
+				const validateResponse = checkValidity(rules[data], chemistry[data], units[data]);
 				if (!validateResponse.success) {
 					errors[data] = {
 						msg: validateResponse.msg

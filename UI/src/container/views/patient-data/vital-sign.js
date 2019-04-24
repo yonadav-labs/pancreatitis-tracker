@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
-import {validateForm} from '../../utils/utils';
+import {checkValidity} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
 import {
 	fToC
@@ -111,7 +111,7 @@ class VitalSigns extends React.Component {
 
 		Object.keys(vitalSigns).forEach((data) => {
 			if (rules[data]) {
-				const validateResponse = validateForm(rules[data], vitalSigns[data], units[data]);
+				const validateResponse = checkValidity(rules[data], vitalSigns[data], units[data]);
 				if (!validateResponse.success) {
 					errors[data] = {
 						msg: validateResponse.msg

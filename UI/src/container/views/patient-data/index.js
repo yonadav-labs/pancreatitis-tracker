@@ -26,7 +26,6 @@ class PatientData extends React.Component {
 	constructor(props) {
 		super(props);
 
-		console.log(this.props, '&&&&&&&&&&&');
 		this.state = {
 			data: {...this.props.patient},
 			error: {},
@@ -79,7 +78,7 @@ class PatientData extends React.Component {
 	}
 
 	savePaientData = () => {
-		this.props.savePatientDataAction(this.state.data)
+		this.props.savePatientDataAction(this.state.data, this.state.units)
 			.then(res => {
 				if (res && res.success && res.data.is_approx_paO2) {
 					toast.warn('PaO2 approximation was used.', {
