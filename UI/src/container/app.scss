@@ -29,6 +29,20 @@ body {
   background-color: #dedede;
 }
 
+:-moz-focusring {
+  outline: none;  
+}
+
+select {
+  color: #000;
+}
+
+select:-moz-focusring {
+  color: rgba(0,0,0,0);
+  text-shadow: 0 0 0 #000;
+  outline: none !important;
+}
+
 
 /* Constants */
 .dark-grey-color {color: $dark-grey !important;}
@@ -431,7 +445,7 @@ a.green-button:hover {
   height: 57px;
   border-top-right-radius: 30px;
   border-bottom-right-radius: 30px;
-  margin-left: -35px;
+  margin-left: -90px;
   text-align: center;
   justify-content: center;
   text-indent: 5px;
@@ -441,6 +455,7 @@ a.green-button:hover {
 .input-inline-select:focus,
 .input-inline-select:active {
   outline: none;
+  -moz-outline: unset;
 }
 
 .category-tab {
