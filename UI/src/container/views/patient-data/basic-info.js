@@ -171,11 +171,6 @@ class BasicInfo extends React.Component {
 		this.props.loadInputHistoryAction(e.target.files);
 	}
 
-	showFileDialog = () => {
-		const fileDialog = document.getElementById("upload_input");
-		fileDialog.click();
-	}
-
 	getHistoryByDate = (date) => {
 		this.props.getHistoryByDate(date);
 		this.setState({ historyDate: date });
@@ -212,11 +207,7 @@ class BasicInfo extends React.Component {
 					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-md-6">
-								<div
-									className="round-btn grey-label"
-								>
-									Sex
-								</div>
+								<div className="round-btn grey-label">Sex</div>
 							</div>
 							<div className="col-xs-12 col-md-6">
 								<Select
