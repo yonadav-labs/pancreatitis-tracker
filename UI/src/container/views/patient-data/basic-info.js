@@ -2,7 +2,11 @@ import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import GreenButton from "../../components/GreenButton";
 import Select from 'react-select';
-import {checkValidity} from '../../utils/utils';
+import {
+	checkValidity,
+	lbToKgConvert,
+	inchTomConvert
+} from '../../utils/utils';
 import DropdownMenu from '../../components/DropdownMenu';
 
 const sexOption = [
@@ -79,32 +83,33 @@ class BasicInfo extends React.Component {
 
 	calculateBMI = (params) => {
 		const {units} = this.state;
-		let bmiValue = '';
+		let bmi = '';
 		
-		if (
-			(params.weight !== '' && params.weight !== 0) &&
-			(params.height !== '' && params.height !== 0)
-		) {
-			let weightVal = parseFloat(params.weight);
+		if (params.weight && params.height) {
+			let weight = parseFloat(params.weight);
 			if (units.weight === 'lb') {
-				weightVal = lbToKgConvert(weightVal);
+				weightVal = lbToKgConvert(weight);
 			}
 
-			let heightVal = parseFloat(params.height) / 100;
+			let height = parseFloat(params.height);
 			if (units.height === 'inch') {
-				heightVal = inchToCmConvert(heightVal);
+				height = inchTomConvert(height);
+			} else {
+				height = height / 100;
 			}
 
-			bmiValue = (weightVal / Math.pow(heightVal, 2)).toFixed(2);
+			if (!isNaN(weight) && !isNaN(height)) {
+				bmi = (weight / Math.pow(height, 2)).toFixed(2);
+			}
 		}
 
-		return bmiValue;
+		return isFinite(bmi) ? bmi : '';
 	}
 
 	isValidated = () => {
 		const errors = {};
 		const {rules, basicInfo, units} = this.state;
-		let isPageValidate = false;
+		let isPageValidate = true;
 
 		Object.keys(basicInfo).forEach((attr) => {
 			if (rules[attr]) {
@@ -118,15 +123,10 @@ class BasicInfo extends React.Component {
 		});
 
 		if (Object.keys(errors).length > 0) {
+			isPageValidate = false;
 			this.setState({ errors });
 		} else {
-			let temp = {...basicInfo};
-			if (temp.bmi !== '') {
-				temp.bmi = parseFloat(temp.bmi);
-			}
-
-			isPageValidate = true;
-			this.props.updateInfo(temp, this.state.units);
+			this.props.updateInfo(basicInfo, this.state.units);
 		}
 
 		return isPageValidate;
@@ -136,11 +136,9 @@ class BasicInfo extends React.Component {
 		let params = {...this.state.basicInfo};
 		params[e.target.id] = e.target.value;
 
-		let bmiValue = '';
 		if (e.target.id === 'weight' || e.target.id === 'height') {
-			bmiValue = this.calculateBMI(params);
+			params.bmi = this.calculateBMI(params);
 		}
-		params.bmi = bmiValue;
 
 		this.setState({ basicInfo: params });
 	}
@@ -149,11 +147,9 @@ class BasicInfo extends React.Component {
 		let {units, basicInfo} = this.state;
 		units[id] = value;
 
-		let bmiValue = '';
 		if (id === 'weight' || id === 'height') {
-			bmiValue = this.calculateBMI(basicInfo);
+			basicInfo.bmi = this.calculateBMI(basicInfo);
 		}
-		basicInfo.bmi = bmiValue;
 
 		this.setState({basicInfo, units});
 	}
@@ -239,7 +235,7 @@ class BasicInfo extends React.Component {
 					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-md-6">
-								<div className="round-btn grey-label">height</div>
+								<div className="round-btn grey-label">Height</div>
 							</div>
 							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">

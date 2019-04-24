@@ -9,9 +9,9 @@ import {
 	loadInputHistoryApi
 } from './api';
 import {
-	lbToKgConvert, 
+	lbToKgConvert,
 	inchTomConvert
-} from '../../utils/utils';
+} from '../utils/utils';
 
 export const loginAction = (username, password) => {
 	return (dispatch) => {
