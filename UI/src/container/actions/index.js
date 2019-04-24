@@ -59,11 +59,11 @@ export const savePatientDataAction = (data, units) => {
 	let params = {...data};
 
 	// convert data in normalized unit
-	if (units.weight === 'lb') {
+	if (units.weight === 'lb' && params.weight) {
 		params.weight = lbToKgConvert(params.weight);
 	}
 
-	if (units.height === 'inch') {
+	if (units.height === 'inch' && params.height) {
 		params.height = inchTomConvert(params.height);
 	}
 

@@ -121,15 +121,6 @@ class BasicInfo extends React.Component {
 			this.setState({ errors });
 		} else {
 			let temp = {...basicInfo};
-
-			if (units.weight === 'lb') {
-				temp.weight = lbToKgConvert(temp.weight);
-			}
-	
-			if (units.height === 'inch') {
-				temp.height = inchToCmConvert(temp.height) / 100;
-			}
-
 			if (temp.bmi !== '') {
 				temp.bmi = parseFloat(temp.bmi);
 			}
@@ -213,7 +204,7 @@ class BasicInfo extends React.Component {
 									id="age"
 									className="round-input"
 									maxLength="7"
-									value={basicInfo.age && basicInfo.age}
+									value={basicInfo.age}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -257,7 +248,7 @@ class BasicInfo extends React.Component {
 										id="height"
 										maxLength=""
 										className="round-input"
-										value={basicInfo.height && basicInfo.height}
+										value={basicInfo.height}
 										onChange={this.changeInfo}
 									/>
 									<select
@@ -287,7 +278,7 @@ class BasicInfo extends React.Component {
 										id="weight"
 										className="round-input"
 										maxLength="5"
-										value={basicInfo.weight && basicInfo.weight}
+										value={basicInfo.weight}
 										onChange={this.changeInfo}
 									/>
 									<select
@@ -317,7 +308,7 @@ class BasicInfo extends React.Component {
 										id="bmi"
 										maxLength="7"
 										className="round-input"
-										value={basicInfo.bmi && basicInfo.bmi}
+										value={basicInfo.bmi}
 										disabled
 									/>
 									<select className="input-inline-select">
