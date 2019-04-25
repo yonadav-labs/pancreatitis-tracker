@@ -58,6 +58,12 @@ export const getHistoryByDateAction = date => {
 export const savePatientDataAction = (data, units) => {
 	let params = {...data};
 
+	Object.keys(params).forEach(key => {
+		if (params[key] === '') {
+			params[key] = null;
+		}
+	});
+		
 	// convert data in normalized unit
 	if (units.weight === 'lb' && params.weight) {
 		params.weight = lbToKgConvert(params.weight);

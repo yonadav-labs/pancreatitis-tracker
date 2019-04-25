@@ -92,41 +92,30 @@ class ArterialGases extends React.Component {
 	}
 
 	isValidated = () => {
-		let isPageValidated = false;
 		const errors = {};
 		const {rules, arterialGases, units} = this.state;
+		let isPageValid = true;
 
-		Object.keys(arterialGases).forEach((data) => {
-			if (rules[data]) {
-				const validateResponse = checkValidity(rules[data], arterialGases[data], units[data]);
-				if (!validateResponse.success) {
-					errors[data] = {
-						msg: validateResponse.msg
-					};
+		Object.keys(arterialGases).forEach((attr) => {
+			if (rules[attr]) {
+				const res = checkValidity(rules[attr], arterialGases[attr], units[attr]);
+				if (res.isValid) {
+					arterialGases[attr] = res.val;
+				} else {
+					errors[attr] = { msg: res.msg };
 				}
 			}
 		});
 
 		if (Object.keys(errors).length > 0) {
 			this.setState({ errors });
+			isPageValid = false;
 		} else {
-			let temp = Object.assign({}, arterialGases);
-			
-			Object.keys(arterialGases).forEach((attr) => {
-				if (rules[attr] && (rules[attr].type === "integer" || rules[attr].type === "float")) {
-					if (!isNaN(parseFloat(arterialGases[attr]))) {
-						temp[attr] = parseFloat(arterialGases[attr]);
-					}
-				}
-			});
-
-			this.props.updateInfo(temp, this.state.units);
+			this.props.updateInfo(arterialGases, this.state.units);
 			this.setState({ errors: {} });
-			
-			isPageValidated = true;
 		}
 
-		return isPageValidated;
+		return isPageValid;
 	}
 
 	next = () => {

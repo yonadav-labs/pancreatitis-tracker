@@ -99,7 +99,7 @@ class BasicInfo extends React.Component {
 			}
 
 			if (!isNaN(weight) && !isNaN(height)) {
-				bmi = (weight / Math.pow(height, 2)).toFixed(2);
+				bmi = parseFloat((weight / Math.pow(height, 2)).toFixed(2));
 			}
 		}
 
@@ -109,7 +109,7 @@ class BasicInfo extends React.Component {
 	isValidated = () => {
 		const errors = {};
 		const {rules, basicInfo, units} = this.state;
-		let isPageValidate = true;
+		let isPageValid = true;
 
 		Object.keys(basicInfo).forEach((attr) => {
 			if (rules[attr]) {
@@ -123,13 +123,13 @@ class BasicInfo extends React.Component {
 		});
 
 		if (Object.keys(errors).length > 0) {
-			isPageValidate = false;
+			isPageValid = false;
 			this.setState({ errors });
 		} else {
 			this.props.updateInfo(basicInfo, this.state.units);
 		}
 
-		return isPageValidate;
+		return isPageValid;
 	}
 
 	changeInfo = (e) => {
