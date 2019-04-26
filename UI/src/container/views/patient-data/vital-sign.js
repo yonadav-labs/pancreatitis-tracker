@@ -2,9 +2,6 @@ import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import {checkValidity} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
-import {
-	fToC
-} from '../../utils/utils';
 
 class VitalSigns extends React.Component {
 	constructor(props) {
@@ -81,18 +78,8 @@ class VitalSigns extends React.Component {
 	}
 
 	changeInfo(e) {
-		let params = this.state.vitalSigns;
-		const {rules} = this.state;
-		if (rules[e.target.id] && rules[e.target.id].type === "integer") {
-			if (!isNaN(parseFloat(e.target.value))) {
-				params[e.target.id] = parseFloat(e.target.value);
-			} else {
-				params[e.target.id] = e.target.value;
-			}
-
-		} else {
-			params[e.target.id] = e.target.value;
-		}
+		let params = {...this.state.vitalSigns};
+		params[e.target.id] = e.target.value;
 
 		this.setState({ vitalSigns: params });
 	}
@@ -105,46 +92,29 @@ class VitalSigns extends React.Component {
 	}
 
 	isValidated = () => {
-		let isPageValidated = false;
 		const {vitalSigns, units, rules} = this.state;
 		const errors = {};
+		let isPageValid = true;
 
-		Object.keys(vitalSigns).forEach((data) => {
-			if (rules[data]) {
-				const validateResponse = checkValidity(rules[data], vitalSigns[data], units[data]);
-				if (!validateResponse.success) {
-					errors[data] = {
-						msg: validateResponse.msg
-					};
+		Object.keys(vitalSigns).forEach((attr) => {
+			if (rules[attr]) {
+				const res = checkValidity(rules[attr], vitalSigns[attr], units[attr]);
+				if (res.isValid) {
+					vitalSigns[attr] = res.val;
+				} else {
+					errors[attr] = { msg: res.msg };
 				}
 			}
 		});
 
 		if (Object.keys(errors).length > 0) {
+			isPageValid = false;
 			this.setState({ errors });
 		} else {
-			let temp = Object.assign({}, vitalSigns);
-			
-			Object.keys(vitalSigns).forEach((attr) => {
-				if (rules[attr] && (rules[attr].type === "integer" || rules[attr].type === "float")) {
-					if (!isNaN(parseFloat(vitalSigns[attr]))) {
-						temp[attr] = parseFloat(vitalSigns[attr]);
-					}
-				}
-			});
-
-			if (units.temperature === 'fahrenheit') {
-				let temperature = Object.assign({}, temp.temperature);
-				
-				temperature.calculatedValue = fToC(temperature);
-				temp.temperature = temperature;
-			}
-
-			isPageValidated = true;
-			this.props.updateInfo(temp, units);
+			this.props.updateInfo(vitalSigns, this.state.units);
 		}
 
-		return isPageValidated;
+		return isPageValid;
 	}
 
 	next = () => {

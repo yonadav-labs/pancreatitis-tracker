@@ -10,7 +10,8 @@ import {
 } from './api';
 import {
 	lbToKgConvert,
-	inchTomConvert
+	inchTomConvert,
+	fToC
 } from '../utils/utils';
 
 export const loginAction = (username, password) => {
@@ -58,12 +59,6 @@ export const getHistoryByDateAction = date => {
 export const savePatientDataAction = (data, units) => {
 	let params = {...data};
 
-	Object.keys(params).forEach(key => {
-		if (params[key] === '') {
-			params[key] = null;
-		}
-	});
-		
 	// convert data in normalized unit
 	if (units.weight === 'lb' && params.weight) {
 		params.weight = lbToKgConvert(params.weight);
@@ -71,6 +66,10 @@ export const savePatientDataAction = (data, units) => {
 
 	if (units.height === 'inch' && params.height) {
 		params.height = inchTomConvert(params.height);
+	}
+
+	if (units.temperature === 'fahrenheit' && params.temperature) {
+		params.temperature = fToC(params.temperature);
 	}
 
 	return (dispatch) => {
