@@ -51,21 +51,27 @@ class CustomProgressBar extends React.PureComponent {
 		}
 
 		return (
-			<div className={isFlag ? "btn-progress-bar critical" : "btn-progress-bar"}>
-				<ReactTooltip  effect='solid' className="tooltop-bar" />
-				<div className="progress-title-btn" data-tip={tooltip}>{this.props.title}</div>
-				<Progress
-					percent={percent ? percent.toFixed(1): 0}
-					theme={theme.valid}
-					className={percent ? '' : 'empty-progress'}
-				/>
-				{
-					text !== ''
-						? (
-							<span className="bar-result"> {text} </span>
-						)
-						: null
-				}
+			<div>
+				<div className={isFlag ? "btn-progress-bar pb-0 critical" : "btn-progress-bar pb-0"}>
+					<ReactTooltip  effect='solid' className="tooltop-bar" />
+					<div className="progress-title-btn" data-tip={tooltip}>{this.props.title}</div>
+					<Progress
+						percent={percent ? percent.toFixed(1): 0}
+						theme={theme.valid}
+						className={percent ? '' : 'empty-progress'}
+					/>
+					{
+						text !== ''
+							? (
+								<span className="bar-result"> {text} </span>
+							)
+							: null
+					}
+				</div>
+				<div className="section-description grey-color-text mb-0 ml-5">
+					<label className="">Threshold:</label>
+					<span className="">{this.props.scoreRange.threshold}</span>
+				</div>
 			</div>
 		);
 	}
