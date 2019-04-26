@@ -79,8 +79,8 @@ class Chemistry extends React.Component {
 					name: 'glucose',
 					type: 'float',
 					range: [
-						{ min: 60, max: 250, unit: 'mmol/L' },
-						{ min: 3.3, max: 13.9, unit: 'mg/dL' }
+						{ min: 60, max: 250, unit: 'mg/dL' },
+						{ min: 3.3, max: 13.9, unit: 'mmol/L' }
 					]
 				},
 				calcium: {
@@ -117,7 +117,7 @@ class Chemistry extends React.Component {
 					name: 'ldh',
 					type: 'float',
 					range: [
-						{ min: 48, max: 600, unit: 'IU/L' }
+						{ min: 48, max: 600, unit: 'U/L' }
 					]
 				}
 			},
@@ -446,7 +446,7 @@ class Chemistry extends React.Component {
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
-										<option value="lU/L">lU/L</option>
+										<option value="U/L">U/L</option>
 									</select>
 								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">

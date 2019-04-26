@@ -46,8 +46,8 @@ class Hematology extends React.Component {
 					name: 'crp',
 					type: 'float',
 					range: [
-						{ min: 0, max: 2, unit: 'mg/dL' },
-						{ min: 0, max: 20, unit: 'mg/L' }
+						{ min: 0, max: 20, unit: 'mg/dL' },
+						{ min: 0, max: 40, unit: 'mg/L' }
 					]
 				}
 			},
@@ -168,8 +168,6 @@ class Hematology extends React.Component {
 							<div className="col-xs-12 col-md-6">
 								<div
 									className="round-btn grey-label"
-									data-multiline="true"
-									data-tip="For future version (Not MVP) may capture patient's baseline HCT for comparison"
 								>
 									HCT
 								</div>

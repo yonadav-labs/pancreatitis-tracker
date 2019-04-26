@@ -171,6 +171,7 @@ class BasicInfo extends React.Component {
 
 	changeDate = (id, date) => {
 		const params = { ...this.state.basicInfo };
+		console.log(date);
 		params[id] = date.toISOString();
 		this.setState({basicInfo: params});
 	}
@@ -335,19 +336,23 @@ class BasicInfo extends React.Component {
 								<div
 									className="round-btn grey-label"
 								>
-									Onset Date
+									Symptom Onset
 								</div>
 							</div>
 							<div className="col-xs-12 col-md-6">
 								<DatePicker
 									id="onset_date"
+									showTimeSelect
 									className="round-input"
+									timeFormat="HH:mm"
+									timeIntervals={15}
+									dateFormat="MM/dd/YYYY HH:mm"
 									selected={
 										basicInfo.onset_date
 											? new Date(basicInfo.onset_date)
 											: null
 									}
-									onSelect={(date) => this.changeDate('onset_date', date)}
+									onChange={(date) => this.changeDate('onset_date', date)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.onset_date && errors.onset_date.msg}
@@ -366,14 +371,18 @@ class BasicInfo extends React.Component {
 							</div>
 							<div className="col-xs-12 col-md-6">
 								<DatePicker
+									showTimeSelect
 									id="admission_date"
 									className="round-input"
+									timeFormat="HH:mm"
+									timeIntervals={15}
+									dateFormat="MM/dd/YYYY HH:mm"
 									selected={
 										basicInfo.admission_date
 											? new Date(basicInfo.admission_date)
 											: null
 									}
-									onSelect={(date) => this.changeDate('admission_date', date)}
+									onChange={(date) => this.changeDate('admission_date', date)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.admission_date && errors.admission_date.msg}
@@ -386,7 +395,7 @@ class BasicInfo extends React.Component {
 					<div className="d-flex justify-content-between">
 						<DropdownMenu
 							onClick={this.getHistoryByDate}
-							text="Load Data"
+							text="Reload Prev. Run"
 							data={historyData}
 						/>
 						<GreenButton

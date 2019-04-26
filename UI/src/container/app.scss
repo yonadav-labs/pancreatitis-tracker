@@ -659,6 +659,8 @@ ol.progtrckr li.progtrckr-done:before {
 /* Date picker */
 .react-datepicker {
   font-size: 1em;
+  display: flex;
+  max-height: 240px;
 }
 .react-datepicker__header {
   padding-top: 0.8em;

@@ -81,7 +81,7 @@ const InitialState = {
 		albumin: 'g/dL',
 		ast: 'U/L',
 		alt: 'U/L',
-		ldh: 'IU/L',
+		ldh: 'U/L',
 
 		wbc: '10^9 cells/L',
 		platelet_count: '10^3 units/µL',

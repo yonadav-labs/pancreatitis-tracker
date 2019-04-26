@@ -44,7 +44,7 @@ class AlgorithmJss(AlgorithmInterface):
         sirs_limit = 3
         bun_limit = 40
         creatinine_limit = 2
-        excess_limit = 3
+        excess_limit = -3
         bp_limit = 80
         paO2_limit = 60
 

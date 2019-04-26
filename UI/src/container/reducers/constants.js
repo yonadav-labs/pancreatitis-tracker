@@ -39,7 +39,7 @@ export const ALL_ROUTES = [
 	{ url: "account", routeName: "User Account" },
 	{ url: "about", routeName: "About" },
 	{ url: "patient", routeName: "Patient Data" },
-	{ url: "outputs", routeName: "APSC Outputs" },
+	{ url: "outputs", routeName: "ADAPT Outputs" },
 	{ url: "feedback", routeName: "Feedback" },
 	{ url: "contact", routeName: "Contact Us" }
 ];

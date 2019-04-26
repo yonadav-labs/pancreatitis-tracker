@@ -21,7 +21,7 @@ class Feedback extends React.Component {
 				<Title title="Feedback" />
 				<div className="container">
 					<div className="page-subtitle text-center">
-						The beauty of the APSC tool lies in its ability to be dynamically updated and improved
+						The beauty of the ADAPT tool lies in its ability to be dynamically updated and improved
 						over the time. Please provide any comments and suggestions for improvements below.
 					</div>
 					<div className="page-section">
