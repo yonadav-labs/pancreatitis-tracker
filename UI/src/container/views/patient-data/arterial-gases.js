@@ -1,5 +1,5 @@
 import React from 'react';
-import {checkValidity} from '../../utils/utils';
+import {validateStep} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
 
 class ArterialGases extends React.Component {
@@ -77,42 +77,21 @@ class ArterialGases extends React.Component {
 
 	changeInfo(e) {
 		let params = this.state.arterialGases;
-		const {rules} = this.state;
-		if (rules[e.target.id] && rules[e.target.id].type === "integer") {
-			if (!isNaN(parseFloat(e.target.value))) {
-				params[e.target.id] = parseFloat(e.target.value);
-			} else {
-				params[e.target.id] = e.target.value;
-			}
-		} else {
-			params[e.target.id] = e.target.value;
-		}
+		params[e.target.id] = e.target.value;
 
 		this.setState({ arterialGases: params });
 	}
 
 	isValidated = () => {
-		const errors = {};
 		const {rules, arterialGases, units} = this.state;
+		const {data, errors} = validateStep(arterialGases, units, rules);
 		let isPageValid = true;
 
-		Object.keys(arterialGases).forEach((attr) => {
-			if (rules[attr]) {
-				const res = checkValidity(rules[attr], arterialGases[attr], units[attr]);
-				if (res.isValid) {
-					arterialGases[attr] = res.val;
-				} else {
-					errors[attr] = { msg: res.msg };
-				}
-			}
-		});
-
 		if (Object.keys(errors).length > 0) {
-			this.setState({ errors });
 			isPageValid = false;
+			this.setState({ errors });
 		} else {
-			this.props.updateInfo(arterialGases, this.state.units);
-			this.setState({ errors: {} });
+			this.props.updateInfo(data, units);
 		}
 
 		return isPageValid;
