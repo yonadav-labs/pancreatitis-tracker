@@ -1,11 +1,5 @@
 import React from 'react';
-import {
-	checkValidity,
-	sodiumConvert,
-	glucoseConvert,
-	calciumConvert,
-	albuminConvert
-} from '../../utils/utils';
+import {validateStep} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
 
 class Chemistry extends React.Component {
@@ -140,92 +134,31 @@ class Chemistry extends React.Component {
 
 	changeInfo(e) {
 		let params = this.state.chemistry;
-		const {rules} = this.state;
-		if (rules[e.target.id] && rules[e.target.id].type === "integer") {
-			if (!isNaN(parseFloat(e.target.value))) {
-				params[e.target.id] = parseFloat(e.target.value);
-			} else {
-				params[e.target.id] = e.target.value;
-			}
-		} else {
-			params[e.target.id] = e.target.value;
-		}
+		params[e.target.id] = e.target.value;
 
 		this.setState({ chemistry: params });
-		this.props.updateInfo(params, this.state.units);
 	}
 
 	changeUnit = (id, value) => {
 		let {units, chemistry} = this.state;
 		units[id] = value;
 
-		let calculatedValue = chemistry[id];
-		chemistry[id] = calculatedValue;
-
 		this.setState({ units });
-		this.props.updateInfo(chemistry, units);
 	}
 
 	isValidated = () => {
-		let isPageValidated = false;
-		const errors = {};
 		const {rules, chemistry, units} = this.state;
-
-		Object.keys(chemistry).forEach((data) => {
-			if (rules[data]) {
-				const validateResponse = checkValidity(rules[data], chemistry[data], units[data]);
-				if (!validateResponse.success) {
-					errors[data] = {
-						msg: validateResponse.msg
-					};
-				}
-			}
-		});
+		const {data, errors} = validateStep(chemistry, units, rules);
+		let isPageValid = true;
 
 		if (Object.keys(errors).length > 0) {
+			isPageValid = false;
 			this.setState({ errors });
 		} else {
-			let temp = Object.assign({}, chemistry);
-			
-			Object.keys(chemistry).forEach((attr) => {
-				if (rules[attr] && (rules[attr].type === "integer" || rules[attr].type === "float")) {
-					if (!isNaN(parseFloat(chemistry[attr]))) {
-						temp[attr] = parseFloat(chemistry[attr]);
-					}
-				}
-			});
-
-			let glucose= { ...temp.glucose };
-			let albumin = { ...temp.albumin };
-			let calcium = { ...temp.calcium };
-
-			if (units.glucose === 'mg/dL') {
-				glucose.calculatedValue = glucoseConvert(glucose);
-			} else {
-				glucose.calculatedValue = glucose;
-			}
-
-			if (units.albumin === 'g/L') {
-				albumin.calculatedValue = albumin / 10;
-			} else {
-				albumin.calculatedValue = albumin;
-			}
-
-			if (units.calcium === 'mEq/L') {
-				calcium.calculatedValue = calcium / 2;
-			} else {
-				calcium.calculatedValue = calcium;
-			}
-
-			temp.glucose = glucose;
-			temp.albumin = albumin;
-			temp.calcium = calcium;
-
-			isPageValidated = true;
-			this.props.updateInfo(temp, this.state.units);
+			this.props.updateInfo(data, units);
 		}
 
-		return isPageValidated;
+		return isPageValid;
 	}
 
 	next = () => {

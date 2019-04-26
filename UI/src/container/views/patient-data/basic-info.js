@@ -2,11 +2,11 @@ import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import GreenButton from "../../components/GreenButton";
 import Select from 'react-select';
+import {validateStep} from '../../utils/utils';
 import {
-	validateStep,
 	lbToKgConvert,
 	inchTomConvert
-} from '../../utils/utils';
+} from '../../utils/conversions';
 import DropdownMenu from '../../components/DropdownMenu';
 
 const sexOption = [

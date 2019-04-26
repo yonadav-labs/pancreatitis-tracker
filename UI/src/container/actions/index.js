@@ -11,8 +11,11 @@ import {
 import {
 	lbToKgConvert,
 	inchTomConvert,
-	fToC
-} from '../utils/utils';
+	fToC,
+	glucoseConvert,
+	calciumConvert,
+	albuminConvert
+} from '../utils/conversions';
 
 export const loginAction = (username, password) => {
 	return (dispatch) => {
@@ -72,6 +75,26 @@ export const savePatientDataAction = (data, units) => {
 		params.temperature = fToC(params.temperature);
 	}
 
+	if (units.glucose === 'mg/dL' && params.glucose) {
+		params.glucose = glucoseConvert(params.glucose);
+	}
+
+	if (units.albumin === 'g/L' && params.albumin) {
+		params.albumin = albuminConvert(params.albumin);
+	}
+
+	if (units.calcium === 'mEq/L' && params.calcium) {
+		params.calcium = calciumConvert(params.calcium);
+	}
+
+	if (units.platelet_count === 'units/µL' && params.platelet_count) {
+		params.platelet_count = params.platelet_count / 1000;
+	}
+
+	if (units.crp === 'mg/L' && params.crp) {
+		params.crp = params.crp / 10;
+	}
+	
 	return (dispatch) => {
 		return savePatientDataApi(params)
 			.then((res) => {

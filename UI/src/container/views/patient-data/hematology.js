@@ -1,5 +1,5 @@
 import React from 'react';
-import {checkValidity} from '../../utils/utils';
+import {validateStep} from '../../utils/utils';
 import ReactTooltip from 'react-tooltip';
 import GreenButton from "../../components/GreenButton";
 
@@ -64,19 +64,9 @@ class Hematology extends React.Component {
 
 	changeInfo(e) {
 		let params = this.state.hematology;
-		const {rules} = this.state;
-		if (rules[e.target.id] && rules[e.target.id].type === "integer") {
-			if (!isNaN(parseFloat(e.target.value))) {
-				params[e.target.id] = parseFloat(e.target.value);
-			} else {
-				params[e.target.id] = e.target.value;
-			}
-		} else {
-			params[e.target.id] = e.target.value;
-		}
+		params[e.target.id] = e.target.value;
 
 		this.setState({ hematology: params });
-		this.props.updateInfo(params, this.state.units);
 	}
 
 	changeUnit = (id, value) => {
@@ -87,57 +77,18 @@ class Hematology extends React.Component {
 	}
 
 	isValidated = () => {
-		let isPageValidated = false;
-		const errors = {};
 		const {rules, hematology, units} = this.state;
-		console.log(hematology);
-		Object.keys(hematology).forEach((data) => {
-			if (rules[data]) {
-				const validateResponse = checkValidity(rules[data], hematology[data], units[data]);
-				if (!validateResponse.success) {
-					errors[data] = {
-						msg: validateResponse.msg
-					};
-				}
-			}
-		});
+		const {data, errors} = validateStep(hematology, units, rules);
+		let isPageValid = true;
 
 		if (Object.keys(errors).length > 0) {
+			isPageValid = false;
 			this.setState({ errors });
 		} else {
-			let temp = Object.assign({}, hematology);
-			
-			Object.keys(hematology).forEach((attr) => {
-				if (rules[attr] && (rules[attr].type === "integer" || rules[attr].type === "float")) {
-					if (!isNaN(parseFloat(hematology[attr]))) {
-						temp[attr] = parseFloat(hematology[attr]);
-					}
-				}
-			});
-
-			let crp = { ...temp.crp };
-			let platelet_count = { ...temp.platelet_count };
-
-			if (units.platelet_count === 'units/µL') {
-				platelet_count.calculatedValue = platelet_count / 1000;
-			} else {
-				platelet_count.calculatedValue = platelet_count;
-			}
-
-			if (units.crp === 'mg/L') {
-				crp.calculatedValue = crp / 10;
-			} else {
-				crp.calculatedValue = crp;
-			}
-
-			temp.platelet_count = platelet_count;
-			temp.crp = crp;
-
-			isPageValidated = true;
-			this.props.updateInfo(temp, this.state.units);
+			this.props.updateInfo(data, units);
 		}
 
-		return isPageValidated;
+		return isPageValid;
 	}
 
 	next = () => {
