@@ -2,9 +2,13 @@ import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import GreenButton from "../../components/GreenButton";
 import Select from 'react-select';
+import {validateStep} from '../../utils/utils';
+import {
+	lbToKgConvert,
+	inchTomConvert
+} from '../../utils/conversions';
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
-import {validateForm, lbToKgConvert, inchToCmConvert} from '../../utils/utils';
 import DropdownMenu from '../../components/DropdownMenu';
 
 const sexOption = [
@@ -30,17 +34,17 @@ class BasicInfo extends React.Component {
 				height: this.props.data.height,
 				weight: this.props.data.weight,
 				bmi: this.props.data.bmi,
-				chronic_health: this.props.data.chronic_health,
+				chronic_health: this.props.data.chronic_health
 				admission_date: this.props.data.admission_date,
 				onset_date: this.props.data.onset_date
 			},
 			units: {
-				sex: this.props.units.sex || '',
-				age: this.props.units.age || 'years',
-				height: this.props.units.height || 'cm',
-				weight: this.props.units.weight || 'kg',
-				bmi: this.props.units.bmi || 'kg/m2',
-				chronic_health: this.props.units.chronic_health || ''
+				sex: this.props.units.sex,
+				age: this.props.units.age,
+				height: this.props.units.height,
+				weight: this.props.units.weight,
+				bmi: this.props.units.bmi,
+				chronic_health: this.props.units.chronic_health
 			},
 			rules: {
 				sex: {
@@ -50,7 +54,7 @@ class BasicInfo extends React.Component {
 				age: {
 					name: 'age',
 					type: 'integer',
-					range: [{ min: 0, max: 120, unit: 'years'}]
+					range: [{ min: 0, max: 120, unit: null}]
 				},
 				height: {
 					name: 'height',
@@ -77,100 +81,57 @@ class BasicInfo extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		const params = Object.assign({}, this.state.basicInfo, nextProps.data);
+		const params = {...this.state.basicInfo, ...nextProps.data};
 		this.setState({ basicInfo: params });
 	}
 
 	calculateBMI = (params) => {
 		const {units} = this.state;
-		let bmiValue = '';
+		let bmi = '';
 		
-		if (
-			(params.weight.value !== '' && params.weight.value !== 0) &&
-			(params.height.value !== '' && params.height.value !== 0)
-		) {
-			let weightVal = parseFloat(params.weight.value);
+		if (params.weight && params.height) {
+			let weight = parseFloat(params.weight);
 			if (units.weight === 'lb') {
-				weightVal = lbToKgConvert(weightVal);
+				weightVal = lbToKgConvert(weight);
 			}
 
-			let heightVal = parseFloat(params.height.value) / 100;
+			let height = parseFloat(params.height);
 			if (units.height === 'inch') {
-				heightVal = inchToCmConvert(heightVal);
+				height = inchTomConvert(height);
+			} else {
+				height = height / 100;
 			}
 
-			bmiValue = (weightVal / Math.pow(heightVal, 2)).toFixed(2);
+			if (!isNaN(weight) && !isNaN(height)) {
+				bmi = parseFloat((weight / Math.pow(height, 2)).toFixed(2));
+			}
 		}
 
-		return bmiValue;
+		return isFinite(bmi) ? bmi : '';
 	}
 
 	isValidated = () => {
-		const errors = {};
 		const {rules, basicInfo, units} = this.state;
-		let isPageValidate = false;
-
-		Object.keys(basicInfo).forEach((data) => {
-			if (rules[data]) {
-				const validateResponse = validateForm(rules[data], basicInfo[data], units[data]);
-				if (!validateResponse.success) {
-					errors[data] = {
-						msg: validateResponse.msg
-					};
-				}
-			}
-		});
+		const {data, errors} = validateStep(basicInfo, units, rules);
+		let isPageValid = true;
 
 		if (Object.keys(errors).length > 0) {
+			isPageValid = false;
 			this.setState({ errors });
 		} else {
-			let temp = Object.assign({}, basicInfo);
-			
-			Object.keys(basicInfo).forEach((attr) => {
-				if (rules[attr] && (rules[attr].type === "integer" || rules[attr].type === "float")) {
-					if (!isNaN(parseFloat(basicInfo[attr].value))) {
-						temp[attr].value = parseFloat(basicInfo[attr].value);
-					}
-				}
-			});
-
-			let weight = { ...temp.weight };
-			let height = { ...temp.height };
-
-			if (units.weight === 'lb') {
-				weight.calculatedValue = lbToKgConvert(weight.value);
-			} else {
-				weight.calculatedValue = weight.value;
-			}
-	
-			if (units.height === 'inch') {
-				height.calculatedValue = inchToCmConvert(height.value) / 100;
-			} else {
-				height.calculatedValue = height.value;
-			}
-
-			temp.weight = weight;
-			temp.height = height;
-			if (temp.bmi.value !== '') {
-				temp.bmi.value = parseFloat(temp.bmi.value);
-			}
-
-			isPageValidate = true;
-			this.props.updateInfo(temp, this.state.units);
+			this.props.updateInfo(data, units);
 		}
 
-		return isPageValidate;
+		return isPageValid;
 	}
 
 	changeInfo = (e) => {
-		let params = Object.assign({}, this.state.basicInfo);
-		params[e.target.id].value = e.target.value;
+		let params = {...this.state.basicInfo};
+		params[e.target.id] = e.target.value;
 
-		let bmiValue = '';
 		if (e.target.id === 'weight' || e.target.id === 'height') {
-			bmiValue = this.calculateBMI(params);
+			params.bmi = this.calculateBMI(params);
 		}
-		params.bmi.value = bmiValue;
 
 		this.setState({ basicInfo: params });
 	}
@@ -179,11 +140,9 @@ class BasicInfo extends React.Component {
 		let {units, basicInfo} = this.state;
 		units[id] = value;
 
-		let bmiValue = '';
 		if (id === 'weight' || id === 'height') {
-			bmiValue = this.calculateBMI(basicInfo);
+			basicInfo.bmi = this.calculateBMI(basicInfo);
 		}
-		basicInfo.bmi.value = bmiValue;
 
 		this.setState({basicInfo, units});
 	}
@@ -196,18 +155,13 @@ class BasicInfo extends React.Component {
 
 	changeOption = (id, val) => {
 		let {basicInfo} = this.state;
-		basicInfo[id] = {...basicInfo[id], ...val};
+		basicInfo[id] = val.value;
 
 		this.setState({ basicInfo });
 	}
 
 	loadHisotryData = () => {
 		this.props.loadInputHistoryAction(e.target.files);
-	}
-
-	showFileDialog = () => {
-		const fileDialog = document.getElementById("upload_input");
-		fileDialog.click();
 	}
 
 	getHistoryByDate = (date) => {
@@ -241,7 +195,7 @@ class BasicInfo extends React.Component {
 									id="age"
 									className="round-input"
 									maxLength="7"
-									value={basicInfo.age && basicInfo.age.value}
+									value={basicInfo.age}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -253,19 +207,15 @@ class BasicInfo extends React.Component {
 					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-md-6">
-								<div
-									className="round-btn grey-label"
-								>
-									Sex
-								</div>
+								<div className="round-btn grey-label">Sex</div>
 							</div>
 							<div className="col-xs-12 col-md-6">
 								<Select
 									options={sexOption}
 									className="patient-select"
 									classNamePrefix="newselect"
-									onChange={(e) => this.changeOption('sex',e)}
-									value={sexOption.filter(option => option.value === basicInfo.sex.value)}
+									onChange={(e) => this.changeOption('sex', e)}
+									value={sexOption.filter(option => option.value === basicInfo.sex)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.sex && errors.sex.msg}
@@ -276,7 +226,7 @@ class BasicInfo extends React.Component {
 					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-md-6">
-								<div className="round-btn grey-label">height</div>
+								<div className="round-btn grey-label">Height</div>
 							</div>
 							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
@@ -285,7 +235,7 @@ class BasicInfo extends React.Component {
 										id="height"
 										maxLength=""
 										className="round-input"
-										value={basicInfo.height && basicInfo.height.value}
+										value={basicInfo.height}
 										onChange={this.changeInfo}
 									/>
 									<select
@@ -315,7 +265,7 @@ class BasicInfo extends React.Component {
 										id="weight"
 										className="round-input"
 										maxLength="5"
-										value={basicInfo.weight && basicInfo.weight.value}
+										value={basicInfo.weight}
 										onChange={this.changeInfo}
 									/>
 									<select
@@ -345,7 +295,7 @@ class BasicInfo extends React.Component {
 										id="bmi"
 										maxLength="7"
 										className="round-input"
-										value={basicInfo.bmi && basicInfo.bmi.value}
+										value={basicInfo.bmi}
 										disabled
 									/>
 									<select className="input-inline-select">
@@ -371,8 +321,8 @@ class BasicInfo extends React.Component {
 									options={chronicHealthProblemsOption}
 									className="patient-select"
 									classNamePrefix="newselect"
-									onChange={(e) => this.changeOption('chronic_health',e)}
-									value={chronicHealthProblemsOption.filter(option => option.value === basicInfo.chronic_health.value)}
+									onChange={(e) => this.changeOption('chronic_health', e)}
+									value={chronicHealthProblemsOption.filter(option => option.value === basicInfo.chronic_health)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.chronic_health && errors.chronic_health.msg}

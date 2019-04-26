@@ -8,6 +8,14 @@ import {
 	createAccountApi,
 	loadInputHistoryApi
 } from './api';
+import {
+	lbToKgConvert,
+	inchTomConvert,
+	fToC,
+	glucoseConvert,
+	calciumConvert,
+	albuminConvert
+} from '../utils/conversions';
 
 export const loginAction = (username, password) => {
 	return (dispatch) => {
@@ -33,18 +41,6 @@ export const setUpdatesPerPagePatientAction = (res) => {
 	};
 };
 
-export const loadPatientDataAction = (files) => {
-	return (dispatch) => {
-		loadPatientDataApi(files)
-			.then((res) => {
-				dispatch({ type: types.PATIENTS.GET, payload: res });
-			})
-			.catch(() => {
-				dispatch({ type: types.PATIENTS.ERROR, payload: 'uploading error' });
-			});
-	};
-};
-
 export const loadInputHistoryAction = () => {
 	return (dispatch) => {
 		loadInputHistoryApi()
@@ -63,27 +59,42 @@ export const getHistoryByDateAction = date => {
 	};
 };
 
-export const savePatientDataAction = (data) => {
-	let params = {};
+export const savePatientDataAction = (data, units) => {
+	let params = {...data};
 
-	Object.keys(data).forEach(key => {
-		if (data[key].value && data[key].value !== '') {
-			if (data[key].calculatedValue) {
-				params[key] = data[key].calculatedValue;
-			} else {
-				params[key] = data[key].value;
-			}
-		}
-	});
+	// convert data in normalized unit
+	if (units.weight === 'lb' && params.weight) {
+		params.weight = lbToKgConvert(params.weight);
+	}
 
-	// set values for "Yes/No" select options.
-	const variableNames = ['pleural_eff', 'guarding', 'tenderness'];
-	variableNames.map(vaiarble => {
-		if (data[vaiarble] && data[vaiarble].value !== '') {
-			params[vaiarble] = data[vaiarble].value;
-		}
-	});
+	if (units.height === 'inch' && params.height) {
+		params.height = inchTomConvert(params.height);
+	}
 
+	if (units.temperature === 'fahrenheit' && params.temperature) {
+		params.temperature = fToC(params.temperature);
+	}
+
+	if (units.glucose === 'mg/dL' && params.glucose) {
+		params.glucose = glucoseConvert(params.glucose);
+	}
+
+	if (units.albumin === 'g/L' && params.albumin) {
+		params.albumin = albuminConvert(params.albumin);
+	}
+
+	if (units.calcium === 'mEq/L' && params.calcium) {
+		params.calcium = calciumConvert(params.calcium);
+	}
+
+	if (units.platelet_count === 'units/µL' && params.platelet_count) {
+		params.platelet_count = params.platelet_count / 1000;
+	}
+
+	if (units.crp === 'mg/L' && params.crp) {
+		params.crp = params.crp / 10;
+	}
+	
 	return (dispatch) => {
 		return savePatientDataApi(params)
 			.then((res) => {

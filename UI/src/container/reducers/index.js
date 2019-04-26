@@ -5,50 +5,94 @@ import * as types from './constants';
 const InitialState = {
 	step: 0,
 	patient: {
-		sex: {value: '', label: ''},
-		age: {value: '', label: ''},
-		height: {value: '', label: ''},
-		weight: {value: '', label: ''},
-		bmi: {value: '', label: ''},
-		chronic_health: {value: '', label: ''},
-		ph: {value: '', label: ''},
-		paO2: {value: '', label: ''},
-		paCO2: {value: '', label: ''},
-		hco3_artieral: {value: '', label: ''},
-		spO2: {value: '', label: ''},
-		fiO2: {value: '', label: ''},
-		base_excess: {value: '', label: ''},
-		sodium: {value: '', label: ''},
-		potassium: {value: '', label: ''},
-		chloride: {value: '', label: ''},
-		hco3_serum: {value: '', label: ''},
-		bun: {value: '', label: ''},
-		creatinine: {value: '', label: ''},
-		glucose: {value: '', label: ''},
-		calcium: {value: '', label: ''},
-		albumin: {value: '', label: ''},
-		ast: {value: '', label: ''},
-		alt: {value: '', label: ''},
-		ldh: {value: '', label: ''},
-		wbc: {value: '', label: ''},
-		platelet_count: {value: '', label: ''},
-		hematocrit: {value: '', label: ''},
-		crp: {value: '', label: ''},
-		guarding: { value: '', label: '' },
-		tenderness: { value: '', label: '' },
-		eye_score: {value: '', label: ''},
-		verbal_score: {value: '', label: ''},
-		motor_score: {value: '', label: ''},
-		pleural_eff: {value: '', label: ''},
-		temperature: {value: '', label: ''},
-		bp_systolic: {value: '', label: ''},
-		bp_diastolic: {value: '', label: ''},
-		heart_rate: {value: '', label: ''},
-		resp_rate: {value: '', label: ''},
-		onset_date: {value: '', label: ''},
-		admission_date: {value: '', label: ''}
+		sex: '',
+		age: '',
+		height: '',
+		weight: '',
+		bmi: '',
+		chronic_health: '',
+		ph: '',
+		paO2: '',
+		paCO2: '',
+		hco3_artieral: '',
+		spO2: '',
+		fiO2: '',
+		base_excess: '',
+		sodium: '',
+		potassium: '',
+		chloride: '',
+		hco3_serum: '',
+		bun: '',
+		creatinine: '',
+		glucose: '',
+		calcium: '',
+		albumin: '',
+		ast: '',
+		alt: '',
+		ldh: '',
+		wbc: '',
+		platelet_count: '',
+		hematocrit: '',
+		crp: '',
+		guarding: '',
+		tenderness: '',
+		eye_score: '',
+		verbal_score: '',
+		motor_score: '',
+		pleural_eff: '',
+		temperature: '',
+		bp_systolic: '',
+		bp_diastolic: '',
+		heart_rate: '',
+		resp_rate: ''
 	},
-	units: {},
+	units: {
+		sex: null,
+		age: null,
+		height: 'cm',
+		weight: 'kg',
+		bmi: 'kg/m2',
+		chronic_health: null,
+
+		temperature: 'celcius',
+		bp_systolic: 'mmHg',
+		bp_diastolic: 'mmHg',
+		heart_rate: 'bpm',
+		resp_rate: 'bpm',
+		spO2: '%',	// spO2 pulse oximetry
+
+		guarding: null,
+		tenderness: null,
+		eye_score: null,
+		verbal_score: null,
+		motor_score: null,
+		pleural_eff: null,
+
+		sodium: 'mmol/L',
+		potassium: 'mmol/L',
+		chloride: 'mmol/L',
+		hco3_serum: 'mmol/L',
+		bun: 'mg/dL',
+		creatinine: 'mg/dL',
+		glucose: 'mmol/L',
+		calcium: 'mmol/L',
+		albumin: 'g/dL',
+		ast: 'U/L',
+		alt: 'U/L',
+		ldh: 'IU/L',
+
+		wbc: '10^9 cells/L',
+		platelet_count: '10^3 units/µL',
+		hematocrit: '%',
+		crp: 'mg/dL',
+
+		ph: null,
+		paO2: 'mmHg',
+		paCO2: 'mmHg',
+		hco3_artieral: 'mmol/L',
+		fiO2: '%',
+		base_excess: 'mEq/L'
+	},
 	clinicalScores: [],
 	errorMsg: '',
 	user: {},
@@ -72,13 +116,7 @@ export default function patientReducer(state = InitialState, action) {
 			return {...state, historyData: action.payload.data};
 
 		case types.PATIENTS.GET_HISTORY_BY_DATE:
-			let patient = {};
-			Object.keys(state.patient).map((item) => {
-				patient[item] = {
-					value: '',
-					label: ''
-				};
-			});
+			let patient = {...state.patient};
 
 			const _historyData = state.historyData;
 
@@ -87,13 +125,7 @@ export default function patientReducer(state = InitialState, action) {
 			});
 
 			if (idx !== -1) {
-				const temp = _historyData[idx].input_data;
-				Object.keys(temp).map(item => {
-					patient[item] = {
-						value: temp[item] || '',
-						label: ''
-					};
-				});
+				patient = {..._historyData[idx].input_data};
 			}
 
 			return {...state, patient: patient};

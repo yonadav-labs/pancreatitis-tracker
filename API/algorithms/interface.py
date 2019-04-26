@@ -23,7 +23,7 @@ class AlgorithmInterface:
 
     @classmethod
     def can_process(self):
-        if not all([self.request.get(ii) is not None for ii in self.required_fields]):
+        if not all([self.request.get(ii) for ii in self.required_fields]):
             return False
         semi_req = [all(self.request.get(jj) for jj in ii) for ii in self.semi_req_fields]
         return not self.semi_req_fields or any(semi_req)
@@ -189,7 +189,8 @@ class AlgorithmInterface:
         Returns:
           temperature: Temperature in Celsius
         """
-        if temperature is not None: temperature = (temperature - 32) / 1.8
+        if temperature: 
+            temperature = (temperature - 32) / 1.8
         return temperature
 
     @classmethod

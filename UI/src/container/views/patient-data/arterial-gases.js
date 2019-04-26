@@ -1,5 +1,5 @@
 import React from 'react';
-import {validateForm} from '../../utils/utils';
+import {validateStep} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
 
 class ArterialGases extends React.Component {
@@ -15,12 +15,12 @@ class ArterialGases extends React.Component {
 				base_excess: this.props.data.base_excess
 			},
 			units: {
-				ph: this.props.units.ph || '',
-				paO2: this.props.units.paO2 || 'mmHg',
-				paCO2: this.props.units.paCO2 || 'mmHg',
-				hco3_artieral: this.props.units.hco3_artieral || 'mmol/L',
-				fiO2: this.props.units.fiO2 || '%',
-				base_excess: this.props.units.base_excess || 'mEq/L'
+				ph: this.props.units.ph,
+				paO2: this.props.units.paO2,
+				paCO2: this.props.units.paCO2,
+				hco3_artieral: this.props.units.hco3_artieral,
+				fiO2: this.props.units.fiO2,
+				base_excess: this.props.units.base_excess
 			},
 			rules: {
 				ph: {
@@ -77,56 +77,24 @@ class ArterialGases extends React.Component {
 
 	changeInfo(e) {
 		let params = this.state.arterialGases;
-		const {rules} = this.state;
-		if (rules[e.target.id] && rules[e.target.id].type === "integer") {
-			if (!isNaN(parseFloat(e.target.value))) {
-				params[e.target.id].value = parseFloat(e.target.value);
-			} else {
-				params[e.target.id].value = e.target.value;
-			}
-		} else {
-			params[e.target.id].value = e.target.value;
-		}
+		params[e.target.id] = e.target.value;
 
 		this.setState({ arterialGases: params });
 	}
 
 	isValidated = () => {
-		let isPageValidated = false;
-		const errors = {};
 		const {rules, arterialGases, units} = this.state;
-
-		Object.keys(arterialGases).forEach((data) => {
-			if (rules[data]) {
-				const validateResponse = validateForm(rules[data], arterialGases[data], units[data]);
-				if (!validateResponse.success) {
-					errors[data] = {
-						msg: validateResponse.msg
-					};
-				}
-			}
-		});
+		const {data, errors} = validateStep(arterialGases, units, rules);
+		let isPageValid = true;
 
 		if (Object.keys(errors).length > 0) {
+			isPageValid = false;
 			this.setState({ errors });
 		} else {
-			let temp = Object.assign({}, arterialGases);
-			
-			Object.keys(arterialGases).forEach((attr) => {
-				if (rules[attr] && (rules[attr].type === "integer" || rules[attr].type === "float")) {
-					if (!isNaN(parseFloat(arterialGases[attr].value))) {
-						temp[attr].value = parseFloat(arterialGases[attr].value);
-					}
-				}
-			});
-
-			this.props.updateInfo(temp, this.state.units);
-			this.setState({ errors: {} });
-			
-			isPageValidated = true;
+			this.props.updateInfo(data, units);
 		}
 
-		return isPageValidated;
+		return isPageValid;
 	}
 
 	next = () => {
@@ -156,7 +124,7 @@ class ArterialGases extends React.Component {
 									id="ph"
 									className="round-input"
 									maxLength="7"
-									value={arterialGases.ph.value}
+									value={arterialGases.ph}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -177,7 +145,7 @@ class ArterialGases extends React.Component {
 										id="paO2"
 										maxLength="7"
 										className="round-input"
-										value={arterialGases.paO2.value}
+										value={arterialGases.paO2}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -202,7 +170,7 @@ class ArterialGases extends React.Component {
 										id="paCO2"
 										maxLength="7"
 										className="round-input"
-										value={arterialGases.paCO2.value}
+										value={arterialGases.paCO2}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -227,7 +195,7 @@ class ArterialGases extends React.Component {
 										id="hco3_artieral"
 										className="round-input"
 										maxLength="7"
-										value={arterialGases.hco3_artieral.value}
+										value={arterialGases.hco3_artieral}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -251,7 +219,7 @@ class ArterialGases extends React.Component {
 									maxLength="7"
 									id="fiO2"
 									className="round-input"
-									value={arterialGases.fiO2.value}
+									value={arterialGases.fiO2}
 									onChange={this.changeInfo}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -272,7 +240,7 @@ class ArterialGases extends React.Component {
 										id="base_excess"
 										maxLength="7"
 										className="round-input"
-										value={arterialGases.base_excess.value}
+										value={arterialGases.base_excess}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">

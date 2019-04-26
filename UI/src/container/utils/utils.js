@@ -78,168 +78,137 @@ export const hasOnlyOneSpace = (text) => {
 	return false;
 }
 
-export function validateForm(rule, data, unit) {
-	let isValidate = true;
+export function checkValidity(rule, data, unit) {
+	let isValid = true;
 	let errorMsg = 'Please enter valid data.';
-		
+	let value = data;
+
 	if (rule) {
 		if (!rule.required) {
-			if (!data || data.value === '') {
-				return { success: true, msg: ''};
+			if (!data || data === '') {
+				return { isValid: true, msg: '', val: value };
 			}
 		}
 
 		switch(rule.type) {
 			case 'float':
-				if (count(data.value, '\\.') < 2) {
-					console.log('$$$$$$: ', isNaN(parseFloat(data.value)));
-					if (!isNaN(parseFloat(data.value))) {
-						rule.range.forEach((range) => {
-							if (
-								// range.unit === data.unit &&
-								range.unit === unit &&
-								(
-									range.min > parseFloat(data.value, 10)
-									|| range.max < parseFloat(data.value, 10)
-								)
-							) {
-								isValidate = false;
-								errorMsg = `Valid in (${range.min}, ${range.max})`;
-							}
-						});
+				if (count(data, '\\.') < 2) {
+					if (!isNaN(parseFloat(data))) {
+						if (rule.range) {
+							value = parseFloat(data);
+							rule.range.forEach((range) => {
+								if (range.unit === unit && ( range.min > value || range.max < value ) ) {
+									isValid = false;
+									errorMsg = `Valid in (${range.min}, ${range.max})`;
+								}
+							});							
+						}
 					} else {
-						isValidate = false;
+						isValid = false;
 					}
 				} else {
-					isValidate = false;
+					isValid = false;
 				}
 
 				break;
-
 			case 'integer':
-				if (count(data.value, '\\.') == 0) {
-					if (isInteger(parseInt(data.value))) {
-						rule.range.forEach((range) => {
-							if (
-								range.unit === unit &&
-								(
-									range.min > parseFloat(data.value, 10)
-									|| range.max < parseFloat(data.value, 10)
-								)
-							) {
-								isValidate = false;
-								errorMsg = `Valid in (${range.min}, ${range.max})`;
-							}
-						});
+				if (count(data, '\\.') == 0) {
+					if (!isNaN(parseInt(data))) {
+						if (rule.range) {
+							value = parseInt(data);
+							rule.range.forEach((range) => {
+								if (range.unit === unit && ( range.min > value || range.max < value ) ) {
+									isValid = false;
+									errorMsg = `Valid in (${range.min}, ${range.max})`;
+								}
+							});							
+						}
 					} else {
-						isValidate = false;
+						isValid = false;
 					}
 				} else {
-					isValidate = false;
+					isValid = false;
 				}
 
 				break;
-			
 			case 'email':
-				if (!validateEmail(data.value)) {
-					isValidate = false;
+				if (!validateEmail(data)) {
+					isValid = false;
 				}
 
 				break;
-			
 			case 'phone':
-				if (!validatePhoneNumber(data.value)) {
-					isValidate = false;
+				if (!validatePhoneNumber(data)) {
+					isValid = false;
 				}
 
 				break;
-
 			case 'text':
-				if (typeof data.value !== "string" || data.value === ""){
-					isValidate = false;
+				if (typeof data !== "string" || data === ""){
+					isValid = false;
 				}
 				break;
-			
 			case 'boolean':
-				if (typeof data.value !== "boolean" || data.value === ""){
-					isValidate = false;
+				if (typeof data !== "boolean" || data === ""){
+					isValid = false;
 				}
 				break;
-			
-			default: break;
 		}
 	}
 
-	return { success: isValidate, msg: errorMsg };
+	return { isValid: isValid, msg: errorMsg, val: value };
+}
+
+export const validateStep = (data, units, rules) => {
+	let _data = {...data};
+	let errors = {};
+
+	Object.keys(_data).forEach((attr) => {
+		if (rules[attr]) {
+			const res = checkValidity(rules[attr], _data[attr], units[attr]);
+			if (res.isValid) {
+				_data[attr] = res.val;
+			} else {
+				errors[attr] = { msg: res.msg };
+			}
+		}
+	});
+
+	return { data: _data, errors: errors };
 }
 
 export const validateAccount = (rule, data) => {
-	let isValidate = true;
+	let isValid = true;
 
 	switch(rule.type) {
 		case 'email':
 			if (!validateEmail(data)) {
-				isValidate = false;
+				isValid = false;
 			}
 
 			break;
 		
 		case 'phone':
 			if (!validatePhoneNumber(data)) {
-				isValidate = false;
+				isValid = false;
 			}
 
 			break;
 
 		case 'text':
 			if (typeof data !== "string" || data === ""){
-				isValidate = false;
+				isValid = false;
 			}
 			break;
 
 		case 'name':
 			if (data === "" || !allLetter(data) || !hasOnlyOneSpace(data)){
-				isValidate = false;
+				isValid = false;
 			}
 			break;
 
 		default: break;
 	}
 
-	return isValidate;
-}
-
-export const lbToKgConvert = (lbs) => {
-	return lbs / 2.2046;
-}
-
-export const inchToCmConvert = (lbs) => {
-	return lbs * 2.54;
-}
-
-export const fToC = (fahrenheit) => {
-	var fTemp = fahrenheit;
-	var fToCel = (fTemp - 32) * 5 / 9;
-	return fToCel;
-}
-
-export const mgDlToMmolL = (value) => {
-	var calculated = value * 18.018018;
-	return calculated.toFixed(6);
-}
-
-export const sodiumConvert = (val) => {
-	return val;
-}
-
-export const glucoseConvert = (val) => {
-	return val * 0.0554994394556615;
-}
-
-export const calciumConvert = (val) => {
-	return val * 0.25;
-}
-
-export const albuminConvert = (val) => {
-	return val * 0.1;
+	return isValid;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import Select from 'react-select';
-import {validateForm} from '../../utils/utils';
+import {validateStep} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
 
 const booleanOption = [
@@ -52,11 +52,11 @@ class PhysicalExam extends React.Component {
 				pleural_eff: this.props.data.pleural_eff
 			},
 			units: {
-				guarding: '',
-				eye_score: 'a.u',
-				verbal_score: 'a.u',
-				motor_score: 'a.u',
-				pleural_eff: ''
+				guarding: this.props.units.guarding,
+				eye_score: this.props.units.eye_score,
+				verbal_score: this.props.units.verbal_score,
+				motor_score: this.props.units.motor_score,
+				pleural_eff: this.props.units.pleural_eff
 			},
 			rules: {
 				guarding: {
@@ -71,35 +71,20 @@ class PhysicalExam extends React.Component {
 					name: 'pleural_eff',
 					type: ''
 				},
-				glasgow_coma: {
-					name: 'glasgow_coma',
-					type: 'float',
-					range: [{ min: 3, max: 15, unit: 'a.u'}]
-				},
 				eye_score: {
 					name: 'eye_score',
-					type: 'float',
-					range: [
-						{ min: 1, max: 4, unit: 'a.u' }
-					]
+					type: 'integer'
 				},
 				verbal_score: {
 					name: 'verbal_score',
-					type: 'float',
-					range: [
-						{ min: 1, max: 5, unit: 'a.u' }
-					]
+					type: 'integer'
 				},
 				motor_score: {
 					name: 'motor_score',
-					type: 'float',
-					range: [
-						{ min: 1, max: 6, unit: 'a.u' }
-					]
+					type: 'integer'
 				}
 			},
-			errors: {},
-			glasgow_coma: 0
+			errors: {}
 		};
 
 		this.changeInfo = this.changeInfo.bind(this);
@@ -112,71 +97,31 @@ class PhysicalExam extends React.Component {
 
 	changeInfo(e) {
 		let params = this.state.physicalExam;
-		const {rules} = this.state;
-		if (rules[e.target.id] && rules[e.target.id].type === "integer") {
-			if (!isNaN(parseFloat(e.target.value))) {
-				params[e.target.id].value = parseFloat(e.target.value);
-			} else {
-				params[e.target.id].value = e.target.value;
-			}
-		} else {
-			params[e.target.id].value = e.target.value;
-		}
+		params[e.target.id] = e.target.value;
 
 		this.setState({ physicalExam: params });
-		this.props.updateInfo(params, this.state.units);
 	}
 
 	changeOption = (id, val) => {
-		let {physicalExam, glasgow_coma} = this.state;
-		physicalExam[id] = {...physicalExam[id], ...val};
+		let {physicalExam} = this.state;
+		physicalExam[id] = val.value;
 
-		if (id === 'eye_score' || id === 'verbal_score' || id === 'motor_score') {
-			glasgow_coma += val.value;
-		}
-
-		this.setState({ physicalExam, glasgow_coma });
-		this.props.updateInfo(physicalExam, this.state.units);
+		this.setState({ physicalExam });
 	}
 
 	isValidated = () => {
-		let isPageValdiated = false;
-		const errors = {};
-		const {rules, physicalExam, units, glasgow_coma} = this.state;
-
-		Object.keys(physicalExam).forEach((data) => {
-			if (rules[data]) {
-				const validateResponse = validateForm(rules[data], physicalExam[data], units[data]);
-				if (!validateResponse.success) {
-					errors[data] = {
-						msg: validateResponse.msg
-					};
-				}
-			}
-		});
-
-		if (glasgow_coma !== 0) {
-			const msg = 'Value should be selected.';
-			if (physicalExam.verbal_score.value === '') {
-				errors.verbal_score = { msg: msg };
-			}
-
-			if (physicalExam.motor_score.value === '') {
-				errors.motor_score = { msg: msg };
-			}
-
-			if (physicalExam.eye_score.value === '') {
-				errors.eye_score = { msg: msg };
-			}
-		}
+		const {rules, physicalExam, units} = this.state;
+		const {data, errors} = validateStep(physicalExam, units, rules);
+		let isPageValid = true;
 
 		if (Object.keys(errors).length > 0) {
+			isPageValid = false;
 			this.setState({ errors });
 		} else {
-			isPageValdiated = true;
+			this.props.updateInfo(data, units);
 		}
 
-		return isPageValdiated;
+		return isPageValid;
 	}
 
 	next = () => {
@@ -213,7 +158,7 @@ class PhysicalExam extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('guarding', e)}
-									value={booleanOption.filter(option => option.value === physicalExam.guarding.value)}
+									value={booleanOption.filter(option => option.value === physicalExam.guarding)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.guarding && errors.guarding.msg}
@@ -238,7 +183,7 @@ class PhysicalExam extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('tenderness', e)}
-									value={booleanOption.filter(option => option.value === physicalExam.tenderness.value)}
+									value={booleanOption.filter(option => option.value === physicalExam.tenderness)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.tenderness && errors.tenderness.msg}
@@ -258,7 +203,7 @@ class PhysicalExam extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('pleural_eff', e)}
-									value={pleural_effOption.filter(option => option.value === physicalExam.pleural_eff.value)}
+									value={pleural_effOption.filter(option => option.value === physicalExam.pleural_eff)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.physicalExam && errors.physicalExam.msg}
@@ -280,7 +225,7 @@ class PhysicalExam extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('eye_score', e)}
-									value={eyeResponseOption.filter(option => option.value === physicalExam.eye_score.value)}
+									value={eyeResponseOption.filter(option => option.value === physicalExam.eye_score)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.eye_score && errors.eye_score.msg}
@@ -299,7 +244,7 @@ class PhysicalExam extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('verbal_score', e)}
-									value={verbalResponseOption.filter(option => option.value === physicalExam.verbal_score.value)}
+									value={verbalResponseOption.filter(option => option.value === physicalExam.verbal_score)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.verbal_score && errors.verbal_score.msg}
@@ -318,7 +263,7 @@ class PhysicalExam extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('motor_score', e)}
-									value={motorResponseOption.filter(option => option.value === physicalExam.motor_score.value)}
+									value={motorResponseOption.filter(option => option.value === physicalExam.motor_score)}
 									
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">

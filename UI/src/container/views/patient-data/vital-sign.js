@@ -1,10 +1,7 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
-import {validateForm} from '../../utils/utils';
+import {validateStep} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
-import {
-	fToC
-} from '../../utils/utils';
 
 class VitalSigns extends React.Component {
 	constructor(props) {
@@ -19,12 +16,12 @@ class VitalSigns extends React.Component {
 				spO2: this.props.data.spO2
 			},
 			units: {
-				temperature: this.props.units.temperature || 'celcius',
-				bp_systolic: this.props.units.bp_systolic || 'mmHg',
-				bp_diastolic: this.props.units.bp_diastolic || 'mmHg',
-				heart_rate: this.props.units.heart_rate || 'bpm',
-				resp_rate: this.props.units.resp_rate || 'bpm',
-				spO2: this.props.units.spO2 || '%'
+				temperature: this.props.units.temperature,
+				bp_systolic: this.props.units.bp_systolic,
+				bp_diastolic: this.props.units.bp_diastolic,
+				heart_rate: this.props.units.heart_rate,
+				resp_rate: this.props.units.resp_rate,
+				spO2: this.props.units.spO2
 			},
 			rules: {
 				temperature: {
@@ -69,11 +66,7 @@ class VitalSigns extends React.Component {
 					]
 				}
 			},
-			errors: {},
-			temperateOption: [
-				{value: 'celcius', label: '°C'},
-				{value: 'fahrenheit', label: '°F'}
-			]
+			errors: {}
 		};
 
 		this.changeInfo = this.changeInfo.bind(this);
@@ -85,18 +78,8 @@ class VitalSigns extends React.Component {
 	}
 
 	changeInfo(e) {
-		let params = this.state.vitalSigns;
-		const {rules} = this.state;
-		if (rules[e.target.id] && rules[e.target.id].type === "integer") {
-			if (!isNaN(parseFloat(e.target.value))) {
-				params[e.target.id].value = parseFloat(e.target.value);
-			} else {
-				params[e.target.id].value = e.target.value;
-			}
-
-		} else {
-			params[e.target.id].value = e.target.value;
-		}
+		let params = {...this.state.vitalSigns};
+		params[e.target.id] = e.target.value;
 
 		this.setState({ vitalSigns: params });
 	}
@@ -109,46 +92,18 @@ class VitalSigns extends React.Component {
 	}
 
 	isValidated = () => {
-		let isPageValidated = false;
 		const {vitalSigns, units, rules} = this.state;
-		const errors = {};
-
-		Object.keys(vitalSigns).forEach((data) => {
-			if (rules[data]) {
-				const validateResponse = validateForm(rules[data], vitalSigns[data], units[data]);
-				if (!validateResponse.success) {
-					errors[data] = {
-						msg: validateResponse.msg
-					};
-				}
-			}
-		});
+		const {data, errors} = validateStep(vitalSigns, units, rules);
+		let isPageValid = true;
 
 		if (Object.keys(errors).length > 0) {
+			isPageValid = false;
 			this.setState({ errors });
 		} else {
-			let temp = Object.assign({}, vitalSigns);
-			
-			Object.keys(vitalSigns).forEach((attr) => {
-				if (rules[attr] && (rules[attr].type === "integer" || rules[attr].type === "float")) {
-					if (!isNaN(parseFloat(vitalSigns[attr].value))) {
-						temp[attr].value = parseFloat(vitalSigns[attr].value);
-					}
-				}
-			});
-
-			if (units.temperature === 'fahrenheit') {
-				let temperature = Object.assign({}, temp.temperature);
-				
-				temperature.calculatedValue = fToC(temperature.value);
-				temp.temperature = temperature;
-			}
-
-			isPageValidated = true;
-			this.props.updateInfo(temp, units);
+			this.props.updateInfo(data, units);
 		}
 
-		return isPageValidated;
+		return isPageValid;
 	}
 
 	next = () => {
@@ -180,7 +135,7 @@ class VitalSigns extends React.Component {
 										id="temperature"
 										maxLength="7"
 										className="round-input"
-										value={units.temperature && vitalSigns.temperature.value}
+										value={vitalSigns.temperature}
 										onChange={this.changeInfo}
 									/>
 									<select
@@ -216,7 +171,7 @@ class VitalSigns extends React.Component {
 										id="bp_systolic"
 										maxLength="7"
 										className="round-input"
-										value={vitalSigns.bp_systolic && vitalSigns.bp_systolic.value}
+										value={vitalSigns.bp_systolic}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -241,7 +196,7 @@ class VitalSigns extends React.Component {
 										id="bp_diastolic"
 										maxLength="7"
 										className="round-input"
-										value={vitalSigns.bp_diastolic && vitalSigns.bp_diastolic.value}
+										value={vitalSigns.bp_diastolic}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -272,7 +227,7 @@ class VitalSigns extends React.Component {
 										id="heart_rate"
 										maxLength="7"
 										className="round-input"
-										value={vitalSigns.heart_rate && vitalSigns.heart_rate.value}
+										value={vitalSigns.heart_rate}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -297,7 +252,7 @@ class VitalSigns extends React.Component {
 										id="resp_rate"
 										maxLength="7"
 										className="round-input"
-										value={vitalSigns.resp_rate && vitalSigns.resp_rate.value}
+										value={vitalSigns.resp_rate}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
@@ -328,7 +283,7 @@ class VitalSigns extends React.Component {
 										id="spO2"
 										maxLength="7"
 										className="round-input"
-										value={vitalSigns.spO2 && vitalSigns.spO2.value}
+										value={vitalSigns.spO2}
 										onChange={this.changeInfo}
 									/>
 									<select className="input-inline-select">
