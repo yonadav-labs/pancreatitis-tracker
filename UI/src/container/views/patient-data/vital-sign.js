@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
-import {checkValidity} from '../../utils/utils';
+import {validateStep} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
 
 class VitalSigns extends React.Component {
@@ -93,25 +93,14 @@ class VitalSigns extends React.Component {
 
 	isValidated = () => {
 		const {vitalSigns, units, rules} = this.state;
-		const errors = {};
+		const {data, errors} = validateStep(vitalSigns, units, rules);
 		let isPageValid = true;
-
-		Object.keys(vitalSigns).forEach((attr) => {
-			if (rules[attr]) {
-				const res = checkValidity(rules[attr], vitalSigns[attr], units[attr]);
-				if (res.isValid) {
-					vitalSigns[attr] = res.val;
-				} else {
-					errors[attr] = { msg: res.msg };
-				}
-			}
-		});
 
 		if (Object.keys(errors).length > 0) {
 			isPageValid = false;
 			this.setState({ errors });
 		} else {
-			this.props.updateInfo(vitalSigns, this.state.units);
+			this.props.updateInfo(data, units);
 		}
 
 		return isPageValid;

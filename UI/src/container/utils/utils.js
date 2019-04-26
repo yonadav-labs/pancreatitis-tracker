@@ -94,13 +94,15 @@ export function checkValidity(rule, data, unit) {
 			case 'float':
 				if (count(data, '\\.') < 2) {
 					if (!isNaN(parseFloat(data))) {
-						value = parseFloat(data);
-						rule.range.forEach((range) => {
-							if (range.unit === unit && ( range.min > value || range.max < value ) ) {
-								isValid = false;
-								errorMsg = `Valid in (${range.min}, ${range.max})`;
-							}
-						});
+						if (rule.range) {
+							value = parseFloat(data);
+							rule.range.forEach((range) => {
+								if (range.unit === unit && ( range.min > value || range.max < value ) ) {
+									isValid = false;
+									errorMsg = `Valid in (${range.min}, ${range.max})`;
+								}
+							});							
+						}
 					} else {
 						isValid = false;
 					}
@@ -112,13 +114,15 @@ export function checkValidity(rule, data, unit) {
 			case 'integer':
 				if (count(data, '\\.') == 0) {
 					if (!isNaN(parseInt(data))) {
-						value = parseInt(data);
-						rule.range.forEach((range) => {
-							if (range.unit === unit && ( range.min > value || range.max < value ) ) {
-								isValid = false;
-								errorMsg = `Valid in (${range.min}, ${range.max})`;
-							}
-						});
+						if (rule.range) {
+							value = parseInt(data);
+							rule.range.forEach((range) => {
+								if (range.unit === unit && ( range.min > value || range.max < value ) ) {
+									isValid = false;
+									errorMsg = `Valid in (${range.min}, ${range.max})`;
+								}
+							});							
+						}
 					} else {
 						isValid = false;
 					}

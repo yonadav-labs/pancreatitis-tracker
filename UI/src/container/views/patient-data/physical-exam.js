@@ -1,7 +1,7 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import Select from 'react-select';
-import {checkValidity} from '../../utils/utils';
+import {validateStep} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
 
 const booleanOption = [
@@ -73,24 +73,15 @@ class PhysicalExam extends React.Component {
 				},
 				eye_score: {
 					name: 'eye_score',
-					type: 'float',
-					range: [
-						{ min: 1, max: 4, unit: null }
-					]
+					type: 'integer'
 				},
 				verbal_score: {
 					name: 'verbal_score',
-					type: 'float',
-					range: [
-						{ min: 1, max: 5, unit: null }
-					]
+					type: 'integer'
 				},
 				motor_score: {
 					name: 'motor_score',
-					type: 'float',
-					range: [
-						{ min: 1, max: 6, unit: null }
-					]
+					type: 'integer'
 				}
 			},
 			errors: {}
@@ -106,19 +97,9 @@ class PhysicalExam extends React.Component {
 
 	changeInfo(e) {
 		let params = this.state.physicalExam;
-		const {rules} = this.state;
-		if (rules[e.target.id] && rules[e.target.id].type === "integer") {
-			if (!isNaN(parseFloat(e.target.value))) {
-				params[e.target.id] = parseFloat(e.target.value);
-			} else {
-				params[e.target.id] = e.target.value;
-			}
-		} else {
-			params[e.target.id] = e.target.value;
-		}
+		params[e.target.id] = e.target.value;
 
 		this.setState({ physicalExam: params });
-		this.props.updateInfo(params, this.state.units);
 	}
 
 	changeOption = (id, val) => {
@@ -126,32 +107,21 @@ class PhysicalExam extends React.Component {
 		physicalExam[id] = val.value;
 
 		this.setState({ physicalExam });
-		this.props.updateInfo(physicalExam, this.state.units);
 	}
 
 	isValidated = () => {
-		let isPageValdiated = false;
-		const errors = {};
 		const {rules, physicalExam, units} = this.state;
-
-		Object.keys(physicalExam).forEach((data) => {
-			if (rules[data]) {
-				const validateResponse = checkValidity(rules[data], physicalExam[data], units[data]);
-				if (!validateResponse.success) {
-					errors[data] = {
-						msg: validateResponse.msg
-					};
-				}
-			}
-		});
+		const {data, errors} = validateStep(physicalExam, units, rules);
+		let isPageValid = true;
 
 		if (Object.keys(errors).length > 0) {
+			isPageValid = false;
 			this.setState({ errors });
 		} else {
-			isPageValdiated = true;
+			this.props.updateInfo(data, units);
 		}
 
-		return isPageValdiated;
+		return isPageValid;
 	}
 
 	next = () => {
