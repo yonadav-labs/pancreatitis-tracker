@@ -3,7 +3,7 @@ import ReactTooltip from 'react-tooltip';
 import GreenButton from "../../components/GreenButton";
 import Select from 'react-select';
 import {
-	checkValidity,
+	validateStep,
 	lbToKgConvert,
 	inchTomConvert
 } from '../../utils/utils';
@@ -107,26 +107,15 @@ class BasicInfo extends React.Component {
 	}
 
 	isValidated = () => {
-		const errors = {};
 		const {rules, basicInfo, units} = this.state;
+		const {data, errors} = validateStep(basicInfo, units, rules);
 		let isPageValid = true;
-
-		Object.keys(basicInfo).forEach((attr) => {
-			if (rules[attr]) {
-				const res = checkValidity(rules[attr], basicInfo[attr], units[attr]);
-				if (res.isValid) {
-					basicInfo[attr] = res.val;
-				} else {
-					errors[attr] = { msg: res.msg };
-				}
-			}
-		});
 
 		if (Object.keys(errors).length > 0) {
 			isPageValid = false;
 			this.setState({ errors });
 		} else {
-			this.props.updateInfo(basicInfo, this.state.units);
+			this.props.updateInfo(data, units);
 		}
 
 		return isPageValid;

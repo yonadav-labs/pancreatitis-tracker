@@ -155,6 +155,24 @@ export function checkValidity(rule, data, unit) {
 	return { isValid: isValid, msg: errorMsg, val: value };
 }
 
+export const validateStep = (data, units, rules) => {
+	let _data = {...data};
+	let errors = {};
+
+	Object.keys(_data).forEach((attr) => {
+		if (rules[attr]) {
+			const res = checkValidity(rules[attr], _data[attr], units[attr]);
+			if (res.isValid) {
+				_data[attr] = res.val;
+			} else {
+				errors[attr] = { msg: res.msg };
+			}
+		}
+	});
+
+	return { data: _data, errors: errors };
+}
+
 export const validateAccount = (rule, data) => {
 	let isValid = true;
 
