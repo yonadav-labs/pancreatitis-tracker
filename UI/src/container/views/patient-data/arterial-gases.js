@@ -99,8 +99,10 @@ class ArterialGases extends React.Component {
 
 	next = () => {
 		if (this.isValidated()) {
-			this.props.savePatientData();
-			this.props.history.push('/outputs');
+			setTimeout(() => {
+				this.props.savePatientData();
+				this.props.history.push('/outputs');
+			}, 100);
 		}
 	}
 

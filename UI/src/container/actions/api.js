@@ -105,7 +105,6 @@ export const loginApi = (username, password) => {
 			};
 		})
 		.catch((err) => {
-			console.log('login acttion err', err);
 			return {
 				success: false,
 				error: err
@@ -150,7 +149,6 @@ export const createAccountApi = (data) => {
 			};
 		})
 		.catch((err) => {
-			console.log('register acttion err', err);
 			return {
 				success: false,
 				msg: err

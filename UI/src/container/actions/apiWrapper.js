@@ -104,7 +104,6 @@ export const postApi = (url, body) => {
 			throw response;
 		})
 		.catch(err => {
-			console.log('api post wrapper', err);
 			return err.text().then(errors => {
 				let errorResponse = JSON.parse(errors);
 

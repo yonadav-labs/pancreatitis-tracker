@@ -34,7 +34,7 @@ class BasicInfo extends React.Component {
 				height: this.props.data.height,
 				weight: this.props.data.weight,
 				bmi: this.props.data.bmi,
-				chronic_health: this.props.data.chronic_health
+				chronic_health: this.props.data.chronic_health,
 				admission_date: this.props.data.admission_date,
 				onset_date: this.props.data.onset_date
 			},
@@ -170,10 +170,9 @@ class BasicInfo extends React.Component {
 	}
 
 	changeDate = (id, date) => {
-		console.log('aDFDS: ', date);
 		const params = { ...this.state.basicInfo };
-		params[id].value = date.toISOString();
-		this.setState(params);
+		params[id] = date.toISOString();
+		this.setState({basicInfo: params});
 	}
 
 	render() {
@@ -344,8 +343,8 @@ class BasicInfo extends React.Component {
 									id="onset_date"
 									className="round-input"
 									selected={
-										basicInfo.onset_date && basicInfo.onset_date.value
-											? new Date(basicInfo.onset_date.value)
+										basicInfo.onset_date
+											? new Date(basicInfo.onset_date)
 											: null
 									}
 									onSelect={(date) => this.changeDate('onset_date', date)}
@@ -370,8 +369,8 @@ class BasicInfo extends React.Component {
 									id="admission_date"
 									className="round-input"
 									selected={
-										basicInfo.admission_date && basicInfo.admission_date.value
-											? new Date(basicInfo.admission_date.value)
+										basicInfo.admission_date
+											? new Date(basicInfo.admission_date)
 											: null
 									}
 									onSelect={(date) => this.changeDate('admission_date', date)}

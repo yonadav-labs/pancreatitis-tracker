@@ -44,7 +44,9 @@ const InitialState = {
 		bp_systolic: '',
 		bp_diastolic: '',
 		heart_rate: '',
-		resp_rate: ''
+		resp_rate: '',
+		onset_date: '',
+		admission_date: ''
 	},
 	units: {
 		sex: null,
