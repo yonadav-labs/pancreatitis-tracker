@@ -7,6 +7,8 @@ import {
 	lbToKgConvert,
 	inchTomConvert
 } from '../../utils/conversions';
+import DatePicker from 'react-datepicker';
+import "react-datepicker/dist/react-datepicker.css";
 import DropdownMenu from '../../components/DropdownMenu';
 
 const sexOption = [
@@ -33,6 +35,8 @@ class BasicInfo extends React.Component {
 				weight: this.props.data.weight,
 				bmi: this.props.data.bmi,
 				chronic_health: this.props.data.chronic_health
+				admission_date: this.props.data.admission_date,
+				onset_date: this.props.data.onset_date
 			},
 			units: {
 				sex: this.props.units.sex,
@@ -163,6 +167,13 @@ class BasicInfo extends React.Component {
 	getHistoryByDate = (date) => {
 		this.props.getHistoryByDate(date);
 		this.setState({ historyDate: date });
+	}
+
+	changeDate = (id, date) => {
+		console.log('aDFDS: ', date);
+		const params = { ...this.state.basicInfo };
+		params[id].value = date.toISOString();
+		this.setState(params);
 	}
 
 	render() {
@@ -329,13 +340,18 @@ class BasicInfo extends React.Component {
 								</div>
 							</div>
 							<div className="col-xs-12 col-md-6">
-								<input
-									type="text"
+								<DatePicker
 									id="onset_date"
 									className="round-input"
+									selected={
+										basicInfo.onset_date && basicInfo.onset_date.value
+											? new Date(basicInfo.onset_date.value)
+											: null
+									}
+									onSelect={(date) => this.changeDate('onset_date', date)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.chronic_health && errors.chronic_health.msg}
+									{errors.onset_date && errors.onset_date.msg}
 								</label>
 							</div>
 						</div>
@@ -350,13 +366,18 @@ class BasicInfo extends React.Component {
 								</div>
 							</div>
 							<div className="col-xs-12 col-md-6">
-								<input
-									type="text"
+								<DatePicker
 									id="admission_date"
 									className="round-input"
+									selected={
+										basicInfo.admission_date && basicInfo.admission_date.value
+											? new Date(basicInfo.admission_date.value)
+											: null
+									}
+									onSelect={(date) => this.changeDate('admission_date', date)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.chronic_health && errors.chronic_health.msg}
+									{errors.admission_date && errors.admission_date.msg}
 								</label>
 							</div>
 						</div>
