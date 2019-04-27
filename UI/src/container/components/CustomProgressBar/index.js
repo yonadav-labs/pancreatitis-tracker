@@ -69,8 +69,7 @@ class CustomProgressBar extends React.PureComponent {
 					}
 				</div>
 				<div className="section-description grey-color-text mb-0 ml-5">
-					<label className="">Threshold:</label>
-					<span className="">{this.props.scoreRange.threshold}</span>
+					<label>(Threshold: {this.props.scoreRange.threshold})</label>
 				</div>
 			</div>
 		);

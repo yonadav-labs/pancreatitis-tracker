@@ -30,10 +30,6 @@ class Outputs extends React.Component {
 		this.setState({ clinicalScores: nextProps.clinicalScores });
 	}
 
-	goToPatientPage = () => {
-		this.props.history.push('/patient');
-	}
-
 	getRuleId = (value) => {
 		const replaceName = 'Rule';
 		return parseInt(value.replace(replaceName, '').trim(), 10);
@@ -205,8 +201,8 @@ class Outputs extends React.Component {
 							</div>
 						</div>
 						<div className="row space-between-section mb-5">
-							<GreenButton text="Back" onClick={this.goToPatientPage} />
-							<GreenButton text="Save as PDF" />
+							<GreenButton text="Back" onClick={() => this.props.history.push('/patient')} />
+							<GreenButton text="Next" onClick={() => this.props.history.push('/feedback')} />
 						</div>
 					</div>
 				</div>

@@ -8,7 +8,7 @@ class ContactUs extends React.Component {
 	}
 
 	goToOrder = () => {
-		this.props.history.push('/order');
+		window.open('https://portal.arielmedicine.com/register', "_blank");
 	}
 
 	render () {
@@ -23,8 +23,8 @@ class ContactUs extends React.Component {
 						<p>Our platform integrates a patient’s symptoms and genetics (derived through Next Generation Sequencing of more than 700 gene targets) with complex medical information using systems modeling, machine learning and other advanced reporting technology. The process compares a patient and his or her disease behavior against databases of well-mapped, complex disease patterns to help determine both the underlying cause of the disease and the optimal treatment plan.</p>
 						<p>ARIEL headquarters are in Pittsburgh, PA, with additional offices in Chicago and Los Angeles. ARIEL is also a member company at MATTER in Chicago.</p>
 					</div>
-					<div className="space-between-section">
-						<GreenButton text="Email Us" />
+					<div className="space-between-section mb-5">
+						<a className="btn green-button" href="mailto:info@arielmedicine.com">Email Us</a>
 						<GreenButton text="Order ArielDx" onClick={this.goToOrder} />
 					</div>
 				</div>
@@ -34,4 +34,3 @@ class ContactUs extends React.Component {
 }
 
 export default ContactUs;
-

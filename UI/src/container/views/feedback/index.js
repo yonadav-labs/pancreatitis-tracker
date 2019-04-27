@@ -31,8 +31,9 @@ class Feedback extends React.Component {
 							value={this.state.feedback}
 							onChange={this.changeValue}
 						/>
-						<div className="d-flex justify-content-center">
+						<div className="space-between-section mb-5">
 							<GreenButton text="Send Feedback" />
+							<GreenButton text="Continue" onClick={() => this.props.history.push('/contact')} />
 						</div>
 					</div>
 				</div>
