@@ -11,7 +11,7 @@ class Outputs extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			recommendations: 'Based on the patient\'s body composition, average daily fluid needs are maintenance fluid_ mL/day.',
+			recommendations: this.props.maintenance_fluid || '',
 			clinicalScores: this.props.clinicalScores || []
 		};
 
@@ -27,7 +27,7 @@ class Outputs extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.setState({ clinicalScores: nextProps.clinicalScores });
+		this.setState({ clinicalScores: nextProps.clinicalScores, recommendations: nextProps.maintenance_fluid });
 	}
 
 	getRuleId = (value) => {
@@ -214,7 +214,8 @@ class Outputs extends React.Component {
 const mapStatetoProps = state => {
 	return {
 		clinicalScores: state.clinicalScores.results,
-		mounzerResults: state.clinicalScores.mounzer_results
+		mounzerResults: state.clinicalScores.mounzer_results,
+		maintenance_fluid: state.clinicalScores.maintenance_fluid
 	};
 };
 
