@@ -220,3 +220,48 @@ class AlgorithmInterface:
         if all(v is not None for v in [eye_score, verbal_score, motor_score]):
             glasgow_coma = eye_score + verbal_score + motor_score
         return glasgow_coma
+
+    @classmethod
+    def maintenance_fluid(self):
+        '''
+        Computes daily maintenance fluid for patients
+
+        Args:
+          height: patient height in m
+          weight: patient weight in kg
+          sex: male or female
+        Returns:
+          adjusted_weight: adjusted body weight in kg
+          maintenance_fluid: average daily maintenance fluid volume in mL
+        '''
+        height = self.request.get('height')
+        weight = self.request.get('weight')
+        sex = self.request.get('sex')
+
+        HEIGHT_THRES = 1.524 #in meters, equiv to 5ft
+        M_TO_IN = 39.3701 # 1 meter = 39.37 in
+
+        maintenance_fluid = None
+        adjusted_weight = None
+        if all(v not in [None, ''] for v in [height, weight, sex]):
+
+            # Constants different depending on sex
+            if sex.lower()[0] == "m": 
+                ideal_weight = 50
+            else: #female
+                ideal_weight = 45.5
+
+            # Devine formula for ideal body weight
+            if height > HEIGHT_THRES:
+                ideal_weight = ideal_weight + (2.3 * ((height * M_TO_IN) - 60))
+
+            # Adjust body weight for obese patients
+            # Traynor AM. Antimicrob Agents and Chemother. 1995.
+            # Hicks C. Ann Hematol. 2012. 
+            adjusted_weight = weight
+            if weight > 1.25 * ideal_weight: 
+                adjusted_weight = ideal_weight + 0.4 * (weight - ideal_weight)
+
+            maintenance_fluid = 35 * adjusted_weight
+            
+        return maintenance_fluid

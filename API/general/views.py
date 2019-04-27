@@ -35,9 +35,11 @@ def get_preprocessed_data(request):
     data['bmi'] = interface.AlgorithmInterface(data).calculate_bmi()
     data['bicarbonate'] = interface.AlgorithmInterface(data).get_bicarbonate()
     data['peritonitis'] = interface.AlgorithmInterface(data).get_peritonitis()
-    
+    data['maintenance_fluid'] = interface.AlgorithmInterface(data).maintenance_fluid()
+
     data['arterial_pressure'] = map.AlgorithmMap(data).evaluate()
     data['sirs_score'] = sirs.AlgorithmSirs(data).evaluate()
+
     return data, is_approx_paO2
 
 
@@ -135,6 +137,12 @@ def run_algorithms(request):
         mounzer_output.append(result)
 
     res['mounzer_results'] = mounzer_output
+
+    if data['maintenance_fluid']:
+        res['maintenance_fluid'] = "Based on the patient's body composition, average daily fluid needs are {} mL/day.".format(data['maintenance_fluid'])
+    else:
+        res['maintenance_fluid'] = "Please enter information about patient's body composition (height, weight, sex) to receive fluid recommendations"
+
     # track running
     RunAlgorithm.objects.create(user=user, 
                                 input=json.dumps(data, indent=2),
