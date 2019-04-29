@@ -10,6 +10,7 @@ import {
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import DropdownMenu from '../../components/DropdownMenu';
+import moment from 'moment';
 
 const sexOption = [
 	{ value: 'm', label: 'Male' },
@@ -122,6 +123,10 @@ class BasicInfo extends React.Component {
 			this.props.updateInfo(data, units);
 		}
 
+		const date = moment(this.state.basicInfo.admission_date);
+		const hourDiff = moment().diff(date, 'hours', true);
+		console.log(hourDiff);
+
 		return isPageValid;
 	}
 
@@ -171,7 +176,6 @@ class BasicInfo extends React.Component {
 
 	changeDate = (id, date) => {
 		const params = { ...this.state.basicInfo };
-		console.log(date);
 		params[id] = date.toISOString();
 		this.setState({basicInfo: params});
 	}

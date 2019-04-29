@@ -21,7 +21,7 @@ class About extends React.Component {
 					<div className="page-description">
 						<p>Welcome to Ariel Precision Medicine's Acute Pancreatitis Severity Calculator (ADAPT).</p>
 						<p>This quality-improvement tool has been designed to aid in caring for patients who have arrived in the emergency department suffering from an acute pancreatitis (AP) attack.</p>
-						<p>Using <Link to="/patient">clinical information and lab results</Link>, the ADAPT automatically computes several literature-backed clinical scoring systems, in addition to the Mounzer rules.</p>
+						<p>Using <Link to="/patient">clinical information and lab results</Link>, ADAPT automatically computes several literature-backed clinical scoring systems, in addition to the Mounzer rules.</p>
 						<p>Future versions of this tool will feature longitudinal data trends and integration via the electronic medical record (EMR) to eliminate the need to input data manually.</p>
 						<p>Please enter as much information as possible. The ADAPT tool has been designed to work with all levels of patient data.</p>
 						<p><strong>For the most informative set of results, please order a complete chemistry profile, complete blood count, and arterial blood gas.</strong></p>
