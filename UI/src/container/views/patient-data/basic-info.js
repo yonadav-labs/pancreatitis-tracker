@@ -72,6 +72,16 @@ class BasicInfo extends React.Component {
 						{ min: 2.5, max: 227, unit: 'kg' },
 						{ min: 5.5, max: 500, unit: 'lb' }
 					]
+				},
+				admission_date: {
+					name: 'admission_date',
+					type: 'text',
+					required: true
+				},
+				onset_date: {
+					name: 'onset_date',
+					type: 'text',
+					required: true
 				}
 			},
 			errors: {},
@@ -122,10 +132,6 @@ class BasicInfo extends React.Component {
 		} else {
 			this.props.updateInfo(data, units);
 		}
-
-		const date = moment(this.state.basicInfo.admission_date);
-		const hourDiff = moment().diff(date, 'hours', true);
-		console.log(hourDiff);
 
 		return isPageValid;
 	}
@@ -315,7 +321,8 @@ class BasicInfo extends React.Component {
 								<div
 									className="round-btn grey-label"
 									data-multiline="true"
-									data-tip="1) Liver: biopsy-proven cirrhosis<br>2) Cardiovascular: NYHA class IV heart failure<br>3) Respiratory: documented chronic hypoxia; <br> hypercapnia; <br> secondary polycythemia; <br> severe pulmonary hypertension; <br> COPD; <br> respirator dependency<br>4) Renal: on dialysis or <br>5) Immunocompromised"
+									data-event="click"
+									data-tip="1) Liver: biopsy-proven cirrhosis<br>2) Cardiovascular: NYHA class IV heart failure<br>3) Respiratory: documented chronic hypoxia; hypercapnia; secondary polycythemia; severe pulmonary hypertension; COPD; respirator dependency<br>4) Renal: on dialysis or <br>5) Immunocompromised"
 								>
 									Chronic Health Problems
 								</div>
@@ -404,7 +411,7 @@ class BasicInfo extends React.Component {
 						/>
 						<GreenButton
 							text="Next"
-							className="mt-3 ml-auto"
+							className="ml-auto"
 							onClick={this.next}
 						/>
 					</div>

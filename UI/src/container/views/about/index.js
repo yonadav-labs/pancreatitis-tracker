@@ -28,7 +28,7 @@ class About extends React.Component {
 						<p>For questions, please reach out and <Link to="/contact">contact us.</Link></p>
 						<p>For feedback and suggestions, please enter your thoughts in the feedback area of this application.</p>
 					</div>
-					<div className="text-center">
+					<div className="text-center mb-5">
 						<GreenButton text="Patient Data" onClick={this.goToPatientData} />
 					</div>
 				</div>

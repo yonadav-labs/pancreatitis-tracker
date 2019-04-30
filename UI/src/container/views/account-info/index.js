@@ -24,7 +24,7 @@ class AccountInfo extends React.Component {
 			},
 			rules: {
 				firstName: {
-					name: 'sex',
+					name: 'firstName',
 					type: 'text',
 					required: true
 				},

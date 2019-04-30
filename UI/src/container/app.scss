@@ -639,7 +639,10 @@ ol.progtrckr li.progtrckr-done:before {
 
 .tooltop-bar {
   max-width: 250px;
-  text-align: center;
+}
+
+.tooltop-bar .multi-line {
+  text-align: left;
 }
 
 /* Load Data button */

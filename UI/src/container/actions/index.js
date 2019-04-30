@@ -16,6 +16,7 @@ import {
 	calciumConvert,
 	albuminConvert
 } from '../utils/conversions';
+import moment from 'moment';
 
 export const loginAction = (username, password) => {
 	return (dispatch) => {
@@ -95,6 +96,12 @@ export const savePatientDataAction = (data, units) => {
 		params.crp = params.crp / 10;
 	}
 	
+	if (params.admission_date) {
+		const date = moment(params.admission_date);
+		const hourDiff = moment().diff(date, 'hours', true);
+		params.time = hourDiff;
+	}
+
 	return (dispatch) => {
 		return savePatientDataApi(params)
 			.then((res) => {

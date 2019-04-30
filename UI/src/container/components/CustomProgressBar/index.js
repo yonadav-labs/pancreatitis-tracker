@@ -50,16 +50,28 @@ class CustomProgressBar extends React.PureComponent {
 			isFlag = true;
 		}
 
+		let leftPercent = parseInt(100 * this.props.scoreRange.threshold / this.props.scoreRange.max, 10) + '%';
+
+		let thresholdStyle = {
+			position: 'absolute',
+			top: '9px',
+			width: '10px',
+			left: `calc(${leftPercent} - 12px)`
+		};
+
 		return (
 			<div>
 				<div className={isFlag ? "btn-progress-bar pb-0 critical" : "btn-progress-bar pb-0"}>
 					<ReactTooltip  effect='solid' className="tooltop-bar" />
 					<div className="progress-title-btn" data-tip={tooltip}>{this.props.title}</div>
-					<Progress
-						percent={percent ? percent.toFixed(1): 0}
-						theme={theme.valid}
-						className={percent ? '' : 'empty-progress'}
-					/>
+					<div className="progress-wrapper d-inline-flex align-items-center w-100 position-relative">
+						<Progress
+							percent={percent ? percent.toFixed(1): 0}
+							theme={theme.valid}
+							className={percent ? '' : 'empty-progress'}
+						/>
+						<img src="/assets/images/icons/ticker.png" style={thresholdStyle} />
+					</div>
 					{
 						text !== ''
 							? (
@@ -67,9 +79,6 @@ class CustomProgressBar extends React.PureComponent {
 							)
 							: null
 					}
-				</div>
-				<div className="section-description grey-color-text mb-0 ml-5">
-					<label>(Threshold: {this.props.scoreRange.threshold})</label>
 				</div>
 			</div>
 		);

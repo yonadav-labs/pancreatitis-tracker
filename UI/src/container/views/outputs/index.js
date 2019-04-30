@@ -6,6 +6,7 @@ import GreenButton from "../../components/GreenButton";
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import { loadClinicalScores } from '../../actions';
+import moment from 'moment';
 
 class Outputs extends React.Component {
 	constructor(props) {
@@ -88,6 +89,12 @@ class Outputs extends React.Component {
 		const { positiveMounzers, negativeMounzers, positiveCount, negativeCount} = this.showMounzer();
 		const valueOfSpeedMeter = negativeCount - positiveCount;
 
+		const dateX = moment(this.props.patient.onset_date);
+		const dateY = moment(this.props.patient.admission_date);
+
+		const X = moment().diff(dateX, 'hours', true).toFixed(1);
+		const Y = moment().diff(dateY, 'hours', true).toFixed(1);
+
 		return (
 			<div className="app-content">
 				<Title title="Outputs" />
@@ -96,7 +103,7 @@ class Outputs extends React.Component {
 						<div className="row">
 							<div className="col-md-12 mt-5">
 								<div className="section-description grey-color-text">
-									Scores and guidance based on measures recorded 3 hours from pain onset, and 2 hours from admission.
+									Scores and guidance based on measures recorded {X} hours from pain onset, and {Y} hours from admission.
 								</div>
 							</div>
 							<h2 className="section-title p-x-15">Recommendations</h2>
@@ -215,7 +222,8 @@ const mapStatetoProps = state => {
 	return {
 		clinicalScores: state.clinicalScores.results,
 		mounzerResults: state.clinicalScores.mounzer_results,
-		maintenance_fluid: state.clinicalScores.maintenance_fluid
+		maintenance_fluid: state.clinicalScores.maintenance_fluid,
+		patient: state.patient
 	};
 };
 

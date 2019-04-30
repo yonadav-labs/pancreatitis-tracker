@@ -108,7 +108,7 @@ def run_algorithms(request):
     }
     output = {}
     mounzer_input = {
-        'time': 48
+        'time': data.get('time')
     }
 
     for algorithm in ALGORITHMS:
