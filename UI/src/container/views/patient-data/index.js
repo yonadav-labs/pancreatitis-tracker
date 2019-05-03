@@ -50,6 +50,22 @@ class PatientData extends React.Component {
 			event.preventDefault();
 			event.stopPropagation();
 		});
+
+		if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+			jQuery('.docking-footer').addClass('at-bottom');
+		} else {
+			jQuery('.docking-footer').removeClass('at-bottom');
+		}
+	}
+
+	componentDidUpdate() {
+		jQuery(window).scroll(() => {
+			if ($(window).scrollTop() + $(window).height() > $(document).height() - 100) {
+				jQuery('.docking-footer').addClass('at-bottom');
+			} else {
+				jQuery('.docking-footer').removeClass('at-bottom');
+			}
+		});
 	}
 
 	componentWillReceiveProps(nextProps) {

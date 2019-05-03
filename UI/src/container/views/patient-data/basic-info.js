@@ -384,7 +384,7 @@ class BasicInfo extends React.Component {
 								<DatePicker
 									showTimeSelect
 									id="admission_date"
-									className="round-input"
+									className="round-input col-xs-12"
 									timeFormat="HH:mm"
 									timeIntervals={15}
 									dateFormat="MM/dd/YYYY HH:mm"
@@ -402,7 +402,7 @@ class BasicInfo extends React.Component {
 						</div>
 					</div>
 				</div>
-				<div className="pt-3 text-center">
+				<div className="pt-3 text-center docking-footer">
 					<div className="d-flex justify-content-between">
 						<DropdownMenu
 							onClick={this.getHistoryByDate}

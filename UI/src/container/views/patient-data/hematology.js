@@ -223,7 +223,7 @@ class Hematology extends React.Component {
 						</div>
 					</div>
 				</div>
-				<div className="pt-3 text-center">
+				<div className="pt-3 text-center docking-footer">
 					<div className="d-flex justify-content-between">
 						<GreenButton
 							text="Back"

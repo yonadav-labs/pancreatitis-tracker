@@ -203,6 +203,27 @@ select:-moz-focusring {
   text-align: center;
 }
 
+.docking-footer {
+  position: sticky;
+  bottom: 0;
+  background-color: #fffd;
+  padding-bottom: 10px;
+  .green-button {
+    @media only screen and (max-width: 480px) {
+      max-width: 140px;
+    }
+  }
+  >div {
+    background-image: url('/assets/images/down.png');
+    background-size: 8%;
+    background-repeat: no-repeat;
+    background-position: center;
+  }
+  &.at-bottom >div {
+    background-image: none;
+  }
+}
+
 .green-button {
   position: relative;
   display: inline-block;
@@ -215,6 +236,10 @@ select:-moz-focusring {
   outline: none !important;
   border: none;
   font-family: "Gilroy-ExtraBold";
+
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .home-page .green-button {
