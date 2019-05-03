@@ -216,11 +216,23 @@ select:-moz-focusring {
   >div {
     background-image: url('/assets/images/down.png');
     background-size: 8%;
+    @media only screen and (min-width: 480px) {
+      background-size: 4%;
+    }
     background-repeat: no-repeat;
     background-position: center;
   }
   &.at-bottom >div {
     background-image: none;
+  }
+}
+
+.basic-info-step {
+  .react-datepicker-wrapper {
+    width: 100%;
+    .react-datepicker__input-container {
+      width: 100%;
+    }
   }
 }
 

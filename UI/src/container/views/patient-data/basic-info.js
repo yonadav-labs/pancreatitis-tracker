@@ -191,7 +191,7 @@ class BasicInfo extends React.Component {
 		const {historyData} = this.props;
 
 		return (
-			<div>
+			<div className="basic-info-step" >
 				<ReactTooltip  effect='solid' className="tooltop-bar" />
 				<div className="row">
 					<div className="col-xs-12 col-lg-6">
@@ -354,7 +354,7 @@ class BasicInfo extends React.Component {
 								<DatePicker
 									id="onset_date"
 									showTimeSelect
-									className="round-input"
+									className="round-input w-100"
 									timeFormat="HH:mm"
 									timeIntervals={15}
 									dateFormat="MM/dd/YYYY HH:mm"
