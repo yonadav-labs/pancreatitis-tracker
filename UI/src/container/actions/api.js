@@ -120,8 +120,6 @@ export const createAccountApi = (data) => {
 			if (response) {
 				switch (response.status) {
 					case 'authenticated':
-						window.localStorage.setItem('token', response.jwt);
-
 						return {
 							success: true,
 							token: response.jwt
@@ -142,16 +140,12 @@ export const createAccountApi = (data) => {
 						};
 				}
 			}
-
-			return {
-				success: false,
-				msg: 'Server is not available!'
-			};
 		})
 		.catch((err) => {
 			return {
 				success: false,
-				msg: err
+				msg: 'Server is not available!',
+				error: true
 			};
 		});
 };

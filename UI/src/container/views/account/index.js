@@ -77,7 +77,7 @@ class Account extends React.Component {
 				email: physician.email
 			}).then((res) => {
 				if (res.success) {
-					toast.success('Successfully created!', {
+					toast.success('Welcome to ADAPT!', {
 						position: toast.POSITION.TOP_CENTER
 					});
 
