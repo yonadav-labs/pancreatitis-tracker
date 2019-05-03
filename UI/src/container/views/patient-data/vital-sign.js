@@ -48,14 +48,14 @@ class VitalSigns extends React.Component {
 					name: 'heart_rate',
 					type: 'float',
 					range: [
-						{ min: 40, max: 190, unit: 'bpm' }
+						{ min: 35, max: 190, unit: 'bpm' }
 					]
 				},
 				resp_rate: {
 					name: 'resp_rate',
 					type: 'float',
 					range: [
-						{ min: 5, max: 50, unit: 'bpm' }
+						{ min: 5, max: 55, unit: 'bpm' }
 					]
 				},
 				spO2: {

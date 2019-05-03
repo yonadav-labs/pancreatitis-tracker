@@ -51,7 +51,7 @@ class Chemistry extends React.Component {
 					name: 'chloride',
 					type: 'float',
 					range: [
-						{ min: 60, max: 120, unit: 'mmol/L' }
+						{ min: 40, max: 150, unit: 'mmol/L' }
 					]
 				},
 				hco3_serum: {
@@ -117,7 +117,7 @@ class Chemistry extends React.Component {
 					name: 'ldh',
 					type: 'float',
 					range: [
-						{ min: 48, max: 600, unit: 'U/L' }
+						{ min: 40, max: 600, unit: 'U/L' }
 					]
 				}
 			},

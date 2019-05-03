@@ -31,15 +31,15 @@ class Hematology extends React.Component {
 					name: 'platelet_count',
 					type: 'float',
 					range: [
-						{ min: 50, max: 450, unit: '10^3 units/µL'},
-						{ min: 50000, max: 450000, unit: 'units/µL'}
+						{ min: 0, max: 450, unit: '10^3 units/µL'},
+						{ min: 0, max: 450000, unit: 'units/µL'}
 					]
 				},
 				hematocrit: {
 					name: 'hematocrit',
 					type: 'float',
 					range: [
-						{ min: 36.1, max: 50.3, unit: '%'}
+						{ min: 18, max: 62, unit: '%'}
 					]
 				},
 				crp: {

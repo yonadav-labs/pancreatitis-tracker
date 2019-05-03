@@ -62,14 +62,14 @@ class BasicInfo extends React.Component {
 					type: 'float',
 					range: [
 						{ min: 20, max: 214, unit: 'cm' },
-						{ min: 19.8, max: 84, unit: 'inch' }
+						{ min: 7.9, max: 84.3, unit: 'inch' }
 					]
 				},
 				weight: {
 					name: 'weight',
 					type: 'float',
 					range: [
-						{ min: 2.5, max: 227, unit: 'kg' },
+						{ min: 2.5, max: 226.8, unit: 'kg' },
 						{ min: 5.5, max: 500, unit: 'lb' }
 					]
 				},

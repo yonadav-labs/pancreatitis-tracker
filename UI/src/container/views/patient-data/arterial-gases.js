@@ -53,7 +53,7 @@ class ArterialGases extends React.Component {
 					name: 'fiO2',
 					type: 'float',
 					range: [
-						{ min: 0.2, max: 1, unit: '%' }
+						{ min: 0.0, max: 1, unit: '%' }
 					]
 				},
 				base_excess: {
