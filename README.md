@@ -28,6 +28,9 @@ The Ariel Acute Pancreatitis Severity Calculator has the following functions:
     ```
     
 ### Usage
+
+Set api base url in /UI/src/container/actions/api_url.js
+
 ```
 yarn start
 ```
@@ -58,8 +61,12 @@ To install the Acute Pancreatitis Severity Calculator on an UNIX-based system (O
    python manage.py createsuperuser
    ```
 5. Run the project
+
+   Add the server ip address to settings.py
+   ALLOWED_HOSTS = ['localhost', '<public ip or dns here>']
+
    ```
-   python manage.py runserver
+   python manage.py runserver 0.0.0.0:8000
    ```
    *Note: It will run the project in development mode. If you want to deploy it more productively, you can deploy it on http server (like apache, nginx).*
 6. Call API endpoints
