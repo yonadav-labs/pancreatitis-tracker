@@ -35,7 +35,7 @@ class AlgorithmApache(AlgorithmInterface):
                        'resp_rate', 'sodium', 'potassium', 'creatinine', 'hematocrit', 
                        'wbc', 'glasgow_coma', 'chronic_health']
     semi_req_fields = [['ph', 'paO2', 'paCO2', 'fiO2'], ['bicarbonate']]
-    score_range = { 'min': 0, 'max': 70, 'threshold': 7 }
+    score_range = { 'min': 0, 'max': 35, 'threshold': 7 }
 
     def evaluate(self):
         _ = self.request

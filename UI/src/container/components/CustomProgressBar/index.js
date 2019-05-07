@@ -20,8 +20,9 @@ const theme = {
 
 
 class CustomProgressBar extends React.PureComponent {
-	rangeToPercent(number, min, max){
-		return ((number - min) / (max - min)) * 100;
+	rangeToPercent(number, min, max) {
+		const percent = ((number - min) / (max - min)) * 100;
+		return percent > 100 ? 100 : percent;
 	}
 
 	render() {
@@ -36,6 +37,9 @@ class CustomProgressBar extends React.PureComponent {
 				this.props.scoreRange.max
 			);
 			text = `${this.props.value} / ${this.props.scoreRange.max}`;
+			if (this.props.title === 'APACHE II') {
+				text += '+';
+			}
 		}
 
 		this.props.item.params.required.forEach((attr, idx) => {
