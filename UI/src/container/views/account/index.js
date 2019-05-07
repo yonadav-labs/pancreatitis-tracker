@@ -47,6 +47,12 @@ class Account extends React.Component {
 		this.setState({ physician: params });
 	}
 
+	_handleKeyDown = (e) => {
+		if (e.key === 'Enter') {
+			this.createAccount();
+		}
+	}
+
 	changePatient(e) {
 		let params = this.state.patient;
 		params[e.target.id] = e.target.value;
@@ -132,6 +138,7 @@ class Account extends React.Component {
 											placeholder="johndoe@abc.com"
 											value={physician.email}
 											onChange={this.changeInfo}
+											onKeyDown={this._handleKeyDown}
 										/>
 										<label className="color-danger pt-2 text-danger text-center warning-message">
 											{errors.email && errors.email.msg}
