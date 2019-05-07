@@ -141,7 +141,7 @@ def run_algorithms(request):
     if data['maintenance_fluid']:
         res['maintenance_fluid'] = "Based on the patient's body composition, average daily fluid needs are {} mL/day.".format(data['maintenance_fluid'])
     else:
-        res['maintenance_fluid'] = "Please enter information about patient's body composition (height, weight, sex) to receive fluid recommendations"
+        res['maintenance_fluid'] = "Please enter information about patient's body composition (height, weight, sex) to receive fluid recommendations."
 
     # track running
     RunAlgorithm.objects.create(user=user, 

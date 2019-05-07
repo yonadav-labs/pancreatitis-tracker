@@ -84,7 +84,7 @@ const InitialState = {
 		ldh: 'U/L',
 
 		wbc: '10^9 cells/L',
-		platelet_count: '10^3 units/µL',
+		platelet_count: '10^3 cells/µL',
 		hematocrit: '%',
 		crp: 'mg/dL',
 

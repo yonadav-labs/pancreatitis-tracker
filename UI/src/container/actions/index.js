@@ -1,9 +1,7 @@
 import jwtDecode from 'jwt-decode';
 import * as types from '../reducers/constants';
 import {
-	loadPatientDataApi,
 	savePatientDataApi,
-	loadClinicalScoresApi,
 	loginApi,
 	createAccountApi,
 	loadInputHistoryApi
@@ -115,22 +113,6 @@ export const savePatientDataAction = (data, units) => {
 			})
 			.catch((err) => {
 				dispatch({ type: types.PATIENTS.ERROR, payload: 'Can\'t save data' });
-			});
-	};
-};
-
-export const loadClinicalScores = () => {
-	return (dispatch) => {
-		loadClinicalScoresApi()
-			.then((res) => {
-				if (res.success) {
-					dispatch({ type: types.OUTPUTS.GET, payload: res.data });
-				} else {
-					dispatch({ type: types.OUTPUTS.ERROR, payload: res.msg });
-				}
-			})
-			.catch((err) => {
-				dispatch({ type: types.OUTPUTS.ERROR, payload: 'Can\'t save data' });
 			});
 	};
 };

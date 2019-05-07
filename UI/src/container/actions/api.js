@@ -5,17 +5,6 @@ import {
 	LOAD_INPUT_HISOTRY
 } from './api_url';
 
-export const loadPatientDataApi = (files) => {
-	const data = {
-		sex: {value: 'f', label: 'Female'},
-		height: {value: 24, unit: 'cm'}
-	};
-
-	return new Promise((resolve) => {
-		resolve({ success: true, data: data });
-	});
-};
-
 export const loadInputHistoryApi = () => {
 	return getApi(LOAD_INPUT_HISOTRY)
 		.then((res) => {
@@ -60,25 +49,6 @@ export const savePatientDataApi = (data) => {
 				msg: 'error catch'
 			};
 		});
-};
-
-export const loadClinicalScoresApi = () => {
-	const data = [
-		{ title: "SIRS", value:  "80", text: "4 out of 5" },
-		{ title:"HAPS", value:  "60", text: "3 out of 5" },
-		{ title:"PANC3", value:  "60", text: "3 out of 5" },
-		{ title:"POP", value:  "40", text: "2 out of 5" },
-		{ title:"RANSON", value:  "60", text: "3 out of 5" },
-		{ title:"GLASGOW", value:  "60", text: "3 out of 5" },
-		{ title:"APACHE II", value:  "60", text: "3 out of 5" },
-		{ title:"JSS", value:  "60", text: "3 out of 5" },
-		{ title:"MARSHALL", value:  "60", text: "3 out of 5" },
-		{ title:"POP Mort. %", value:  "60", text: "60%" }
-	];
-
-	return new Promise((resolve) => {
-		resolve({ success: true, data: data });
-	});
 };
 
 export const loginApi = (username, password) => {

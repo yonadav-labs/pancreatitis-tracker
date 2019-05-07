@@ -6,7 +6,8 @@ import GreenButton from "../../components/GreenButton";
 
 const booleanOption = [
 	{ value: true, label: 'Yes' },
-	{ value: false, label: 'No' }
+	{ value: false, label: 'No' },
+	{ value: null, label: 'Unknown' }
 ];
 
 const eyeResponseOption = [
@@ -111,8 +112,17 @@ class PhysicalExam extends React.Component {
 
 	isValidated = () => {
 		const {rules, physicalExam, units} = this.state;
-		const {data, errors} = validateStep(physicalExam, units, rules);
 		let isPageValid = true;
+		let {data, errors} = validateStep(physicalExam, units, rules);
+
+		if (Object.keys(errors).length == 0) {
+			// debugger;
+			if (data['guarding'] !== '' && data['tenderness'] === '') {
+				errors.tenderness = { msg: 'Please enter Rebound Tenderness to proceed.'};
+			} else if (data['guarding'] === '' && data['tenderness'] !== '') {
+				errors.guarding = { msg: 'Please enter Abdominal Guarding to proceed.' };
+			}
+		}
 
 		if (Object.keys(errors).length > 0) {
 			isPageValid = false;
@@ -174,7 +184,7 @@ class PhysicalExam extends React.Component {
 									data-multiline="true"
 									data-tip="Pain after slowly pressing on the abdomen and then suddenly releasing the pressure"
 								>
-									Abdominal Tenderness
+									Rebound Tenderness
 								</div>
 							</div>
 							<div className="col-xs-12 col-md-6">

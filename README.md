@@ -62,13 +62,14 @@ To install the Acute Pancreatitis Severity Calculator on an UNIX-based system (O
    ```
 5. Run the project
 
-   - Add the server ip address / dns to settings.py
+  - Add the server ip address / dns to settings.py
     `ALLOWED_HOSTS = ['localhost', '<public ip or dns here>']`
-
-   ```
-   python manage.py runserver 0.0.0.0:8000
-   ```
-   *Note: It will run the project in development mode. If you want to deploy it more productively, you can deploy it on http server (like apache, nginx).*
+  - Launch the project
+  
+    ```
+    python manage.py runserver 0.0.0.0:8000
+    ```
+    *Note: It will run the project in development mode. If you want to deploy it more productively, you can deploy it on http server (like apache, nginx).*
 6. Call API endpoints
 7. Run tests
    ```

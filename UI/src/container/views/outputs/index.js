@@ -5,7 +5,6 @@ import CustomProgressBar from '../../components/CustomProgressBar';
 import GreenButton from "../../components/GreenButton";
 import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
-import { loadClinicalScores } from '../../actions';
 import moment from 'moment';
 
 class Outputs extends React.Component {
@@ -106,7 +105,7 @@ class Outputs extends React.Component {
 									Scores and guidance based on measures recorded {X} hours from pain onset, and {Y} hours from admission.
 								</div>
 							</div>
-							<h2 className="section-title p-x-15">Recommendations</h2>
+							<h2 className="section-title p-x-15">Clinical Considerations</h2>
 							<div className="col-xs-12 col-sm-12 col-md-9 recommendation">
 								<textarea
 									value={this.state.recommendations}
@@ -227,14 +226,5 @@ const mapStatetoProps = state => {
 	};
 };
 
-const mapDispatchToProps = dispatch => {
-	return Object.assign(
-		{ dispatch },
-		bindActionCreators({
-			loadClinicalScores
-		}, dispatch)
-	);
-};
-	
-export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(Outputs));
+export default withRouter(connect(mapStatetoProps)(Outputs));
 

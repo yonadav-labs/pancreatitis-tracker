@@ -153,8 +153,8 @@ class Hematology extends React.Component {
 										defaultValue={units.platelet_count}
 										onChange={e => this.changeUnit('platelet_count', e.target.value)}
 									>
-										<option>10^3 units/µL</option>
-										<option>units/µL</option>
+										<option>10^3 cells/µL</option>
+										<option>cells/µL</option>
 									</select>
 								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">

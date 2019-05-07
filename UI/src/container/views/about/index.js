@@ -19,14 +19,13 @@ class About extends React.Component {
 				<Title title="About" />
 				<div className="container">
 					<div className="page-description">
-						<p>Welcome to Ariel Precision Medicine's Acute Pancreatitis Severity Calculator (ADAPT).</p>
-						<p>This quality-improvement tool has been designed to aid in caring for patients who have arrived in the emergency department suffering from an acute pancreatitis (AP) attack.</p>
-						<p>Using <Link to="/patient">clinical information and lab results</Link>, ADAPT automatically computes several literature-backed clinical scoring systems, in addition to the Mounzer rules.</p>
-						<p>Future versions of this tool will feature longitudinal data trends and integration via the electronic medical record (EMR) to eliminate the need to input data manually.</p>
-						<p>Please enter as much information as possible. The ADAPT tool has been designed to work with all levels of patient data.</p>
+						<p>Welcome to the Ariel Dynamic Acute Pancreatitis Tracker (ADAPT).</p>
+						<p>This quality-improvement tool is designed to aid in caring for patients in the emergency department suffering from acute pancreatitis (AP).</p>
+						<p>Using <Link to="/patient">clinical information and lab results</Link>, ADAPT automatically computes clinical scoring systems--including SIRS, HAPS, Panc 3, BISAP, POP, Ranson, Glasgow, APACHE-II, and JSS--and predicts persistent organ failure.</p>
+						<p>Future versions of this tool will feature longitudinal data trends and integration with electronic medical records (EMR) to eliminate manual data entry.</p>
+						<p>Please enter as much information as possible. ADAPT has been designed to work with all levels of patient data.</p>
 						<p><strong>For the most informative set of results, please order a complete chemistry profile, complete blood count, and arterial blood gas.</strong></p>
-						<p>For questions, please reach out and <Link to="/contact">contact us.</Link></p>
-						<p>For feedback and suggestions, please enter your thoughts in the feedback area of this application.</p>
+						<p>For questions, please reach out and <Link to="/contact">contact us</Link>.</p>
 					</div>
 					<div className="text-center mb-5">
 						<GreenButton text="Patient Data" onClick={this.goToPatientData} />
