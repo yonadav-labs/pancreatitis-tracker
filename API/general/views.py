@@ -2,6 +2,8 @@ import jwt
 import json
 import datetime
 
+from math import exp
+
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
@@ -111,9 +113,16 @@ def run_algorithms(request):
         'time': data.get('time')
     }
 
+    pop_percent = None
+        
     for algorithm in ALGORITHMS:
         result = _run_algorithm(algorithm, data)
         res['results'].append(result)
+
+        if result['algorithm'] == 'POP' and result['is_capable']:
+            R = -4.908 + 0.248 * result['score']
+            prob = exp(R) / (1 + exp(R))
+            pop_percent = 100 * prob
 
         if result['is_capable']:
             output[result['algorithm']] = result['score']
@@ -123,7 +132,7 @@ def run_algorithms(request):
     # calculate mounzer rules
     mounzer_output = []
     for ii in range(1, 13):
-        mounzer_class = getattr(mounzer_rules, 'Rule{}'.format(ii))
+        mounzer_class = getattr(mounzer_rules, f'Rule{ii}')
         rule = mounzer_class(mounzer_input)
         result = {
             "rule": rule.name,
@@ -139,9 +148,12 @@ def run_algorithms(request):
     res['mounzer_results'] = mounzer_output
 
     if data['maintenance_fluid']:
-        res['maintenance_fluid'] = "Based on the patient's body composition, average daily fluid needs are {} mL/day.".format(data['maintenance_fluid'])
+        res['maintenance_fluid'] = f"Based on the patient's body composition, average daily fluid needs are {data['maintenance_fluid']} mL/day."
     else:
         res['maintenance_fluid'] = "Please enter information about patient's body composition (height, weight, sex) to receive fluid recommendations."
+
+    if pop_percent:
+        res['maintenance_fluid'] += f'\nThe predicted probability of mortality by the POP score is {pop_percent:.2f} percent.'
 
     # track running
     RunAlgorithm.objects.create(user=user, 
