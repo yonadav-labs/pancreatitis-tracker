@@ -49,6 +49,17 @@ class CustomProgressBar extends React.PureComponent {
 			}
 		});
 
+		if (this.props.item.params['either/or'].length > 0) {
+			let fields = '';
+			this.props.item.params['either/or'].forEach((attr, idx) => {
+				fields += `[${attr.join(',')}]`;
+				if (idx < this.props.item.params['either/or'].length - 1) {
+					fields += ' / ';
+				}
+			});
+			tooltip += `<br>Either / Or fields: ${fields}`;
+		}
+
 		let isFlag = false;
 		if (this.props.scoreRange.threshold <= this.props.value) {
 			isFlag = true;
@@ -67,7 +78,7 @@ class CustomProgressBar extends React.PureComponent {
 			<div>
 				<div className={isFlag ? "btn-progress-bar pb-0 critical" : "btn-progress-bar pb-0"}>
 					<ReactTooltip  effect='solid' className="tooltop-bar" />
-					<div className="progress-title-btn" data-tip={tooltip}>{this.props.title}</div>
+					<div className="progress-title-btn" data-tip={tooltip} data-multiline="true" data-event="click">{this.props.title}</div>
 					<div className="progress-wrapper d-inline-flex align-items-center w-100 position-relative">
 						<Progress
 							percent={percent ? percent.toFixed(1): 0}
