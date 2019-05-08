@@ -37,10 +37,9 @@ def register(request):
         user.is_active = False
         user.save()
 
-        url = 'http://{}{}'.format(request.get_host(), reverse('verify_email', kwargs={ 'jwt_code': jwt_code }))
-        email_body = 'Hi {}, \n\nPlease go ahead and verify your email here: \n{}\n\nThank you.' \
-                     .format(data['name'], url)
-        send_email([data['email']], 'Welcome to APSC', email_body)
+        url = f"{settings.BACKEND_URL}{reverse('verify_email', kwargs={ 'jwt_code': jwt_code })}"
+        email_body = f"Hi {data['name']}, \n\nPlease go ahead and verify your email here: \n{url}\n\nThank you."
+        send_email([data['email']], 'Welcome to ADAPT', email_body)
         res = {
             "status": "email-sent",
             "msg": "Verification email sent. Please check your email."
@@ -57,10 +56,10 @@ def verify_email(request, jwt_code):
         if user:
             user.is_active = True
             user.save()
-            url = '{}/about?jwt={}'.format(settings.FRONTEND_URL, jwt_code)
+            url = f'{settings.FRONTEND_URL}/about?jwt={jwt_code}'
         else:
-            url = '{}/account?msg=Invalid token'.format(settings.FRONTEND_URL)
+            url = f'{settings.FRONTEND_URL}/account?msg=Invalid token'
     except Exception as e:
-        url = '{}/account?msg=Invalid token'.format(settings.FRONTEND_URL)
+        url = f'{settings.FRONTEND_URL}/account?msg=Invalid token'
 
     return redirect(url)
