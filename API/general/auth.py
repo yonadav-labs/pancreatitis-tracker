@@ -7,8 +7,7 @@ from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.conf import settings
 from django.shortcuts import redirect, reverse
-
-from general.utils import *
+from django.core.mail import send_mail
 
 @csrf_exempt
 def register(request):
@@ -39,7 +38,8 @@ def register(request):
 
         url = f"{settings.BACKEND_URL}{reverse('verify_email', kwargs={ 'jwt_code': jwt_code })}"
         email_body = f"Hi {data['name']}, \n\nPlease go ahead and verify your email here: \n{url}\n\nThank you."
-        send_email([data['email']], 'Welcome to ADAPT', email_body)
+        send_mail('Welcome to ADAPT', email_body, settings.POSTMARK_SENDER, [data['email']], fail_silently=True)
+
         res = {
             "status": "email-sent",
             "msg": "Verification email sent. Please check your email."

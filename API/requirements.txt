@@ -3,3 +3,4 @@ django-cors-headers
 requests
 cryptography
 PyJWT
+python-postmark
