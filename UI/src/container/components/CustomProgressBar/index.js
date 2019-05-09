@@ -78,7 +78,10 @@ class CustomProgressBar extends React.PureComponent {
 			<div>
 				<div className={isFlag ? "btn-progress-bar pb-0 critical" : "btn-progress-bar pb-0"}>
 					<ReactTooltip  effect='solid' className="tooltop-bar" />
-					<div className="progress-title-btn" data-tip={tooltip} data-multiline="true" data-event="click">{this.props.title}</div>
+					<div className="progress-title-btn" data-tip={tooltip} data-multiline="true" data-event="click">
+						{this.props.title}
+						<img src="/assets/images/info-w.png" className="ml-3" style={{ height: '16px' }} />
+					</div>
 					<div className="progress-wrapper d-inline-flex align-items-center w-100 position-relative">
 						<Progress
 							percent={percent ? percent.toFixed(1): 0}

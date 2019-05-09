@@ -241,7 +241,10 @@ class VitalSigns extends React.Component {
 					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-md-6">
-								<div className="round-btn grey-label" data-tip="Respiratory Rate">Resp. Rate</div>
+								<div className="round-btn grey-label" data-tip="Respiratory Rate" data-event="click">
+									Resp. Rate
+									<img src="/assets/images/info-w.png" className="ml-3" style={{ height: '17px', marginTop: '-4px' }} />
+								</div>
 							</div>
 							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
@@ -270,8 +273,10 @@ class VitalSigns extends React.Component {
 									className="round-btn grey-label"
 									data-multiline="true"
 									data-tip="O₂ saturation"
+									data-event="click"
 								>
 									Pulse Oximetry
+									<img src="/assets/images/info-w.png" className="ml-3" style={{ height: '17px', marginTop: '-4px' }} />
 								</div>
 							</div>
 							<div className="col-xs-12 col-md-6">

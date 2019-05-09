@@ -201,7 +201,7 @@ class Account extends React.Component {
 							{this.state.pageError ? this.state.pageError.msg: ''}
 						</div>
 						
-						<div className="pt-3 text-center">
+						<div className="pt-3 text-center mb-5">
 							<div>
 								<GreenButton
 									text="Continue"

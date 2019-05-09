@@ -111,7 +111,10 @@ class Hematology extends React.Component {
 					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-md-6">
-								<div className="round-btn grey-label" data-tip="White Blood Cell Count">WBC</div>
+								<div className="round-btn grey-label" data-tip="White Blood Cell Count" data-event="click">
+									WBC
+									<img src="/assets/images/info-w.png" className="ml-3" style={{ height: '17px', marginTop: '-4px' }} />
+								</div>
 							</div>
 							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">
@@ -136,7 +139,10 @@ class Hematology extends React.Component {
 					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-md-6">
-								<div className="round-btn grey-label" data-tip="Platelet Count">PLT</div>
+								<div className="round-btn grey-label" data-tip="Platelet Count" data-event="click">
+									PLT
+									<img src="/assets/images/info-w.png" className="ml-3" style={{ height: '17px', marginTop: '-4px' }} />
+								</div>
 							</div>
 							<div className="col-xs-12 col-md-6">
 								<div className="d-flex">

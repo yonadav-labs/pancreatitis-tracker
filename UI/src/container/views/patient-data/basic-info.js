@@ -325,6 +325,7 @@ class BasicInfo extends React.Component {
 									data-tip="1) Liver: biopsy-proven cirrhosis<br>2) Cardiovascular: NYHA class IV heart failure<br>3) Respiratory: documented chronic hypoxia; hypercapnia; secondary polycythemia; severe pulmonary hypertension; COPD; respirator dependency<br>4) Renal: on dialysis or <br>5) Immunocompromised"
 								>
 									Chronic Health Problems
+									<img src="/assets/images/info-w.png" className="ml-3" style={{ height: '18px' }} />
 								</div>
 							</div>
 							<div className="col-xs-12 col-md-6">

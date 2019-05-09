@@ -158,8 +158,10 @@ class PhysicalExam extends React.Component {
 									className="round-btn grey-label"
 									data-multiline="true"
 									data-tip="Contraction and tensing of the abdominal wall muscles in response to palpation"
+									data-event="click"
 								>
 									Abdominal Guarding
+									<img src="/assets/images/info-w.png" className="ml-3" style={{ height: '17px', marginTop: '-4px' }} />
 								</div>
 							</div>
 							<div className="col-xs-12 col-md-6">
@@ -183,8 +185,10 @@ class PhysicalExam extends React.Component {
 									className="round-btn grey-label"
 									data-multiline="true"
 									data-tip="Pain after slowly pressing on the abdomen and then suddenly releasing the pressure"
+									data-event="click"
 								>
 									Rebound Tenderness
+									<img src="/assets/images/info-w.png" className="ml-3" style={{ height: '17px', marginTop: '-4px' }} />
 								</div>
 							</div>
 							<div className="col-xs-12 col-md-6">
