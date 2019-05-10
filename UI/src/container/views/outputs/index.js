@@ -106,7 +106,7 @@ class Outputs extends React.Component {
 								</div>
 							</div>
 							<h2 className="section-title p-x-15">Clinical Considerations</h2>
-							<div className="col-xs-12 col-sm-12 col-md-9 recommendation">
+							<div className="col-xs-12 col-sm-12 col-md-8 recommendation">
 								<textarea
 									value={this.state.recommendations}
 									className="p-3"
@@ -114,7 +114,7 @@ class Outputs extends React.Component {
 									id="recommendations"
 								/>
 							</div>
-							<div className="col-xs-12 col-sm-12 col-md-3 d-flex">
+							<div className="col-xs-12 col-sm-12 col-md-4 d-flex mt-4">
 								<img
 									className="speedmeter"
 									src={`/assets/images/speedometer_${valueOfSpeedMeter}.png`}

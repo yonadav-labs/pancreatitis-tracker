@@ -103,7 +103,7 @@ class BasicInfo extends React.Component {
 		if (params.weight && params.height) {
 			let weight = parseFloat(params.weight);
 			if (units.weight === 'lb') {
-				weightVal = lbToKgConvert(weight);
+				weight = lbToKgConvert(weight);
 			}
 
 			let height = parseFloat(params.height);
