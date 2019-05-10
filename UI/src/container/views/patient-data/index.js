@@ -12,7 +12,7 @@ import { bindActionCreators } from "redux";
 import { withRouter } from "react-router";
 import {
 	setUpdatesPerPagePatientAction,
-	savePatientDataAction,
+	getScoresAction,
 	loadInputHistoryAction,
 	getHistoryByDateAction
 } from '../../actions/index';
@@ -94,7 +94,7 @@ class PatientData extends React.Component {
 	}
 
 	savePaientData = () => {
-		this.props.savePatientDataAction(this.state.data, this.state.units)
+		this.props.getScoresAction(this.state.data, this.state.units)
 			.then(res => {
 				if (res && res.success && res.data.is_approx_paO2) {
 					toast.warn('PaO2 approximation was used.', {
@@ -157,10 +157,9 @@ const mapStatetoProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return Object.assign(
-		{ dispatch },
 		bindActionCreators({
 			setUpdatesPerPagePatientAction,
-			savePatientDataAction,
+			getScoresAction,
 			loadInputHistoryAction,
 			getHistoryByDateAction
 		}, dispatch)

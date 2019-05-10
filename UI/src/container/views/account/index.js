@@ -3,8 +3,8 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import Title from '../../components/Title';
 import GreenButton from "../../components/GreenButton";
-import {validateAccount} from '../../utils/utils';
-import {createAccount} from '../../actions';
+import { validateAccount } from '../../utils/utils';
+import { createAccountAction } from '../../actions';
 import { toast } from "react-toastify";
 
 
@@ -223,9 +223,8 @@ const mapStatetoProps = state => {
 
 const mapDispatchToProps = dispatch => {
 	return Object.assign(
-		{ dispatch },
 		bindActionCreators({
-			createAccount
+			createAccountAction
 		}, dispatch)
 	);
 };

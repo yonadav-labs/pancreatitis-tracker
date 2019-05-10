@@ -16,24 +16,6 @@ import {
 } from '../utils/conversions';
 import moment from 'moment';
 
-export const loginAction = (username, password) => {
-	return (dispatch) => {
-		return loginApi(username, password).then((res) => {
-			if (res && res.success) {
-				dispatch({
-					type: types.LOGIN_SUCCESS,
-					payload: jwtDecode(res.user.token)
-				});
-			} else {
-				dispatch({
-					type: types.LOGIN_FAIL,
-					payload: res.error
-				});
-			}
-		});
-	};
-};
-
 export const setUpdatesPerPagePatientAction = (res) => {
 	return (dispatch) => {
 		dispatch({ type: types.PATIENTS.SET, payload: res });
@@ -58,7 +40,7 @@ export const getHistoryByDateAction = date => {
 	};
 };
 
-export const savePatientDataAction = (data, units) => {
+export const getScoresAction = (data, units) => {
 	let params = {...data};
 
 	// convert data in normalized unit
@@ -117,7 +99,25 @@ export const savePatientDataAction = (data, units) => {
 	};
 };
 
-export const createAccount = (user) => {
+export const createAccountAction = (user) => {
+	return (dispatch) => {
+		return createAccountApi(user)
+			.then((res) => {
+				if (res.success) {
+					if (res && res.token) {
+						window.localStorage.setItem('token', res.token);
+					}
+					dispatch({ type: types.USER.CREATE_SUCCESS, payload: res.data });
+				} else {
+					dispatch({ type: types.USER.ERROR, payload: res.msg });
+				}
+
+				return res;
+			});
+	};
+};
+
+export const leaveFeedbackAction = () => {
 	return (dispatch) => {
 		return createAccountApi(user)
 			.then((res) => {

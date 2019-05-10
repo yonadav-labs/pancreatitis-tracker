@@ -1,6 +1,9 @@
 import React from "react";
 import Title from '../../components/Title';
 import GreenButton from "../../components/GreenButton";
+import { connect } from 'react-redux';
+import { leaveFeedbackAction } from '../../actions';
+import { toast } from "react-toastify";
 
 class Feedback extends React.Component {
 	constructor(props) {
@@ -26,7 +29,7 @@ class Feedback extends React.Component {
 					<div className="page-section">
 						<textarea
 							type="textarea"
-							className="feedback-input"
+							className="feedback-input p-3"
 							value={this.state.feedback}
 							onChange={this.changeValue}
 						/>
@@ -41,5 +44,16 @@ class Feedback extends React.Component {
 	}
 }
 
-export default Feedback;
+const mapStatetoProps = state => {
+	return {};
+};
 
+const mapDispatchToProps = dispatch => {
+	return Object.assign(
+		bindActionCreators({
+			leaveFeedbackAction
+		}, dispatch)
+	);
+};
+	
+export default connect(mapStatetoProps, mapDispatchToProps)(Feedback);
