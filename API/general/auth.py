@@ -2,7 +2,7 @@ import jwt
 import json
 
 from django.http import JsonResponse
-from django.http import JsonResponse
+from django.http import HttpResponse
 from django.views.decorators.csrf import csrf_exempt
 from django.contrib.auth.models import User
 from django.conf import settings
@@ -63,3 +63,27 @@ def verify_email(request, jwt_code):
         url = f'{settings.FRONTEND_URL}/account?msg=Invalid token'
 
     return redirect(url)
+
+
+def get_user(request):
+    try:
+        email = jwt.decode(request.META.get('HTTP_AUTHORIZATION'), settings.SECRET_KEY, algorithms=['HS256'])['email']
+        user = User.objects.filter(email=email)[0]
+        return user if user.is_active else None
+    except Exception as e:
+        pass
+
+
+@csrf_exempt
+def leave_feedback(request):
+    """
+    body format: { "content": "feedback content ..." } 
+    """
+    user = get_user(request)
+    if not user:
+        return HttpResponse('Unauthorized', status=401)
+
+    data = json.loads(request.body.decode("ascii"))
+    Feedback.objects.create(user=user, content=data['content'])
+
+    return HttpResponse("success")

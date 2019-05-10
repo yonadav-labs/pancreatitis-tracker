@@ -12,6 +12,8 @@ from django.conf import settings
 
 from algorithms import *
 from .models import *
+from .auth import get_user
+
 
 ALGORITHMS = [
     # map.AlgorithmMap, 
@@ -27,6 +29,7 @@ ALGORITHMS = [
     ranson.AlgorithmRanson, 
     sirs.AlgorithmSirs
 ]
+
 
 def get_preprocessed_data(request):
     data = json.loads(request.body.decode("utf-8"))
@@ -88,14 +91,6 @@ def _run_algorithm(algorithm, data):
     return result
 
 
-def get_user(request):
-    try:
-        email = jwt.decode(request.META.get('HTTP_AUTHORIZATION'), settings.SECRET_KEY, algorithms=['HS256'])['email']
-        user = User.objects.filter(email=email)[0]
-        return user if user.is_active else None
-    except Exception as e:
-        pass
-    
 
 @csrf_exempt
 def run_algorithms(request):
