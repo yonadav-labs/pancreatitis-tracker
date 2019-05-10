@@ -2,6 +2,7 @@ import React from "react";
 import Title from '../../components/Title';
 import GreenButton from "../../components/GreenButton";
 import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
 import { leaveFeedbackAction } from '../../actions';
 import { toast } from "react-toastify";
 
@@ -10,7 +11,8 @@ class Feedback extends React.Component {
 		super(props);
 
 		this.state = {
-			feedback: ''
+			feedback: '',
+			errors: {}
 		};
 	}
 
@@ -18,7 +20,26 @@ class Feedback extends React.Component {
 		this.setState({ feedback: e.target.value });
 	}
 
+	leaveFeedback = () => {
+		let errors = {};
+		const { feedback } = this.state;
+
+		if (feedback.trim().length == 0) {
+			errors = { msg: 'Please leave your feedback.'};
+			this.setState({ errors });
+		} else {
+			this.setState({ errors });
+			this.props.leaveFeedbackAction(feedback).then(res => {
+				toast.success('Your feedback saved successfully!', {
+					position: toast.POSITION.TOP_CENTER
+				});
+			});
+		}
+	}
+
 	render () {
+		const { errors } = this.state;
+
 		return (
 			<div className="app-content">
 				<Title title="Feedback" />
@@ -29,12 +50,15 @@ class Feedback extends React.Component {
 					<div className="page-section">
 						<textarea
 							type="textarea"
-							className="feedback-input p-3"
+							className="feedback-input p-3 mb-2"
 							value={this.state.feedback}
 							onChange={this.changeValue}
 						/>
-						<div className="space-between-section mb-5">
-							<GreenButton text="Send Feedback" />
+						<label className="color-danger pt-2 text-danger text-center warning-message">
+							{ errors.msg }
+						</label>
+						<div className="space-between-section mb-5 mt-3">
+							<GreenButton text="Send Feedback" onClick={this.leaveFeedback} />
 							<GreenButton text="Continue" onClick={() => this.props.history.push('/contact')} />
 						</div>
 					</div>

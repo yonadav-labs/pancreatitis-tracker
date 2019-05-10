@@ -78,7 +78,7 @@ class Account extends React.Component {
 			this.setState({ errors });
 		} else {
 			this.setState({ errors });
-			this.props.createAccount({
+			this.props.createAccountAction({
 				name: physician.name,
 				email: physician.email
 			}).then((res) => {

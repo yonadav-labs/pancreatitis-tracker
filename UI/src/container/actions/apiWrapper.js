@@ -113,14 +113,6 @@ export const postApi = (url, body) => {
 				};
 			});
 		});
-	// }
-
-	// return new Promise(resolve => {
-	// 	resolve({
-	// 		msg: 'Token is missing or not valid.',
-	// 		success: false
-	// 	});
-	// });
 };
 
 export const getApi = (url, body) => {

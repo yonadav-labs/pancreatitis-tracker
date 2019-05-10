@@ -2,7 +2,8 @@ import { getApi, postApi, postApiWithoutToken } from './apiWrapper';
 import {
 	SAVE_PATIENT_DATA,
 	CREATE_ACCOUNT_URL,
-	LOAD_INPUT_HISOTRY
+	LOAD_INPUT_HISOTRY,
+	FEEDBACK_URL
 } from './api_url';
 
 export const loadInputHistoryApi = () => {
@@ -51,33 +52,23 @@ export const savePatientDataApi = (data) => {
 		});
 };
 
-export const loginApi = (username, password) => {
-	const loginData = JSON.stringify({
-		Username: username,
-		Password: password
+export const leaveFeedbackApi = (feedback) => {
+	const data = JSON.stringify({
+		content: feedback
 	});
 
-	return postApiWithoutToken(LOGIN_URL, loginData)
+	return postApi(FEEDBACK_URL, data)
 		.then(response => {
-			if (response && response.token) {
-				const decode = jwtDecode(response.token);
-
-				window.localStorage.setItem('token', response.token);
+			if (response == 'success') {
 				return {
-					success: true,
-					user: response
+					success: true
 				};
 			}
-
-			return {
-				success: false,
-				error: response.Message
-			};
 		})
 		.catch((err) => {
 			return {
 				success: false,
-				error: err
+				msg: err
 			};
 		});
 };

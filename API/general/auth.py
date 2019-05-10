@@ -9,6 +9,8 @@ from django.conf import settings
 from django.shortcuts import redirect, reverse
 from django.core.mail import send_mail
 
+from .models import Feedback
+
 @csrf_exempt
 def register(request):
     """

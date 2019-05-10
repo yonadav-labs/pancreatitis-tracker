@@ -2,7 +2,7 @@ import jwtDecode from 'jwt-decode';
 import * as types from '../reducers/constants';
 import {
 	savePatientDataApi,
-	loginApi,
+	leaveFeedbackApi,
 	createAccountApi,
 	loadInputHistoryApi
 } from './api';
@@ -117,17 +117,14 @@ export const createAccountAction = (user) => {
 	};
 };
 
-export const leaveFeedbackAction = () => {
+export const leaveFeedbackAction = (feedback) => {
 	return (dispatch) => {
-		return createAccountApi(user)
+		return leaveFeedbackApi(feedback)
 			.then((res) => {
 				if (res.success) {
-					if (res && res.token) {
-						window.localStorage.setItem('token', res.token);
-					}
-					dispatch({ type: types.USER.CREATE_SUCCESS, payload: res.data });
+					dispatch({ type: types.USER.FEEDBACK_SUCCESS, payload: null });
 				} else {
-					dispatch({ type: types.USER.ERROR, payload: res.msg });
+					dispatch({ type: types.USER.FEEDBACK_FAIL, payload: res.msg });
 				}
 
 				return res;
