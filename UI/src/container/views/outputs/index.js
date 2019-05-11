@@ -102,11 +102,12 @@ class Outputs extends React.Component {
 						<div className="row">
 							<div className="col-md-12 mt-5">
 								<div className="section-description grey-color-text">
-									Scores and guidance based on measures recorded {X} hours from pain onset, and {Y} hours from admission.
+									Scores and guidance based on measures recorded {X} hours from pain onset,
+									and {Y} hours from admission.
 								</div>
 							</div>
-							<h2 className="section-title p-x-15">Clinical Considerations</h2>
-							<div className="col-xs-12 col-sm-12 col-md-8 recommendation">
+							<div className="col-xs-12 col-md-7 recommendation">
+								<h2 className="section-title p-x-15">Clinical Considerations</h2>
 								<textarea
 									value={this.state.recommendations}
 									className="p-3"
@@ -114,7 +115,12 @@ class Outputs extends React.Component {
 									id="recommendations"
 								/>
 							</div>
-							<div className="col-xs-12 col-sm-12 col-md-4 d-flex mt-4">
+							<div className="col-xs-12 col-md-5 text-center">
+								<h2 className="section-title p-x-15">Severity Meter</h2>
+								<div className="section-description grey-color-text text-left">
+									The severity meter changes with respect to rules signifying “organ failure likely”
+									and “organ failure not likely.”
+								</div>
 								<img
 									className="speedmeter"
 									src={`/assets/images/speedometer_${valueOfSpeedMeter}.png`}
@@ -128,7 +134,12 @@ class Outputs extends React.Component {
 							<div className="col-xs-12 col-md-6">
 								<h2 className="section-title">Clinical Scoring Systems</h2>
 								<div className="section-description grey-color-text">
-									Status bars do not display scores if insufficient information is available to compute clinical metric. If score has sufficient information, it is written as a fraction of the maximum allowable score. Severity thresholds for each clinical score are denoted by the inverted triangle icons. If the score is below threshold, the status bar is shown in turquoise. If the score is above threshold, the status bar is shown in red.
+									Status bars do not display scores if insufficient information is available
+									to compute clinical metric. If score has sufficient information, it is written
+									as a fraction of the maximum allowable score. Severity thresholds for each
+									clinical score are denoted by the inverted triangle icons. If the score is
+									below threshold, the status bar is shown in turquoise. If the score is above
+									threshold, the status bar is shown in red.
 								</div>
 								<div>
 									{
@@ -151,7 +162,14 @@ class Outputs extends React.Component {
 							<div className="col-xs-12 col-md-6">
 								<h2 className="section-title">Mounzer Rules</h2>
 								<div className="section-description grey-color-text">
-									All rules default to a gray box. Upon entry of all of the necessary criteria, there are 2 possibilities. If there is sufficient information to compute the rule, and the conditions for the rule are met, the box becomes turquoise (e.g. if organ failure is likely or organ failure is not likely based on the conditions). If there is sufficient information to compute the rule, but the conditions for the rule are not met, the box remains grey but is outlined in blue. In this scenario, there is no definitive knowledge gained on organ failure likelihood for that rule set. The severity speedometer changes with respect to rules signifying “organ failure likely” and “organ failure not likely.”
+									All rules default to a gray box. Upon entry of all of the necessary criteria,
+									there are 2 possibilities. If there is sufficient information to compute the
+									rule, and the conditions for the rule are met, the box becomes turquoise (e.g.
+									if organ failure is likely or organ failure is not likely based on the
+									conditions). If there is sufficient information to compute the rule, but
+									the conditions for the rule are not met, the box remains grey but is outlined
+									in blue. In this scenario, there is no definitive knowledge gained on organ
+									failure likelihood for that rule set.
 								</div>
 								<div className="row">
 									<div className="col-6">
