@@ -26,7 +26,7 @@ html {
 
 body {
   font-size: 1.6rem;
-  background-color: #dedede;
+  background-color: white;
   font-family: "Gilroy-Medium" !important;
 }
 
@@ -225,6 +225,11 @@ select:-moz-focusring {
   &.at-bottom >div {
     background-image: none;
   }
+}
+
+.copyright-footer {
+  font-size: 18px;
+  background: white;
 }
 
 .basic-info-step {

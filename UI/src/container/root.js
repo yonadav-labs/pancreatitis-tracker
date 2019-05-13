@@ -52,6 +52,7 @@ const RootComponent = () => {
 
 				<Route default component={NotFound} />
 			</Switch>
+			<div className="text-center my-4 copyright-footer py-5">© 2019 Ariel Precision Medicine. All rights reserved.</div>
 		</div>
 	);
 };

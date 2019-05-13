@@ -29,6 +29,4 @@ const Home = (props) => {
 	);
 };
 
-// export default Home;
 export default connect((props) => ({val: props.val}))(Home);
-
