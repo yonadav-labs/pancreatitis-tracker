@@ -142,13 +142,14 @@ def run_algorithms(request):
 
     res['mounzer_results'] = mounzer_output
 
-    if data['maintenance_fluid']:
-        res['maintenance_fluid'] = f"Based on the patient's body composition, average daily fluid needs are {data['maintenance_fluid']} mL/day."
-    else:
-        res['maintenance_fluid'] = "Please enter information about patient's body composition (height, weight, sex) to receive fluid recommendations."
-
-    if pop_percent:
-        res['maintenance_fluid'] += f'\nThe predicted probability of mortality by the POP score is {pop_percent:.2f} percent.'
+    res['considerations'] = {
+        'maintenance_fluid': f"Baseline fluid needs are {data['maintenance_fluid']} mL/day." 
+            if data['maintenance_fluid'] 
+            else "Please enter information about patient's body composition (height, weight, sex) \
+            to receive baseline fluid recommendations.",
+        'pop_percent': f'The predicted probability of mortality by the POP score is {pop_percent:.2f}%.' 
+            if pop_percent else ''
+    }
 
     # track running
     RunAlgorithm.objects.create(user=user, 

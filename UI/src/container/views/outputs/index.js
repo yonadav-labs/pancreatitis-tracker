@@ -11,7 +11,7 @@ class Outputs extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			recommendations: this.props.maintenance_fluid || '',
+			considerations: this.props.considerations || {},
 			clinicalScores: this.props.clinicalScores || []
 		};
 
@@ -27,7 +27,7 @@ class Outputs extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps) {
-		this.setState({ clinicalScores: nextProps.clinicalScores, recommendations: nextProps.maintenance_fluid });
+		this.setState({ clinicalScores: nextProps.clinicalScores, considerations: nextProps.considerations });
 	}
 
 	getRuleId = (value) => {
@@ -37,6 +37,7 @@ class Outputs extends React.Component {
 
 	showMounzer = () => {
 		const mounzerResults = Object.assign([], this.props.mounzerResults);
+
 		let positiveMounzers = [];
 		let negativeMounzers = [];
 		let positiveCount = 0;
@@ -87,12 +88,20 @@ class Outputs extends React.Component {
 		const {clinicalScores} = this.state;
 		const { positiveMounzers, negativeMounzers, positiveCount, negativeCount} = this.showMounzer();
 		const valueOfSpeedMeter = negativeCount - positiveCount;
+		const clinicalScores_ = Object.assign([], this.props.clinicalScores);
 
 		const dateX = moment(this.props.patient.onset_date);
 		const dateY = moment(this.props.patient.admission_date);
 
 		const X = moment().diff(dateX, 'hours', true).toFixed(1);
 		const Y = moment().diff(dateY, 'hours', true).toFixed(1);
+		let calcAlgorithms = [];
+
+		clinicalScores_.forEach((algo, idx) => {
+			if (algo.is_capable) {
+				calcAlgorithms.push(algo.algorithm);
+			}
+		});
 
 		return (
 			<div className="app-content">
@@ -106,17 +115,31 @@ class Outputs extends React.Component {
 									and {Y} hours from admission.
 								</div>
 							</div>
-							<div className="col-xs-12 col-md-7 recommendation">
-								<h2 className="section-title p-x-15">Clinical Considerations</h2>
-								<textarea
-									value={this.state.recommendations}
-									className="p-3"
-									onChange={this.changeValue}
-									id="recommendations"
-								/>
+							<div className="col-xs-12 col-md-8 recommendation">
+								<h2 className="section-title">Clinical Considerations</h2>
+								<div className="section-description grey-color-text">
+									<strong>For the most informative set of results, please order a
+									complete chemistry profile, complete blood count, and arterial
+									blood gas. </strong>
+									<span>It is also recommended to order a lipid panel, liver injury
+									test, LDH, CRP, and albumin.</span><br /><br />
+									<strong>Current severity score:</strong><br />
+									<span>ADAPT has computed {calcAlgorithms.join(', ')}.
+										{this.state.considerations.pop_percent}</span><br /><br />
+									<strong>Anticipated needs:</strong><br />
+									<span>{this.state.considerations.maintenance_fluid} In
+									addition, patient may need fluid resuscitation for intravascular
+									volume deficit. Re-evaluation of fluid status and organ function
+									is recommended at 4-6 hrs. Also, it is recommended to repeat any
+									abnormal labs at that time.</span><br /><br />
+									<strong>Etiology workup:</strong><br />
+									<span>Order a lipid panel, liver injury test, LDH, CRP, and albumin,
+									to better understand the etiology of this AP episode. For idiopathic
+									or recurrent AP, order ArielDx.</span>
+								</div>
 							</div>
-							<div className="col-xs-12 col-md-5 text-center">
-								<h2 className="section-title p-x-15">Severity Meter</h2>
+							<div className="col-xs-12 col-md-4 text-center">
+								<h2 className="section-title text-left">Severity Meter</h2>
 								<div className="section-description grey-color-text text-left">
 									The severity meter changes with respect to rules signifying “organ failure likely”
 									and “organ failure not likely.”
@@ -131,7 +154,7 @@ class Outputs extends React.Component {
 					</div>
 					<div className="page-section">
 						<div className="row mb-5">
-							<div className="col-xs-12 col-md-6">
+							<div className="col-xs-12 col-md-6 mb-4">
 								<h2 className="section-title">Clinical Scoring Systems</h2>
 								<div className="section-description grey-color-text">
 									Status bars do not display scores if insufficient information is available
@@ -231,7 +254,7 @@ const mapStatetoProps = state => {
 	return {
 		clinicalScores: state.clinicalScores.results,
 		mounzerResults: state.clinicalScores.mounzer_results,
-		maintenance_fluid: state.clinicalScores.maintenance_fluid,
+		considerations: state.clinicalScores.considerations,
 		patient: state.patient
 	};
 };
