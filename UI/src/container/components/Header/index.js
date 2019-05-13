@@ -44,7 +44,7 @@ class Header extends React.Component {
 					</button>
 					<div className="collapse navbar-collapse" id="navbarsExample02">
 						<Link to="/" className="header-logo">
-							<img src="/assets/images/logo.png" alt="header logo" />
+							<img src="/assets/images/logo.png" alt="header logo" className="ml-4" style={{ height: '38px' }} />
 						</Link>
 						{/* <ul className="navbar-nav mr-auto">
 							<li className="nav-item active"> <a className="nav-link" href="#">Home <span className="sr-only">(current)</span></a> </li>
