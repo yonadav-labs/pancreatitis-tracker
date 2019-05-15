@@ -87,7 +87,12 @@ class Outputs extends React.Component {
 	render () {
 		const {clinicalScores} = this.state;
 		const { positiveMounzers, negativeMounzers, positiveCount, negativeCount} = this.showMounzer();
-		const valueOfSpeedMeter = negativeCount - positiveCount;
+		let valueOfSpeedMeter = negativeCount - positiveCount;
+		let extraMeterText = '';
+		if (negativeCount === 0 && positiveCount === 0) {
+			valueOfSpeedMeter = 5;
+			extraMeterText = 'Meter will function upon calculation of at least 1 Mounzer rule.';
+		}
 		const clinicalScores_ = Object.assign([], this.props.clinicalScores);
 
 		const dateX = moment(this.props.patient.onset_date);
@@ -115,7 +120,7 @@ class Outputs extends React.Component {
 									and {Y} hours from admission.
 								</div>
 							</div>
-							<div className="col-xs-12 col-md-8 recommendation">
+							<div className="col-xs-12 col-md-8 recommendation border pr-3">
 								<h2 className="section-title">Clinical Considerations</h2>
 								<div className="section-description grey-color-text">
 									<strong>For the most informative set of results, please order a
@@ -140,9 +145,9 @@ class Outputs extends React.Component {
 							</div>
 							<div className="col-xs-12 col-md-4 text-center">
 								<h2 className="section-title text-left">Severity Meter</h2>
-								<div className="section-description grey-color-text text-left">
+								<div className="section-description grey-color-text text-left mb-5">
 									The severity meter changes with respect to rules signifying “organ failure likely”
-									and “organ failure not likely.”
+									and “organ failure not likely.” {extraMeterText}
 								</div>
 								<img
 									className="speedmeter"
@@ -192,7 +197,8 @@ class Outputs extends React.Component {
 									conditions). If there is sufficient information to compute the rule, but
 									the conditions for the rule are not met, the box remains grey but is outlined
 									in blue. In this scenario, there is no definitive knowledge gained on organ
-									failure likelihood for that rule set.
+									failure likelihood for that rule set.<br />
+									For more info, see <a href="https://www.ncbi.nlm.nih.gov/pubmed/22425589" target="_blank">PMID: 22425589</a>.
 								</div>
 								<div className="row">
 									<div className="col-6">
@@ -239,9 +245,11 @@ class Outputs extends React.Component {
 								</div>
 							</div>
 						</div>
-						<div className="row space-between-section mb-5">
-							<GreenButton text="Back" onClick={() => this.props.history.push('/patient')} />
-							<GreenButton text="Next" onClick={() => this.props.history.push('/feedback')} />
+						<div className="pt-3 text-center">
+							<div className="d-flex justify-content-between">
+								<GreenButton text="Back" onClick={() => this.props.history.push('/patient')} />
+								<GreenButton text="Next" onClick={() => this.props.history.push('/feedback')} />
+							</div>
 						</div>
 					</div>
 				</div>

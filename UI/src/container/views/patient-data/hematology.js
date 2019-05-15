@@ -2,6 +2,7 @@ import React from 'react';
 import {validateStep} from '../../utils/utils';
 import ReactTooltip from 'react-tooltip';
 import GreenButton from "../../components/GreenButton";
+import { toast } from "react-toastify";
 
 class Hematology extends React.Component {
 	constructor(props) {
@@ -84,6 +85,9 @@ class Hematology extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			isPageValid = false;
 			this.setState({ errors });
+			toast.warn('Please fix all errors.', {
+				position: toast.POSITION.TOP_CENTER
+			});
 		} else {
 			this.props.updateInfo(data, units);
 		}

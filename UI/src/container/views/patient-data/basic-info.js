@@ -11,6 +11,7 @@ import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import DropdownMenu from '../../components/DropdownMenu';
 import moment from 'moment';
+import { toast } from "react-toastify";
 
 const sexOption = [
 	{ value: 'm', label: 'Male' },
@@ -129,6 +130,9 @@ class BasicInfo extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			isPageValid = false;
 			this.setState({ errors });
+			toast.warn('Please fix all errors.', {
+				position: toast.POSITION.TOP_CENTER
+			});
 		} else {
 			this.props.updateInfo(data, units);
 		}
@@ -194,6 +198,66 @@ class BasicInfo extends React.Component {
 			<div className="basic-info-step" >
 				<ReactTooltip  effect='solid' className="tooltop-bar" />
 				<div className="row">
+					<div className="col-xs-12 col-lg-6">
+						<div className="row mb-5">
+							<div className="col-xs-12 col-md-6">
+								<div
+									className="round-btn grey-label"
+								>
+									Symptom Onset
+								</div>
+							</div>
+							<div className="col-xs-12 col-md-6">
+								<DatePicker
+									id="onset_date"
+									showTimeSelect
+									className="round-input w-100"
+									timeFormat="HH:mm"
+									timeIntervals={15}
+									dateFormat="MM/dd/YYYY HH:mm"
+									selected={
+										basicInfo.onset_date
+											? new Date(basicInfo.onset_date)
+											: null
+									}
+									onChange={(date) => this.changeDate('onset_date', date)}
+								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.onset_date && errors.onset_date.msg}
+								</label>
+							</div>
+						</div>
+					</div>
+					<div className="col-xs-12 col-lg-6">
+						<div className="row mb-5">
+							<div className="col-xs-12 col-md-6">
+								<div
+									className="round-btn grey-label"
+								>
+									Admission Date
+								</div>
+							</div>
+							<div className="col-xs-12 col-md-6">
+								<DatePicker
+									showTimeSelect
+									id="admission_date"
+									className="round-input col-xs-12"
+									timeFormat="HH:mm"
+									timeIntervals={15}
+									dateFormat="MM/dd/YYYY HH:mm"
+									selected={
+										basicInfo.admission_date
+											? new Date(basicInfo.admission_date)
+											: null
+									}
+									onChange={(date) => this.changeDate('admission_date', date)}
+								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.admission_date && errors.admission_date.msg}
+								</label>
+							</div>
+						</div>
+					</div>
 					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-md-6">
@@ -338,66 +402,6 @@ class BasicInfo extends React.Component {
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.chronic_health && errors.chronic_health.msg}
-								</label>
-							</div>
-						</div>
-					</div>
-					<div className="col-xs-12 col-lg-6">
-						<div className="row mb-5">
-							<div className="col-xs-12 col-md-6">
-								<div
-									className="round-btn grey-label"
-								>
-									Symptom Onset
-								</div>
-							</div>
-							<div className="col-xs-12 col-md-6">
-								<DatePicker
-									id="onset_date"
-									showTimeSelect
-									className="round-input w-100"
-									timeFormat="HH:mm"
-									timeIntervals={15}
-									dateFormat="MM/dd/YYYY HH:mm"
-									selected={
-										basicInfo.onset_date
-											? new Date(basicInfo.onset_date)
-											: null
-									}
-									onChange={(date) => this.changeDate('onset_date', date)}
-								/>
-								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.onset_date && errors.onset_date.msg}
-								</label>
-							</div>
-						</div>
-					</div>
-					<div className="col-xs-12 col-lg-6">
-						<div className="row mb-5">
-							<div className="col-xs-12 col-md-6">
-								<div
-									className="round-btn grey-label"
-								>
-									Admission Date
-								</div>
-							</div>
-							<div className="col-xs-12 col-md-6">
-								<DatePicker
-									showTimeSelect
-									id="admission_date"
-									className="round-input col-xs-12"
-									timeFormat="HH:mm"
-									timeIntervals={15}
-									dateFormat="MM/dd/YYYY HH:mm"
-									selected={
-										basicInfo.admission_date
-											? new Date(basicInfo.admission_date)
-											: null
-									}
-									onChange={(date) => this.changeDate('admission_date', date)}
-								/>
-								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.admission_date && errors.admission_date.msg}
 								</label>
 							</div>
 						</div>

@@ -20,11 +20,25 @@ class About extends React.Component {
 				<div className="container">
 					<div className="page-description">
 						<p>Welcome to the Ariel Dynamic Acute Pancreatitis Tracker (ADAPT).</p>
-						<p>This quality-improvement tool is designed to aid in caring for patients in the emergency department suffering from acute pancreatitis (AP).</p>
-						<p>Using <Link to="/patient">clinical information and lab results</Link>, ADAPT automatically computes clinical scoring systems--including SIRS, HAPS, Panc 3, BISAP, POP, Ranson, Glasgow, APACHE-II, and JSS--and predicts persistent organ failure.</p>
-						<p>Future versions of this tool will feature longitudinal data trends and integration with electronic medical records (EMR) to eliminate manual data entry.</p>
-						<p>Please enter as much information as possible. ADAPT has been designed to work with all levels of patient data.</p>
-						<p><strong>For the most informative set of results, please order a complete chemistry profile, complete blood count, and arterial blood gas.</strong></p>
+						<p>This quality-improvement tool is designed to aid in caring for patients in
+						the emergency department suffering from acute pancreatitis (AP).</p>
+						<p>Using <Link to="/patient">clinical information and lab results</Link>, ADAPT
+						automatically computes clinical scoring systems--including SIRS, HAPS, Panc 3,
+						BISAP, POP, Ranson, Glasgow, APACHE-II, and JSS--and predicts persistent organ
+						failure.</p>
+						<p>Future versions of this tool will feature longitudinal data trends and
+						integration with electronic medical records (EMR) to eliminate manual data
+						entry.</p>
+						<p>Please enter as much information as possible. ADAPT has been designed to work
+						with all levels of patient data.</p>
+						<p><strong>For the most informative set of results, please order a complete
+						chemistry profile, complete blood count, and arterial blood gas.</strong></p>
+						<p>Calculator tools function as presented at Digestive Disease Week 2019,
+						Paragomi et al., Dynamic Analysis of Patients with Acute Pancreatitis:
+						Validation of a New Predictive Tool for Severity Assessment in a Large
+						Prospective Cohort, Gastroenterology, 2019, Volume 156, Issue 6, Supplement 1,
+						Pages S-122–S-123. DOI: <a href="https://doi.org/10.1016/S0016-5085(19)37098-2"
+							target="_blank">https://doi.org/10.1016/S0016-5085(19)37098-2</a></p>
 						<p>For questions, please reach out and <Link to="/contact">contact us</Link>.</p>
 					</div>
 					<div className="text-center mb-5">

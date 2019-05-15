@@ -1,6 +1,7 @@
 import React from 'react';
 import {validateStep} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
+import { toast } from "react-toastify";
 
 class ArterialGases extends React.Component {
 	constructor(props) {
@@ -90,6 +91,9 @@ class ArterialGases extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			isPageValid = false;
 			this.setState({ errors });
+			toast.warn('Please fix all errors.', {
+				position: toast.POSITION.TOP_CENTER
+			});
 		} else {
 			this.props.updateInfo(data, units);
 		}

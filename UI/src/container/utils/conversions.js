@@ -20,7 +20,7 @@ export const mgDlToMmolL = (value) => {
 }
 
 export const glucoseConvert = (val) => {
-	return val * 0.0554994394556615;
+	return val * 18.02;
 }
 
 export const calciumConvert = (val) => {

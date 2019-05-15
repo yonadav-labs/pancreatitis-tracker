@@ -56,7 +56,7 @@ export const getScoresAction = (data, units) => {
 		params.temperature = fToC(params.temperature);
 	}
 
-	if (units.glucose === 'mg/dL' && params.glucose) {
+	if (units.glucose === 'mmol/L' && params.glucose) {
 		params.glucose = glucoseConvert(params.glucose);
 	}
 

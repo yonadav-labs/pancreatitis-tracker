@@ -45,7 +45,7 @@ class TestClinicalScoringSystems(TestCase):
             "calcium": 1.5,                   # mmol/L,
             "bicarbonate": 32,                # mmol/L,
             "creatinine": 1,                  # mg/dL,
-            "glucose": 9,                     # mmol/L,
+            "glucose": 9 / 0.05549943,        # mg/dL,
             "pleural_eff": True,              # T/F,
             "peritonitis": True,
             "eye_score": 2,                   # unitless,

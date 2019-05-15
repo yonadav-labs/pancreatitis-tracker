@@ -1,6 +1,7 @@
 import React from 'react';
 import {validateStep} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
+import { toast } from "react-toastify";
 
 class Chemistry extends React.Component {
 	constructor(props) {
@@ -79,8 +80,8 @@ class Chemistry extends React.Component {
 					name: 'glucose',
 					type: 'float',
 					range: [
-						{ min: 60, max: 250, unit: 'mg/dL' },
-						{ min: 3.3, max: 13.9, unit: 'mmol/L' }
+						{ min: 20, max: 1000, unit: 'mg/dL' },
+						{ min: 1.1, max: 55.5, unit: 'mmol/L' }
 					]
 				},
 				calcium: {
@@ -154,6 +155,9 @@ class Chemistry extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			isPageValid = false;
 			this.setState({ errors });
+			toast.warn('Please fix all errors.', {
+				position: toast.POSITION.TOP_CENTER
+			});
 		} else {
 			this.props.updateInfo(data, units);
 		}
@@ -311,38 +315,6 @@ class Chemistry extends React.Component {
 								</label>
 							</div>
 						</div>
-					</div>
-					<div className="col-xs-12 col-lg-6">
-						<div className="row mb-5">
-							<div className="col-xs-12 col-md-6">
-								<div className="round-btn grey-label">Glucose</div>
-							</div>
-							<div className="col-xs-12 col-md-6">
-								<div className="d-flex">
-									<input
-										type="text"
-										id="glucose"
-										maxLength="7"
-										className="round-input"
-										value={chemistry.glucose}
-										onChange={this.changeInfo}
-									/>
-									<select
-										className="input-inline-select"
-										defaultValue={units.glucose}
-										onChange={e => this.changeUnit('glucose', e.target.value)}
-									>
-										<option>mmol/L</option>
-										<option>mg/dL</option>
-									</select>
-								</div>
-								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.glucose && errors.glucose.msg}
-								</label>
-							</div>
-						</div>
-					</div>
-					<div className="col-xs-12 col-lg-6">
 						<div className="row mb-5">
 							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">Creatinine</div>
@@ -368,6 +340,34 @@ class Chemistry extends React.Component {
 						</div>
 					</div>
 					<div className="col-xs-12 col-lg-6">
+						<div className="row mb-5">
+							<div className="col-xs-12 col-md-6">
+								<div className="round-btn grey-label">Glucose</div>
+							</div>
+							<div className="col-xs-12 col-md-6">
+								<div className="d-flex">
+									<input
+										type="text"
+										id="glucose"
+										maxLength="7"
+										className="round-input"
+										value={chemistry.glucose}
+										onChange={this.changeInfo}
+									/>
+									<select
+										className="input-inline-select"
+										defaultValue={units.glucose}
+										onChange={e => this.changeUnit('glucose', e.target.value)}
+									>
+										<option>mg/dL</option>
+										<option>mmol/L</option>
+									</select>
+								</div>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.glucose && errors.glucose.msg}
+								</label>
+							</div>
+						</div>
 						<div className="row mb-5">
 							<div className="col-xs-12 col-md-6">
 								<div className="round-btn grey-label">Total Calcium</div>

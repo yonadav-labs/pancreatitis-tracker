@@ -76,7 +76,7 @@ const InitialState = {
 		hco3_serum: 'mmol/L',
 		bun: 'mg/dL',
 		creatinine: 'mg/dL',
-		glucose: 'mmol/L',
+		glucose: 'mg/dL',
 		calcium: 'mmol/L',
 		albumin: 'g/dL',
 		ast: 'U/L',

@@ -13,7 +13,7 @@ class AlgorithmGlasgow(AlgorithmInterface):
     Args:
       age: int
       wbc: white blood cell count (10^3/mm^3 or 10^9/L)
-      glucose: blood glucose in mmol/L
+      glucose: blood glucose in mg/dL
       bun: blood urea nitrogen, mg/dL -> urea in mmol/L
       paO2: Arterial oxygen partial pressure in mmHg
       calcium: serum calcium in mmol/L
@@ -35,7 +35,7 @@ class AlgorithmGlasgow(AlgorithmInterface):
         glasgow_score = 0
         age_limit = 55
         wbc_limit = 15
-        glucose_limit = 10
+        glucose_limit = 10 * 18.02
         urea_limit = 16
         paO2_limit =  60
         calcium_limit = 2

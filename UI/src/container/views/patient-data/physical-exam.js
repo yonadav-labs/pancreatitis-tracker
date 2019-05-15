@@ -1,8 +1,9 @@
 import React from 'react';
 import ReactTooltip from 'react-tooltip';
 import Select from 'react-select';
-import {validateStep} from '../../utils/utils';
+import { validateStep } from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
+import { toast } from "react-toastify";
 
 const booleanOption = [
 	{ value: true, label: 'Yes' },
@@ -127,6 +128,9 @@ class PhysicalExam extends React.Component {
 		if (Object.keys(errors).length > 0) {
 			isPageValid = false;
 			this.setState({ errors });
+			toast.warn('Please fix all errors.', {
+				position: toast.POSITION.TOP_CENTER
+			});
 		} else {
 			this.props.updateInfo(data, units);
 		}
