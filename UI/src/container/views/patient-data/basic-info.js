@@ -24,9 +24,9 @@ const chronicHealthOption1 = [
 ];
 
 const chronicHealthOption2 = [
-	{ value: 5, label: 'Emergency' },
-	{ value: 2, label: 'Elective' },
-	{ value: 4, label: 'Nonoperative' }
+	{ value: 'emergency', label: 'Emergency' },
+	{ value: 'elective', label: 'Elective' },
+	{ value: 'nonoperative', label: 'Nonoperative' }
 ];
 
 class BasicInfo extends React.Component {
@@ -86,7 +86,7 @@ class BasicInfo extends React.Component {
 				}
 			},
 			errors: {},
-			chronic_health_: this.props.data.chronic_health !== 0,
+			chronic_health_: this.props.data.chronic_health !== '',
 			historyDate: this.props.historyData && this.props.historyData[0]
 				? this.props.historyData[0].run_at : ''
 		};
@@ -95,7 +95,7 @@ class BasicInfo extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		const params = {...this.state.basicInfo, ...nextProps.data};
-		this.setState({ basicInfo: params, chronic_health_: params.chronic_health !== 0 });
+		this.setState({ basicInfo: params, chronic_health_: params.chronic_health !== '' });
 	}
 
 	calculateBMI = (params) => {
@@ -173,9 +173,9 @@ class BasicInfo extends React.Component {
 		let { basicInfo, chronic_health_ } = this.state;
 		chronic_health_ = val.value;
 		if (!val.value) {
-			basicInfo.chronic_health = 0;
+			basicInfo.chronic_health = '';
 		}
-		this.setState({ chronic_health_ });
+		this.setState({ basicInfo, chronic_health_ });
 	}
 
 	changeOption = (id, val) => {

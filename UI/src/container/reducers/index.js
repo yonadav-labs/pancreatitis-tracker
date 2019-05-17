@@ -10,7 +10,7 @@ const InitialState = {
 		height: '',
 		weight: '',
 		bmi: '',
-		chronic_health: 0,
+		chronic_health: '',
 		ph: '',
 		paO2: '',
 		paCO2: '',
