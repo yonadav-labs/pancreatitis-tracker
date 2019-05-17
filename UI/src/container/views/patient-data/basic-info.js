@@ -386,9 +386,10 @@ class BasicInfo extends React.Component {
 									className="round-btn grey-label"
 									data-multiline="true"
 									data-event="click"
-									data-tip="1) Liver: biopsy-proven cirrhosis<br>2) Cardiovascular: NYHA class IV heart failure<br>3) Respiratory: documented chronic hypoxia; hypercapnia; secondary polycythemia; severe pulmonary hypertension; COPD; respirator dependency<br>4) Renal: on dialysis or <br>5) Immunocompromised"
+									style={{ fontSize: '20px' }}
+									data-tip="Optional, Pre-ICU admission state for APACHE II calculation only. Organ insufficiency defined as: liver cirrhosis [e.g. Child's C], NYHA class IV heart failure, home oxygen, or dialysis-dependent. Insufficiency or immunocompromized state must have been evident prior to hospital admission."
 								>
-									Chronic Health Problems
+									Severe Organ Failure / Immunocompromized
 									<img src="/assets/images/info-w.png" className="ml-3" style={{ height: '18px' }} />
 								</div>
 							</div>

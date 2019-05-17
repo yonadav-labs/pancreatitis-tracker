@@ -42,28 +42,28 @@ class VitalSigns extends React.Component {
 					name: 'bp_diastolic',
 					type: 'float',
 					range: [
-						{ min: 50, max: 130, unit: 'mmHg' }
+						{ min: 30, max: 150, unit: 'mmHg' }
 					]
 				},
 				heart_rate: {
 					name: 'heart_rate',
 					type: 'float',
 					range: [
-						{ min: 35, max: 190, unit: 'bpm' }
+						{ min: 35, max: 200, unit: 'bpm' }
 					]
 				},
 				resp_rate: {
 					name: 'resp_rate',
 					type: 'float',
 					range: [
-						{ min: 5, max: 55, unit: 'bpm' }
+						{ min: 5, max: 60, unit: 'bpm' }
 					]
 				},
 				spO2: {
 					name: 'spO2',
 					type: 'float',
 					range: [
-						{ min: 80, max: 100, unit: '%' }
+						{ min: 60, max: 100, unit: '%' }
 					]
 				}
 			},

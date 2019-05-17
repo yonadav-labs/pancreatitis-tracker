@@ -34,27 +34,27 @@ class ArterialGases extends React.Component {
 				paO2: {
 					name: 'paO2',
 					type: 'float',
-					range: [{ min: 50, max: 75, unit: 'mmHg'}]
+					range: [{ min: 10, max: 500, unit: 'mmHg'}]
 				},
 				paCO2: {
 					name: 'paCO2',
 					type: 'float',
 					range: [
-						{ min: 30, max: 50, unit: 'mmHg' }
+						{ min: 10, max: 150, unit: 'mmHg' }
 					]
 				},
 				hco3_artieral: {
 					name: 'hco3_artieral',
 					type: 'float',
 					range: [
-						{ min: 13, max: 55, unit: 'mmol/L' }
+						{ min: 0, max: 60, unit: 'mmol/L' }
 					]
 				},
 				fiO2: {
 					name: 'fiO2',
 					type: 'float',
 					range: [
-						{ min: 0.0, max: 1, unit: '%' }
+						{ min: 0, max: 100, unit: '%' }
 					]
 				},
 				base_excess: {
@@ -220,14 +220,19 @@ class ArterialGases extends React.Component {
 								<div className="round-btn grey-label">FiO₂</div>
 							</div>
 							<div className="col-xs-12 col-md-6">
-								<input
-									type="text"
-									maxLength="7"
-									id="fiO2"
-									className="round-input"
-									value={arterialGases.fiO2}
-									onChange={this.changeInfo}
-								/>
+								<div className="d-flex">
+									<input
+										type="text"
+										maxLength="7"
+										id="fiO2"
+										className="round-input"
+										value={arterialGases.fiO2}
+										onChange={this.changeInfo}
+									/>
+									<select className="input-inline-select">
+										<option>%</option>
+									</select>
+								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.fiO2 && errors.fiO2.msg}
 								</label>

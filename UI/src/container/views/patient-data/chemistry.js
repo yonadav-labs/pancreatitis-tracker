@@ -46,7 +46,7 @@ class Chemistry extends React.Component {
 				potassium: {
 					name: 'potassium',
 					type: 'float',
-					range: [{ min: 2.2, max: 7.5, unit: 'mmol/L'}]
+					range: [{ min: 1, max: 8, unit: 'mmol/L'}]
 				},
 				chloride: {
 					name: 'chloride',
@@ -59,7 +59,7 @@ class Chemistry extends React.Component {
 					name: 'hco3_serum',
 					type: 'float',
 					range: [
-						{ min: 13, max: 55, unit: 'mmol/L' }
+						{ min: 10, max: 60, unit: 'mmol/L' }
 					]
 				},
 				bun: {
@@ -73,7 +73,7 @@ class Chemistry extends React.Component {
 					name: 'creatinine',
 					type: 'float',
 					range: [
-						{ min: 0.5, max: 5.0, unit: 'mg/dL' }
+						{ min: 0, max: 10, unit: 'mg/dL' }
 					]
 				},
 				glucose: {

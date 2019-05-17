@@ -25,7 +25,7 @@ class Hematology extends React.Component {
 					name: 'wbc',
 					type: 'float',
 					range: [
-						{ min: 1, max: 50, unit: '10^9 cells/L'}
+						{ min: 0, max: 70, unit: '10^9 cells/L'}
 					]
 				},
 				platelet_count: {
@@ -47,8 +47,8 @@ class Hematology extends React.Component {
 					name: 'crp',
 					type: 'float',
 					range: [
-						{ min: 0, max: 20, unit: 'mg/dL' },
-						{ min: 0, max: 40, unit: 'mg/L' }
+						{ min: 0, max: 200, unit: 'mg/dL' },
+						{ min: 0, max: 400, unit: 'mg/L' }
 					]
 				}
 			},

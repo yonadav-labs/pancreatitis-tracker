@@ -41,7 +41,8 @@ def get_preprocessed_data(request):
     data['bicarbonate'] = interface.AlgorithmInterface(data).get_bicarbonate()
     data['peritonitis'] = interface.AlgorithmInterface(data).get_peritonitis()
     data['maintenance_fluid'] = interface.AlgorithmInterface(data).maintenance_fluid()
-
+    if data.get('fiO2'):
+        data['fiO2'] /= 100.0   # convert to 0-1
     data['arterial_pressure'] = map.AlgorithmMap(data).evaluate()
     data['sirs_score'] = sirs.AlgorithmSirs(data).evaluate()
 
