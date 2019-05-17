@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from "redux";
 import Title from '../../components/Title';
 import GreenButton from "../../components/GreenButton";
-import { validateAccount } from '../../utils/utils';
+import { checkValidity } from '../../utils/utils';
 import { createAccountAction } from '../../actions';
 import { toast } from "react-toastify";
 
@@ -16,10 +16,6 @@ class Account extends React.Component {
 				name: '',
 				email: '',
 				password: ''
-			},
-			patient: {
-				name: '',
-				email: ''
 			},
 			rules: {
 				name: {
@@ -61,15 +57,14 @@ class Account extends React.Component {
 		const {rules, physician} = this.state;
 
 		Object.keys(physician).forEach((field) => {
-			const res = validateAccount(rules[field], physician[field]);
+			const res = checkValidity(rules[field], physician[field], null);
 			if (!res.isValid) {
 				errors[field] = res.msg;
 			}
 		});
 
-		if (Object.keys(errors).length > 0) {
-			this.setState({ errors });
-		} else {
+		this.setState({ errors });
+		if (Object.keys(errors).length === 0) {
 			this.setState({ errors });
 			this.props.createAccountAction({
 				name: physician.name,
@@ -89,7 +84,7 @@ class Account extends React.Component {
 	}
 
 	render () {
-		const {physician, patient, errors} = this.state;
+		const {physician, errors} = this.state;
 
 		return (
 			<div className="app-content">
@@ -115,7 +110,7 @@ class Account extends React.Component {
 											onChange={this.changeInfo}
 										/>
 										<label className="color-danger pt-2 text-danger text-center warning-message">
-											{errors.name && errors.name.msg}
+											{errors.name}
 										</label>
 									</div>
 								</div>
@@ -134,7 +129,7 @@ class Account extends React.Component {
 											onKeyDown={this._handleKeyDown}
 										/>
 										<label className="color-danger pt-2 text-danger text-center warning-message">
-											{errors.email && errors.email.msg}
+											{errors.email}
 										</label>
 									</div>
 								</div>
@@ -152,7 +147,7 @@ class Account extends React.Component {
 											onKeyDown={this._handleKeyDown}
 										/>
 										<label className="color-danger pt-2 text-danger text-center warning-message">
-											{errors.password && errors.password.msg}
+											{errors.password}
 										</label>
 									</div>
 								</div>

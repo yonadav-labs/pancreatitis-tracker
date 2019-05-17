@@ -38,9 +38,8 @@ export const validateEmail = (email) => {
 	var re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
 	if (email && email.length > 0) {
 		return re.test(String(email).toLowerCase());
-	} else {
-		return false;
 	}
+	return false;
 }
 
 export const isFloat = n => {
@@ -68,26 +67,14 @@ export const allLetter = (inputtxt) => {
 	return false;
 }
 
-export const hasOnlyOneSpace = (text) => {
-	if (count(text, '\\ ') < 2) {
-		if ((text.indexOf(' ') > 0) && (text.indexOf(' ') < (text.length - 1))) {
-			return true;
-		}
-	}
-
-	return false;
-}
-
 export function checkValidity(rule, data, unit) {
 	let isValid = true;
 	let errorMsg = 'Please enter valid data.';
 	let value = data;
 
 	if (rule) {
-		if (!rule.required) {
-			if (!data || data === '') {
-				return { isValid: true, msg: '', val: value };
-			}
+		if (!rule.required && (!data || data === '')) {
+			return { isValid: true, msg: '', val: value };
 		}
 
 		switch(rule.type) {
@@ -132,16 +119,26 @@ export function checkValidity(rule, data, unit) {
 
 				break;
 			case 'email':
-				if (!validateEmail(data)) {
-					isValid = false;
-				}
-
+				isValid = validateEmail(data);
+				errorMsg = 'Please provide a valid email.';
 				break;
 			case 'phone':
-				if (!validatePhoneNumber(data)) {
+				isValid = validatePhoneNumber(data);
+				break;
+			case 'name':
+				if (data === "" || !allLetter(data) || count(data.trim(), '\\ ') < 1) {
 					isValid = false;
+					errorMsg = 'Please provide a valid name.'
 				}
-
+				break;
+			case 'password':
+				if (data === "") {
+					isValid = false;
+					errorMsg = "Please provide the password.";
+				} else if (data !== rule.default) {
+					isValid = false;
+					errorMsg = "Password is wrong.";
+				}
 				break;
 			case 'text':
 				if (typeof data !== "string" || data === ""){
@@ -175,40 +172,4 @@ export const validateStep = (data, units, rules) => {
 	});
 
 	return { data: _data, errors: errors };
-}
-
-export const validateAccount = (rule, data) => {
-	let isValid = true;
-
-	switch(rule.type) {
-		case 'email':
-			if (!validateEmail(data)) {
-				isValid = false;
-			}
-
-			break;
-		
-		case 'phone':
-			if (!validatePhoneNumber(data)) {
-				isValid = false;
-			}
-
-			break;
-
-		case 'text':
-			if (typeof data !== "string" || data === ""){
-				isValid = false;
-			}
-			break;
-
-		case 'name':
-			if (data === "" || !allLetter(data) || !hasOnlyOneSpace(data)){
-				isValid = false;
-			}
-			break;
-
-		default: break;
-	}
-
-	return isValid;
 }
