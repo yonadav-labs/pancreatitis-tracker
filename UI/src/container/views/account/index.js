@@ -23,17 +23,14 @@ class Account extends React.Component {
 			},
 			rules: {
 				name: {
-					name: 'name',
 					type: 'name',
 					required: true
 				},
 				email: {
-					name: 'email',
 					type: 'email',
 					required: true
 				},
 				password: {
-					name: 'password',
 					type: 'password',
 					default: '5750centre',
 					required: true
@@ -63,13 +60,10 @@ class Account extends React.Component {
 		const errors = {};
 		const {rules, physician} = this.state;
 
-		Object.keys(physician).forEach((data) => {
-			if (rules[data]) {
-				if (!validateAccount(rules[data], physician[data])) {
-					errors[data] = {
-						msg: 'Please enter valid data.'
-					};
-				}
+		Object.keys(physician).forEach((field) => {
+			const res = validateAccount(rules[field], physician[field]);
+			if (!res.isValid) {
+				errors[field] = res.msg;
 			}
 		});
 
