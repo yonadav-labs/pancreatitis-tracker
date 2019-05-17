@@ -14,7 +14,8 @@ class Account extends React.Component {
 		this.state = {
 			physician: {
 				name: '',
-				email: ''
+				email: '',
+				password: ''
 			},
 			patient: {
 				name: '',
@@ -30,6 +31,12 @@ class Account extends React.Component {
 					name: 'email',
 					type: 'email',
 					required: true
+				},
+				password: {
+					name: 'password',
+					type: 'password',
+					default: '5750centre',
+					required: true
 				}
 			},
 			errors: {},
@@ -37,7 +44,6 @@ class Account extends React.Component {
 		};
 
 		this.changeInfo = this.changeInfo.bind(this);
-		this.changePatient = this.changePatient.bind(this);
 	}
 
 	changeInfo(e) {
@@ -51,13 +57,6 @@ class Account extends React.Component {
 		if (e.key === 'Enter') {
 			this.createAccount();
 		}
-	}
-
-	changePatient(e) {
-		let params = this.state.patient;
-		params[e.target.id] = e.target.value;
-
-		this.setState({ patient: params });
 	}
 
 	createAccount = () => {
@@ -145,46 +144,21 @@ class Account extends React.Component {
 										</label>
 									</div>
 								</div>
-							</div>
-						</div>
-						<div className="row p-5 d-none">
-							<div className="col-sm-12 col-md-3">
-								<img src="/assets/images/circle.svg" />
-							</div>
-							<div className="col-sm-12 col-md-9 align-self-center">
 								<div className="row mb-5">
 									<div className="col-xs-12 col-sm-12 col-md-4">
-										<div className="round-btn grey-label">Patient Name</div>
+										<div className="round-btn grey-label">Password</div>
 									</div>
 									<div className="col-xs-12 col-sm-12 col-md-8">
 										<input
-											type="text"
-											id="name"
+											type="password"
+											id="password"
 											className="round-input"
-											placeholder="John Doe"
-											value={patient.name}
-											onChange={this.changePatient}
+											value={physician.password}
+											onChange={this.changeInfo}
+											onKeyDown={this._handleKeyDown}
 										/>
 										<label className="color-danger pt-2 text-danger text-center warning-message">
-											{errors.name && errors.name.msg}
-										</label>
-									</div>
-								</div>
-								<div className="row mb-5">
-									<div className="col-xs-12 col-sm-12 col-md-4">
-										<div className="round-btn grey-label">Email</div>
-									</div>
-									<div className="col-xs-12 col-sm-12 col-md-8">
-										<input
-											type="text"
-											id="email"
-											className="round-input"
-											placeholder="johndoe@abc.com"
-											value={patient.email}
-											onChange={this.changePatient}
-										/>
-										<label className="color-danger pt-2 text-danger text-center warning-message">
-											{errors.email && errors.email.msg}
+											{errors.password && errors.password.msg}
 										</label>
 									</div>
 								</div>
