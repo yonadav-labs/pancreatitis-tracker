@@ -20,6 +20,7 @@ def register(request):
     user = User.objects.filter(email=data['email']).first()
     jwt_code = jwt.encode({ 'email' : data['email'] }, settings.SECRET_KEY, algorithm='HS256').decode('ascii')
 
+    # print (data['url'])
     if user and user.is_active:
         res = {
             "status": "authenticated",

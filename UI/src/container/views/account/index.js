@@ -68,7 +68,8 @@ class Account extends React.Component {
 			this.setState({ errors });
 			this.props.createAccountAction({
 				name: physician.name,
-				email: physician.email
+				email: physician.email,
+				url: window.location.href
 			}).then((res) => {
 				if (res.success) {
 					toast.success('Welcome to ADAPT!', {
