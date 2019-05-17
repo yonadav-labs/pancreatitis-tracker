@@ -18,11 +18,15 @@ const sexOption = [
 	{ value: 'f', label: 'Female' }
 ];
 
-const chronicHealthProblemsOption = [
-	{ value: 0, label: 'No chronic health problems' },
-	{ value: 1, label: 'Nonsurgical' },
-	{ value: 2, label: 'Elective postoperative' },
-	{ value: 3, label: 'Emergency postoperative' }
+const chronicHealthOption1 = [
+	{ value: true, label: 'Yes' },
+	{ value: false, label: 'No' }
+];
+
+const chronicHealthOption2 = [
+	{ value: 5, label: 'Emergency' },
+	{ value: 2, label: 'Elective' },
+	{ value: 4, label: 'Nonoperative' }
 ];
 
 class BasicInfo extends React.Component {
@@ -49,10 +53,6 @@ class BasicInfo extends React.Component {
 				chronic_health: this.props.units.chronic_health
 			},
 			rules: {
-				sex: {
-					name: 'sex',
-					type: 'text'
-				},
 				age: {
 					name: 'age',
 					type: 'integer',
@@ -86,6 +86,7 @@ class BasicInfo extends React.Component {
 				}
 			},
 			errors: {},
+			chronic_health_: this.props.data.chronic_health !== 0,
 			historyDate: this.props.historyData && this.props.historyData[0]
 				? this.props.historyData[0].run_at : ''
 		};
@@ -94,7 +95,7 @@ class BasicInfo extends React.Component {
 
 	componentWillReceiveProps(nextProps) {
 		const params = {...this.state.basicInfo, ...nextProps.data};
-		this.setState({ basicInfo: params });
+		this.setState({ basicInfo: params, chronic_health_: params.chronic_health !== 0 });
 	}
 
 	calculateBMI = (params) => {
@@ -168,6 +169,15 @@ class BasicInfo extends React.Component {
 		}
 	}
 
+	changeChronicHealth = (val) => {
+		let { basicInfo, chronic_health_ } = this.state;
+		chronic_health_ = val.value;
+		if (!val.value) {
+			basicInfo.chronic_health = 0;
+		}
+		this.setState({ chronic_health_ });
+	}
+
 	changeOption = (id, val) => {
 		let {basicInfo} = this.state;
 		basicInfo[id] = val.value;
@@ -191,7 +201,7 @@ class BasicInfo extends React.Component {
 	}
 
 	render() {
-		const {basicInfo, errors, units} = this.state;
+		const {basicInfo, errors, units, chronic_health_} = this.state;
 		const {historyData} = this.props;
 
 		return (
@@ -395,18 +405,33 @@ class BasicInfo extends React.Component {
 							</div>
 							<div className="col-xs-12 col-md-6">
 								<Select
-									options={chronicHealthProblemsOption}
+									options={chronicHealthOption1}
 									className="patient-select"
 									classNamePrefix="newselect"
-									onChange={(e) => this.changeOption('chronic_health', e)}
-									value={chronicHealthProblemsOption.filter(option => option.value === basicInfo.chronic_health)}
+									onChange={(e) => this.changeChronicHealth(e)}
+									value={chronicHealthOption1.filter(option => option.value === chronic_health_)}
 								/>
-								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.chronic_health && errors.chronic_health.msg}
-								</label>
 							</div>
 						</div>
 					</div>
+					{ chronic_health_ &&
+						<div className="col-xs-12 col-lg-6">
+							<div className="row mb-5">
+								<div className="col-xs-12 col-md-6">
+									<div className="round-btn grey-label">Type of Surgery</div>
+								</div>
+								<div className="col-xs-12 col-md-6">
+									<Select
+										options={chronicHealthOption2}
+										className="patient-select"
+										classNamePrefix="newselect"
+										onChange={(e) => this.changeOption('chronic_health', e)}
+										value={chronicHealthOption2.filter(option => option.value === basicInfo.chronic_health)}
+									/>
+								</div>
+							</div>
+						</div>
+					}
 				</div>
 				<div className="pt-3 text-center docking-footer">
 					<div className="d-flex justify-content-between">
