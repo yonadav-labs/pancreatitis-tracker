@@ -64,8 +64,8 @@ export const getScoresAction = (data, units) => {
 		params.albumin = albuminConvert(params.albumin);
 	}
 
-	if (units.calcium === 'mEq/L' && params.calcium) {
-		params.calcium = calciumConvert(params.calcium);
+	if (units.calcium !== 'mg/dL' && params.calcium) {
+		params.calcium = calciumConvert(params.calcium, units.calcium);
 	}
 
 	if (units.platelet_count === 'units/µL' && params.platelet_count) {

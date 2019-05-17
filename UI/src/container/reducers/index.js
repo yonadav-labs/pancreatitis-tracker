@@ -77,7 +77,7 @@ const InitialState = {
 		bun: 'mg/dL',
 		creatinine: 'mg/dL',
 		glucose: 'mg/dL',
-		calcium: 'mmol/L',
+		calcium: 'mg/dL',
 		albumin: 'g/dL',
 		ast: 'U/L',
 		alt: 'U/L',

@@ -31,7 +31,7 @@ ALGORITHMS = [
 ]
 
 
-def get_preprocessed_data(request):
+def get_preprocessed_data(request, convert_unit=True):
     data = json.loads(request.body.decode("utf-8"))
     is_approx_paO2 = data.get('spO2') and not data.get('paO2')
 
@@ -41,10 +41,14 @@ def get_preprocessed_data(request):
     data['bicarbonate'] = interface.AlgorithmInterface(data).get_bicarbonate()
     data['peritonitis'] = interface.AlgorithmInterface(data).get_peritonitis()
     data['maintenance_fluid'] = interface.AlgorithmInterface(data).maintenance_fluid()
-    if data.get('fiO2'):
-        data['fiO2'] /= 100.0   # convert to 0-1
     data['arterial_pressure'] = map.AlgorithmMap(data).evaluate()
     data['sirs_score'] = sirs.AlgorithmSirs(data).evaluate()
+
+    if convert_unit: # convert unit
+        if data.get('fiO2'):
+            data['fiO2'] /= 100.0   # convert to 0-1
+        if data.get('calcium'):
+            data['calcium'] /= 4.0078
 
     return data, is_approx_paO2
 
@@ -154,7 +158,7 @@ def run_algorithms(request):
 
     # track running
     RunAlgorithm.objects.create(user=user, 
-                                input=json.dumps(data, indent=2),
+                                input=json.dumps(get_preprocessed_data(request, False)[0], indent=2),
                                 output=json.dumps(output, indent=2),
                                 run_at=datetime.datetime.now())
 
