@@ -190,6 +190,8 @@ class Outputs extends React.Component {
 							<div className="col-xs-12 col-md-6">
 								<h2 className="section-title">Mounzer Rules</h2>
 								<div className="section-description grey-color-text">
+									Rules denote >95% probability of either developing organ failure (OF) or not
+									developing OF. In some cases, the trajectory is less certain at early timepoints.<br />
 									All rules default to a gray box. Upon entry of all of the necessary criteria,
 									there are 2 possibilities. If there is sufficient information to compute the
 									rule, and the conditions for the rule are met, the box becomes turquoise (e.g.

@@ -30,6 +30,7 @@ class Feedback extends React.Component {
 		} else {
 			this.setState({ errors });
 			this.props.leaveFeedbackAction(feedback).then(res => {
+				this.setState({ feedback: '' });
 				toast.success('Your feedback saved successfully!', {
 					position: toast.POSITION.TOP_CENTER
 				});
