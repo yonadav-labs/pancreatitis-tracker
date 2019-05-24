@@ -24,7 +24,7 @@ class Feedback extends React.Component {
 		let errors = {};
 		const { feedback } = this.state;
 
-		if (feedback.trim().length == 0) {
+		if (feedback.trim().length === 0) {
 			errors = { msg: 'Please leave your feedback.'};
 			this.setState({ errors });
 		} else {

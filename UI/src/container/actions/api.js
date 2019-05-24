@@ -59,7 +59,7 @@ export const leaveFeedbackApi = (feedback) => {
 
 	return postApi(FEEDBACK_URL, data)
 		.then(response => {
-			if (response == 'success') {
+			if (response === 'success') {
 				return {
 					success: true
 				};

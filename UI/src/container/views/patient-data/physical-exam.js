@@ -116,8 +116,7 @@ class PhysicalExam extends React.Component {
 		let isPageValid = true;
 		let {data, errors} = validateStep(physicalExam, units, rules);
 
-		if (Object.keys(errors).length == 0) {
-			// debugger;
+		if (Object.keys(errors).length === 0) {
 			if (data['guarding'] !== '' && data['tenderness'] === '') {
 				errors.tenderness = { msg: 'Please enter Rebound Tenderness to proceed.'};
 			} else if (data['guarding'] === '' && data['tenderness'] !== '') {
