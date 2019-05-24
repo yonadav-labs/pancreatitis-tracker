@@ -1,8 +1,8 @@
-let baseUrl = 'https://adapt-demo.arielmedicine.com/api';
+let baseUrl = 'https://adapt-demo-api.arielmedicine.com';
 if (window.location.href.indexOf('localhost') !== -1) {
 	baseUrl = "http://localhost:8000";
 } else if (window.location.href.indexOf('adapt-mvp.arielmedicine.com') !== -1) {
-	baseUrl = 'https://adapt-mvp.arielmedicine.com/api';
+	baseUrl = 'https://adapt-demo-api.arielmedicine.com';
 }
 
 export const BASE_URL = baseUrl;
