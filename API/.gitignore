@@ -5,7 +5,7 @@ env/
 nohup.out
 migrations
 static/media
-static/icons
+static/admin
 data/.~lock.*
 *.csv
 *.csv#

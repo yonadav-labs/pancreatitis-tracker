@@ -58,12 +58,11 @@ To install the Acute Pancreatitis Severity Calculator on an UNIX-based system (O
    ```   
 4. Create a super user
    ```
+   python manage.py collectstatic
    python manage.py createsuperuser
    ```
 5. Run the project
 
-  - Add the server ip address / dns to settings.py
-    `ALLOWED_HOSTS = ['localhost', '<public ip or dns here>']`
   - Launch the project
   
     ```
