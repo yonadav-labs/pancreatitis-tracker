@@ -88,9 +88,9 @@ class Chemistry extends React.Component {
 					name: 'calcium',
 					type: 'float',
 					range: [
-						{ min: 1, max: 4.5, unit: 'mmol/L' },
-						{ min: 2, max: 9, unit: 'mEq/L' },
-						{ min: 4, max: 18, unit: 'mg/dL' }
+						{ min: 0, max: 4.5, unit: 'mmol/L' },
+						{ min: 0, max: 9, unit: 'mEq/L' },
+						{ min: 0, max: 18, unit: 'mg/dL' }
 					]
 				},
 				albumin: {
