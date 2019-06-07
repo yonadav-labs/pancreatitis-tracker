@@ -27,7 +27,8 @@ class AlgorithmJss(AlgorithmInterface):
     """
     name = 'JSS'
     required_fields = ['age', 'calcium', 'crp', 'ldh', 'platelet_count', 'sirs_score', 'paO2']
-    semi_req_fields = [['base_excess', 'bp_systolic'], ['bun', 'creatinine']]
+    semi_req_fields = [['base_excess', 'bun'], ['base_excess', 'creatinine'], 
+                       ['bp_systolic', 'creatinine'], ['bp_systolic', 'bun']]
     optional_fields = ['oliguria', 'resp_failure']
     score_range = { 'min': 0, 'max': 9, 'threshold': 2 }
 

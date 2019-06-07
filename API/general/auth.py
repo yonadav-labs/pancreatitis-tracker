@@ -92,6 +92,6 @@ def leave_feedback(request):
     admin_email = 'jason.5001001@gmail.com'
     url = f"{settings.BACKEND_URL}/admin/general/feedback/{feedback.id}/change/"
     email_body = f"{user.first_name} {user.last_name} ({user.email}) left a feedback.\n\n{url}"
-    send_mail('ADAPT Feedback', email_body, settings.POSTMARK_SENDER, [admin_email], fail_silently=True)
+    send_mail('ADAPT Feedback', email_body, settings.POSTMARK_SENDER, [admin_email, settings.FEEDBACK_EMAIL], fail_silently=True)
 
     return HttpResponse("success")
