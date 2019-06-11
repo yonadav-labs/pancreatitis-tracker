@@ -46,7 +46,8 @@ const InitialState = {
 		heart_rate: '',
 		resp_rate: '',
 		onset_date: '',
-		admission_date: ''
+		admission_date: '',
+		fluid_responsive: true
 	},
 	units: {
 		sex: null,

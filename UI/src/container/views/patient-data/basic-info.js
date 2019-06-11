@@ -357,8 +357,8 @@ class BasicInfo extends React.Component {
 										defaultValue={units.weight}
 										onChange={e => this.changeUnit('weight', e.target.value)}
 									>
-										<option>kg</option>
 										<option>lb</option>
+										<option>kg</option>
 									</select>
 								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -397,9 +397,9 @@ class BasicInfo extends React.Component {
 									data-multiline="true"
 									data-event="click"
 									style={{ fontSize: '20px' }}
-									data-tip="Optional, Pre-ICU admission state for APACHE II calculation only. Organ insufficiency defined as: liver cirrhosis [e.g. Child's C], NYHA class IV heart failure, home oxygen, or dialysis-dependent. Insufficiency or immunocompromized state must have been evident prior to hospital admission."
+									data-tip="Optional, Pre-ICU admission state for APACHE II calculation only. Organ insufficiency defined as: liver cirrhosis [e.g. Child's C], NYHA class IV heart failure, home oxygen, or dialysis-dependent. Insufficiency or immunocompromised state must have been evident prior to hospital admission."
 								>
-									Severe Organ Failure / Immunocompromized
+									Severe Organ Failure / Immunocompromised
 									<img src="/assets/images/info-w.png" className="ml-3" style={{ height: '18px' }} />
 								</div>
 							</div>

@@ -17,13 +17,13 @@ from .auth import get_user
 
 ALGORITHMS = [
     # map.AlgorithmMap, 
-    # marshall.AlgorithmMarshall, 
     # early_warning.AlgorithmEarlyWarning, 
     apache.AlgorithmApache,
     bisap.AlgorithmBisap, 
     glasgow.AlgorithmGlasgow, 
     haps.AlgorithmHaps, 
     jss.AlgorithmJss, 
+    marshall.AlgorithmMarshall, 
     panc3.AlgorithmPanc3, 
     pop.AlgorithmPop, 
     ranson.AlgorithmRanson, 

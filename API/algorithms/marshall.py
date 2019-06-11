@@ -19,8 +19,10 @@ class AlgorithmMarshall(AlgorithmInterface):
     """
     # Bhandari, Vimal, et al. Gut and liver 7.6 (2013): 731.
 
+    name = 'Marshall'
     required_fields = ['bp_systolic', 'creatinine', 'paO2', 'fiO2', 'ph']
     optional_fields = ['fluid_responsive']
+    score_range = { 'min': 0, 'max': 12, 'threshold': 2 }
 
     def evaluate(self):
         _ = self.request
