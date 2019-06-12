@@ -102,7 +102,6 @@ class ArterialGases extends React.Component {
 				position: toast.POSITION.TOP_CENTER
 			});
 		} else {
-			debugger;
 			this.props.updateInfo(data, units);
 		}
 
@@ -298,9 +297,9 @@ class ArterialGases extends React.Component {
 									timeIntervals={15}
 									dateFormat="MM/dd/YYYY HH:mm"
 									selected={
-										arterialGases.time_stamp
+										arterialGases.time_stamp !== null && arterialGases.time_stamp !== ''
 											? new Date(arterialGases.time_stamp)
-											: null
+											: new Date()
 									}
 									onChange={(date) => this.changeDate('time_stamp', date)}
 								/>

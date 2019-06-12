@@ -160,7 +160,7 @@ def run_algorithms(request):
     RunAlgorithm.objects.create(user=user, 
                                 input=json.dumps(get_preprocessed_data(request, False)[0], indent=2),
                                 output=json.dumps(output, indent=2),
-                                run_at=datetime.datetime.now())
+                                run_at=datetime.datetime.strptime(data['time_stamp'], '%Y-%m-%dT%H:%M:%S.%fZ'))
 
     return JsonResponse(res, safe=False)
 
