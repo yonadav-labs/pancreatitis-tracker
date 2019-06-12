@@ -137,14 +137,10 @@ class PhysicalExam extends React.Component {
 		return isPageValid;
 	}
 
-	next = () => {
+	gotoStep = (delta) => {
 		if (this.isValidated()) {
-			this.props.jumpToStep(this.props.step+1);
+			this.props.jumpToStep(this.props.step+delta);
 		}
-	}
-
-	back = () => {
-		this.props.jumpToStep(this.props.step-1);
 	}
 
 	render() {
@@ -295,12 +291,12 @@ class PhysicalExam extends React.Component {
 						<GreenButton
 							text="Back"
 							className="mt-3"
-							onClick={this.back}
+							onClick={() => this.gotoStep(-1)}
 						/>
 						<GreenButton
 							text="Next"
 							className="mt-3"
-							onClick={this.next}
+							onClick={() => this.gotoStep(1)}
 						/>
 					</div>
 				</div>

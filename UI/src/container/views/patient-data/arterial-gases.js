@@ -2,6 +2,7 @@ import React from 'react';
 import {validateStep} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
 import { toast } from "react-toastify";
+import DatePicker from 'react-datepicker';
 
 class ArterialGases extends React.Component {
 	constructor(props) {
@@ -13,7 +14,8 @@ class ArterialGases extends React.Component {
 				paCO2: this.props.data.paCO2,
 				hco3_artieral: this.props.data.hco3_artieral,
 				fiO2: this.props.data.fiO2,
-				base_excess: this.props.data.base_excess
+				base_excess: this.props.data.base_excess,
+				time_stamp: this.props.data.time_stamp
 			},
 			units: {
 				ph: this.props.units.ph,
@@ -63,6 +65,11 @@ class ArterialGases extends React.Component {
 					range: [
 						{ min: -5, max: 3, unit: 'mEq/L' }
 					]
+				},
+				time_stamp: {
+					name: 'time_stamp',
+					type: 'text',
+					required: true
 				}
 			},
 			errors: {}
@@ -95,13 +102,14 @@ class ArterialGases extends React.Component {
 				position: toast.POSITION.TOP_CENTER
 			});
 		} else {
+			debugger;
 			this.props.updateInfo(data, units);
 		}
 
 		return isPageValid;
 	}
 
-	next = () => {
+	submit = () => {
 		if (this.isValidated()) {
 			setTimeout(() => {
 				this.props.savePatientData();
@@ -110,8 +118,16 @@ class ArterialGases extends React.Component {
 		}
 	}
 
-	back = () => {
-		this.props.jumpToStep(this.props.step-1);
+	gotoStep = (delta) => {
+		if (this.isValidated()) {
+			this.props.jumpToStep(this.props.step+delta);
+		}
+	}
+
+	changeDate = (id, date) => {
+		const params = { ...this.state.arterialGases };
+		params[id] = date ? date.toISOString() : '';
+		this.setState({arterialGases: params});
 	}
 
 	render() {
@@ -264,18 +280,48 @@ class ArterialGases extends React.Component {
 							</div>
 						</div>
 					</div>
+					<div className="col-xs-12 col-lg-6">
+						<div className="row mb-5">
+							<div className="col-xs-12 col-md-6">
+								<div
+									className="round-btn grey-label"
+								>
+									Time Stamp
+								</div>
+							</div>
+							<div className="col-xs-12 col-md-6">
+								<DatePicker
+									id="time_stamp"
+									showTimeSelect
+									className="round-input w-100"
+									timeFormat="HH:mm"
+									timeIntervals={15}
+									dateFormat="MM/dd/YYYY HH:mm"
+									selected={
+										arterialGases.time_stamp
+											? new Date(arterialGases.time_stamp)
+											: null
+									}
+									onChange={(date) => this.changeDate('time_stamp', date)}
+								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.time_stamp && errors.time_stamp.msg}
+								</label>
+							</div>
+						</div>
+					</div>
 				</div>
 				<div className="pt-3 text-center docking-footer">
 					<div className="d-flex justify-content-between">
 						<GreenButton
 							text="Back"
 							className="mt-3"
-							onClick={this.back}
+							onClick={() => this.gotoStep(-1)}
 						/>
 						<GreenButton
 							text="Submit"
 							className="mt-3"
-							onClick={this.next}
+							onClick={this.submit}
 						/>
 					</div>
 				</div>

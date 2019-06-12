@@ -163,9 +163,9 @@ class BasicInfo extends React.Component {
 		this.setState({basicInfo, units});
 	}
 
-	next = () => {
+	gotoStep = (delta) => {
 		if (this.isValidated()) {
-			this.props.jumpToStep(this.props.step+1);
+			this.props.jumpToStep(this.props.step+delta);
 		}
 	}
 
@@ -196,7 +196,7 @@ class BasicInfo extends React.Component {
 
 	changeDate = (id, date) => {
 		const params = { ...this.state.basicInfo };
-		params[id] = date.toISOString();
+		params[id] = date ? date.toISOString() : '';
 		this.setState({basicInfo: params});
 	}
 
@@ -443,7 +443,7 @@ class BasicInfo extends React.Component {
 						<GreenButton
 							text="Next"
 							className="ml-auto"
-							onClick={this.next}
+							onClick={() => this.gotoStep(1)}
 						/>
 					</div>
 				</div>
