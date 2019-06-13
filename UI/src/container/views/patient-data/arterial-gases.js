@@ -285,7 +285,7 @@ class ArterialGases extends React.Component {
 								<div
 									className="round-btn grey-label"
 								>
-									Time Stamp
+									Entry Time
 								</div>
 							</div>
 							<div className="col-xs-12 col-md-6">
