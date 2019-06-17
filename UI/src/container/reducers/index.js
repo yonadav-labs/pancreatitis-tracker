@@ -47,7 +47,7 @@ const InitialState = {
 		resp_rate: '',
 		onset_date: '',
 		admission_date: '',
-		fluid_responsive: true,
+		fluid_responsive: false,
 		time_stamp: ''
 	},
 	units: {

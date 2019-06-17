@@ -20,10 +20,14 @@ class Outputs extends React.Component {
 	}
 
 	changeValue(e) {
-		let params = {};
-		params[e.target.id] = e.target.value;
+		let { clinicalScores } = this.state;
+		if (e.target.checked) {
+			clinicalScores[5].score = clinicalScores[5].score - 1;
+		} else {
+			clinicalScores[5].score = clinicalScores[5].score + 1;
+		}
 
-		this.setState(params);
+		this.setState({ clinicalScores: clinicalScores });
 	}
 
 	componentWillReceiveProps(nextProps) {
@@ -185,6 +189,14 @@ class Outputs extends React.Component {
 											})
 											: null
 									}
+								</div>
+								<div className="form-check mt-5 ml-2">
+									<label className="form-check-label section-description ml-2">
+										<input type="checkbox"
+											className="form-check-input mt-3"
+											style={{ marginLeft: '-2rem' }}
+											onChange={this.changeValue} />Fluid Responsive?
+									</label>
 								</div>
 							</div>
 							<div className="col-xs-12 col-md-6">
