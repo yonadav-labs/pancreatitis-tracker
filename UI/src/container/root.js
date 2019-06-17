@@ -6,6 +6,7 @@ import License from "./views/license";
 import Feedback from "./views/feedback";
 import Outputs from "./views/outputs";
 import Account from "./views/account";
+import DynamicTracker from "./views/dynamic-tracker";
 import PatientData from "./views/patient-data";
 import Order from "./views/order";
 import NotFound from "./components/not-found";
@@ -27,6 +28,11 @@ const RootComponent = () => {
 				<Route exact path="/outputs" render={() => (
 					isAuthenticated()
 						? <Outputs />
+						: <Redirect to="/" />
+				)} />
+				<Route exact path="/dynamic-tracker" render={() => (
+					isAuthenticated()
+						? <DynamicTracker />
 						: <Redirect to="/" />
 				)} />
 				<Route exact path="/patient" render={() => (

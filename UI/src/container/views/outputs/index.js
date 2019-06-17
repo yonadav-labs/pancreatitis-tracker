@@ -133,14 +133,19 @@ class Outputs extends React.Component {
 									<span>It is also recommended to order a lipid panel, liver injury
 									test, LDH, CRP, and albumin.</span><br /><br />
 									<strong>Current severity score:</strong><br />
-									<span>ADAPT has computed {calcAlgorithms.join(', ')}.
-										{this.state.considerations.pop_percent}</span><br /><br />
+									{this.state.considerations &&
+										<span className="mb-5">ADAPT has computed {calcAlgorithms.join(', ')}.{this.state.considerations.pop_percent}</span>
+									}
 									<strong>Anticipated needs:</strong><br />
-									<span>{this.state.considerations.maintenance_fluid} In
-									addition, patient may need fluid resuscitation for intravascular
-									volume deficit. Re-evaluation of fluid status and organ function
-									is recommended at 4-6 hrs. Also, it is recommended to repeat any
-									abnormal labs at that time.</span><br /><br />
+									{this.state.considerations &&
+										<span className="mb-5">
+											{this.state.considerations.maintenance_fluid} In
+											addition, patient may need fluid resuscitation for intravascular
+											volume deficit. Re-evaluation of fluid status and organ function
+											is recommended at 4-6 hrs. Also, it is recommended to repeat any
+											abnormal labs at that time.
+										</span>
+									}
 									<strong>Etiology workup:</strong><br />
 									<span>Order a lipid panel, liver injury test, LDH, CRP, and albumin,
 									to better understand the etiology of this AP episode. For idiopathic

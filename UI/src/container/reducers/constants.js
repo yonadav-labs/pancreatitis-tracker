@@ -43,5 +43,6 @@ export const ALL_ROUTES = [
 	{ url: "patient", routeName: "Patient Data" },
 	{ url: "outputs", routeName: "ADAPT Outputs" },
 	{ url: "feedback", routeName: "Feedback" },
+	{ url: "dynamic-tracker", routeName: "Dynamic Tracker" },
 	{ url: "contact", routeName: "Contact Us" }
 ];
