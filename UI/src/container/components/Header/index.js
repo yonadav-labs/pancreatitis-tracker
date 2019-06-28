@@ -1,5 +1,6 @@
 /* disable-eslint no-undef */
 import React from 'react';
+import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
 import { isAuthenticated } from '../../actions/apiWrapper';
 import { BASE_ROUTES, ALL_ROUTES } from '../../reducers/constants';
@@ -22,9 +23,14 @@ class Header extends React.Component {
 
 	render() {
 		let routes = BASE_ROUTES;
+		let { clinicalScores } = this.props;
 
 		if (isAuthenticated()) {
 			routes = ALL_ROUTES;
+		}
+
+		if (!clinicalScores) {
+			routes = routes.filter(r => r.url !== "outputs");
 		}
 
 		return (
@@ -70,4 +76,8 @@ class Header extends React.Component {
 	}
 }
 
-export default Header;
+export default connect(state => ({
+	clinicalScores: state.clinicalScores.results
+}), {
+
+})(Header);

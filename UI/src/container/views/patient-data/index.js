@@ -93,7 +93,7 @@ class PatientData extends React.Component {
 		this.props.loadInputHistoryAction();
 	}
 
-	savePaientData = () => {
+	savePatientData = () => {
 		this.props.getScoresAction(this.state.data, this.state.units)
 			.then(res => {
 				if (res && res.success && res.data.is_approx_paO2) {
@@ -115,7 +115,7 @@ class PatientData extends React.Component {
 			{name: 'Physical Exam', component: <PhysicalExam step={2} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
 			{name: 'Chemistry', component: <Chemistry step={3} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
 			{name: 'Hematology', component: <Hematology step={4} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
-			{name: 'Arterial Gases', component: <ArterialGases step={5} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} savePatientData={this.savePaientData} history={this.props.history} />}
+			{name: 'Arterial Gases', component: <ArterialGases step={5} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} savePatientData={this.savePatientData} history={this.props.history} />}
 		];
 
 		return (

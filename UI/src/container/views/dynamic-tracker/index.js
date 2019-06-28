@@ -55,6 +55,48 @@ const data = {
 			pointRadius: 1,
 			pointHitRadius: 10,
 			data: [65, 81, 56, 55, 40, 59, 80]
+		},
+		{
+			label: 'BUN',
+			fill: false,
+			lineTension: 0.1,
+			backgroundColor: 'rgba(251, 99, 64,0.4)',
+			borderColor: 'rgba(251, 99, 64,1)',
+			borderCapStyle: 'butt',
+			borderDash: [],
+			borderDashOffset: 0.0,
+			borderJoinStyle: 'miter',
+			pointBorderColor: 'rgba(251, 99, 64,1)',
+			pointBackgroundColor: '#fff',
+			pointBorderWidth: 1,
+			pointHoverRadius: 5,
+			pointHoverBackgroundColor: 'rgba(251, 99, 64,1)',
+			pointHoverBorderColor: 'rgba(220,220,220,1)',
+			pointHoverBorderWidth: 2,
+			pointRadius: 1,
+			pointHitRadius: 10,
+			data: [55, 40, 59, 65, 81, 56, 80]
+		},
+		{
+			label: 'CREATININE',
+			fill: false,
+			lineTension: 0.1,
+			backgroundColor: 'rgba(94, 114, 228,0.4)',
+			borderColor: 'rgba(94, 114, 228,1)',
+			borderCapStyle: 'butt',
+			borderDash: [],
+			borderDashOffset: 0.0,
+			borderJoinStyle: 'miter',
+			pointBorderColor: 'rgba(94, 114, 228,1)',
+			pointBackgroundColor: '#fff',
+			pointBorderWidth: 1,
+			pointHoverRadius: 5,
+			pointHoverBackgroundColor: 'rgba(94, 114, 228,1)',
+			pointHoverBorderColor: 'rgba(220,220,220,1)',
+			pointHoverBorderWidth: 2,
+			pointRadius: 1,
+			pointHitRadius: 10,
+			data: [56, 80, 55, 40, 59, 65, 81]
 		}
 	]
 };
@@ -91,4 +133,3 @@ class DynamicTracker extends React.Component {
 }
 
 export default withRouter(DynamicTracker);
-
