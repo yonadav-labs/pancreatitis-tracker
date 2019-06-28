@@ -12,11 +12,19 @@ class Outputs extends React.Component {
 		super(props);
 		this.state = {
 			considerations: this.props.considerations || {},
-			clinicalScores: this.props.clinicalScores || []
+			clinicalScores: this.props.clinicalScores || [],
+			flip_score_system: true,
+			flip_mounzer_rules: true
 		};
 
 		this.changeValue = this.changeValue.bind(this);
 		this.showMounzer = this.showMounzer.bind(this);
+	}
+
+	flip = (flip) => {
+		let newFlip = {};
+		newFlip[flip] = !this.state[flip];
+		this.setState(newFlip);
 	}
 
 	changeValue(e) {
@@ -199,6 +207,7 @@ class Outputs extends React.Component {
 									<div className="row mb-4">
 										<div className="col-8 d-flex">
 											<h2 className="section-title my-auto">Clinical Scoring Systems</h2>
+											<img src="/assets/images/info-b.png" className="ml-3 flip-icon" onClick={() => this.flip('flip_score_system')} style={{ marginTop: '22px' }} />
 										</div>
 										<div className="col-4">
 											<img
@@ -208,17 +217,20 @@ class Outputs extends React.Component {
 											/>
 										</div>
 									</div>
-									<div className="section-description grey-color-text d-none">
-										Status bars do not display scores if insufficient information is available
-										to compute clinical metric. If score has sufficient information, it is written
-										as a fraction of the maximum allowable score. Severity thresholds for each
-										clinical score are denoted by the inverted triangle icons. If the score is
-										below threshold, the status bar is shown in turquoise. If the score is above
-										threshold, the status bar is shown in red.
-									</div>
+									{
+										clinicalScores && !this.state.flip_score_system &&
+										<div className="section-description grey-color-text">
+											Status bars do not display scores if insufficient information is available
+											to compute clinical metric. If score has sufficient information, it is written
+											as a fraction of the maximum allowable score. Severity thresholds for each
+											clinical score are denoted by the inverted triangle icons. If the score is
+											below threshold, the status bar is shown in turquoise. If the score is above
+											threshold, the status bar is shown in red.
+										</div>
+									}
 									<div>
 										{
-											clinicalScores
+											clinicalScores && this.state.flip_score_system
 												? clinicalScores.map((item, idx) => {
 													return (
 														<CustomProgressBar
@@ -232,14 +244,17 @@ class Outputs extends React.Component {
 												})
 												: null
 										}
-									</div>
-									<div className="form-check mt-5 ml-2">
-										<label className="form-check-label section-description ml-2">
-											<input type="checkbox"
-												className="form-check-input mt-3"
-												style={{ marginLeft: '-2rem' }}
-												onChange={this.changeValue} />Fluid Responsive?
-										</label>
+										{
+											clinicalScores && this.state.flip_score_system &&
+											<div className="form-check mt-5 ml-2">
+												<label className="form-check-label section-description ml-2">
+													<input type="checkbox"
+														className="form-check-input mt-3"
+														style={{ marginLeft: '-2rem' }}
+														onChange={this.changeValue} />Fluid Responsive?
+												</label>
+											</div>
+										}
 									</div>
 								</div>
 							</div>
@@ -248,6 +263,7 @@ class Outputs extends React.Component {
 									<div className="row mb-4">
 										<div className="col-8 d-flex">
 											<h2 className="section-title my-auto">Mounzer Rules</h2>
+											<img src="/assets/images/info-b.png" className="ml-5 flip-icon" onClick={() => this.flip('flip_mounzer_rules')} style={{ marginTop: '36px' }} />
 										</div>
 										<div className="col-4">
 											<img
@@ -260,58 +276,64 @@ class Outputs extends React.Component {
 									<div className="section-description grey-color-text">
 										<p>Rules denote >95% probability of either developing organ failure (OF) or not
 										developing OF. In some cases, the trajectory is less certain at early timepoints.</p>
-										<p className="d-none">
-											All rules default to a gray box. Upon entry of all of the necessary criteria,
-											there are 2 possibilities. If there is sufficient information to compute the
-											rule, and the conditions for the rule are met, the box becomes turquoise (e.g.
-											if organ failure is likely or organ failure is not likely based on the
-											conditions). If there is sufficient information to compute the rule, but
-											the conditions for the rule are not met, the box remains grey but is outlined
-											in blue. In this scenario, there is no definitive knowledge gained on organ
-											failure likelihood for that rule set.<br />
-										</p>
+										{
+											clinicalScores && !this.state.flip_mounzer_rules &&
+											<p>
+												All rules default to a gray box. Upon entry of all of the necessary criteria,
+												there are 2 possibilities. If there is sufficient information to compute the
+												rule, and the conditions for the rule are met, the box becomes turquoise (e.g.
+												if organ failure is likely or organ failure is not likely based on the
+												conditions). If there is sufficient information to compute the rule, but
+												the conditions for the rule are not met, the box remains grey but is outlined
+												in blue. In this scenario, there is no definitive knowledge gained on organ
+												failure likelihood for that rule set.<br />
+											</p>
+										}
 										<p>
 											For more info, see <a href="https://www.ncbi.nlm.nih.gov/pubmed/22425589" target="_blank">PMID: 22425589</a>.
 										</p>
 									</div>
-									<div className="row">
-										<div className="col-6">
-											<div className="rule-btn primary-rule">
-												<span className="rule-text">OF Unlikely</span>
+									{
+										this.state.flip_mounzer_rules &&
+										<div className="row">
+											<div className="col-6">
+												<div className="rule-btn primary-rule">
+													<span className="rule-text">OF Unlikely</span>
+												</div>
+												{
+													positiveMounzers.length === 0
+														? (
+															<div>
+																<div className="rule-btn"><span className="rule-text">Rule 1</span></div>
+																<div className="rule-btn"><span className="rule-text">Rule 3</span></div>
+																<div className="rule-btn"><span className="rule-text">Rule 5</span></div>
+																<div className="rule-btn"><span className="rule-text">Rule 7</span></div>
+																<div className="rule-btn"><span className="rule-text">Rule 9</span></div>
+																<div className="rule-btn"><span className="rule-text">Rule 11</span></div>
+															</div>
+														)
+														: positiveMounzers
+												}
 											</div>
-											{
-												positiveMounzers.length === 0
-													? (
-														<div>
-															<div className="rule-btn"><span className="rule-text">Rule 1</span></div>
-															<div className="rule-btn"><span className="rule-text">Rule 3</span></div>
-															<div className="rule-btn"><span className="rule-text">Rule 5</span></div>
-															<div className="rule-btn"><span className="rule-text">Rule 7</span></div>
-															<div className="rule-btn"><span className="rule-text">Rule 9</span></div>
-															<div className="rule-btn"><span className="rule-text">Rule 11</span></div>
-														</div>
-													)
-													: positiveMounzers
-											}
+											<div className="col-6">
+												<div className="rule-btn primary-rule"><span className="rule-text">OF Likely</span></div>
+												{
+													negativeMounzers.length === 0
+														? (
+															<div>
+																<div className="rule-btn"><span className="rule-text">Rule 2</span></div>
+																<div className="rule-btn"><span className="rule-text">Rule 4</span></div>
+																<div className="rule-btn"><span className="rule-text">Rule 6</span></div>
+																<div className="rule-btn"><span className="rule-text">Rule 8</span></div>
+																<div className="rule-btn"><span className="rule-text">Rule 10</span></div>
+																<div className="rule-btn"><span className="rule-text">Rule 12</span></div>
+															</div>
+														)
+														: negativeMounzers
+												}
+											</div>
 										</div>
-										<div className="col-6">
-											<div className="rule-btn primary-rule"><span className="rule-text">OF Likely</span></div>
-											{
-												negativeMounzers.length === 0
-													? (
-														<div>
-															<div className="rule-btn"><span className="rule-text">Rule 2</span></div>
-															<div className="rule-btn"><span className="rule-text">Rule 4</span></div>
-															<div className="rule-btn"><span className="rule-text">Rule 6</span></div>
-															<div className="rule-btn"><span className="rule-text">Rule 8</span></div>
-															<div className="rule-btn"><span className="rule-text">Rule 10</span></div>
-															<div className="rule-btn"><span className="rule-text">Rule 12</span></div>
-														</div>
-													)
-													: negativeMounzers
-											}
-										</div>
-									</div>
+									}
 									<div className="row">
 										<div className="col-12 section-content">
 											Note: Rules 7-12 are only activated after tracking patient for 48 hours.
