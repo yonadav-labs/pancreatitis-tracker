@@ -132,8 +132,8 @@ class Outputs extends React.Component {
 									and {Y} hours from admission.
 								</div>
 							</div>
-							<div className="col-xs-12 col-md-6 recommendation">
-								<div className="card-frame p-5">
+							<div className="col-12 col-md-6 mb-4 mb-md-5 recommendation">
+								<div className="card-frame p-3 p-xl-5">
 									<div className="row mb-4">
 										<div className="col-8 d-flex">
 											<h2 className="section-title my-auto">Clinical Considerations</h2>
@@ -173,8 +173,8 @@ class Outputs extends React.Component {
 									</div>
 								</div>
 							</div>
-							<div className="col-xs-12 col-md-6 text-center">
-								<div className="card-frame p-5">
+							<div className="col-12 col-md-6 mb-4 mb-md-5 text-center">
+								<div className="card-frame p-3 p-xl-5">
 									<div className="row mb-4">
 										<div className="col-8 d-flex">
 											<h2 className="section-title my-auto">Severity Meter</h2>
@@ -198,12 +198,8 @@ class Outputs extends React.Component {
 									/>
 								</div>
 							</div>
-						</div>
-					</div>
-					<div className="page-section">
-						<div className="row mb-5">
-							<div className="col-xs-12 col-md-6 mb-4">
-								<div className="card-frame p-5">
+							<div className="col-12 col-md-6 mb-4 mb-md-5">
+								<div className="card-frame p-3 p-xl-5">
 									<div className="row mb-4">
 										<div className="col-8 d-flex">
 											<h2 className="section-title my-auto">Clinical Scoring Systems</h2>
@@ -258,8 +254,8 @@ class Outputs extends React.Component {
 									</div>
 								</div>
 							</div>
-							<div className="col-xs-12 col-md-6">
-								<div className="card-frame p-5">
+							<div className="col-12 col-md-6 mb-4 mb-md-5">
+								<div className="card-frame p-3 p-xl-5">
 									<div className="row mb-4">
 										<div className="col-8 d-flex">
 											<h2 className="section-title my-auto">Mounzer Rules</h2>
@@ -296,7 +292,7 @@ class Outputs extends React.Component {
 									{
 										this.state.flip_mounzer_rules &&
 										<div className="row">
-											<div className="col-6">
+											<div className="col-6 pr-2 pr-xl-3">
 												<div className="rule-btn primary-rule">
 													<span className="rule-text">OF Unlikely</span>
 												</div>
@@ -315,7 +311,7 @@ class Outputs extends React.Component {
 														: positiveMounzers
 												}
 											</div>
-											<div className="col-6">
+											<div className="col-6 pl-2 pl-xl-3">
 												<div className="rule-btn primary-rule"><span className="rule-text">OF Likely</span></div>
 												{
 													negativeMounzers.length === 0

@@ -68,9 +68,6 @@ class CustomProgressBar extends React.PureComponent {
 		let leftPercent = parseInt(100 * this.props.scoreRange.threshold / this.props.scoreRange.max, 10) + '%';
 
 		let thresholdStyle = {
-			position: 'absolute',
-			top: '9px',
-			width: '10px',
 			left: `calc(${leftPercent} - 12px)`
 		};
 
@@ -88,7 +85,7 @@ class CustomProgressBar extends React.PureComponent {
 							theme={theme.valid}
 							className={percent ? '' : 'empty-progress'}
 						/>
-						<img src="/assets/images/icons/ticker.png" style={thresholdStyle} />
+						<img className="progress-ticker" src="/assets/images/icons/ticker.png" style={thresholdStyle} />
 					</div>
 					{
 						text !== ''

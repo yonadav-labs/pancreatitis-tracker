@@ -366,6 +366,12 @@ a.green-button:hover {
   z-index: 110;
 }
 
+.progress-ticker {
+  position: absolute;
+  top: 9px;
+  width: 10px;
+}
+
 .bar-value-wrapper {
   position: relative;
   display: flex;
@@ -811,6 +817,30 @@ ol.progtrckr li.progtrckr-done:before {
 
   .green-button {
     font-size: 18px;
+  }
+}
+
+@media (max-width: 768px) {
+  .progress-title-btn {
+    width: 300px;
+    height: 38px;
+    font-size: 15px;
+  }
+
+  .bar-result {
+    font-size: 15px;
+  }
+
+  .progress-ticker {
+    top: 5px;
+  }
+
+  .rule-btn .rule-text {
+    font-size: 17px;
+  }
+
+  .rule-btn {
+    height: 45px;
   }
 }
 
