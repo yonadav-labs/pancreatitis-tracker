@@ -341,8 +341,7 @@ a.green-button:hover {
 }
 
 .speedmeter {
-  width: 220px;
-  height: 220px;
+  width: 75%;
   margin: auto;
 }
 
@@ -822,7 +821,7 @@ ol.progtrckr li.progtrckr-done:before {
 
 @media (max-width: 768px) {
   .progress-title-btn {
-    width: 300px;
+    width: 250px;
     height: 38px;
     font-size: 15px;
   }

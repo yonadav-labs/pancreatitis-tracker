@@ -77,7 +77,7 @@ class CustomProgressBar extends React.PureComponent {
 					<ReactTooltip  effect='solid' className="tooltop-bar" />
 					<div className="progress-title-btn" data-tip={tooltip} data-multiline="true" data-event="click">
 						{this.props.title}
-						<img src="/assets/images/info-w.png" className="ml-3" style={{ height: '16px' }} />
+						<img src="/assets/images/info-w.png" className="ml-2 ml-xl-3 d-inline" style={{ height: '16px' }} />
 					</div>
 					<div className="progress-wrapper d-inline-flex align-items-center w-100 position-relative">
 						<Progress

@@ -17,6 +17,7 @@ class Outputs extends React.Component {
 			considerations: this.props.considerations || {},
 			clinicalScores: this.props.clinicalScores || [],
 			flip_score_system: true,
+			flip_consideration: true,
 			flip_mounzer_rules: true
 		};
 
@@ -139,6 +140,7 @@ class Outputs extends React.Component {
 					<div className="row mb-4">
 						<div className="col-8 d-flex">
 							<h2 className="section-title my-auto">Clinical Considerations</h2>
+							<img src="/assets/images/info-b.png" className="ml-3 flip-icon" onClick={() => this.flip('flip_consideration')} style={{ marginTop: '22px' }} />
 						</div>
 						<div className="col-4">
 							<img
@@ -149,29 +151,41 @@ class Outputs extends React.Component {
 						</div>
 					</div>
 					<div className="section-description grey-color-text">
-						<strong>For the most informative set of results, please order a
-						complete chemistry profile, complete blood count, and arterial
-						blood gas. </strong>
-						<span>It is also recommended to order a lipid panel, liver injury
-						test, LDH, CRP, and albumin.</span><br /><br />
-						<strong>Current severity score:</strong><br />
-						{this.state.considerations &&
+						{
+							this.state.flip_consideration &&
+							<div>
+								<strong>For the most informative set of results, please order a
+								complete chemistry profile, complete blood count, and arterial
+								blood gas. </strong>
+								<span>It is also recommended to order a lipid panel, liver injury
+								test, LDH, CRP, and albumin.</span><br /><br />
+								<strong>Current severity score:</strong><br />
+							</div>
+						}
+						{this.state.considerations && this.state.flip_consideration &&
 							<span className="mb-5">ADAPT has computed {calcAlgorithms.join(', ')}.{this.state.considerations.pop_percent}</span>
 						}
-						<strong>Anticipated needs:</strong><br />
-						{this.state.considerations &&
-							<span className="mb-5">
-								{this.state.considerations.maintenance_fluid} In
-								addition, patient may need fluid resuscitation for intravascular
-								volume deficit. Re-evaluation of fluid status and organ function
-								is recommended at 4-6 hrs. Also, it is recommended to repeat any
-								abnormal labs at that time.
-							</span>
+						{ this.state.considerations && this.state.flip_consideration &&
+							<div>
+								<div className="font-weight-bold mt-3">Anticipated needs:</div>
+								<span className="mb-5">
+									{this.state.considerations.maintenance_fluid} In
+									addition, patient may need fluid resuscitation for intravascular
+									volume deficit. Re-evaluation of fluid status and organ function
+									is recommended at 4-6 hrs. Also, it is recommended to repeat any
+									abnormal labs at that time.
+								</span>
+							</div>
 						}
-						<strong>Etiology workup:</strong><br />
-						<span>Order a lipid panel, liver injury test, LDH, CRP, and albumin,
-						to better understand the etiology of this AP episode. For idiopathic
-						or recurrent AP, order ArielDx.</span>
+						{
+							!this.state.flip_consideration &&
+							<div>
+								<div className="font-weight-bold mt-3">Etiology workup:</div>
+								<span>Order a lipid panel, liver injury test, LDH, CRP, and albumin,
+								to better understand the etiology of this AP episode. For idiopathic
+								or recurrent AP, order ArielDx.</span>
+							</div>
+						}
 					</div>
 				</div>
 			</div>,
@@ -194,7 +208,7 @@ class Outputs extends React.Component {
 						and “organ failure not likely.” {extraMeterText}
 					</div>
 					<img
-						className="speedmeter"
+						className="speedmeter mb-5"
 						src={`/assets/images/speedometer_${valueOfSpeedMeter}.png`}
 						alt="speedmeter image"
 					/>
