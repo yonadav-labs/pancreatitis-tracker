@@ -78,7 +78,7 @@ class Outputs extends React.Component {
 							<span className="rule-text">{mounzer.rule}</span>
 						</div>
 					);
-				}	else {
+				} else {
 					let mounzerClass = '';
 					if (mounzer.is_capable) {
 						mounzerClass = 'empty-mounzer';
@@ -139,7 +139,7 @@ class Outputs extends React.Component {
 				<div className="card-frame p-3 p-xl-5">
 					<div className="row mb-4">
 						<div className="col-8 d-flex">
-							<h2 className="section-title my-auto">Clinical Considerations</h2>
+							<h2 className="section-title long my-auto">Clinical Considerations</h2>
 							<img src="/assets/images/info-b.png" className="ml-3 flip-icon" onClick={() => this.flip('flip_consideration')} style={{ marginTop: '22px' }} />
 						</div>
 						<div className="col-4">

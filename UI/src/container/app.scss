@@ -841,6 +841,10 @@ ol.progtrckr li.progtrckr-done:before {
   .rule-btn {
     height: 45px;
   }
+
+  .section-title.long {
+    max-width: 176px;
+  }
 }
 
 @font-face {

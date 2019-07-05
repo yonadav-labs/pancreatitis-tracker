@@ -12,7 +12,6 @@ const styles = {
 };
 
 const data = {
-	labels: ['Admission', '12 hours', '24 hours', '36 hours', '48 hours', '60 hours', '72 hours'],
 	datasets: [
 		{
 			label: 'SIRS',
@@ -33,7 +32,8 @@ const data = {
 			pointHoverBorderWidth: 2,
 			pointRadius: 1,
 			pointHitRadius: 10,
-			data: [65, 59, 80, 81, 56, 55, 40]
+			data: [65, 59, 80, 81, 56, 55, 40],
+			yAxisID: 'y-axis-1'
 		},
 		{
 			label: 'MARSHALL',
@@ -54,7 +54,8 @@ const data = {
 			pointHoverBorderWidth: 2,
 			pointRadius: 1,
 			pointHitRadius: 10,
-			data: [65, 81, 56, 55, 40, 59, 80]
+			data: [45, 61, 36, 35, 20, 39, 60],
+			yAxisID: 'y-axis-2'
 		},
 		{
 			label: 'BUN',
@@ -75,7 +76,8 @@ const data = {
 			pointHoverBorderWidth: 2,
 			pointRadius: 1,
 			pointHitRadius: 10,
-			data: [55, 40, 59, 65, 81, 56, 80]
+			data: [55, 40, 59, 65, 81, 56, 80],
+			yAxisID: 'y-axis-2'
 		},
 		{
 			label: 'CREATININE',
@@ -96,10 +98,80 @@ const data = {
 			pointHoverBorderWidth: 2,
 			pointRadius: 1,
 			pointHitRadius: 10,
-			data: [56, 80, 55, 40, 59, 65, 81]
+			data: [56, 80, 55, 40, 59, 65, 81],
+			yAxisID: 'y-axis-1'
 		}
 	]
 };
+
+// let defaultLegendClickHandler = Chart.defaults.global.legend.onClick;
+// let newLegendClickHandler = function (e, legendItem) {
+// 	let index = legendItem.datasetIndex;
+
+// 	if (index > 1) {
+// 		// Do the original logic
+// 		defaultLegendClickHandler(e, legendItem);
+// 	} else {
+// 		let ci = this.chart;
+// 		[
+// 			ci.getDatasetMeta(0),
+// 			ci.getDatasetMeta(1)
+// 		].forEach(function(meta) {
+// 			meta.hidden = meta.hidden === null ? !ci.data.datasets[index].hidden : null;
+// 		});
+// 		ci.update();
+// 	}
+// };
+
+const options = {
+	responsive: true,
+	tooltips: {
+		mode: 'label'
+	},
+	elements: {
+		line: {
+			fill: false
+		}
+	},
+	scales: {
+		xAxes: [
+			{
+				display: true,
+				gridLines: {
+					display: false
+				},
+				labels: ['Admission', '12 hours', '24 hours', '36 hours', '48 hours', '60 hours', '72 hours']
+			}
+		],
+		yAxes: [
+			{
+				type: 'linear',
+				display: true,
+				position: 'left',
+				id: 'y-axis-1',
+				gridLines: {
+					display: false
+				},
+				labels: {
+					show: true
+				}
+			},
+			{
+				type: 'linear',
+				display: true,
+				position: 'right',
+				id: 'y-axis-2',
+				gridLines: {
+					display: false
+				},
+				labels: {
+					show: true
+				}
+			}
+		]
+	}
+};
+
 
 class DynamicTracker extends React.Component {
 	constructor(props) {
@@ -121,7 +193,7 @@ class DynamicTracker extends React.Component {
 				<Title title="Dynamic Tracker" />
 				<div className="container">
 					<div className="my-5">
-						<Line data={data} />
+						<Line data={data} options={options} />
 					</div>
 					<div className="text-center mb-5">
 						<GreenButton text="Patient Data" onClick={this.goToPatientData} />
