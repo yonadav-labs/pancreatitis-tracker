@@ -73,10 +73,11 @@ const data = {
 			pointHoverRadius: 5,
 			pointHoverBackgroundColor: 'rgba(251, 99, 64,1)',
 			pointHoverBorderColor: 'rgba(220,220,220,1)',
+			hidden: true,
 			pointHoverBorderWidth: 2,
 			pointRadius: 1,
 			pointHitRadius: 10,
-			data: [55, 40, 59, 65, 81, 56, 80],
+			data: [15, 10, 19, 25, 11, 16, 10],
 			yAxisID: 'y-axis-2'
 		},
 		{
@@ -95,36 +96,53 @@ const data = {
 			pointHoverRadius: 5,
 			pointHoverBackgroundColor: 'rgba(94, 114, 228,1)',
 			pointHoverBorderColor: 'rgba(220,220,220,1)',
+			hidden: true,
 			pointHoverBorderWidth: 2,
 			pointRadius: 1,
 			pointHitRadius: 10,
-			data: [56, 80, 55, 40, 59, 65, 81],
+			data: [36, 30, 35, 30, 39, 25, 11],
 			yAxisID: 'y-axis-1'
 		}
 	]
 };
 
-// let defaultLegendClickHandler = Chart.defaults.global.legend.onClick;
-// let newLegendClickHandler = function (e, legendItem) {
-// 	let index = legendItem.datasetIndex;
+const getSelected = (ci) => {
+	let selected = [];
 
-// 	if (index > 1) {
-// 		// Do the original logic
-// 		defaultLegendClickHandler(e, legendItem);
-// 	} else {
-// 		let ci = this.chart;
-// 		[
-// 			ci.getDatasetMeta(0),
-// 			ci.getDatasetMeta(1)
-// 		].forEach(function(meta) {
-// 			meta.hidden = meta.hidden === null ? !ci.data.datasets[index].hidden : null;
-// 		});
-// 		ci.update();
-// 	}
-// };
+	for (let i=0; i<4; i++) {
+		let meta = ci.getDatasetMeta(i);
+		if (meta.hidden === false || (meta.hidden === null && !ci.data.datasets[i].hidden)) {
+			selected.push(i);
+		}
+	}
+	return selected;
+};
+
+const newLegendClickHandler = function (e, legendItem) {
+	let index = legendItem.datasetIndex;
+	let ci = this.chart;
+	let selected = getSelected(ci);
+
+	let meta = ci.getDatasetMeta(index);
+	if (selected.length < 2 || meta.hidden === false || (meta.hidden === null && !ci.data.datasets[index].hidden)) {
+		meta.hidden = meta.hidden === null ? !ci.data.datasets[index].hidden : null;
+		ci.update();
+
+		// update y axis
+		selected = getSelected(ci);
+		if (selected.length > 1) {
+			ci.getDatasetMeta(selected[0]).yAxisID = 'y-axis-1';
+			ci.getDatasetMeta(selected[1]).yAxisID = 'y-axis-2';
+			ci.update();
+		}
+	}
+};
 
 const options = {
 	responsive: true,
+	legend: {
+		onClick: newLegendClickHandler
+	},
 	tooltips: {
 		mode: 'label'
 	},
@@ -180,11 +198,6 @@ class DynamicTracker extends React.Component {
 
 	goToPatientData = () => {
 		this.props.history.push('/patient');
-	}
-
-	componentDidMount() {
-		// const { datasets } = this.refs.chart.chartInstance.data;
-		// console.log(datasets[0].data);
 	}
 
 	render () {
