@@ -5,7 +5,7 @@ class AlgorithmSirs(AlgorithmInterface):
     """
     Computes Systemic Inflammatory Response Syndrome (SIRS) score.
 
-    Range(SIRS) = [0,4]. >= 2 = SIRS. 2=Mild, 3=Moderate, 4= Severe.
+    Range(SIRS) = [0, 4]. >= 2 = SIRS. 2=Mild, 3=Moderate, 4= Severe.
 
     Args:
       temperature: temperature in Celsius

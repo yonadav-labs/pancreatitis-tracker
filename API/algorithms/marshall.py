@@ -5,7 +5,7 @@ class AlgorithmMarshall(AlgorithmInterface):
     """
     Computes the Modified Marshall Scoring System for Organ Dysfunction.
 
-    Range(Marshall Score) = [0,12]. Organ Failure at 2.
+    Range(Marshall Score) = [0, 12]. Organ Failure at 2.
 
     Args:
       bp_systolic: systolic blood pressure in mmHg

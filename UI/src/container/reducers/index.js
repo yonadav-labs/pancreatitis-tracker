@@ -131,6 +131,7 @@ export default function patientReducer(state = InitialState, action) {
 
 			if (idx !== -1) {
 				patient = {..._historyData[idx].input_data};
+				patient.time_stamp = new Date().toISOString();
 			}
 
 			return {...state, patient: patient};

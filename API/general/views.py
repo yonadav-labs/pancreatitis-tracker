@@ -103,6 +103,7 @@ def _run_algorithm(algorithm, data):
 def run_algorithms(request):
     data, is_approx_paO2 = get_preprocessed_data(request)
     user = get_user(request)
+
     if not user:
         return HttpResponse('Unauthorized', status=401)
 
@@ -216,13 +217,13 @@ def get_graph_data(request):
     for ii in RunAlgorithm.objects.filter(user=user).order_by('-run_at')[:10]:
         output = json.loads(ii.output)
         input = json.loads(ii.input)
-        admission_date = datetime.strptime(input['admission_date'], '%Y-%m-%dT%H:%M:%S.%fZ')
-        diff = relativedelta(now, admission_date)
+        admission_date = datetime.strptime(input['time_stamp'], '%Y-%m-%dT%H:%M:%S.%fZ')
+        diff = (now - admission_date).total_seconds() / 3600.0
 
-        res['sirs'].append(output['SIRS'])
-        res['marshall'].append(output['Marshall'])
-        res['bun'].append(input['bun'])
-        res['creatinine'].append(input['creatinine'])
-        res['labels'].append('{:.1f} hrs'.format(diff.minutes / 60.0))
+        res['sirs'].insert(0, output['SIRS'])
+        res['marshall'].insert(0, output['Marshall'])
+        res['bun'].insert(0, input['bun'])
+        res['creatinine'].insert(0, input['creatinine'])
+        res['labels'].insert(0, '{:.1f} hrs'.format(diff))
 
     return JsonResponse(res, safe=False)
