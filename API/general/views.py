@@ -7,6 +7,7 @@ from math import exp
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
 from django.views.decorators.csrf import csrf_exempt
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.conf import settings
 
@@ -193,5 +194,29 @@ def load_input_history(request):
             'run_at': datetime.datetime.strftime(ii.run_at, '%m/%d/%Y %H:%M'), 
             'input_data': json.loads(ii.input) 
         })
+
+    return JsonResponse(res, safe=False)
+
+
+def get_graph_data(request):
+    user = get_user(request)
+    if not user:
+        return HttpResponse('Unauthorized', status=401)
+
+    res = {
+        'sirs': [],
+        'marshall': [],
+        'bun': [],
+        'creatinine': []
+    }
+
+    for ii in RunAlgorithm.objects.filter(user=user).order_by('-run_at')[:10]:
+        output = json.loads(ii.output)
+        input = json.loads(ii.input)
+
+        res['sirs'].append(output['SIRS'])
+        res['marshall'].append(output['Marshall'])
+        res['bun'].append(input['bun'])
+        res['creatinine'].append(input['creatinine'])
 
     return JsonResponse(res, safe=False)
