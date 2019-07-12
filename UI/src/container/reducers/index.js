@@ -100,7 +100,8 @@ const InitialState = {
 	clinicalScores: [],
 	errorMsg: '',
 	user: {},
-	historyData: []
+	historyData: [],
+	graphData: {}
 };
 
 export default function patientReducer(state = InitialState, action) {
@@ -157,6 +158,17 @@ export default function patientReducer(state = InitialState, action) {
 				...state,
 				errorMsg: action.payload,
 				success: false
+			};
+
+		case types.GET_GRAPH_SUCCESS:
+			return {
+				...state,
+				graphData: action.payload.data
+			};
+
+		case types.GET_GRAPH_FAIL:
+			return {
+				...state
 			};
 
 		default:

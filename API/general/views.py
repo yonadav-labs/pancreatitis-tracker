@@ -1,8 +1,9 @@
 import jwt
 import json
-import datetime
 
 from math import exp
+from datetime import datetime, timedelta
+from dateutil.relativedelta import relativedelta
 
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
@@ -161,7 +162,7 @@ def run_algorithms(request):
     RunAlgorithm.objects.create(user=user, 
                                 input=json.dumps(get_preprocessed_data(request, False)[0], indent=2),
                                 output=json.dumps(output, indent=2),
-                                run_at=datetime.datetime.strptime(data['time_stamp'], '%Y-%m-%dT%H:%M:%S.%fZ'))
+                                run_at=datetime.strptime(data['time_stamp'], '%Y-%m-%dT%H:%M:%S.%fZ'))
 
     return JsonResponse(res, safe=False)
 
@@ -191,7 +192,7 @@ def load_input_history(request):
     res = []
     for ii in RunAlgorithm.objects.filter(user=user).order_by('-run_at')[:10]:
         res.append({ 
-            'run_at': datetime.datetime.strftime(ii.run_at, '%m/%d/%Y %H:%M'), 
+            'run_at': datetime.strftime(ii.run_at, '%m/%d/%Y %H:%M'), 
             'input_data': json.loads(ii.input) 
         })
 
@@ -207,16 +208,21 @@ def get_graph_data(request):
         'sirs': [],
         'marshall': [],
         'bun': [],
-        'creatinine': []
+        'creatinine': [],
+        'labels': []
     }
 
+    now = datetime.now()
     for ii in RunAlgorithm.objects.filter(user=user).order_by('-run_at')[:10]:
         output = json.loads(ii.output)
         input = json.loads(ii.input)
+        admission_date = datetime.strptime(input['admission_date'], '%Y-%m-%dT%H:%M:%S.%fZ')
+        diff = relativedelta(now, admission_date)
 
         res['sirs'].append(output['SIRS'])
         res['marshall'].append(output['Marshall'])
         res['bun'].append(input['bun'])
         res['creatinine'].append(input['creatinine'])
+        res['labels'].append('{:.1f} hrs'.format(diff.minutes / 60.0))
 
     return JsonResponse(res, safe=False)

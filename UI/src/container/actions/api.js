@@ -3,7 +3,8 @@ import {
 	SAVE_PATIENT_DATA,
 	CREATE_ACCOUNT_URL,
 	LOAD_INPUT_HISOTRY,
-	FEEDBACK_URL
+	FEEDBACK_URL,
+	GET_GRAPH_DATA
 } from './api_url';
 
 export const loadInputHistoryApi = () => {
@@ -20,6 +21,24 @@ export const loadInputHistoryApi = () => {
 				success: false,
 				msg: res.msg
 			};
+		})
+		.catch(err => {
+			return {
+				success: false,
+				msg: 'error catch'
+			};
+		});
+};
+
+export const getGraphDataApi = () => {
+	return getApi(GET_GRAPH_DATA)
+		.then((res) => {
+			if (res.success) {
+				return {
+					success: true,
+					data: res
+				};
+			}
 		})
 		.catch(err => {
 			return {

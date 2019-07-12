@@ -4,8 +4,10 @@ import {
 	savePatientDataApi,
 	leaveFeedbackApi,
 	createAccountApi,
-	loadInputHistoryApi
+	loadInputHistoryApi,
+	getGraphDataApi
 } from './api';
+
 import {
 	lbToKgConvert,
 	inchTomConvert,
@@ -14,6 +16,7 @@ import {
 	calciumConvert,
 	albuminConvert
 } from '../utils/conversions';
+
 import moment from 'moment';
 
 export const setUpdatesPerPagePatientAction = (res) => {
@@ -29,7 +32,19 @@ export const loadInputHistoryAction = () => {
 				dispatch({ type: types.PATIENTS.GET_HISTORY, payload: res.data });
 			})
 			.catch(() => {
-				dispatch({ type: types.PATIENTS.ERROR, payload: 'uploading error' });
+				dispatch({ type: types.PATIENTS.ERROR, payload: 'loading history error' });
+			});
+	};
+};
+
+export const getGraphDataAction = () => {
+	return (dispatch) => {
+		getGraphDataApi()
+			.then((res) => {
+				dispatch({ type: types.GET_GRAPH_SUCCESS, payload: res.data });
+			})
+			.catch(() => {
+				dispatch({ type: types.GET_GRAPH_FAIL, payload: 'getting graph data error' });
 			});
 	};
 };

@@ -30,6 +30,8 @@ export const USER = {
 
 export const LOGIN_SUCCESS = 'LOGIN_SUCCESS';
 export const LOGIN_FAIL = 'LOGIN_FAIL';
+export const GET_GRAPH_SUCCESS = 'GET_GRAPH_SUCCESS';
+export const GET_GRAPH_FAIL = 'GET_GRAPH_FAIL';
 
 export const BASE_ROUTES = [
 	{ url: "account", routeName: "User Account" },
