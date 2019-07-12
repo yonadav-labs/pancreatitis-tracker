@@ -3,7 +3,6 @@ import json
 
 from math import exp
 from datetime import datetime, timedelta
-from dateutil.relativedelta import relativedelta
 
 from django.shortcuts import render
 from django.http import JsonResponse, HttpResponse
