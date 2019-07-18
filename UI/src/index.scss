@@ -34,6 +34,11 @@ code {
   border-radius: 15px;
 }
 
+.card-frame.back {
+  color: white;
+  background: #24c9c9;
+}
+
 @media (min-width: 1200px) {
   .card-frame {
     height: 840px;

@@ -51,6 +51,7 @@ select:-moz-focusring {
 .light-grey-color {color: $light-grey-color !important;}
 .light-grey-background {background-color: $light-grey-color !important;}
 .grey-color-text {color: $grey-text-color !important;}
+.back .grey-color-text {color: white !important;}
 .dark-grey-text-color {color: $dark-grey-text-color};
 .no-margin {margin: 0 !important;}
 .align-self-center {align-self: center;}
@@ -326,6 +327,11 @@ a.green-button:hover {
   font-size: 34px;
   color: $grey-text-color;
   padding: 10px 0px;
+  z-index: 2;
+}
+
+.back .section-title {
+  color: white;
 }
 
 .section-description {

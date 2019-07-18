@@ -32,7 +32,7 @@ const newLegendClickHandler = function (e, legendItem) {
 	let index = legendItem.datasetIndex;
 	let ci = this.chart;
 	let selected = getSelected(ci);
-
+	// debugger;
 	let meta = ci.getDatasetMeta(index);
 	if (selected.length < 2 || meta.hidden === false || (meta.hidden === null && !ci.data.datasets[index].hidden)) {
 		meta.hidden = meta.hidden === null ? !ci.data.datasets[index].hidden : null;
@@ -40,11 +40,18 @@ const newLegendClickHandler = function (e, legendItem) {
 
 		// update y axis
 		selected = getSelected(ci);
-		if (selected.length > 1) {
+		if (selected.length == 2) {
 			ci.getDatasetMeta(selected[0]).yAxisID = 'y-axis-1';
 			ci.getDatasetMeta(selected[1]).yAxisID = 'y-axis-2';
-			ci.update();
+			ci.scales["y-axis-1"].options.ticks.minor.fontColor = ci.data.datasets[selected[0]].borderColor;
+			ci.scales["y-axis-2"].options.ticks.minor.fontColor = ci.data.datasets[selected[1]].borderColor;
+		} else if (selected.length == 1) {
+			ci.scales["y-axis-1"].options.ticks.minor.fontColor = ci.data.datasets[selected[0]].borderColor;
+		} else {
+			ci.scales["y-axis-1"].options.ticks.minor.fontColor = 'grey';
+			ci.scales["y-axis-2"].options.ticks.minor.fontColor = 'grey';
 		}
+		ci.update();
 	}
 };
 
@@ -197,6 +204,9 @@ class DynamicTracker extends React.Component {
 						},
 						labels: {
 							show: true
+						},
+						ticks: {
+							fontColor: 'rgba(75,192,192,1)'
 						}
 					},
 					{
@@ -209,6 +219,9 @@ class DynamicTracker extends React.Component {
 						},
 						labels: {
 							show: true
+						},
+						ticks: {
+							fontColor: 'rgba(33, 37, 41,1)'
 						}
 					}
 				]
