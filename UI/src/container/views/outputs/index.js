@@ -137,10 +137,10 @@ class Outputs extends React.Component {
 		let contents = [
 			<div key="1" className="col-12 col-md-6 mb-4 mb-md-5 recommendation">
 				<div className={"card-frame p-3 p-xl-5 " + (this.state.flip_consideration ? "front" : "back")}>
-					<div className="row mb-4">
+					<div className="row mb-4 pointer" onClick={() => this.flip('flip_consideration')}>
 						<div className="col-8 d-flex">
 							<h2 className="section-title long my-auto">Clinical Considerations</h2>
-							<img src={this.state.flip_consideration ? '/assets/images/info-b.png' : '/assets/images/back.png'} className="ml-3 flip-icon" onClick={() => this.flip('flip_consideration')} style={{ marginTop: '22px' }} />
+							<img src={this.state.flip_consideration ? '/assets/images/info-b.png' : '/assets/images/back.png'} className="ml-3 flip-icon" style={{ marginTop: '22px' }} />
 						</div>
 						<div className="col-4">
 							<img
@@ -191,7 +191,7 @@ class Outputs extends React.Component {
 			</div>,
 			<div key="2" className="col-12 col-md-6 mb-4 mb-md-5 text-center">
 				<div className="card-frame p-3 p-xl-5">
-					<div className="row mb-4">
+					<div className="row mb-4 pointer">
 						<div className="col-8 d-flex">
 							<h2 className="section-title my-auto">Severity Meter</h2>
 						</div>
@@ -216,10 +216,10 @@ class Outputs extends React.Component {
 			</div>,
 			<div key="3" className="col-12 col-md-6 mb-4 mb-md-5">
 				<div className={"card-frame p-3 p-xl-5 " + (this.state.flip_score_system ? "front" : "back")}>
-					<div className="row mb-4">
+					<div className="row mb-4 pointer" onClick={() => this.flip('flip_score_system')}>
 						<div className="col-8 d-flex">
 							<h2 className="section-title my-auto">Clinical Scoring Systems</h2>
-							<img src={this.state.flip_score_system ? '/assets/images/info-b.png' : '/assets/images/back.png'} className="ml-3 flip-icon" onClick={() => this.flip('flip_score_system')} style={{ marginTop: '22px' }} />
+							<img src={this.state.flip_score_system ? '/assets/images/info-b.png' : '/assets/images/back.png'} className="ml-3 flip-icon" style={{ marginTop: '22px' }} />
 						</div>
 						<div className="col-4">
 							<img
@@ -272,10 +272,10 @@ class Outputs extends React.Component {
 			</div>,
 			<div key="4" className="col-12 col-md-6 mb-4 mb-md-5">
 				<div className={"card-frame p-3 p-xl-5 " + (this.state.flip_mounzer_rules ? "front" : "back")}>
-					<div className="row mb-4">
+					<div className="row mb-4 pointer" onClick={() => this.flip('flip_mounzer_rules')}>
 						<div className="col-8 d-flex">
 							<h2 className="section-title my-auto">Mounzer Rules</h2>
-							<img src={this.state.flip_mounzer_rules ? '/assets/images/info-b.png' : '/assets/images/back.png'} className="ml-5 flip-icon" onClick={() => this.flip('flip_mounzer_rules')} style={{ marginTop: '36px' }} />
+							<img src={this.state.flip_mounzer_rules ? '/assets/images/info-b.png' : '/assets/images/back.png'} className="ml-5 flip-icon" style={{ marginTop: '36px' }} />
 						</div>
 						<div className="col-4">
 							<img
@@ -361,7 +361,7 @@ class Outputs extends React.Component {
 				<div className="container">
 					<div className="page-section">
 						<div className="row">
-							<div className="col-md-12 mt-5">
+							<div className={"col-md-12 mt-5 "+(this.isMobile ? "my-5" : "")}>
 								<div className="section-description grey-color-text">
 									Scores and guidance based on measures recorded {X} hours from pain onset,
 									and {Y} hours from admission.

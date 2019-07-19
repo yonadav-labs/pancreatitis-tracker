@@ -747,7 +747,13 @@ ol.progtrckr li.progtrckr-done:before {
   border-left-color: #ccc;
   right: 1em;
 }
-
+.slick-dots {
+  top: -42px;
+  bottom: auto;
+}
+.pointer {
+  cursor: pointer;
+}
 @media (max-width: 1399px) {
   .home-page__banner {
     padding: 150px 0 50px;

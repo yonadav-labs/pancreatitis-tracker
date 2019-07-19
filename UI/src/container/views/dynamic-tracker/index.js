@@ -54,10 +54,10 @@ const newLegendClickHandler = function (e, legendItem) {
 			ci.scales["y-axis-2"].options.ticks.minor.fontColor = ci.data.datasets[selected[1]].borderColor;
 		} else if (selected.length == 1) {
 			ci.scales["y-axis-1"].options.ticks.minor.fontColor = ci.data.datasets[selected[0]].borderColor;
-			ci.scales["y-axis-2"].options.ticks.minor.fontColor = 'grey';
+			ci.scales["y-axis-2"].options.ticks.minor.fontColor = 'white';
 		} else {
-			ci.scales["y-axis-1"].options.ticks.minor.fontColor = 'grey';
-			ci.scales["y-axis-2"].options.ticks.minor.fontColor = 'grey';
+			ci.scales["y-axis-1"].options.ticks.minor.fontColor = 'white';
+			ci.scales["y-axis-2"].options.ticks.minor.fontColor = 'white';
 		}
 		ci.update();
 	}
