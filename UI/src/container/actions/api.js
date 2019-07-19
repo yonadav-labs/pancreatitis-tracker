@@ -30,8 +30,8 @@ export const loadInputHistoryApi = () => {
 		});
 };
 
-export const getGraphDataApi = () => {
-	return getApi(GET_GRAPH_DATA)
+export const getGraphDataApi = (xrange) => {
+	return getApi(GET_GRAPH_DATA+`?range=${xrange}`)
 		.then((res) => {
 			if (res.success) {
 				return {

@@ -204,6 +204,12 @@ def get_graph_data(request):
     if not user:
         return HttpResponse('Unauthorized', status=401)
 
+    qs = RunAlgorithm.objects.filter(user=user).order_by('-run_at')
+    xrange = int(request.GET.get('range', '0'))
+    if xrange:
+        delta = datetime.now() - timedelta(hours=xrange)
+        qs = qs.filter(run_at__gte=delta).order_by('-run_at')
+
     res = {
         'sirs': [],
         'marshall': [],
@@ -213,7 +219,7 @@ def get_graph_data(request):
     }
 
     now = datetime.now()
-    for ii in RunAlgorithm.objects.filter(user=user).order_by('-run_at')[:10]:
+    for ii in qs:
         output = json.loads(ii.output)
         input = json.loads(ii.input)
         admission_date = datetime.strptime(input['time_stamp'], '%Y-%m-%dT%H:%M:%S.%fZ')

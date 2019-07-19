@@ -101,7 +101,8 @@ const InitialState = {
 	errorMsg: '',
 	user: {},
 	historyData: [],
-	graphData: {}
+	graphData: {},
+	xrange: '24'
 };
 
 export default function patientReducer(state = InitialState, action) {

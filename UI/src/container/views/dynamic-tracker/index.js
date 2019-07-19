@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from 'react-redux';
 import { Line } from 'react-chartjs-2';
-
+import Select from 'react-select';
 import { withRouter } from "react-router";
 import { Link } from 'react-router-dom';
 import Title from '../../components/Title';
@@ -15,6 +15,13 @@ const styles = {
 	fontFamily: 'sans-serif',
 	textAlign: 'center'
 };
+
+const xrangeOption = [
+	{ value: '24', label: '24 Hours' },
+	{ value: '48', label: '48 Hours' },
+	{ value: '72', label: '72 Hours' },
+	{ value: '0', label: 'All' }
+];
 
 const getSelected = (ci) => {
 	let selected = [];
@@ -32,7 +39,7 @@ const newLegendClickHandler = function (e, legendItem) {
 	let index = legendItem.datasetIndex;
 	let ci = this.chart;
 	let selected = getSelected(ci);
-	// debugger;
+
 	let meta = ci.getDatasetMeta(index);
 	if (selected.length < 2 || meta.hidden === false || (meta.hidden === null && !ci.data.datasets[index].hidden)) {
 		meta.hidden = meta.hidden === null ? !ci.data.datasets[index].hidden : null;
@@ -47,6 +54,7 @@ const newLegendClickHandler = function (e, legendItem) {
 			ci.scales["y-axis-2"].options.ticks.minor.fontColor = ci.data.datasets[selected[1]].borderColor;
 		} else if (selected.length == 1) {
 			ci.scales["y-axis-1"].options.ticks.minor.fontColor = ci.data.datasets[selected[0]].borderColor;
+			ci.scales["y-axis-2"].options.ticks.minor.fontColor = 'grey';
 		} else {
 			ci.scales["y-axis-1"].options.ticks.minor.fontColor = 'grey';
 			ci.scales["y-axis-2"].options.ticks.minor.fontColor = 'grey';
@@ -60,6 +68,9 @@ class DynamicTracker extends React.Component {
 	constructor(props) {
 		super(props);
 
+		this.state = {
+			xrange: props.xrange
+		};
 	}
 
 	goToPatientData = () => {
@@ -67,7 +78,15 @@ class DynamicTracker extends React.Component {
 	}
 
 	componentDidMount() {
-		this.props.getGraphDataAction();
+		this.props.getGraphDataAction(this.state.xrange);
+	}
+
+	changeOption = (id, val) => {
+		let {xrange} = this.state;
+		xrange = val.value;
+
+		this.setState({ xrange });
+		this.props.getGraphDataAction(xrange);
 	}
 
 	getData = () => {
@@ -227,7 +246,6 @@ class DynamicTracker extends React.Component {
 				]
 			}
 		};
-
 	}
 
 	render () {
@@ -237,6 +255,22 @@ class DynamicTracker extends React.Component {
 				<div className="container">
 					<div className="my-5">
 						<Line data={this.getData()} options={this.getOptions()} />
+					</div>
+					<div className="col-12">
+						<div className="row mb-5">
+							<div className="col-6 col-md-4 col-xl-3 offset-md-2 offset-xl-3">
+								<div className="round-btn grey-label">Period</div>
+							</div>
+							<div className="col-6 col-md-4 col-xl-3">
+								<Select
+									options={xrangeOption}
+									className="patient-select"
+									classNamePrefix="newselect"
+									onChange={(e) => this.changeOption('sex', e)}
+									value={xrangeOption.filter(option => option.value === this.state.xrange)}
+								/>
+							</div>
+						</div>
 					</div>
 					<div className="text-center mb-5">
 						<GreenButton text="Patient Data" onClick={this.goToPatientData} />
@@ -249,6 +283,7 @@ class DynamicTracker extends React.Component {
 
 const mapStatetoProps = state => {
 	return {
+		xrange: state.xrange,
 		graphData: state.graphData
 	};
 };
