@@ -138,14 +138,15 @@ class Outputs extends React.Component {
 			<div key="1" className="col-12 col-md-6 mb-4 mb-md-5 recommendation">
 				<div className={"card-frame p-3 p-xl-5 " + (this.state.flip_consideration ? "front" : "back")}>
 					<div className="row mb-4 pointer" onClick={() => this.flip('flip_consideration')}>
-						<div className="col-8 d-flex">
+						<div className="col-9 d-flex">
 							<h2 className="section-title long my-auto">Clinical Considerations</h2>
 							<img src={this.state.flip_consideration ? '/assets/images/info-b.png' : '/assets/images/back.png'} className="ml-3 flip-icon" style={{ marginTop: '22px' }} />
 						</div>
-						<div className="col-4">
+						<div className="col-3">
 							<img
+								style={{ width: '65px' }}
 								className="img-fluid"
-								src="/assets/images/leaf.png"
+								src="/assets/images/clipboard_ariel_teal.png"
 								alt="speedmeter image"
 							/>
 						</div>
@@ -198,7 +199,8 @@ class Outputs extends React.Component {
 						<div className="col-4">
 							<img
 								className="img-fluid"
-								src="/assets/images/leaf.png"
+								style={{ width: '77px' }}
+								src="/assets/images/stethoscope_arielteal.png"
 								alt="speedmeter image"
 							/>
 						</div>

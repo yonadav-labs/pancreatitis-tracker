@@ -225,7 +225,8 @@ class DynamicTracker extends React.Component {
 							show: true
 						},
 						ticks: {
-							fontColor: 'rgba(75,192,192,1)'
+							fontColor: 'rgba(75,192,192,1)',
+							fontSize: 18
 						}
 					},
 					{
@@ -240,7 +241,8 @@ class DynamicTracker extends React.Component {
 							show: true
 						},
 						ticks: {
-							fontColor: 'rgba(33, 37, 41,1)'
+							fontColor: 'rgba(33, 37, 41,1)',
+							fontSize: 18
 						}
 					}
 				]
@@ -254,7 +256,7 @@ class DynamicTracker extends React.Component {
 				<Title title="Dynamic Tracker" />
 				<div className="container">
 					<div className="my-5">
-						<Line data={this.getData()} options={this.getOptions()} />
+						<Line data={this.getData()} options={this.getOptions()} id="_k2j3r23" />
 					</div>
 					<div className="col-12">
 						<div className="row mb-5">
