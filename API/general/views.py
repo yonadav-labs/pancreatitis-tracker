@@ -222,6 +222,8 @@ def get_graph_data(request):
     for ii in qs:
         output = json.loads(ii.output)
         input = json.loads(ii.input)
+        if not 'time_stamp' in input:
+            continue
         admission_date = datetime.strptime(input['time_stamp'], '%Y-%m-%dT%H:%M:%S.%fZ')
         diff = (now - admission_date).total_seconds() / 3600.0
 

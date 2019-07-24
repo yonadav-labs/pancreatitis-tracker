@@ -140,13 +140,13 @@ class Outputs extends React.Component {
 					<div className="row mb-4 pointer" onClick={() => this.flip('flip_consideration')}>
 						<div className="col-9 d-flex">
 							<h2 className="section-title long my-auto">Clinical Considerations</h2>
-							<img src={this.state.flip_consideration ? '/assets/images/info-b.png' : '/assets/images/back.png'} className="ml-3 flip-icon" style={{ marginTop: '22px' }} />
+							<img src={this.state.flip_consideration ? '/assets/images/info-b.png' : '/assets/images/back.png'} className="ml-3 flip-icon" style={{ marginTop: '35px' }} />
 						</div>
 						<div className="col-3">
 							<img
-								style={{ width: '65px' }}
+								style={{ width: '70px' }}
 								className="img-fluid"
-								src="/assets/images/clipboard_ariel_teal.png"
+								src={this.state.flip_consideration ? "/assets/images/clipboard_ariel_navy.png" : "/assets/images/clipboard_ariel_teal.png"}
 								alt="speedmeter image"
 							/>
 						</div>
@@ -193,14 +193,14 @@ class Outputs extends React.Component {
 			<div key="2" className="col-12 col-md-6 mb-4 mb-md-5 text-center">
 				<div className="card-frame p-3 p-xl-5">
 					<div className="row mb-4 pointer">
-						<div className="col-8 d-flex">
+						<div className="col-9 d-flex">
 							<h2 className="section-title my-auto">Severity Meter</h2>
 						</div>
-						<div className="col-4">
+						<div className="col-3">
 							<img
 								className="img-fluid"
-								style={{ width: '77px' }}
-								src="/assets/images/stethoscope_arielteal.png"
+								style={{ width: '80px' }}
+								src="/assets/images/stethoscope_arielnavy.png"
 								alt="speedmeter image"
 							/>
 						</div>
@@ -219,14 +219,15 @@ class Outputs extends React.Component {
 			<div key="3" className="col-12 col-md-6 mb-4 mb-md-5">
 				<div className={"card-frame p-3 p-xl-5 " + (this.state.flip_score_system ? "front" : "back")}>
 					<div className="row mb-4 pointer" onClick={() => this.flip('flip_score_system')}>
-						<div className="col-8 d-flex">
+						<div className="col-9 d-flex">
 							<h2 className="section-title my-auto">Clinical Scoring Systems</h2>
-							<img src={this.state.flip_score_system ? '/assets/images/info-b.png' : '/assets/images/back.png'} className="ml-3 flip-icon" style={{ marginTop: '22px' }} />
+							<img src={this.state.flip_score_system ? '/assets/images/info-b.png' : '/assets/images/back.png'} className="ml-3 flip-icon" style={{ marginTop: '35px' }} />
 						</div>
-						<div className="col-4">
+						<div className="col-3">
 							<img
 								className="img-fluid"
-								src="/assets/images/leaf.png"
+								style={{ width: '85px' }}
+								src={this.state.flip_score_system ? "/assets/images/medical_staff.png" : "/assets/images/medical_staff_blue.png"}
 								alt="speedmeter image"
 							/>
 						</div>
@@ -275,14 +276,15 @@ class Outputs extends React.Component {
 			<div key="4" className="col-12 col-md-6 mb-4 mb-md-5">
 				<div className={"card-frame p-3 p-xl-5 " + (this.state.flip_mounzer_rules ? "front" : "back")}>
 					<div className="row mb-4 pointer" onClick={() => this.flip('flip_mounzer_rules')}>
-						<div className="col-8 d-flex">
+						<div className="col-9 d-flex">
 							<h2 className="section-title my-auto">Mounzer Rules</h2>
 							<img src={this.state.flip_mounzer_rules ? '/assets/images/info-b.png' : '/assets/images/back.png'} className="ml-5 flip-icon" style={{ marginTop: '36px' }} />
 						</div>
-						<div className="col-4">
+						<div className="col-3">
 							<img
 								className="img-fluid"
-								src="/assets/images/leaf.png"
+								style={{ width: '85px' }}
+								src={this.state.flip_mounzer_rules ? "/assets/images/scales_navy.png" : "/assets/images/scales_blue.png"}
 								alt="speedmeter image"
 							/>
 						</div>
