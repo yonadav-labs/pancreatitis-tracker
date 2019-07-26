@@ -40,6 +40,7 @@ const newLegendClickHandler = function (e, legendItem) {
 	let ci = this.chart;
 	let selected = getSelected(ci);
 
+	console.log(ci);
 	let meta = ci.getDatasetMeta(index);
 	if (selected.length < 2 || meta.hidden === false || (meta.hidden === null && !ci.data.datasets[index].hidden)) {
 		meta.hidden = meta.hidden === null ? !ci.data.datasets[index].hidden : null;
@@ -187,6 +188,15 @@ class DynamicTracker extends React.Component {
 		};
 	}
 
+	changeValue = (e) => {
+		let ci = this.chartReference.chartInstance;
+		ci.data.datasets[0].showLine = e.target.checked;
+		ci.data.datasets[1].showLine = e.target.checked;
+		ci.data.datasets[2].showLine = e.target.checked;
+		ci.data.datasets[3].showLine = e.target.checked;
+		ci.update();
+	}
+
 	getOptions = () => {
 		let { graphData } = this.props;
 		return {
@@ -250,13 +260,15 @@ class DynamicTracker extends React.Component {
 		};
 	}
 
+	chartReference = {};
+
 	render () {
 		return (
 			<div className="app-content">
 				<Title title="Dynamic Tracker" />
 				<div className="container">
 					<div className="my-5">
-						<Line data={this.getData()} options={this.getOptions()} id="_k2j3r23" />
+						<Line ref={(reference) => this.chartReference = reference} data={this.getData()} options={this.getOptions()} id="_k2j3r23" />
 					</div>
 					<div className="col-12">
 						<div className="row mb-5">
@@ -272,6 +284,12 @@ class DynamicTracker extends React.Component {
 									value={xrangeOption.filter(option => option.value === this.state.xrange)}
 								/>
 							</div>
+							<label className="form-check-label section-description ml-5 mt-3">
+								<input type="checkbox"
+									className="form-check-input mt-3"
+									style={{ marginLeft: '-2rem' }}
+									onChange={this.changeValue} />Outline
+							</label>
 						</div>
 					</div>
 					<div className="text-center mb-5">
