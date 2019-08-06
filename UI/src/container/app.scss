@@ -329,6 +329,11 @@ a.green-button:hover {
   padding: 10px 0px;
   z-index: 2;
 }
+@media only screen and (max-width: 576px) {
+  .section-title {
+    font-size: 26px;
+  }
+}
 
 .back .section-title {
   color: white;

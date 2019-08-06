@@ -18,7 +18,8 @@ class Outputs extends React.Component {
 			clinicalScores: this.props.clinicalScores || [],
 			flip_score_system: true,
 			flip_consideration: true,
-			flip_mounzer_rules: true
+			flip_mounzer_rules: true,
+			flip_severity_meter: true
 		};
 
 		this.isMobile = window.innerWidth <= 760;
@@ -108,7 +109,7 @@ class Outputs extends React.Component {
 		let extraMeterText = '';
 		if (negativeCount === 0 && positiveCount === 0) {
 			valueOfSpeedMeter = 5;
-			extraMeterText = 'Meter will function upon calculation of at least 1 Mounzer rule.';
+			extraMeterText = 'Severity meter displays predictions upon calculation of at least 1 Mounzer rule.';
 		}
 		const clinicalScores_ = Object.assign([], this.props.clinicalScores);
 
@@ -138,11 +139,11 @@ class Outputs extends React.Component {
 			<div key="1" className="col-12 col-md-6 mb-4 mb-md-5 recommendation">
 				<div className={"card-frame p-3 p-xl-5 " + (this.state.flip_consideration ? "front" : "back")}>
 					<div className="row mb-4 pointer" onClick={() => this.flip('flip_consideration')}>
-						<div className="col-9 d-flex">
-							<h2 className="section-title long my-auto">Clinical Considerations</h2>
-							<img src={this.state.flip_consideration ? '/assets/images/info-b.png' : '/assets/images/back.png'} className="ml-3 flip-icon" style={{ marginTop: '35px' }} />
+						<div className="col-7">
+							<h2 className="section-title long my-auto mr-auto">Clinical Considerations</h2>
 						</div>
-						<div className="col-3">
+						<div className="col-5 d-flex align-items-center justify-content-end">
+							<img src={this.state.flip_consideration ? '/assets/images/info-navy.png' : '/assets/images/back-teal.png'} className="mr-4 flip-icon"/>
 							<img
 								style={{ width: '70px' }}
 								className="img-fluid"
@@ -152,78 +153,87 @@ class Outputs extends React.Component {
 						</div>
 					</div>
 					<div className="section-description grey-color-text">
-						{
-							this.state.flip_consideration &&
-							<div>
-								<strong>For the most informative set of results, please order a
-								complete chemistry profile, complete blood count, and arterial
-								blood gas. </strong>
-								<span>It is also recommended to order a lipid panel, liver injury
-								test, LDH, CRP, and albumin.</span><br /><br />
-								<strong>Current severity score:</strong><br />
-							</div>
-						}
 						{this.state.considerations && this.state.flip_consideration &&
-							<span className="mb-5">ADAPT has computed {calcAlgorithms.join(', ')}.{this.state.considerations.pop_percent}</span>
+							<div>
+								<strong>Current severity score:</strong><br />
+								<span className="mb-5">ADAPT has computed {calcAlgorithms.join(', ')}.{this.state.considerations.pop_percent}</span>
+							</div>
 						}
 						{ this.state.considerations && this.state.flip_consideration &&
 							<div>
 								<div className="font-weight-bold mt-3">Anticipated needs:</div>
-								<span className="mb-5">
-									{this.state.considerations.maintenance_fluid} In
-									addition, patient may need fluid resuscitation for intravascular
-									volume deficit. Re-evaluation of fluid status and organ function
-									is recommended at 4-6 hrs. Also, it is recommended to repeat any
-									abnormal labs at that time.
-								</span>
+								<p className="mb-5">
+									{this.state.considerations.maintenance_fluid} In addition, patient may need
+									fluid resuscitation for intravascular volume deficit. Re-evaluation of fluid
+									status and organ function is recommended at 4-6 hrs. Also, it is recommended
+									to repeat any abnormal labs at that time.
+								</p>
+								<div className="font-weight-bold mt-3">Etiology workup:</div>
+								<p>Order a lipid panel, liver injury test, LDH, CRP, and albumin, to better understand
+								the etiology of this AP episode. For idiopathic or recurrent AP, order <a href="https://portal.arielmedicine.com/register" target="_blank">ArielDx</a>.</p>
 							</div>
 						}
 						{
 							!this.state.flip_consideration &&
 							<div>
-								<div className="font-weight-bold mt-3">Etiology workup:</div>
-								<span>Order a lipid panel, liver injury test, LDH, CRP, and albumin,
-								to better understand the etiology of this AP episode. For idiopathic
-								or recurrent AP, order ArielDx.</span>
+								<strong>For the most informative set of results, please order a
+								complete chemistry profile, complete blood count, and arterial
+								blood gas. </strong>
+								<p>It is also recommended to order a lipid panel, liver injury
+								test, LDH, CRP, and albumin.</p>
+								<p>These considerations are based on peer-reviewed guidelines for acute pancreatitis management.<br /><a href="https://www.ncbi.nlm.nih.gov/pubmed/29409760" target="_blank">[1]</a> <a href="https://www.ncbi.nlm.nih.gov/pubmed/24054878" target="_blank">[2]</a> <a href="https://www.ncbi.nlm.nih.gov/pubmed/23896955" target="_blank">[3]</a>
+								</p>
 							</div>
 						}
 					</div>
 				</div>
 			</div>,
 			<div key="2" className="col-12 col-md-6 mb-4 mb-md-5 text-center">
-				<div className="card-frame p-3 p-xl-5">
-					<div className="row mb-4 pointer">
-						<div className="col-9 d-flex">
-							<h2 className="section-title my-auto">Severity Meter</h2>
+				<div className={"card-frame p-3 p-xl-5 " + (this.state.flip_severity_meter ? "front" : "back")}>
+					<div className="row mb-4 pointer" onClick={() => this.flip('flip_severity_meter')}>
+						<div className="col-7">
+							<h2 className="section-title my-auto mr-auto">Severity Meter</h2>
 						</div>
-						<div className="col-3">
+						<div className="col-5 d-flex align-items-center justify-content-end">
+							<img src={this.state.flip_severity_meter ? '/assets/images/info-navy.png' : '/assets/images/back-teal.png'} className="mr-4 flip-icon"/>
 							<img
 								className="img-fluid"
 								style={{ width: '80px' }}
-								src="/assets/images/stethoscope_arielnavy.png"
+								src={this.state.flip_severity_meter ? "/assets/images/stethoscope_arielnavy.png" : "/assets/images/stethoscope_arielteal.png"}
 								alt="speedmeter image"
 							/>
 						</div>
 					</div>
-					<div className="section-description grey-color-text text-left mb-5">
-						The severity meter changes with respect to rules signifying “organ failure likely”
-						and “organ failure not likely.” {extraMeterText}
-					</div>
-					<img
-						className="speedmeter mb-5"
-						src={`/assets/images/speedometer_${valueOfSpeedMeter}.png`}
-						alt="speedmeter image"
-					/>
+					{
+						this.state.flip_severity_meter &&
+						<img
+							className="speedmeter my-5"
+							src={`/assets/images/speedometer_${valueOfSpeedMeter}.png`}
+							alt="speedmeter image"
+						/>
+					}
+					{
+						!this.state.flip_severity_meter &&
+						<div className="section-description grey-color-text text-left mb-5">
+							The severity meter provides a high-level summary of predicted patient outcome
+							based on rules combining clinical scoring systems validated using admission and
+							48hr data in training (n = 256) and validation (n = 397) AP patient cohorts (see
+							<a href="https://www.ncbi.nlm.nih.gov/pubmed/22425589" target="_blank">Mounzer Rules</a> panel below). The meter shifts towards predicted severe outcome
+							(denoted in red) with each rule that predicts likely organ failure. The meter
+							shifts towards predicted positive outcome (denoted in green) with each rule that
+							predicts unlikely progression to organ failure. {extraMeterText}
+						</div>
+					}
 				</div>
 			</div>,
 			<div key="3" className="col-12 col-md-6 mb-4 mb-md-5">
 				<div className={"card-frame p-3 p-xl-5 " + (this.state.flip_score_system ? "front" : "back")}>
 					<div className="row mb-4 pointer" onClick={() => this.flip('flip_score_system')}>
-						<div className="col-9 d-flex">
-							<h2 className="section-title my-auto">Clinical Scoring Systems</h2>
-							<img src={this.state.flip_score_system ? '/assets/images/info-b.png' : '/assets/images/back.png'} className="ml-3 flip-icon" style={{ marginTop: '35px' }} />
+						<div className="col-7">
+							<h2 className="section-title my-auto mr-auto">Clinical Scoring Systems</h2>
 						</div>
-						<div className="col-3">
+						<div className="col-5 d-flex align-items-center justify-content-end">
+							<img src={this.state.flip_score_system ? '/assets/images/info-navy.png' : '/assets/images/back-teal.png'} className="mr-4 flip-icon"/>
 							<img
 								className="img-fluid"
 								style={{ width: '85px' }}
@@ -235,12 +245,28 @@ class Outputs extends React.Component {
 					{
 						clinicalScores && !this.state.flip_score_system &&
 						<div className="section-description grey-color-text">
-							Status bars do not display scores if insufficient information is available
-							to compute clinical metric. If score has sufficient information, it is written
-							as a fraction of the maximum allowable score. Severity thresholds for each
-							clinical score are denoted by the inverted triangle icons. If the score is
-							below threshold, the status bar is shown in turquoise. If the score is above
-							threshold, the status bar is shown in red.
+							<p>For each clinical metric, a status bar displays the patient’s score, denoted as
+							[score]/[maximum potential score]. An inverted triangle marker on each status bar
+							denotes a severity threshold, where a score meeting or exceeding that threshold is
+							considered “severe.” If the clinical metric is below threshold, the status bar is
+							displayed in turquoise. If the clinical metric is at or above threshold (i.e. meeting
+							severity criteria), the status bar is displayed in red.</p>
+							<p>If insufficient information is available to compute the clinical metric, the status
+							bar remains grey and does not display the patient’s score to the right of the status
+							bar. The user can click on the clinical metric in question to learn about its required
+							data fields.</p>
+							<p>References and peer-reviewed validation of each clinical scoring systems (
+								&nbsp;<a href="https://www.ncbi.nlm.nih.gov/pubmed/3928249" target="_blank">APACHE II</a>,
+								&nbsp;<a href="https://www.ncbi.nlm.nih.gov/pubmed/18519429" target="_blank">BISAP</a>,
+								&nbsp;<a href="https://www.ncbi.nlm.nih.gov/pubmed/6510766" target="_blank">Glasgow-Imrie</a>,
+								&nbsp;<a href="https://www.ncbi.nlm.nih.gov/pubmed/19245846" target="_blank">HAPS</a>,
+								&nbsp;<a href="https://www.ncbi.nlm.nih.gov/pubmed/20012329" target="_blank">JSS</a>,
+								&nbsp;<a href="https://www.ncbi.nlm.nih.gov/pubmed/23100216" target="_blank">Marshall</a>,
+								&nbsp;<a href="https://www.ncbi.nlm.nih.gov/pubmed/17881932" target="_blank">Panc 3</a>,
+								&nbsp;<a href="https://www.ncbi.nlm.nih.gov/pubmed/17522578" target="_blank">POP</a>,
+								&nbsp;<a href="https://www.ncbi.nlm.nih.gov/pubmed/26537149" target="_blank">Ranson</a>,
+								&nbsp;<a href="https://www.ncbi.nlm.nih.gov/pubmed/29447109" target="_blank">SIRS</a> )
+							can be found via Google Scholar and PubMed. </p>
 						</div>
 					}
 					<div>
@@ -276,11 +302,11 @@ class Outputs extends React.Component {
 			<div key="4" className="col-12 col-md-6 mb-4 mb-md-5">
 				<div className={"card-frame p-3 p-xl-5 " + (this.state.flip_mounzer_rules ? "front" : "back")}>
 					<div className="row mb-4 pointer" onClick={() => this.flip('flip_mounzer_rules')}>
-						<div className="col-9 d-flex">
-							<h2 className="section-title my-auto">Mounzer Rules</h2>
-							<img src={this.state.flip_mounzer_rules ? '/assets/images/info-b.png' : '/assets/images/back.png'} className="ml-5 flip-icon" style={{ marginTop: '36px' }} />
+						<div className="col-7">
+							<h2 className="section-title my-auto mr-auto">Mounzer Rules</h2>
 						</div>
-						<div className="col-3">
+						<div className="col-5 d-flex align-items-center justify-content-end">
+							<img src={this.state.flip_mounzer_rules ? '/assets/images/info-navy.png' : '/assets/images/back-teal.png'} className="mr-4 flip-icon" />
 							<img
 								className="img-fluid"
 								style={{ width: '85px' }}
@@ -289,72 +315,76 @@ class Outputs extends React.Component {
 							/>
 						</div>
 					</div>
-					<div className="section-description grey-color-text">
-						<p>Rules denote >95% probability of either developing organ failure (OF) or not
-						developing OF. In some cases, the trajectory is less certain at early timepoints.</p>
-						{
-							clinicalScores && !this.state.flip_mounzer_rules &&
-							<p>
-								All rules default to a gray box. Upon entry of all of the necessary criteria,
-								there are 2 possibilities. If there is sufficient information to compute the
-								rule, and the conditions for the rule are met, the box becomes turquoise (e.g.
-								if organ failure is likely or organ failure is not likely based on the
-								conditions). If there is sufficient information to compute the rule, but
-								the conditions for the rule are not met, the box remains grey but is outlined
-								in blue. In this scenario, there is no definitive knowledge gained on organ
-								failure likelihood for that rule set.<br />
-							</p>
-						}
-						<p>
-							For more info, see <a href="https://www.ncbi.nlm.nih.gov/pubmed/22425589" target="_blank">PMID: 22425589</a>.
-						</p>
-					</div>
+					{
+						clinicalScores && !this.state.flip_mounzer_rules &&
+						<div className="section-description grey-color-text">
+							<p>The Mounzer rules were developed to predict patient outcome based on combinations
+							of clinical scoring systems and were validated admission and 48hr data in a training
+							(n = 256) and validation (n = 397) AP patient cohort.</p>
+							<p>Rules 1-6 are based upon admission data, and rules 7-12 are based on 48hr data.
+							Upon entry of all the necessary criteria for a given rule, the rule box will undergo
+							one of two changes from its default grey fill and border:</p>
+							<p>If there is sufficient information to compute the rule and the conditions for the
+							rule are met, the box becomes turquoise (e.g. if organ failure is likely or organ
+							failure is not likely based on the conditions). </p>
+							<p>If there is sufficient information to compute the rule, but the conditions for the
+							rule are not met, the box remains grey but is outlined in blue. In this scenario, there
+							is no definitive knowledge gained on organ failure likelihood for that rule set.</p>
+							<p>For more info, see <a href="https://www.ncbi.nlm.nih.gov/pubmed/22425589" target="_blank">PMID: 22425589</a>.</p>
+						</div>
+					}
 					{
 						this.state.flip_mounzer_rules &&
-						<div className="row">
-							<div className="col-6 pr-2 pr-xl-3">
-								<div className="rule-btn primary-rule">
-									<span className="rule-text">OF Unlikely</span>
-								</div>
-								{
-									positiveMounzers.length === 0
-										? (
-											<div>
-												<div className="rule-btn"><span className="rule-text">Rule 1</span></div>
-												<div className="rule-btn"><span className="rule-text">Rule 3</span></div>
-												<div className="rule-btn"><span className="rule-text">Rule 5</span></div>
-												<div className="rule-btn"><span className="rule-text">Rule 7</span></div>
-												<div className="rule-btn"><span className="rule-text">Rule 9</span></div>
-												<div className="rule-btn"><span className="rule-text">Rule 11</span></div>
-											</div>
-										)
-										: positiveMounzers
-								}
+						<div>
+							<div className="section-description grey-color-text">
+								<p>Rules denote >95% probability of either developing organ failure (OF) or not
+								developing OF. In some cases, the trajectory is less certain at early timepoints.</p>
 							</div>
-							<div className="col-6 pl-2 pl-xl-3">
-								<div className="rule-btn primary-rule"><span className="rule-text">OF Likely</span></div>
-								{
-									negativeMounzers.length === 0
-										? (
-											<div>
-												<div className="rule-btn"><span className="rule-text">Rule 2</span></div>
-												<div className="rule-btn"><span className="rule-text">Rule 4</span></div>
-												<div className="rule-btn"><span className="rule-text">Rule 6</span></div>
-												<div className="rule-btn"><span className="rule-text">Rule 8</span></div>
-												<div className="rule-btn"><span className="rule-text">Rule 10</span></div>
-												<div className="rule-btn"><span className="rule-text">Rule 12</span></div>
-											</div>
-										)
-										: negativeMounzers
-								}
+							<div className="row">
+								<div className="col-6 pr-2 pr-xl-3">
+									<div className="rule-btn primary-rule">
+										<span className="rule-text">OF Unlikely</span>
+									</div>
+									{
+										positiveMounzers.length === 0
+											? (
+												<div>
+													<div className="rule-btn"><span className="rule-text">Rule 1</span></div>
+													<div className="rule-btn"><span className="rule-text">Rule 3</span></div>
+													<div className="rule-btn"><span className="rule-text">Rule 5</span></div>
+													<div className="rule-btn"><span className="rule-text">Rule 7</span></div>
+													<div className="rule-btn"><span className="rule-text">Rule 9</span></div>
+													<div className="rule-btn"><span className="rule-text">Rule 11</span></div>
+												</div>
+											)
+											: positiveMounzers
+									}
+								</div>
+								<div className="col-6 pl-2 pl-xl-3">
+									<div className="rule-btn primary-rule"><span className="rule-text">OF Likely</span></div>
+									{
+										negativeMounzers.length === 0
+											? (
+												<div>
+													<div className="rule-btn"><span className="rule-text">Rule 2</span></div>
+													<div className="rule-btn"><span className="rule-text">Rule 4</span></div>
+													<div className="rule-btn"><span className="rule-text">Rule 6</span></div>
+													<div className="rule-btn"><span className="rule-text">Rule 8</span></div>
+													<div className="rule-btn"><span className="rule-text">Rule 10</span></div>
+													<div className="rule-btn"><span className="rule-text">Rule 12</span></div>
+												</div>
+											)
+											: negativeMounzers
+									}
+								</div>
+							</div>
+							<div className="row">
+								<div className="col-12 section-content">
+									Note: Rules 7-12 are only activated after tracking patient for 48 hours.
+								</div>
 							</div>
 						</div>
 					}
-					<div className="row">
-						<div className="col-12 section-content">
-							Note: Rules 7-12 are only activated after tracking patient for 48 hours.
-						</div>
-					</div>
 				</div>
 			</div>
 		];
@@ -402,4 +432,3 @@ const mapStatetoProps = state => {
 };
 
 export default withRouter(connect(mapStatetoProps)(Outputs));
-
