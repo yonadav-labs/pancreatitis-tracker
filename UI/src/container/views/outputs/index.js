@@ -162,7 +162,7 @@ class Outputs extends React.Component {
 						{ this.state.considerations && this.state.flip_consideration &&
 							<div>
 								<div className="font-weight-bold mt-3">Anticipated needs:</div>
-								<p className="mb-5">
+								<p className="mb-2">
 									{this.state.considerations.maintenance_fluid} In addition, patient may need
 									fluid resuscitation for intravascular volume deficit. Re-evaluation of fluid
 									status and organ function is recommended at 4-6 hrs. Also, it is recommended
@@ -217,8 +217,9 @@ class Outputs extends React.Component {
 						<div className="section-description grey-color-text text-left mb-5">
 							The severity meter provides a high-level summary of predicted patient outcome
 							based on rules combining clinical scoring systems validated using admission and
-							48hr data in training (n = 256) and validation (n = 397) AP patient cohorts (see
-							<a href="https://www.ncbi.nlm.nih.gov/pubmed/22425589" target="_blank">Mounzer Rules</a> panel below). The meter shifts towards predicted severe outcome
+							48hr data in training (n = 256) and validation (n = 397) AP patient cohorts (see&nbsp;
+							<a href="https://www.ncbi.nlm.nih.gov/pubmed/22425589" target="_blank">Mounzer Rules</a> panel below).
+							The meter shifts towards predicted severe outcome
 							(denoted in red) with each rule that predicts likely organ failure. The meter
 							shifts towards predicted positive outcome (denoted in green) with each rule that
 							predicts unlikely progression to organ failure. {extraMeterText}
