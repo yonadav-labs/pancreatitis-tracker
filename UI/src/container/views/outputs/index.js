@@ -108,7 +108,7 @@ class Outputs extends React.Component {
 		let valueOfSpeedMeter = negativeCount - positiveCount;
 		let extraMeterText = '';
 		if (negativeCount === 0 && positiveCount === 0) {
-			valueOfSpeedMeter = 5;
+			valueOfSpeedMeter = 'NA';
 			extraMeterText = 'Severity meter displays predictions upon calculation of at least 1 Mounzer rule.';
 		}
 		const clinicalScores_ = Object.assign([], this.props.clinicalScores);
@@ -206,11 +206,16 @@ class Outputs extends React.Component {
 					</div>
 					{
 						this.state.flip_severity_meter &&
-						<img
-							className="speedmeter my-5"
-							src={`/assets/images/speedometer_${valueOfSpeedMeter}.png`}
-							alt="speedmeter image"
-						/>
+						<div>
+							<div className="section-description grey-color-text text-left mb-5">
+								Mounzer Rules calculated: {valueOfSpeedMeter}
+							</div>
+							<img
+								className="speedmeter my-5"
+								src={`/assets/images/speedometer_${valueOfSpeedMeter}.png`}
+								alt="speedmeter image"
+							/>
+						</div>
 					}
 					{
 						!this.state.flip_severity_meter &&

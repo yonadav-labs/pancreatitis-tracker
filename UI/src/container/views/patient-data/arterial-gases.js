@@ -14,8 +14,7 @@ class ArterialGases extends React.Component {
 				paCO2: this.props.data.paCO2,
 				hco3_artieral: this.props.data.hco3_artieral,
 				fiO2: this.props.data.fiO2,
-				base_excess: this.props.data.base_excess,
-				time_stamp: this.props.data.time_stamp
+				base_excess: this.props.data.base_excess
 			},
 			units: {
 				ph: this.props.units.ph,
@@ -65,11 +64,6 @@ class ArterialGases extends React.Component {
 					range: [
 						{ min: -5, max: 3, unit: 'mEq/L' }
 					]
-				},
-				time_stamp: {
-					name: 'time_stamp',
-					type: 'text',
-					required: true
 				}
 			},
 			errors: {}
@@ -275,36 +269,6 @@ class ArterialGases extends React.Component {
 								</div>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.base_excess && errors.base_excess.msg}
-								</label>
-							</div>
-						</div>
-					</div>
-					<div className="col-xs-12 col-lg-6">
-						<div className="row mb-5">
-							<div className="col-xs-12 col-md-6">
-								<div
-									className="round-btn grey-label"
-								>
-									Entry Time
-								</div>
-							</div>
-							<div className="col-xs-12 col-md-6">
-								<DatePicker
-									id="time_stamp"
-									showTimeSelect
-									className="round-input w-100"
-									timeFormat="HH:mm"
-									timeIntervals={15}
-									dateFormat="MM/dd/YYYY HH:mm"
-									selected={
-										arterialGases.time_stamp !== null && arterialGases.time_stamp !== ''
-											? new Date(arterialGases.time_stamp)
-											: new Date()
-									}
-									onChange={(date) => this.changeDate('time_stamp', date)}
-								/>
-								<label className="color-danger pt-2 text-danger text-center warning-message">
-									{errors.time_stamp && errors.time_stamp.msg}
 								</label>
 							</div>
 						</div>

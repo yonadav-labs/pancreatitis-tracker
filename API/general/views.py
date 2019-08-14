@@ -191,9 +191,13 @@ def load_input_history(request):
 
     res = []
     for ii in RunAlgorithm.objects.filter(user=user).order_by('-run_at')[:10]:
+        data = json.loads(ii.input)
+        data['weight'] = interface.AlgorithmInterface({}).kg_to_lb(data['weight'])
+        data['height'] =interface.AlgorithmInterface({}).cm_to_inch(data['height'])
+
         res.append({ 
             'run_at': datetime.strftime(ii.run_at, '%m/%d/%Y %H:%M'), 
-            'input_data': json.loads(ii.input) 
+            'input_data': data
         })
 
     return JsonResponse(res, safe=False)

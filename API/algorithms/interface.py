@@ -72,6 +72,20 @@ class AlgorithmInterface:
         return variable
 
     @classmethod
+    def kg_to_lb(self, weight):
+        LB_TO_KG = 0.453592
+        if weight:
+            val = weight / LB_TO_KG            
+            return float("{0:.2f}".format(val))
+
+    @classmethod
+    def cm_to_inch(self, height):
+        INCH_TO_METER = 2.54
+        if height:
+            val = height / INCH_TO_METER
+            return float("{0:.2f}".format(val))
+
+    @classmethod
     def imperial_to_metric(self, height, weight):
         """
         Convert imperial units to metric units for height and weight.

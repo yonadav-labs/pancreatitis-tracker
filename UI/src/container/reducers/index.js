@@ -48,13 +48,13 @@ const InitialState = {
 		onset_date: '',
 		admission_date: '',
 		fluid_responsive: false,
-		time_stamp: ''
+		time_stamp: new Date().toISOString()
 	},
 	units: {
 		sex: null,
 		age: null,
-		height: 'cm',
-		weight: 'kg',
+		height: 'inch',
+		weight: 'lb',
 		bmi: 'kg/m2',
 		chronic_health: null,
 
@@ -132,7 +132,7 @@ export default function patientReducer(state = InitialState, action) {
 
 			if (idx !== -1) {
 				patient = {..._historyData[idx].input_data};
-				patient.time_stamp = new Date().toISOString();
+				// patient.time_stamp = new Date().toISOString();
 			}
 
 			return {...state, patient: patient};

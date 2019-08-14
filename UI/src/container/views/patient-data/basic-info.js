@@ -42,7 +42,8 @@ class BasicInfo extends React.Component {
 				bmi: this.props.data.bmi,
 				chronic_health: this.props.data.chronic_health,
 				admission_date: this.props.data.admission_date,
-				onset_date: this.props.data.onset_date
+				onset_date: this.props.data.onset_date,
+				time_stamp: this.props.data.time_stamp
 			},
 			units: {
 				sex: this.props.units.sex,
@@ -81,6 +82,11 @@ class BasicInfo extends React.Component {
 				},
 				onset_date: {
 					name: 'onset_date',
+					type: 'text',
+					required: true
+				},
+				time_stamp: {
+					name: 'time_stamp',
 					type: 'text',
 					required: true
 				}
@@ -411,6 +417,36 @@ class BasicInfo extends React.Component {
 									onChange={(e) => this.changeChronicHealth(e)}
 									value={chronicHealthOption1.filter(option => option.value === chronic_health_)}
 								/>
+							</div>
+						</div>
+					</div>
+					<div className="col-xs-12 col-lg-6">
+						<div className="row mb-5">
+							<div className="col-xs-12 col-md-6">
+								<div
+									className="round-btn grey-label"
+								>
+									Entry Time
+								</div>
+							</div>
+							<div className="col-xs-12 col-md-6">
+								<DatePicker
+									id="time_stamp"
+									showTimeSelect
+									className="round-input w-100"
+									timeFormat="HH:mm"
+									timeIntervals={15}
+									dateFormat="MM/dd/YYYY HH:mm"
+									selected={
+										basicInfo.time_stamp !== null && basicInfo.time_stamp !== ''
+											? new Date(basicInfo.time_stamp)
+											: new Date()
+									}
+									onChange={(date) => this.changeDate('time_stamp', date)}
+								/>
+								<label className="color-danger pt-2 text-danger text-center warning-message">
+									{errors.time_stamp && errors.time_stamp.msg}
+								</label>
 							</div>
 						</div>
 					</div>

@@ -64,7 +64,7 @@ export const getScoresAction = (data, units) => {
 	}
 
 	if (units.height === 'inch' && params.height) {
-		params.height = inchTomConvert(params.height);
+		params.height = inchTomConvert(params.height) * 100;
 	}
 
 	if (units.temperature === 'fahrenheit' && params.temperature) {

@@ -60,26 +60,24 @@ export const postApiWithoutToken = (url, body) => {
 			'Content-Type': 'application/json'
 		},
 		body
-	})
-		.then(response => {
-			if (response.ok) {
-				return response.json().then((res) => ({
-					...res,
-					success: true
-				}));
-			}
+	}).then(response => {
+		if (response.ok) {
+			return response.json().then((res) => ({
+				...res,
+				success: true
+			}));
+		}
 
-			throw response;
-		})
-		.catch(err => {
-			return err.text().then(errors => {
-				let errorResponse = JSON.parse(errors);
-				return {
-					msg: errorResponse.message,
-					success: false
-				};
-			});
+		throw response;
+	}).catch(err => {
+		return err.text().then(errors => {
+			let errorResponse = JSON.parse(errors);
+			return {
+				msg: errorResponse.message,
+				success: false
+			};
 		});
+	});
 };
 
 export const postApi = (url, body) => {
@@ -92,27 +90,25 @@ export const postApi = (url, body) => {
 			'Authorization': access_token
 		},
 		body
-	})
-		.then(response => {
-			if (response.ok) {
-				return response.json().then((res) => ({
-					data: res,
-					success: true
-				}));
-			}
+	}).then(response => {
+		if (response.ok) {
+			return response.json().then((res) => ({
+				data: res,
+				success: true
+			}));
+		}
 
-			throw response;
-		})
-		.catch(err => {
-			return err.text().then(errors => {
-				let errorResponse = JSON.parse(errors);
+		throw response;
+	}).catch(err => {
+		return err.text().then(errors => {
+			let errorResponse = JSON.parse(errors);
 
-				return {
-					msg: errorResponse.message,
-					success: false
-				};
-			});
+			return {
+				msg: errorResponse.message,
+				success: false
+			};
 		});
+	});
 };
 
 export const getApi = (url, body) => {
@@ -126,29 +122,26 @@ export const getApi = (url, body) => {
 				'Authorization': access_token
 			},
 			body
-		})
-			.then(response => {
-				if (response.ok) {
-					return response.json().then((res) => ({
-						data: res,
-						success: true
-					}));
-				}
+		}).then(response => {
+			if (response.ok) {
+				return response.json().then((res) => ({
+					data: res,
+					success: true
+				}));
+			}
 
-				throw response;
-			})
-			.catch(err => {
-				return err.text().then(errors => {
-					let errorResponse = JSON.parse(errors);
-					return {
-						msg: errorResponse.message,
-						success: false
-					};
-				});
+			throw response;
+		}).catch(err => {
+			return err.text().then(errors => {
+				let errorResponse = JSON.parse(errors);
+				return {
+					msg: errorResponse.message,
+					success: false
+				};
 			});
+		});
 	}
 	window.location.href = '/';
-	
 };
 
 export const uploadFormData = (url, files) => {
@@ -159,24 +152,22 @@ export const uploadFormData = (url, files) => {
 		url: url,
 		type: 'POST',
 		body: fd
-	})
-		.then(response => {
-			if (response.ok) {
-				return response.json().then((res) => ({
-					...res,
-					success: true
-				}));
-			}
+	}).then(response => {
+		if (response.ok) {
+			return response.json().then((res) => ({
+				...res,
+				success: true
+			}));
+		}
 
-			throw response;
-		})
-		.catch(err => {
-			return err.text().then(errors => {
-				let errorResponse = JSON.parse(errors);
-				return {
-					msg: errorResponse.message,
-					success: false
-				};
-			});
+		throw response;
+	}).catch(err => {
+		return err.text().then(errors => {
+			let errorResponse = JSON.parse(errors);
+			return {
+				msg: errorResponse.message,
+				success: false
+			};
 		});
+	});
 };

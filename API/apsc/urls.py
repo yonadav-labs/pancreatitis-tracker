@@ -18,7 +18,7 @@ from django.urls import path
 
 from general import views
 from general import auth
-admin.site.site_header = "APSC administration"
+admin.site.site_header = "ADAPT administration"
 
 urlpatterns = [
     path('admin/', admin.site.urls),
