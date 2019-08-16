@@ -250,7 +250,7 @@ class BasicInfo extends React.Component {
 								<div
 									className="round-btn grey-label"
 								>
-									Admission Date
+									ED Arrival
 								</div>
 							</div>
 							<div className="col-xs-12 col-md-6">

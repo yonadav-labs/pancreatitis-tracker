@@ -207,14 +207,14 @@ class Outputs extends React.Component {
 					{
 						this.state.flip_severity_meter &&
 						<div>
-							<div className="section-description grey-color-text text-left mb-5">
-								Mounzer Rules calculated: {valueOfSpeedMeter}
-							</div>
 							<img
 								className="speedmeter my-5"
 								src={`/assets/images/speedometer_${valueOfSpeedMeter}.png`}
 								alt="speedmeter image"
 							/>
+							<div className="section-description grey-color-text text-center mt-5">
+								Mounzer Rules calculated: {valueOfSpeedMeter}
+							</div>
 						</div>
 					}
 					{

@@ -48,12 +48,12 @@ const newLegendClickHandler = function (e, legendItem) {
 
 		// update y axis
 		selected = getSelected(ci);
-		if (selected.length == 2) {
+		if (selected.length === 2) {
 			ci.getDatasetMeta(selected[0]).yAxisID = 'y-axis-1';
 			ci.getDatasetMeta(selected[1]).yAxisID = 'y-axis-2';
 			ci.scales["y-axis-1"].options.ticks.minor.fontColor = ci.data.datasets[selected[0]].borderColor;
 			ci.scales["y-axis-2"].options.ticks.minor.fontColor = ci.data.datasets[selected[1]].borderColor;
-		} else if (selected.length == 1) {
+		} else if (selected.length === 1) {
 			ci.scales["y-axis-1"].options.ticks.minor.fontColor = ci.data.datasets[selected[0]].borderColor;
 			ci.scales["y-axis-2"].options.ticks.minor.fontColor = 'white';
 		} else {
