@@ -192,7 +192,7 @@ def load_input_history(request):
     for ii in RunAlgorithm.objects.filter(user=user).order_by('-run_at')[:10]:
         data = json.loads(ii.input)
         data['weight'] = interface.AlgorithmInterface({}).kg_to_lb(data['weight'])
-        data['height'] =interface.AlgorithmInterface({}).cm_to_inch(data['height'])
+        data['height'] = interface.AlgorithmInterface({}).cm_to_inch(data['height'])
 
         res.append({ 
             'run_at': datetime.strftime(ii.run_at, '%m/%d/%Y %H:%M'), 
@@ -230,10 +230,10 @@ def get_graph_data(request):
         admission_date = datetime.strptime(input['time_stamp'], '%Y-%m-%dT%H:%M:%S.%fZ')
         diff = (now - admission_date).total_seconds() / 3600.0
 
-        res['sirs'].insert(0, output.get('SIRS'))
-        res['marshall'].insert(0, output.get('Marshall'))
-        res['bun'].insert(0, input['bun'])
-        res['creatinine'].insert(0, input['creatinine'])
+        res['sirs'].insert(0, output.get('SIRS', 0))
+        res['marshall'].insert(0, output.get('Marshall', 0))
+        res['bun'].insert(0, input.get('bun', 0))
+        res['creatinine'].insert(0, input.get('creatinine', 0))
         res['labels'].insert(0, '{:.1f} hrs'.format(diff))
 
     return JsonResponse(res, safe=False)

@@ -13,6 +13,7 @@ Developed by Ariel Precision Medicine.
 """
 
 class TestClinicalScoringSystems(TestCase):
+
     def setUp(self):
         self.request = {
             "age": 55,
@@ -576,4 +577,3 @@ class TestClinicalScoringSystems(TestCase):
         sirs_score = si.evaluate()
         self.assertIsNone(sirs_score)
         self.assertFalse(si.can_process())
-
