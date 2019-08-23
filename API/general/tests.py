@@ -211,56 +211,68 @@ class TestClinicalScoringSystems(TestCase):
         self.assertAlmostEqual(weight_kg, 90.7185, places=2)
 
     def test_bmi(self):
+        self.request.update({ 'height': 1.8, 'weight': 90 })
         si = AlgorithmInterface(self.request)
-        height = 1.8
-        weight = 90
-        bmi = si.calculate_bmi(1.8, 90, None)
+        bmi = si.calculate_bmi()
         self.assertAlmostEqual(bmi, 27.78, places=2)
-
+        
         bmi_reported = 25
-        bmi = si.calculate_bmi(1.8, 90, bmi_reported)
+        self.request.update({ 'bmi': bmi_reported })
+        si = AlgorithmInterface(self.request)
+        bmi = si.calculate_bmi()
         self.assertAlmostEqual(bmi, bmi_reported, places=2)
 
-        bmi = si.calculate_bmi(1.8, None, None)
+        self.request.update({ 'height': 1.8, 'weight': None, 'bmi': None })
+        si = AlgorithmInterface(self.request)
+        bmi = si.calculate_bmi()
         self.assertIsNone(bmi)
 
-        bmi = si.calculate_bmi(None, 90, None)
+        self.request.update({ 'height': None, 'weight': 90, 'bmi': None })
+        si = AlgorithmInterface(self.request)
+        bmi = si.calculate_bmi()
         self.assertIsNone(bmi)
 
     def test_arterialbg_est(self):
+        self.request.update({ 'spO2': 0.2, 'paO2': None })
         si = AlgorithmInterface(self.request)
-        spO2 = 0.2
-        paO2_est = si.arterialbg_from_pulseox(None, spO2)
+        paO2_est = si.arterialbg_from_pulseox()
         self.assertIsNotNone(paO2_est)
         self.assertAlmostEqual(paO2_est, 19.4, places=1)
 
-        spO2 = 0.4
-        paO2_est = si.arterialbg_from_pulseox(None, spO2)
+        self.request.update({ 'spO2': 0.4, 'paO2': None })
+        si = AlgorithmInterface(self.request)
+        paO2_est = si.arterialbg_from_pulseox()
         self.assertIsNotNone(paO2_est)
         self.assertAlmostEqual(paO2_est, 26, places=1)
 
-        spO2 = 0.6
-        paO2_est = si.arterialbg_from_pulseox(None, spO2)
+        self.request.update({ 'spO2': 0.6, 'paO2': None })
+        si = AlgorithmInterface(self.request)
+        paO2_est = si.arterialbg_from_pulseox()
         self.assertIsNotNone(paO2_est)
         self.assertAlmostEqual(paO2_est, 33.5, places=1)
 
-        spO2 = 0.8
-        paO2_est = si.arterialbg_from_pulseox(None, spO2)
+        self.request.update({ 'spO2': 0.8, 'paO2': None })
+        si = AlgorithmInterface(self.request)
+        paO2_est = si.arterialbg_from_pulseox()
         self.assertIsNotNone(paO2_est)
         self.assertAlmostEqual(paO2_est, 46, places=1)
 
-        spO2 = 0.99
-        paO2_est = si.arterialbg_from_pulseox(None, spO2)
+        self.request.update({ 'spO2': 0.99, 'paO2': None })
+        si = AlgorithmInterface(self.request)
+        paO2_est = si.arterialbg_from_pulseox()
         self.assertIsNotNone(paO2_est)
         self.assertAlmostEqual(paO2_est, 132.5, places=1)
 
-        spO2 = 0.99
         paO2 = 130
-        paO2_est = si.arterialbg_from_pulseox(paO2, spO2)
+        self.request.update({ 'spO2': 0.99, 'paO2': paO2 })
+        si = AlgorithmInterface(self.request)
+        paO2_est = si.arterialbg_from_pulseox()
         self.assertIsNotNone(paO2_est)
         self.assertEqual(paO2_est, paO2)
 
-        paO2_est = si.arterialbg_from_pulseox(None, None)
+        self.request.update({ 'spO2': None, 'paO2': None })
+        si = AlgorithmInterface(self.request)
+        paO2_est = si.arterialbg_from_pulseox()
         self.assertIsNone(paO2_est)
 
     def test_fahrenheit_to_celsius(self):

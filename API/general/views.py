@@ -97,7 +97,6 @@ def _run_algorithm(algorithm, data):
     return result
 
 
-
 @csrf_exempt
 def run_algorithms(request):
     data, is_approx_paO2 = get_preprocessed_data(request)
@@ -231,8 +230,8 @@ def get_graph_data(request):
         admission_date = datetime.strptime(input['time_stamp'], '%Y-%m-%dT%H:%M:%S.%fZ')
         diff = (now - admission_date).total_seconds() / 3600.0
 
-        res['sirs'].insert(0, output['SIRS'])
-        res['marshall'].insert(0, output['Marshall'])
+        res['sirs'].insert(0, output.get('SIRS'))
+        res['marshall'].insert(0, output.get('Marshall'))
         res['bun'].insert(0, input['bun'])
         res['creatinine'].insert(0, input['creatinine'])
         res['labels'].insert(0, '{:.1f} hrs'.format(diff))
