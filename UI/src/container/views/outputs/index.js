@@ -213,7 +213,7 @@ class Outputs extends React.Component {
 								alt="speedmeter image"
 							/>
 							<div className="section-description grey-color-text text-center mt-5">
-								Mounzer Rules calculated: {valueOfSpeedMeter}
+								Mounzer Rules calculated: {isNaN(valueOfSpeedMeter) ? 0 : Math.abs(valueOfSpeedMeter)}
 							</div>
 						</div>
 					}

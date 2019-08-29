@@ -19,16 +19,16 @@ from .auth import get_user
 ALGORITHMS = [
     # map.AlgorithmMap, 
     # early_warning.AlgorithmEarlyWarning, 
-    apache.AlgorithmApache,
-    bisap.AlgorithmBisap, 
-    glasgow.AlgorithmGlasgow, 
+    sirs.AlgorithmSirs,
     haps.AlgorithmHaps, 
-    jss.AlgorithmJss, 
-    marshall.AlgorithmMarshall, 
     panc3.AlgorithmPanc3, 
+    bisap.AlgorithmBisap, 
     pop.AlgorithmPop, 
     ranson.AlgorithmRanson, 
-    sirs.AlgorithmSirs
+    glasgow.AlgorithmGlasgow,     
+    apache.AlgorithmApache,
+    jss.AlgorithmJss, 
+    marshall.AlgorithmMarshall, 
 ]
 
 

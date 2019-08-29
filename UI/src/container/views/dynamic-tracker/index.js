@@ -284,12 +284,12 @@ class DynamicTracker extends React.Component {
 								<input type="checkbox"
 									className="form-check-input mt-3"
 									style={{ marginLeft: '-2rem' }}
-									onChange={this.changeValue} />Outline
+									onChange={this.changeValue} />Line-Fit
 							</label>
 						</div>
 					</div>
 					<div className="text-center mb-5">
-						<GreenButton text="Patient Data" onClick={this.goToPatientData} />
+						<GreenButton text="Return to Patient Data" onClick={this.goToPatientData} />
 					</div>
 				</div>
 			</div>

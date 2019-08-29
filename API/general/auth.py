@@ -17,8 +17,9 @@ def register(request):
     body format: { "name": "John Doe", "email": "some@email.com" } 
     """
     data = json.loads(request.body.decode("ascii"))
-    user = User.objects.filter(email=data['email']).first()
-    jwt_code = jwt.encode({ 'email' : data['email'] }, settings.SECRET_KEY, algorithm='HS256').decode('ascii')
+    email = data['email'].lower()
+    user = User.objects.filter(email=email).first()
+    jwt_code = jwt.encode({ 'email' : email }, settings.SECRET_KEY, algorithm='HS256').decode('ascii')
 
     # print (data['url'])
     if user and user.is_active:
@@ -33,7 +34,7 @@ def register(request):
         }
     else:
         names = data['name'].split(' ')
-        user = User.objects.create_user(username=data['email'], email=data['email'])
+        user = User.objects.create_user(username=email, email=email)
         user.first_name = names[0]
         user.last_name = names[1]
         user.is_active = False
@@ -41,7 +42,7 @@ def register(request):
 
         url = f"{settings.BACKEND_URL}{reverse('verify_email', kwargs={ 'jwt_code': jwt_code })}"
         email_body = f"Hi {data['name']}, \n\nPlease go ahead and verify your email here: \n{url}\n\nThank you."
-        send_mail('Welcome to ADAPT', email_body, settings.POSTMARK_SENDER, [data['email']], fail_silently=True)
+        send_mail('Welcome to ADAPT', email_body, settings.POSTMARK_SENDER, [email], fail_silently=True)
 
         res = {
             "status": "email-sent",
