@@ -157,11 +157,16 @@ def run_algorithms(request):
             if pop_percent else ''
     }
 
+    run_at = datetime.strptime(data['time_stamp'], '%Y-%m-%dT%H:%M:%S.%fZ')
+    defaults = {
+        'user': user, 
+        'input': json.dumps(get_preprocessed_data(request, False)[0], indent=2),
+        'output': json.dumps(output, indent=2),
+        'run_at': run_at
+    }
+
     # track running
-    RunAlgorithm.objects.create(user=user, 
-                                input=json.dumps(get_preprocessed_data(request, False)[0], indent=2),
-                                output=json.dumps(output, indent=2),
-                                run_at=datetime.strptime(data['time_stamp'], '%Y-%m-%dT%H:%M:%S.%fZ'))
+    RunAlgorithm.objects.update_or_create(user=user, run_at=run_at, defaults=defaults)
 
     return JsonResponse(res, safe=False)
 
