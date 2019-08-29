@@ -284,6 +284,7 @@ class DynamicTracker extends React.Component {
 								<input type="checkbox"
 									className="form-check-input mt-3"
 									style={{ marginLeft: '-2rem' }}
+									defaultChecked={true}
 									onChange={this.changeValue} />Line-Fit
 							</label>
 						</div>
