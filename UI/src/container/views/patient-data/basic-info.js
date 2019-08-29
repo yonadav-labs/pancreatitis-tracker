@@ -147,6 +147,12 @@ class BasicInfo extends React.Component {
 		return isPageValid;
 	}
 
+	onDatepickerRef = (el) => {
+		if (el && el.input) {
+			el.input.readOnly = true;
+		}
+	}
+
 	changeInfo = (e) => {
 		let params = {...this.state.basicInfo};
 		params[e.target.id] = e.target.value;
@@ -230,6 +236,7 @@ class BasicInfo extends React.Component {
 									className="round-input w-100"
 									timeFormat="HH:mm"
 									timeIntervals={15}
+									ref={el => this.onDatepickerRef(el)}
 									dateFormat="MM/dd/YYYY HH:mm"
 									selected={
 										basicInfo.onset_date
@@ -260,6 +267,7 @@ class BasicInfo extends React.Component {
 									className="round-input col-xs-12"
 									timeFormat="HH:mm"
 									timeIntervals={15}
+									ref={el => this.onDatepickerRef(el)}
 									dateFormat="MM/dd/YYYY HH:mm"
 									selected={
 										basicInfo.admission_date
@@ -436,6 +444,7 @@ class BasicInfo extends React.Component {
 									className="round-input w-100"
 									timeFormat="HH:mm"
 									timeIntervals={15}
+									ref={el => this.onDatepickerRef(el)}
 									dateFormat="MM/dd/YYYY HH:mm"
 									selected={
 										basicInfo.time_stamp !== null && basicInfo.time_stamp !== ''

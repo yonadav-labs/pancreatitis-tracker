@@ -2,7 +2,6 @@ import React from 'react';
 import {validateStep} from '../../utils/utils';
 import GreenButton from "../../components/GreenButton";
 import { toast } from "react-toastify";
-import DatePicker from 'react-datepicker';
 
 class ArterialGases extends React.Component {
 	constructor(props) {
