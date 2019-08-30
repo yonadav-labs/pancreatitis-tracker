@@ -37,9 +37,9 @@ export const loadInputHistoryAction = () => {
 	};
 };
 
-export const getGraphDataAction = (xrange) => {
+export const getGraphDataAction = (fromDate, toDate) => {
 	return (dispatch) => {
-		getGraphDataApi(xrange)
+		getGraphDataApi(fromDate, toDate)
 			.then((res) => {
 				dispatch({ type: types.GET_GRAPH_SUCCESS, payload: res.data });
 			})

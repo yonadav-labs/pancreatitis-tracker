@@ -63,40 +63,32 @@ class Outputs extends React.Component {
 		let negativeCount = 0;
 
 		mounzerResults.forEach((mounzer, idx) => {
-			if (mounzer.rule) {
-				if (this.getRuleId(mounzer.rule) % 2 === 1) {
-					let mounzerClass = '';
-					if (mounzer.is_capable) {
-						mounzerClass = 'empty-mounzer';
+			let mounzerClass = '';
+			if (mounzer.is_capable) {
+				mounzerClass = 'empty-mounzer';
 
-						if (mounzer.score) {
-							mounzerClass = 'has-mounzer';
-							positiveCount += 1;
-						}
+				if (mounzer.score) {
+					mounzerClass = 'has-mounzer';
+					if (this.getRuleId(mounzer.rule) % 2 === 1) {
+						positiveCount += 1;
+					} else {
+						negativeCount += 1;
 					}
-
-					positiveMounzers.push(
-						<div key={`mounzer${idx}`} className={`rule-btn ${mounzerClass}`}>
-							<span className="rule-text">{mounzer.rule}</span>
-						</div>
-					);
-				} else {
-					let mounzerClass = '';
-					if (mounzer.is_capable) {
-						mounzerClass = 'empty-mounzer';
-
-						if (mounzer.score) {
-							mounzerClass = 'has-mounzer';
-							negativeCount += 1;
-						}
-					}
-
-					negativeMounzers.push(
-						<div key={`mounzer${idx}`} className={`rule-btn ${mounzerClass}`}>
-							<span className="rule-text">{mounzer.rule}</span>
-						</div>
-					);
 				}
+			}
+
+			let ruleDiv =
+				<div key={`mounzer${idx}`} className={`rule-btn ${mounzerClass}`} data-tip={mounzer.params.required} data-multiline="true" data-event="click">
+					<span className="rule-text">
+						{mounzer.rule}
+						<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
+					</span>
+				</div>;
+
+			if (this.getRuleId(mounzer.rule) % 2 === 1) {
+				positiveMounzers.push(ruleDiv);
+			} else {
+				negativeMounzers.push(ruleDiv);
 			}
 		});
 
@@ -349,74 +341,13 @@ class Outputs extends React.Component {
 										<span className="rule-text">OF Unlikely</span>
 									</div>
 									{
-										positiveMounzers.length === 0
-											? (
-												<div>
-													<ReactTooltip  effect='solid' className="tooltop-bar" />
-													<div className="rule-btn" data-tip="Rule 1" data-multiline="true" data-event="click">
-														<span className="rule-text">
-															Rule 1
-															<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
-														</span>
-													</div>
-													<div className="rule-btn" data-tip="Rule 3" data-multiline="true" data-event="click"><span className="rule-text">
-														Rule 3
-														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
-													</span></div>
-													<div className="rule-btn" data-tip="Rule 5" data-multiline="true" data-event="click"><span className="rule-text">
-														Rule 5
-														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
-													</span></div>
-													<div className="rule-btn" data-tip="Rule 7" data-multiline="true" data-event="click"><span className="rule-text">
-														Rule 7
-														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
-													</span></div>
-													<div className="rule-btn" data-tip="Rule 9" data-multiline="true" data-event="click"><span className="rule-text">
-														Rule 9
-														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
-													</span></div>
-													<div className="rule-btn" data-tip="Rule 11" data-multiline="true" data-event="click"><span className="rule-text">
-														Rule 11
-														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
-													</span></div>
-												</div>
-											)
-											: positiveMounzers
+										positiveMounzers
 									}
 								</div>
 								<div className="col-6 pl-2 pl-xl-3">
 									<div className="rule-btn primary-rule"><span className="rule-text">OF Likely</span></div>
 									{
-										negativeMounzers.length === 0
-											? (
-												<div>
-													<div className="rule-btn" data-tip="Rule 2" data-multiline="true" data-event="click"><span className="rule-text">
-														Rule 2
-														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
-													</span></div>
-													<div className="rule-btn" data-tip="Rule 4" data-multiline="true" data-event="click"><span className="rule-text">
-														Rule 4
-														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
-													</span></div>
-													<div className="rule-btn" data-tip="Rule 6" data-multiline="true" data-event="click"><span className="rule-text">
-														Rule 6
-														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
-													</span></div>
-													<div className="rule-btn" data-tip="Rule 8" data-multiline="true" data-event="click"><span className="rule-text">
-														Rule 8
-														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
-													</span></div>
-													<div className="rule-btn" data-tip="Rule 10" data-multiline="true" data-event="click"><span className="rule-text">
-														Rule 10
-														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
-													</span></div>
-													<div className="rule-btn" data-tip="Rule 12" data-multiline="true" data-event="click"><span className="rule-text">
-														Rule 12
-														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
-													</span></div>
-												</div>
-											)
-											: negativeMounzers
+										negativeMounzers
 									}
 								</div>
 							</div>

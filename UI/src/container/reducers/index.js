@@ -102,7 +102,8 @@ const InitialState = {
 	user: {},
 	historyData: [],
 	graphData: {},
-	xrange: '24'
+	trackerFromDate: null,
+	trackerToDate: null
 };
 
 export default function patientReducer(state = InitialState, action) {

@@ -2,6 +2,7 @@ import React from "react";
 import { connect } from 'react-redux';
 import { Line } from 'react-chartjs-2';
 import Select from 'react-select';
+import DatePicker from 'react-datepicker';
 import { withRouter } from "react-router";
 import { Link } from 'react-router-dom';
 import Title from '../../components/Title';
@@ -10,18 +11,6 @@ import GreenButton from "../../components/GreenButton";
 import {
 	getGraphDataAction
 } from '../../actions/index';
-
-const styles = {
-	fontFamily: 'sans-serif',
-	textAlign: 'center'
-};
-
-const xrangeOption = [
-	{ value: '24', label: '24 Hours' },
-	{ value: '48', label: '48 Hours' },
-	{ value: '72', label: '72 Hours' },
-	{ value: '0', label: 'All' }
-];
 
 const getSelected = (ci) => {
 	let selected = [];
@@ -70,7 +59,8 @@ class DynamicTracker extends React.Component {
 		super(props);
 
 		this.state = {
-			xrange: props.xrange
+			fromDate: props.fromDate,
+			toDate: props.toDate
 		};
 	}
 
@@ -79,15 +69,22 @@ class DynamicTracker extends React.Component {
 	}
 
 	componentDidMount() {
-		this.props.getGraphDataAction(this.state.xrange);
+		this.props.getGraphDataAction(this.state.fromDate, this.state.toDate);
 	}
 
-	changeOption = (id, val) => {
-		let {xrange} = this.state;
-		xrange = val.value;
+	onDatepickerRef = (el) => {
+		if (el && el.input) {
+			el.input.readOnly = true;
+		}
+	}
 
-		this.setState({ xrange });
-		this.props.getGraphDataAction(xrange);
+	changeDate = (id, date) => {
+		const params = { ...this.state };
+		params[id] = date ? date.toISOString() : null;
+		this.setState(params);
+		if (this.state.fromDate !== null && this.state.toDate != null) {
+			this.props.getGraphDataAction(this.state.fromDate, this.state.toDate);
+		}
 	}
 
 	getData = () => {
@@ -106,7 +103,7 @@ class DynamicTracker extends React.Component {
 					borderJoinStyle: 'miter',
 					pointBorderColor: 'rgba(75,192,192,1)',
 					pointBorderWidth: 1,
-					pointHoverRadius: 5,
+					pointHoverRadius: 7,
 					pointHoverBackgroundColor: 'rgba(75,192,192,1)',
 					pointHoverBorderColor: 'rgba(220,220,220,1)',
 					pointHoverBorderWidth: 2,
@@ -127,7 +124,7 @@ class DynamicTracker extends React.Component {
 					borderJoinStyle: 'miter',
 					pointBorderColor: 'rgba(33, 37, 41,1)',
 					pointBorderWidth: 1,
-					pointHoverRadius: 5,
+					pointHoverRadius: 7,
 					pointHoverBackgroundColor: 'rgba(33, 37, 41,1)',
 					pointHoverBorderColor: 'rgba(220,220,220,1)',
 					pointHoverBorderWidth: 2,
@@ -148,7 +145,7 @@ class DynamicTracker extends React.Component {
 					borderJoinStyle: 'miter',
 					pointBorderColor: 'rgba(251, 99, 64,1)',
 					pointBorderWidth: 1,
-					pointHoverRadius: 5,
+					pointHoverRadius: 7,
 					pointHoverBackgroundColor: 'rgba(251, 99, 64,1)',
 					pointHoverBorderColor: 'rgba(220,220,220,1)',
 					hidden: true,
@@ -170,7 +167,7 @@ class DynamicTracker extends React.Component {
 					borderJoinStyle: 'miter',
 					pointBorderColor: 'rgba(94, 114, 228,1)',
 					pointBorderWidth: 1,
-					pointHoverRadius: 5,
+					pointHoverRadius: 7,
 					pointHoverBackgroundColor: 'rgba(94, 114, 228,1)',
 					pointHoverBorderColor: 'rgba(220,220,220,1)',
 					hidden: true,
@@ -268,16 +265,32 @@ class DynamicTracker extends React.Component {
 					</div>
 					<div className="col-12">
 						<div className="row mb-5">
-							<div className="col-6 col-md-4 col-xl-3 offset-md-2 offset-xl-3">
+							<div className="col-6 col-md-4 col-xl-3">
 								<div className="round-btn grey-label">Period</div>
 							</div>
 							<div className="col-6 col-md-4 col-xl-3">
-								<Select
-									options={xrangeOption}
-									className="patient-select"
-									classNamePrefix="newselect"
-									onChange={(e) => this.changeOption('sex', e)}
-									value={xrangeOption.filter(option => option.value === this.state.xrange)}
+								<DatePicker
+									id="time_stamp1"
+									className="round-input"
+									placeholderText="From"
+									selected={this.state.fromDate ? new Date(this.state.fromDate) : null}
+									maxDate={this.state.toDate ? new Date(this.state.toDate) : null}
+									ref={el => this.onDatepickerRef(el)}
+									dateFormat="MM/dd/YYYY"
+									onChange={(date) => this.changeDate('fromDate', date)}
+								/>
+							</div>
+							<div className="col-6 col-md-4 col-xl-3">
+								<DatePicker
+									id="time_stamp2"
+									className="round-input"
+									placeholderText="To"
+									selected={this.state.toDate ? new Date(this.state.toDate) : null}
+									minDate={this.state.fromDate ? new Date(this.state.fromDate) : null}
+									maxDate={new Date()}
+									ref={el => this.onDatepickerRef(el)}
+									dateFormat="MM/dd/YYYY"
+									onChange={(date) => this.changeDate('toDate', date)}
 								/>
 							</div>
 							<label className="form-check-label section-description ml-5 mt-3">
@@ -285,7 +298,7 @@ class DynamicTracker extends React.Component {
 									className="form-check-input mt-3"
 									style={{ marginLeft: '-2rem' }}
 									defaultChecked={true}
-									onChange={this.changeValue} />Line-Fit
+									onChange={this.changeValue} />Line - Fit
 							</label>
 						</div>
 					</div>
@@ -300,7 +313,8 @@ class DynamicTracker extends React.Component {
 
 const mapStatetoProps = state => {
 	return {
-		xrange: state.xrange,
+		fromDate: state.trackerFromDate,
+		toDate: state.trackerToDate,
 		graphData: state.graphData
 	};
 };
