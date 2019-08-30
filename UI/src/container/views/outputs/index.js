@@ -1,4 +1,5 @@
 import React from "react";
+import ReactTooltip from 'react-tooltip';
 import { withRouter } from "react-router";
 import Title from '../../components/Title';
 import CustomProgressBar from '../../components/CustomProgressBar';
@@ -148,7 +149,6 @@ class Outputs extends React.Component {
 								style={{ width: '70px' }}
 								className="img-fluid"
 								src={this.state.flip_consideration ? "/assets/images/clipboard_ariel_navy.png" : "/assets/images/clipboard_ariel_teal.png"}
-								alt="speedmeter image"
 							/>
 						</div>
 					</div>
@@ -200,7 +200,6 @@ class Outputs extends React.Component {
 								className="img-fluid"
 								style={{ width: '80px' }}
 								src={this.state.flip_severity_meter ? "/assets/images/stethoscope_arielnavy.png" : "/assets/images/stethoscope_arielteal.png"}
-								alt="speedmeter image"
 							/>
 						</div>
 					</div>
@@ -244,7 +243,6 @@ class Outputs extends React.Component {
 								className="img-fluid"
 								style={{ width: '85px' }}
 								src={this.state.flip_score_system ? "/assets/images/medical_staff.png" : "/assets/images/medical_staff_blue.png"}
-								alt="speedmeter image"
 							/>
 						</div>
 					</div>
@@ -317,7 +315,6 @@ class Outputs extends React.Component {
 								className="img-fluid"
 								style={{ width: '85px' }}
 								src={this.state.flip_mounzer_rules ? "/assets/images/scales_navy.png" : "/assets/images/scales_blue.png"}
-								alt="speedmeter image"
 							/>
 						</div>
 					</div>
@@ -355,12 +352,33 @@ class Outputs extends React.Component {
 										positiveMounzers.length === 0
 											? (
 												<div>
-													<div className="rule-btn"><span className="rule-text">Rule 1</span></div>
-													<div className="rule-btn"><span className="rule-text">Rule 3</span></div>
-													<div className="rule-btn"><span className="rule-text">Rule 5</span></div>
-													<div className="rule-btn"><span className="rule-text">Rule 7</span></div>
-													<div className="rule-btn"><span className="rule-text">Rule 9</span></div>
-													<div className="rule-btn"><span className="rule-text">Rule 11</span></div>
+													<ReactTooltip  effect='solid' className="tooltop-bar" />
+													<div className="rule-btn" data-tip="Rule 1" data-multiline="true" data-event="click">
+														<span className="rule-text">
+															Rule 1
+															<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
+														</span>
+													</div>
+													<div className="rule-btn" data-tip="Rule 3" data-multiline="true" data-event="click"><span className="rule-text">
+														Rule 3
+														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
+													</span></div>
+													<div className="rule-btn" data-tip="Rule 5" data-multiline="true" data-event="click"><span className="rule-text">
+														Rule 5
+														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
+													</span></div>
+													<div className="rule-btn" data-tip="Rule 7" data-multiline="true" data-event="click"><span className="rule-text">
+														Rule 7
+														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
+													</span></div>
+													<div className="rule-btn" data-tip="Rule 9" data-multiline="true" data-event="click"><span className="rule-text">
+														Rule 9
+														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
+													</span></div>
+													<div className="rule-btn" data-tip="Rule 11" data-multiline="true" data-event="click"><span className="rule-text">
+														Rule 11
+														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
+													</span></div>
 												</div>
 											)
 											: positiveMounzers
@@ -372,12 +390,30 @@ class Outputs extends React.Component {
 										negativeMounzers.length === 0
 											? (
 												<div>
-													<div className="rule-btn"><span className="rule-text">Rule 2</span></div>
-													<div className="rule-btn"><span className="rule-text">Rule 4</span></div>
-													<div className="rule-btn"><span className="rule-text">Rule 6</span></div>
-													<div className="rule-btn"><span className="rule-text">Rule 8</span></div>
-													<div className="rule-btn"><span className="rule-text">Rule 10</span></div>
-													<div className="rule-btn"><span className="rule-text">Rule 12</span></div>
+													<div className="rule-btn" data-tip="Rule 2" data-multiline="true" data-event="click"><span className="rule-text">
+														Rule 2
+														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
+													</span></div>
+													<div className="rule-btn" data-tip="Rule 4" data-multiline="true" data-event="click"><span className="rule-text">
+														Rule 4
+														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
+													</span></div>
+													<div className="rule-btn" data-tip="Rule 6" data-multiline="true" data-event="click"><span className="rule-text">
+														Rule 6
+														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
+													</span></div>
+													<div className="rule-btn" data-tip="Rule 8" data-multiline="true" data-event="click"><span className="rule-text">
+														Rule 8
+														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
+													</span></div>
+													<div className="rule-btn" data-tip="Rule 10" data-multiline="true" data-event="click"><span className="rule-text">
+														Rule 10
+														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
+													</span></div>
+													<div className="rule-btn" data-tip="Rule 12" data-multiline="true" data-event="click"><span className="rule-text">
+														Rule 12
+														<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />
+													</span></div>
 												</div>
 											)
 											: negativeMounzers
