@@ -13,33 +13,43 @@ const booleanOption = [
 
 const eyeResponseOption = [
 	{ value: 1, label: 'Does not open' },
-	{ value: 2, label: 'Opens in response to pain' },
+	{ value: 2, label: 'Opens in response to pain', background: '#eee' },
 	{ value: 3, label: 'Open in response to voice' },
-	{ value: 4, label: 'Opens eyes spontaneously' }
+	{ value: 4, label: 'Opens eyes spontaneously', background: '#eee' }
 ];
 
 const verbalResponseOption = [
 	{ value: 1, label: 'Makes no sound' },
-	{ value: 2, label: 'Makes sounds' },
+	{ value: 2, label: 'Makes sounds', background: '#eee' },
 	{ value: 3, label: 'Inappropriate words' },
-	{ value: 4, label: 'Confused, disoriented' },
+	{ value: 4, label: 'Confused, disoriented', background: '#eee' },
 	{ value: 5, label: 'Oriented, converses normally' }
 ];
 
 const motorResponseOption = [
 	{ value: 1, label: 'Makes no movement' },
-	{ value: 2, label: 'Extension to painful stimuli' },
+	{ value: 2, label: 'Extension to painful stimuli', background: '#eee' },
 	{ value: 3, label: 'Abnormal flexion to painful stimuli' },
-	{ value: 4, label: 'Flexion/withdrawal to painful stimuli' },
+	{ value: 4, label: 'Flexion/withdrawal to painful stimuli', background: '#eee' },
 	{ value: 5, label: 'Localizes to painful stimuli' },
-	{ value: 6, label: 'Obeys command' }
+	{ value: 6, label: 'Obeys command', background: '#eee' }
 ];
 
 const pleural_effOption = [
 	{ value: null, label: 'No CXR' },
-	{ value: false, label: 'CXR with no effusion' },
+	{ value: false, label: 'CXR with no effusion', background: '#eee' },
 	{ value: true, label: 'CXR with pleural effusion' }
 ];
+
+const colourStyles = {
+	control: styles => ({ ...styles, backgroundColor: 'white' }),
+	option: (styles, { data, isDisabled, isFocused, isSelected }) => {
+		return {
+			...styles,
+			backgroundColor: isSelected ? '#007bff' : data.background
+		};
+	}
+};
 
 class PhysicalExam extends React.Component {
 	constructor(props) {
@@ -215,6 +225,7 @@ class PhysicalExam extends React.Component {
 									id="pleural_eff"
 									className="patient-select"
 									classNamePrefix="newselect"
+									styles={colourStyles}
 									onChange={(e) => this.changeOption('pleural_eff', e)}
 									value={pleural_effOption.filter(option => option.value === physicalExam.pleural_eff)}
 								/>
@@ -237,6 +248,7 @@ class PhysicalExam extends React.Component {
 									options={eyeResponseOption}
 									className="patient-select"
 									classNamePrefix="newselect"
+									styles={colourStyles}
 									onChange={(e) => this.changeOption('eye_score', e)}
 									value={eyeResponseOption.filter(option => option.value === physicalExam.eye_score)}
 								/>
@@ -256,6 +268,7 @@ class PhysicalExam extends React.Component {
 									options={verbalResponseOption}
 									className="patient-select"
 									classNamePrefix="newselect"
+									styles={colourStyles}
 									onChange={(e) => this.changeOption('verbal_score', e)}
 									value={verbalResponseOption.filter(option => option.value === physicalExam.verbal_score)}
 								/>
@@ -275,6 +288,7 @@ class PhysicalExam extends React.Component {
 									options={motorResponseOption}
 									className="patient-select"
 									classNamePrefix="newselect"
+									styles={colourStyles}
 									onChange={(e) => this.changeOption('motor_score', e)}
 									value={motorResponseOption.filter(option => option.value === physicalExam.motor_score)}
 									

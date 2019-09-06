@@ -108,9 +108,30 @@ class Outputs extends React.Component {
 
 		const dateX = moment(this.props.patient.onset_date);
 		const dateY = moment(this.props.patient.admission_date);
+		const dateEntry = moment(this.props.patient.time_stamp);
 
-		const X = moment().diff(dateX, 'hours', true).toFixed(1);
-		const Y = moment().diff(dateY, 'hours', true).toFixed(1);
+		const X = dateEntry.diff(dateX, 'hours', true);
+		const Y = dateEntry.diff(dateY, 'hours', true);
+
+		let header = '';
+		if (X > 0 && Y > 0) {
+			header = <div className="section-description grey-color-text">
+				Scores and guidance based on measures recorded {X.toFixed(0)} hours from pain onset, and {Y.toFixed(0)} hours from admission.
+			</div>;
+		} else if (X < 0 && Y < 0) {
+			header = <div className="section-description grey-color-text">
+				Scores and guidance based on measures recorded {Math.abs(X).toFixed(0)} hours prior to pain onset, and {Math.abs(Y).toFixed(0)} hours prior to admission.
+			</div>;
+		} else if (X > 0 && Y < 0) {
+			header = <div className="section-description grey-color-text">
+				Scores and guidance based on measures recorded {X.toFixed(0)} hours from pain onset, and {Math.abs(Y).toFixed(0)} hours prior to admission.
+			</div>;
+		} else if (X < 0 && Y > 0) {
+			header = <div className="section-description grey-color-text">
+				Scores and guidance based on measures recorded {Math.abs(X).toFixed(0)} hours prior to pain onset, and {Y.toFixed(0)} hours from admission.
+			</div>;
+		}
+
 		let calcAlgorithms = [];
 
 		let settings = {
@@ -369,10 +390,7 @@ class Outputs extends React.Component {
 					<div className="page-section">
 						<div className="row">
 							<div className={"col-md-12 mt-5 "+(this.isMobile ? "my-5" : "")}>
-								<div className="section-description grey-color-text">
-									Scores and guidance based on measures recorded {X} hours from pain onset,
-									and {Y} hours from admission.
-								</div>
+								{ header }
 							</div>
 							{
 								this.isMobile ?
