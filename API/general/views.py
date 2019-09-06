@@ -212,11 +212,12 @@ def get_graph_data(request):
     if not user:
         return HttpResponse('Unauthorized', status=401)
 
-    qs = RunAlgorithm.objects.filter(user=user).order_by('-run_at')
-    xrange = int(request.GET.get('range', '0'))
-    if xrange:
-        delta = datetime.now() - timedelta(hours=xrange)
-        qs = qs.filter(run_at__gte=delta).order_by('-run_at')
+    from_date = datetime.strptime(request.GET['from'], '%Y-%m-%dT%H:%M:%S.%fZ')
+    to_date = datetime.strptime(request.GET['to'], '%Y-%m-%dT%H:%M:%S.%fZ')
+
+    qs = RunAlgorithm.objects.filter(user=user,
+                                     run_at__range=[from_date, to_date]) \
+                             .order_by('-run_at')
 
     res = {
         'sirs': [],
@@ -230,15 +231,11 @@ def get_graph_data(request):
     for ii in qs:
         output = json.loads(ii.output)
         input = json.loads(ii.input)
-        if not 'time_stamp' in input:
-            continue
-        admission_date = datetime.strptime(input['time_stamp'], '%Y-%m-%dT%H:%M:%S.%fZ')
-        diff = (now - admission_date).total_seconds() / 3600.0
 
         res['sirs'].insert(0, output.get('SIRS', 0))
         res['marshall'].insert(0, output.get('Marshall', 0))
         res['bun'].insert(0, input.get('bun', 0))
         res['creatinine'].insert(0, input.get('creatinine', 0))
-        res['labels'].insert(0, '{:.1f} hrs'.format(diff))
+        res['labels'].insert(0, datetime.strftime(ii.run_at, '%Y-%m-%d %H:%M'))
 
     return JsonResponse(res, safe=False)

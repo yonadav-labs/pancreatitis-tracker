@@ -29,7 +29,6 @@ const newLegendClickHandler = function (e, legendItem) {
 	let ci = this.chart;
 	let selected = getSelected(ci);
 
-	console.log(ci);
 	let meta = ci.getDatasetMeta(index);
 	if (selected.length < 2 || meta.hidden === false || (meta.hidden === null && !ci.data.datasets[index].hidden)) {
 		meta.hidden = meta.hidden === null ? !ci.data.datasets[index].hidden : null;
@@ -68,10 +67,6 @@ class DynamicTracker extends React.Component {
 		this.props.history.push('/patient');
 	}
 
-	componentDidMount() {
-		this.props.getGraphDataAction(this.state.fromDate, this.state.toDate);
-	}
-
 	onDatepickerRef = (el) => {
 		if (el && el.input) {
 			el.input.readOnly = true;
@@ -82,8 +77,9 @@ class DynamicTracker extends React.Component {
 		const params = { ...this.state };
 		params[id] = date ? date.toISOString() : null;
 		this.setState(params);
-		if (this.state.fromDate !== null && this.state.toDate != null) {
-			this.props.getGraphDataAction(this.state.fromDate, this.state.toDate);
+
+		if (params.fromDate !== null && params.toDate !== null) {
+			this.props.getGraphDataAction(params.fromDate, params.toDate);
 		}
 	}
 
@@ -274,7 +270,7 @@ class DynamicTracker extends React.Component {
 									className="round-input"
 									placeholderText="From"
 									selected={this.state.fromDate ? new Date(this.state.fromDate) : null}
-									maxDate={this.state.toDate ? new Date(this.state.toDate) : null}
+									maxDate={this.state.toDate ? new Date(this.state.toDate) : new Date()}
 									ref={el => this.onDatepickerRef(el)}
 									dateFormat="MM/dd/YYYY"
 									onChange={(date) => this.changeDate('fromDate', date)}
