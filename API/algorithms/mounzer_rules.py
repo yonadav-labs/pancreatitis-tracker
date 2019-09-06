@@ -33,7 +33,10 @@ class MounzerRuleInterface:
 
     @classmethod
     def params(self):
-        return { "required": self.required_fields }
+        return { 
+            "required": self.required_fields,
+            "required_fields_verbose": ', '.join(self.required_fields_verbose)
+        }
 
     @abstractmethod
     def evaluate(self):
@@ -55,6 +58,7 @@ class Rule1(MounzerRuleInterface):
     '''
     name = 'Rule 1'
     required_fields = ['sirs_score', 'haps_score', 'panc3_score']
+    required_fields_verbose = ['SIRS', 'HAPS', 'Panc 3']
 
     def evaluate(self):
         _ = self.request
@@ -84,6 +88,7 @@ class Rule2(MounzerRuleInterface):
     '''
     name = 'Rule 2'
     required_fields = ['sirs_score', 'haps_score', 'panc3_score']
+    required_fields_verbose = ['SIRS', 'HAPS', 'Panc 3']
 
     def evaluate(self):
         _ = self.request
@@ -113,6 +118,7 @@ class Rule3(MounzerRuleInterface):
     '''
     name = 'Rule 3'
     required_fields = ['bisap_score', 'pop_score', 'ranson_score']
+    required_fields_verbose = ['BISAP', 'POP', 'Ranson']
 
     def evaluate(self):
         _ = self.request
@@ -142,6 +148,7 @@ class Rule4(MounzerRuleInterface):
     '''
     name = 'Rule 4'
     required_fields = ['bisap_score', 'pop_score', 'ranson_score']
+    required_fields_verbose = ['BISAP', 'POP', 'Ranson']
 
     def evaluate(self):
         _ = self.request
@@ -171,6 +178,7 @@ class Rule5(MounzerRuleInterface):
     '''
     name = 'Rule 5'
     required_fields = ['glasgow_score', 'apache_score', 'jss_score']
+    required_fields_verbose = ['Glasgow', 'APACHE II', 'JSS']
 
     def evaluate(self):
         _ = self.request
@@ -200,6 +208,7 @@ class Rule6(MounzerRuleInterface):
     '''
     name = 'Rule 6'
     required_fields = ['glasgow_score', 'apache_score', 'jss_score']
+    required_fields_verbose = ['Glasgow', 'APACHE II', 'JSS']
 
     def evaluate(self):
         _ = self.request
@@ -230,6 +239,7 @@ class Rule7(MounzerRuleInterface):
     '''
     name = 'Rule 7'
     required_fields = ['sirs_score', 'haps_score', 'panc3_score', 'time']
+    required_fields_verbose = ['SIRS', 'HAPS', 'Panc 3']
 
     def evaluate(self):
         _ = self.request
@@ -260,6 +270,7 @@ class Rule8(MounzerRuleInterface):
     '''
     name = 'Rule 8'
     required_fields = ['sirs_score', 'haps_score', 'panc3_score', 'time']
+    required_fields_verbose = ['SIRS', 'HAPS', 'Panc 3']
 
     def evaluate(self):
         _ = self.request
@@ -290,6 +301,7 @@ class Rule9(MounzerRuleInterface):
     '''
     name = 'Rule 9'
     required_fields = ['bisap_score', 'pop_score', 'ranson_score', 'time']
+    required_fields_verbose = ['BISAP', 'POP', 'Ranson']
 
     def evaluate(self):
         _ = self.request
@@ -320,6 +332,7 @@ class Rule10(MounzerRuleInterface):
     '''
     name = 'Rule 10'
     required_fields = ['bisap_score', 'pop_score', 'ranson_score', 'time']
+    required_fields_verbose = ['BISAP', 'POP', 'Ranson']
 
     def evaluate(self):
         _ = self.request
@@ -350,6 +363,7 @@ class Rule11(MounzerRuleInterface):
     '''
     name = 'Rule 11'
     required_fields = ['glasgow_score', 'apache_score', 'jss_score', 'time']
+    required_fields_verbose = ['Glasgow', 'APACHE II', 'JSS']
 
     def evaluate(self):
         _ = self.request
@@ -380,6 +394,7 @@ class Rule12(MounzerRuleInterface):
     '''
     name = 'Rule 12'
     required_fields = ['glasgow_score', 'apache_score', 'jss_score', 'time']
+    required_fields_verbose = ['Glasgow', 'APACHE II', 'JSS']
 
     def evaluate(self):
         _ = self.request

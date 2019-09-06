@@ -78,7 +78,7 @@ class Outputs extends React.Component {
 			}
 
 			let ruleDiv =
-				<div key={`mounzer${idx}`} className={`rule-btn ${mounzerClass}`} data-tip={mounzer.params.required} data-multiline="true" data-event="click">
+				<div key={`mounzer${idx}`} className={`rule-btn ${mounzerClass}`} data-tip={mounzer.params.required_fields_verbose} data-multiline="true" data-event="click">
 					<span className="rule-text">
 						{mounzer.rule}
 						<img src="/assets/images/info-b.png" className="ml-3" style={{ height: '16px', marginBottom: '4px' }} />

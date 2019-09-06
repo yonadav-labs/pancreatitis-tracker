@@ -218,7 +218,6 @@ def get_graph_data(request):
     qs = RunAlgorithm.objects.filter(user=user,
                                      run_at__range=[from_date, to_date]) \
                              .order_by('-run_at')
-
     res = {
         'sirs': [],
         'marshall': [],

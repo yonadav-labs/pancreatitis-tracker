@@ -276,6 +276,6 @@ class AlgorithmInterface:
             if weight > 1.25 * ideal_weight: 
                 adjusted_weight = ideal_weight + 0.4 * (weight - ideal_weight)
 
-            maintenance_fluid = 35 * adjusted_weight
+            maintenance_fluid = int(35 * adjusted_weight)
             
         return maintenance_fluid
