@@ -14,7 +14,8 @@ class Account extends React.Component {
 		this.state = {
 			physician: {
 				name: '',
-				email: ''
+				email: '',
+				password: ''
 			},
 			rules: {
 				name: {
@@ -23,6 +24,11 @@ class Account extends React.Component {
 				},
 				email: {
 					type: 'email',
+					required: true
+				},
+				password: {
+					type: 'password',
+					default: 'arielbeyondgenetics',
 					required: true
 				}
 			},
@@ -125,6 +131,24 @@ class Account extends React.Component {
 										/>
 										<label className="color-danger pt-2 text-danger text-center warning-message">
 											{errors.email}
+										</label>
+									</div>
+								</div>
+								<div className="row mb-5">
+									<div className="col-xs-12 col-sm-12 col-md-4">
+										<div className="round-btn grey-label">Password</div>
+									</div>
+									<div className="col-xs-12 col-sm-12 col-md-8">
+										<input
+											type="password"
+											id="password"
+											className="round-input"
+											value={physician.password}
+											onChange={this.changeInfo}
+											onKeyDown={this._handleKeyDown}
+										/>
+										<label className="color-danger pt-2 text-danger text-center warning-message">
+											{errors.password}
 										</label>
 									</div>
 								</div>
