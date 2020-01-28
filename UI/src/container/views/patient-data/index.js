@@ -14,7 +14,8 @@ import {
 	setUpdatesPerPagePatientAction,
 	getScoresAction,
 	loadInputHistoryAction,
-	getHistoryByDateAction
+	getHistoryByDateAction,
+	clearHistoryAction
 } from '../../actions/index';
 
 import StepZilla from "react-stepzilla";
@@ -108,9 +109,13 @@ class PatientData extends React.Component {
 		this.props.getHistoryByDateAction(date);
 	}
 
+	clearHistoryAction = () => {
+		this.props.clearHistoryAction();
+	}
+
 	render () {
 		const steps = [
-			{name: 'Basic info', component: <BasicInfo step={0} getState={this.getState} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} loadHisotryData={this.loadHisotryData} historyData={this.state.historyData} getHistoryByDate={this.getHistoryByDate} />},
+			{name: 'Basic info', component: <BasicInfo step={0} getState={this.getState} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} loadHisotryData={this.loadHisotryData} historyData={this.state.historyData} getHistoryByDate={this.getHistoryByDate} clearHistoryAction={this.clearHistoryAction} />},
 			{name: 'Vital Signs', component: <VitalSigns step={1} getState={this.getState} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
 			{name: 'Physical Exam', component: <PhysicalExam step={2} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
 			{name: 'Chemistry', component: <Chemistry step={3} updateInfo={this.updateInfo} data={this.state.data} units={this.state.units} />},
@@ -161,7 +166,8 @@ const mapDispatchToProps = dispatch => {
 			setUpdatesPerPagePatientAction,
 			getScoresAction,
 			loadInputHistoryAction,
-			getHistoryByDateAction
+			getHistoryByDateAction,
+			clearHistoryAction
 		}, dispatch)
 	);
 };

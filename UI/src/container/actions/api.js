@@ -4,7 +4,8 @@ import {
 	CREATE_ACCOUNT_URL,
 	LOAD_INPUT_HISOTRY,
 	FEEDBACK_URL,
-	GET_GRAPH_DATA
+	GET_GRAPH_DATA,
+	CLEAR_INPUT_HISOTRY
 } from './api_url';
 
 export const loadInputHistoryApi = () => {
@@ -126,6 +127,29 @@ export const createAccountApi = (data) => {
 				success: false,
 				msg: 'Server is not available!',
 				error: true
+			};
+		});
+};
+
+export const clearInputHistoryApi = () => {
+	return getApi(CLEAR_INPUT_HISOTRY)
+		.then((res) => {
+			if (res.success) {
+				return {
+					success: true,
+					data: res.data
+				};
+			}
+
+			return {
+				success: false,
+				msg: res.msg
+			};
+		})
+		.catch(err => {
+			return {
+				success: false,
+				msg: 'error catch'
 			};
 		});
 };

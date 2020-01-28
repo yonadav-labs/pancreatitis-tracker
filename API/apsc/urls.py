@@ -26,6 +26,7 @@ urlpatterns = [
     path('run_algorithm/<str:algorithm>', views.run_algorithm),
     path('algorithms', views.get_algorithms),
     path('load_input_history', views.load_input_history),
+    path('clear_input_history', views.clear_input_history),
     path('get_graph_data', views.get_graph_data),    
 
     path('register', auth.register),

@@ -272,7 +272,7 @@ class DynamicTracker extends React.Component {
 									selected={this.state.fromDate ? new Date(this.state.fromDate) : null}
 									maxDate={this.state.toDate ? new Date(this.state.toDate) : new Date()}
 									ref={el => this.onDatepickerRef(el)}
-									dateFormat="MM/dd/YYYY"
+									dateFormat="MM/dd/yyyy"
 									onChange={(date) => this.changeDate('fromDate', date)}
 								/>
 							</div>
@@ -285,7 +285,7 @@ class DynamicTracker extends React.Component {
 									minDate={this.state.fromDate ? new Date(this.state.fromDate) : null}
 									maxDate={new Date()}
 									ref={el => this.onDatepickerRef(el)}
-									dateFormat="MM/dd/YYYY"
+									dateFormat="MM/dd/yyyy"
 									onChange={(date) => this.changeDate('toDate', date)}
 								/>
 							</div>

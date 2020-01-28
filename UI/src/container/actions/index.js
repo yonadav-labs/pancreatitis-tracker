@@ -55,6 +55,12 @@ export const getHistoryByDateAction = date => {
 	};
 };
 
+export const clearHistoryAction = date => {
+	return (dispatch) => {
+		dispatch({ type: types.PATIENTS.GET_HISTORY, payload: {data: []} });
+	};
+};
+
 export const getScoresAction = (data, units) => {
 	let params = {...data};
 

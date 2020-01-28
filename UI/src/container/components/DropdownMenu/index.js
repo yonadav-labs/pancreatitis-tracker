@@ -21,27 +21,47 @@ class CustomDropdownMenu extends React.Component {
 		this.props.onClick(e.target.value);
 	}
 
+	renderMenuItems = (data) => {
+		const res = [];
+
+		for (let idx = 0; idx < data.length; idx++) {
+			res.push(
+				<DropdownItem
+					key={`history-${idx}`}
+					value={data[idx].run_at}
+					onClick={this.onItemClick}
+				>
+					{data[idx].run_at}
+				</DropdownItem>
+			);
+		}
+
+		return res;
+	}
+
+	renderMenuContent = (data) => {
+		const menuItems = this.renderMenuItems(data);
+		if (data && data.length > 0) {
+			return (<DropdownMenu className="load-option">{menuItems}</DropdownMenu>);
+		}
+
+		return;
+	}
+
 	render() {
+		const menuContent = this.renderMenuContent(this.props.data);
 		return (
 			<Dropdown isOpen={this.state.dropdownOpen} toggle={this.toggle}>
 				<DropdownToggle className="btn green-button">
 					{this.props.text}
 				</DropdownToggle>
-				<DropdownMenu className="load-option">
-					{
-						this.props.data
-							? this.props.data.map((item, idx) => (
-								<DropdownItem
-									key={`history-${idx}`}
-									value={item.run_at}
-									onClick={this.onItemClick}
-								>
-									{item.run_at}
-								</DropdownItem>
-							))
-							: null
-					}
-				</DropdownMenu>
+				{
+					this.props.data
+						? (
+							menuContent
+						)
+						: null
+				}
 			</Dropdown>
 		);
 	}

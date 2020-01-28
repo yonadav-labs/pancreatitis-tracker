@@ -10,6 +10,7 @@ import {
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import DropdownMenu from '../../components/DropdownMenu';
+import {clearInputHistoryApi} from '../../actions/api';
 import moment from 'moment';
 import { toast } from "react-toastify";
 
@@ -212,6 +213,23 @@ class BasicInfo extends React.Component {
 		this.setState({basicInfo: params});
 	}
 
+	clearHistory = () => {
+		clearInputHistoryApi()
+			.then((res) => {
+				if (res.success && res.data.status === true) {
+					this.props.clearHistoryAction();
+
+					toast.success('History is cleaned!', {
+						position: toast.POSITION.TOP_CENTER
+					});
+				} else {
+					toast.warn('Clear history failed!', {
+						position: toast.POSITION.TOP_CENTER
+					});
+				}
+			});
+	}
+
 	render() {
 		const {basicInfo, errors, units, chronic_health_} = this.state;
 		const {historyData} = this.props;
@@ -237,7 +255,7 @@ class BasicInfo extends React.Component {
 									timeFormat="HH:mm"
 									timeIntervals={15}
 									ref={el => this.onDatepickerRef(el)}
-									dateFormat="MM/dd/YYYY HH:mm"
+									dateFormat="MM/dd/yyyy HH:mm"
 									selected={
 										basicInfo.onset_date
 											? new Date(basicInfo.onset_date)
@@ -268,7 +286,7 @@ class BasicInfo extends React.Component {
 									timeFormat="HH:mm"
 									timeIntervals={15}
 									ref={el => this.onDatepickerRef(el)}
-									dateFormat="MM/dd/YYYY HH:mm"
+									dateFormat="MM/dd/yyyy HH:mm"
 									selected={
 										basicInfo.admission_date
 											? new Date(basicInfo.admission_date)
@@ -445,7 +463,7 @@ class BasicInfo extends React.Component {
 									timeFormat="HH:mm"
 									timeIntervals={15}
 									ref={el => this.onDatepickerRef(el)}
-									dateFormat="MM/dd/YYYY HH:mm"
+									dateFormat="MM/dd/yyyy HH:mm"
 									selected={
 										basicInfo.time_stamp !== null && basicInfo.time_stamp !== ''
 											? new Date(basicInfo.time_stamp)
@@ -485,6 +503,13 @@ class BasicInfo extends React.Component {
 							text="Reload Prev. Run"
 							data={historyData}
 						/>
+						{historyData && historyData.length > 0 && (
+							<GreenButton
+								text="Clear Data"
+								className="ml-auto"
+								onClick={() => this.clearHistory()}
+							/>
+						)}
 						<GreenButton
 							text="Next"
 							className="ml-auto"

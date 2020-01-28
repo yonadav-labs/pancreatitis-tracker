@@ -238,3 +238,22 @@ def get_graph_data(request):
         res['labels'].insert(0, datetime.strftime(ii.run_at, '%Y-%m-%d %H:%M'))
 
     return JsonResponse(res, safe=False)
+
+
+@csrf_exempt
+def clear_input_history(request):
+    res = {'status': True}
+    user = get_user(request)
+    if not user:
+        return HttpResponse('Unauthorized', status=401)
+
+    try:
+        algorithms = RunAlgorithm.objects.filter(user=user).delete()
+    except Exception as e:
+        res['status'] = False
+        res['error'] = 'Clear history failed!'
+
+    return JsonResponse(res, safe=False)
+
+
+
