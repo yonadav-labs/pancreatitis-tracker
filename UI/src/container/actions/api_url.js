@@ -12,3 +12,4 @@ export const LOAD_INPUT_HISOTRY = BASE_URL + '/load_input_history';
 export const CLEAR_INPUT_HISOTRY = BASE_URL + '/clear_input_history';
 export const FEEDBACK_URL = BASE_URL + '/leave_feedback';
 export const GET_GRAPH_DATA = BASE_URL + '/get_graph_data';
+export const SERVER_STATUS = BASE_URL + '/server_status';

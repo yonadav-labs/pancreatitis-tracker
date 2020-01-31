@@ -5,7 +5,8 @@ import {
 	leaveFeedbackApi,
 	createAccountApi,
 	loadInputHistoryApi,
-	getGraphDataApi
+	getGraphDataApi,
+	getServerStatusApi
 } from './api';
 
 import {
@@ -29,10 +30,22 @@ export const loadInputHistoryAction = () => {
 	return (dispatch) => {
 		loadInputHistoryApi()
 			.then((res) => {
-				dispatch({ type: types.PATIENTS.GET_HISTORY, payload: res.data });
+				if (res.success) {
+					dispatch({ type: types.PATIENTS.GET_HISTORY, payload: res.data });
+				}
+
+				if (res.isServerError) {
+					dispatch({ type: types.SERVER_ERROR, payload: res });
+				}
 			})
 			.catch(() => {
-				dispatch({ type: types.PATIENTS.ERROR, payload: 'loading history error' });
+				dispatch({
+					type: types.PATIENTS.ERROR,
+					payload: {
+						msg: 'loading history error',
+						success: false
+					}
+				});
 			});
 	};
 };
@@ -41,10 +54,21 @@ export const getGraphDataAction = (fromDate, toDate) => {
 	return (dispatch) => {
 		getGraphDataApi(fromDate, toDate)
 			.then((res) => {
-				dispatch({ type: types.GET_GRAPH_SUCCESS, payload: res.data });
+				if (res.success) {
+					dispatch({ type: types.GET_GRAPH_SUCCESS, payload: res.data });
+				}
+
+				if (res.isServerError) {
+					dispatch({ type: types.SERVER_ERROR, payload: res });
+				}
 			})
 			.catch(() => {
-				dispatch({ type: types.GET_GRAPH_FAIL, payload: 'getting graph data error' });
+				dispatch({
+					type: types.GET_GRAPH_FAIL,
+					payload: {
+						msg: 'getting graph data error'
+					}
+				});
 			});
 	};
 };
@@ -57,7 +81,7 @@ export const getHistoryByDateAction = date => {
 
 export const clearHistoryAction = date => {
 	return (dispatch) => {
-		dispatch({ type: types.PATIENTS.GET_HISTORY, payload: {data: []} });
+		dispatch({ type: types.PATIENTS.CLEAR_HISTORY });
 	};
 };
 
@@ -110,6 +134,9 @@ export const getScoresAction = (data, units) => {
 					dispatch({ type: types.PATIENTS.ADD, payload: res.data });
 				} else {
 					dispatch({ type: types.PATIENTS.ERROR, payload: res.msg });
+					if (res.isServerError) {
+						dispatch({ type: types.SERVER_ERROR, payload: res });
+					}
 				}
 
 				return { ...res };
@@ -131,6 +158,10 @@ export const createAccountAction = (user) => {
 					dispatch({ type: types.USER.CREATE_SUCCESS, payload: res.data });
 				} else {
 					dispatch({ type: types.USER.ERROR, payload: res.msg });
+
+					if (res.isServerError) {
+						dispatch({ type: types.SERVER_ERROR, payload: res });
+					}
 				}
 
 				return res;
@@ -146,9 +177,42 @@ export const leaveFeedbackAction = (feedback) => {
 					dispatch({ type: types.USER.FEEDBACK_SUCCESS, payload: null });
 				} else {
 					dispatch({ type: types.USER.FEEDBACK_FAIL, payload: res.msg });
+					if (res.isServerError) {
+						dispatch({ type: types.SERVER_ERROR, payload: res });
+					}
 				}
 
 				return res;
+			});
+	};
+};
+
+export const changeFooterBoxStatus = status => {
+	return (dispatch) => {
+		dispatch({ type: types.FOOTER_CONFIRM_STATUS, payload: {data: status} });
+	};
+};
+
+export const getServerStatusAction = (serverStatus) => {
+	return (dispatch) => {
+		getServerStatusApi()
+			.then((res) => {
+				if (res.success) {
+					if (serverStatus) {
+						if (res.data.status !== serverStatus.status) {
+							dispatch({ type: types.SERVER_STATUS, payload: res.data });
+						}
+					}
+
+					dispatch({ type: types.SERVER_SUCCESS, payload: {isServerError: false} });
+				} else {
+					dispatch({ type: types.SERVER_ERROR, payload: res });
+				}
+
+				return res;
+			})
+			.catch((err) => {
+				console.log('action catch: ', err);
 			});
 	};
 };

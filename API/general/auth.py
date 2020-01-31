@@ -18,6 +18,7 @@ def register(request):
     """
     data = json.loads(request.body.decode("ascii"))
     email = data['email'].lower()
+    password = data['password']
     user = User.objects.filter(email=email).first()
     jwt_code = jwt.encode({ 'email' : email }, settings.SECRET_KEY, algorithm='HS256').decode('ascii')
 
@@ -38,6 +39,7 @@ def register(request):
         user.first_name = names[0]
         user.last_name = names[1]
         user.is_active = False
+        user.set_password(password)
         user.save()
 
         url = f"{settings.BACKEND_URL}{reverse('verify_email', kwargs={ 'jwt_code': jwt_code })}"

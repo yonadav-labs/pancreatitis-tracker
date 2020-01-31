@@ -135,9 +135,18 @@ export function checkValidity(rule, data, unit) {
 				if (data === "") {
 					isValid = false;
 					errorMsg = "Please provide the password.";
-				} else if (data !== rule.default) {
-					isValid = false;
-					errorMsg = "Password is wrong.";
+				} else if (rule.isDefault) {
+					if (data !== rule.default) {
+						isValid = false;
+						errorMsg = "Password is wrong. Use default password.";
+					}
+				} else {
+					var passw = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,20}$/;
+					if(!data.match(passw)) {
+						isValid = false;
+						errorMsg = `Password should be 8 to 20 characters which contain at least 
+												one numeric digit, one uppercase and one lowercase letter.`;
+					}
 				}
 				break;
 			case 'text':

@@ -9,9 +9,14 @@ import Account from "./views/account";
 import DynamicTracker from "./views/dynamic-tracker";
 import PatientData from "./views/patient-data";
 import Order from "./views/order";
-import NotFound from "./components/not-found";
+import NotFound from "./views/not-found";
 import Header from "./components/Header";
 import About from "./views/about";
+import withWrapper from './withWrapper';
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { withRouter } from 'react-router';
+import { changeFooterBoxStatus, getServerStatusAction } from './actions/index';
 import { isAuthenticated, getToken, setToken } from "./actions/apiWrapper";
 
 const RootComponent = () => {
@@ -53,7 +58,6 @@ const RootComponent = () => {
 
 					return (<Redirect to="/" />);
 				}} />
-
 				<Route default component={NotFound} />
 			</Switch>
 			<div className="text-center my-4 copyright-footer p-5">© 2019 Ariel Precision Medicine. All rights reserved.</div>
@@ -61,4 +65,18 @@ const RootComponent = () => {
 	);
 };
 
-export default RootComponent;
+
+const mapStatetoProps = state => {
+	return state;
+};
+
+const mapDispatchToProps = dispatch => {
+	return Object.assign(
+		bindActionCreators({
+			changeFooterBoxStatus,
+			getServerStatusAction
+		}, dispatch)
+	);
+};
+
+export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(withWrapper(RootComponent)));

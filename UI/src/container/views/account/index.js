@@ -29,6 +29,7 @@ class Account extends React.Component {
 				password: {
 					type: 'password',
 					default: 'arielbeyondgenetics',
+					isDefault: false,
 					required: true
 				}
 			},
@@ -69,6 +70,7 @@ class Account extends React.Component {
 			this.props.createAccountAction({
 				name: physician.name,
 				email: physician.email,
+				password: physician.password,
 				url: window.location.href
 			}).then((res) => {
 				if (res.success) {

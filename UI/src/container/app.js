@@ -1,16 +1,28 @@
-import React from "react";
+import React, {useEffect} from "react";
 import { ToastContainer } from "react-toastify";
+import { connect } from 'react-redux';
+import { bindActionCreators } from "redux";
+import { withRouter } from 'react-router';
 import RootComponent from "./root";
+import withWrapper from './withWrapper';
 import ReactGA from 'react-ga';
+import { getServerStatusAction } from './actions/index';
 import "react-toastify/dist/ReactToastify.min.css";
 import "./app.scss";
+
 
 function initializeReactGA() {
 	ReactGA.initialize('UA-140942097-1');
 	ReactGA.pageview('/patient');
 }
 
-const App = () => {
+initializeReactGA();
+
+const App = (props) => {
+	useEffect(() => {
+		props.getServerStatusAction(props.serverStatus);
+	});
+
 	return (
 		<div>
 			<ToastContainer />
@@ -19,4 +31,17 @@ const App = () => {
 	);
 };
 
-export default App;
+
+const mapStatetoProps = state => {
+	return state;
+};
+
+const mapDispatchToProps = dispatch => {
+	return Object.assign(
+		bindActionCreators({
+			getServerStatusAction
+		}, dispatch)
+	);
+};
+
+export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(App));

@@ -10,6 +10,7 @@ import {
 import DatePicker from 'react-datepicker';
 import "react-datepicker/dist/react-datepicker.css";
 import DropdownMenu from '../../components/DropdownMenu';
+import CustomModal from '../../components/CustomModal';
 import {clearInputHistoryApi} from '../../actions/api';
 import moment from 'moment';
 import { toast } from "react-toastify";
@@ -29,6 +30,7 @@ const chronicHealthOption2 = [
 	{ value: 'elective', label: 'Elective' },
 	{ value: 'nonoperative', label: 'Nonoperative' }
 ];
+
 
 class BasicInfo extends React.Component {
 	constructor(props) {
@@ -95,7 +97,8 @@ class BasicInfo extends React.Component {
 			errors: {},
 			chronic_health_: this.props.data.chronic_health !== '',
 			historyDate: this.props.historyData && this.props.historyData[0]
-				? this.props.historyData[0].run_at : ''
+				? this.props.historyData[0].run_at : '',
+			modalIsOpen: false
 		};
 
 	}
@@ -217,21 +220,30 @@ class BasicInfo extends React.Component {
 		clearInputHistoryApi()
 			.then((res) => {
 				if (res.success && res.data.status === true) {
-					this.props.clearHistoryAction();
-
-					toast.success('History is cleaned!', {
+					toast.success('History is cleared!', {
 						position: toast.POSITION.TOP_CENTER
 					});
+					this.props.clearHistoryAction();
 				} else {
 					toast.warn('Clear history failed!', {
 						position: toast.POSITION.TOP_CENTER
 					});
 				}
+
+				this.closeModal();
 			});
 	}
 
+	openModal = () => {
+		this.setState({modalIsOpen: true});
+	}
+
+	closeModal = () => {
+		this.setState({modalIsOpen: false});
+	}
+
 	render() {
-		const {basicInfo, errors, units, chronic_health_} = this.state;
+		const {basicInfo, errors, units, chronic_health_, modalIsOpen} = this.state;
 		const {historyData} = this.props;
 
 		return (
@@ -507,7 +519,7 @@ class BasicInfo extends React.Component {
 							<GreenButton
 								text="Clear Data"
 								className="ml-auto"
-								onClick={() => this.clearHistory()}
+								onClick={this.openModal}
 							/>
 						)}
 						<GreenButton
@@ -515,6 +527,12 @@ class BasicInfo extends React.Component {
 							className="ml-auto"
 							onClick={() => this.gotoStep(1)}
 						/>
+						<CustomModal
+							modalIsOpen={modalIsOpen}
+							submitAction={this.clearHistory}
+							closeModal={this.closeModal}
+							submitTest="Yes"
+							closeText="No" />
 					</div>
 				</div>
 			</div>

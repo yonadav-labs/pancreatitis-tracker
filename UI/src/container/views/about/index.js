@@ -19,6 +19,11 @@ class About extends React.Component {
 				<Title title="About" />
 				<div className="container">
 					<div className="page-description">
+						<p>Welcome to the ADAPT demonstration site.</p>
+						<p>This research-only tool leverages manual-entry data to demonstrate state-of-art
+						guidelines for acute pancreatitis management.</p>
+						<p>For interest in a clinical-use enterprise version of ADAPT software with health record integration, submit your contact information using our Feedback survey and we
+will contact you regarding a potential collaboration as a pilot center.</p>
 						<p>Welcome to the Ariel Dynamic Acute Pancreatitis Tracker (ADAPT).</p>
 						<p>This quality-improvement tool is designed to aid in caring for patients in
 						the emergency department suffering from acute pancreatitis (AP).</p>

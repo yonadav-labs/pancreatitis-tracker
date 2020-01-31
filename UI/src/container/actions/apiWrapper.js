@@ -70,6 +70,13 @@ export const postApiWithoutToken = (url, body) => {
 
 		throw response;
 	}).catch(err => {
+		if (err.name === "TypeError" && err.message === "Failed to fetch") {
+			return {
+				msg: 'server is offline',
+				success: false,
+				isServerError: true
+			};
+		}
 		return err.text().then(errors => {
 			let errorResponse = JSON.parse(errors);
 			return {
@@ -100,9 +107,15 @@ export const postApi = (url, body) => {
 
 		throw response;
 	}).catch(err => {
+		if (err.name === "TypeError" && err.message === "Failed to fetch") {
+			return {
+				msg: 'server is offline',
+				success: false,
+				isServerError: true
+			};
+		}
 		return err.text().then(errors => {
 			let errorResponse = JSON.parse(errors);
-
 			return {
 				msg: errorResponse.message,
 				success: false
@@ -131,7 +144,14 @@ export const getApi = (url, body) => {
 			}
 
 			throw response;
-		}).catch(err => {
+		}).catch((err, status) => {
+			if (err.name === "TypeError" && err.message === "Failed to fetch") {
+				return {
+					msg: 'server is offline',
+					success: false,
+					isServerError: true
+				};
+			}
 			return err.text().then(errors => {
 				let errorResponse = JSON.parse(errors);
 				return {
@@ -141,7 +161,42 @@ export const getApi = (url, body) => {
 			});
 		});
 	}
+
 	window.location.href = '/';
+};
+
+export const getApiWithoutToken = (url, body) => {
+	return fetch(url, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body
+	}).then(response => {
+		if (response.ok) {
+			return response.json().then((res) => ({
+				data: res,
+				success: true
+			}));
+		}
+
+		throw response;
+	}).catch((err, status) => {
+		if (err.name === "TypeError" && err.message === "Failed to fetch") {
+			return {
+				msg: 'server is offline',
+				success: false,
+				isServerError: true
+			};
+		}
+		return err.text().then(errors => {
+			let errorResponse = JSON.parse(errors);
+			return {
+				msg: errorResponse.message,
+				success: false
+			};
+		});
+	});
 };
 
 export const uploadFormData = (url, files) => {
@@ -162,6 +217,13 @@ export const uploadFormData = (url, files) => {
 
 		throw response;
 	}).catch(err => {
+		if (err.name === "TypeError" && err.message === "Failed to fetch") {
+			return {
+				msg: 'server is offline',
+				success: false,
+				isServerError: true
+			};
+		}
 		return err.text().then(errors => {
 			let errorResponse = JSON.parse(errors);
 			return {

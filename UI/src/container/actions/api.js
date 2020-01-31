@@ -1,11 +1,17 @@
-import { getApi, postApi, postApiWithoutToken } from './apiWrapper';
+import {
+	getApi,
+	postApi,
+	postApiWithoutToken,
+	getApiWithoutToken
+} from './apiWrapper';
 import {
 	SAVE_PATIENT_DATA,
 	CREATE_ACCOUNT_URL,
 	LOAD_INPUT_HISOTRY,
 	FEEDBACK_URL,
 	GET_GRAPH_DATA,
-	CLEAR_INPUT_HISOTRY
+	CLEAR_INPUT_HISOTRY,
+	SERVER_STATUS
 } from './api_url';
 
 export const loadInputHistoryApi = () => {
@@ -20,7 +26,8 @@ export const loadInputHistoryApi = () => {
 
 			return {
 				success: false,
-				msg: res.msg
+				errorMsg: res.msg,
+				isServerError: res.isServerError
 			};
 		})
 		.catch(err => {
@@ -40,6 +47,12 @@ export const getGraphDataApi = (fromDate, toDate) => {
 					data: res
 				};
 			}
+
+			return {
+				success: false,
+				errorMsg: res.msg,
+				isServerError: res.isServerError
+			};
 		})
 		.catch(err => {
 			return {
@@ -61,7 +74,8 @@ export const savePatientDataApi = (data) => {
 
 			return {
 				success: false,
-				msg: res.msg
+				errorMsg: res.msg,
+				isServerError: res.isServerError
 			};
 		})
 		.catch(err => {
@@ -79,11 +93,17 @@ export const leaveFeedbackApi = (feedback) => {
 
 	return postApi(FEEDBACK_URL, data)
 		.then(response => {
-			if (response === 'success') {
+			if (res.success) {
 				return {
 					success: true
 				};
 			}
+
+			return {
+				success: false,
+				errorMsg: res.msg,
+				isServerError: res.isServerError
+			};
 		})
 		.catch((err) => {
 			return {
@@ -143,7 +163,33 @@ export const clearInputHistoryApi = () => {
 
 			return {
 				success: false,
-				msg: res.msg
+				errorMsg: res.msg,
+				isServerError: res.isServerError
+			};
+		})
+		.catch(err => {
+			return {
+				success: false,
+				msg: 'error catch'
+			};
+		});
+};
+
+export const getServerStatusApi = () => {
+	return getApiWithoutToken(SERVER_STATUS)
+		.then((res) => {
+			if (res.success) {
+				return {
+					success: true,
+					data: res.data,
+					isServerError: false
+				};
+			}
+
+			return {
+				success: false,
+				errorMsg: res.msg,
+				isServerError: res.isServerError
 			};
 		})
 		.catch(err => {

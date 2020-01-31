@@ -28,6 +28,7 @@ urlpatterns = [
     path('load_input_history', views.load_input_history),
     path('clear_input_history', views.clear_input_history),
     path('get_graph_data', views.get_graph_data),    
+    path('server_status', views.server_status),
 
     path('register', auth.register),
     path('verify_email/<str:jwt_code>', auth.verify_email, name='verify_email'),

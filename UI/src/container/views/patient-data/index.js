@@ -15,7 +15,8 @@ import {
 	getScoresAction,
 	loadInputHistoryAction,
 	getHistoryByDateAction,
-	clearHistoryAction
+	clearHistoryAction,
+	changeFooterBoxStatus
 } from '../../actions/index';
 
 import StepZilla from "react-stepzilla";
@@ -43,6 +44,7 @@ class PatientData extends React.Component {
 	}
 
 	componentWillMount() {
+		this.props.changeFooterBoxStatus(true);
 		this.props.loadInputHistoryAction();
 	}
 
@@ -88,6 +90,7 @@ class PatientData extends React.Component {
 
 	changeStep = (step) => {
 		this.setState({ step });
+		this.props.changeFooterBoxStatus(true);
 	}
 
 	loadHisotryData = () => {
@@ -167,7 +170,8 @@ const mapDispatchToProps = dispatch => {
 			getScoresAction,
 			loadInputHistoryAction,
 			getHistoryByDateAction,
-			clearHistoryAction
+			clearHistoryAction,
+			changeFooterBoxStatus
 		}, dispatch)
 	);
 };

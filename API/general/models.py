@@ -19,3 +19,13 @@ class Feedback(models.Model):
 
     def __str__(self):
         return self.user.username
+
+
+class Maintenance(models.Model):
+    title = models.TextField()
+    start_at = models.DateTimeField(null=True, blank=True)
+    end_at = models.DateTimeField(null=True, blank=True)
+    status = models.BooleanField()
+
+    def __str__(self):
+        return self.title

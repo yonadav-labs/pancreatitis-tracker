@@ -1,9 +1,15 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
+import { bindActionCreators } from "redux";
 import { isAuthenticated } from '../../actions/apiWrapper';
+import { changeFooterBoxStatus } from '../../actions/index';
 
 const Home = (props) => {
+	useEffect(() => {
+		props.changeFooterBoxStatus(true);
+	}, []);
+
 	const changeRoute = (event) => {
 		event.preventDefault();
 		
@@ -29,4 +35,12 @@ const Home = (props) => {
 	);
 };
 
-export default connect((props) => ({val: props.val}))(Home);
+const mapDispatchToProps = dispatch => {
+	return Object.assign(
+		bindActionCreators({
+			changeFooterBoxStatus
+		}, dispatch)
+	);
+};
+
+export default connect((props) => ({val: props.val}), mapDispatchToProps)(Home);

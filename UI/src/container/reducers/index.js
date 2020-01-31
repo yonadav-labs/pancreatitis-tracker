@@ -103,7 +103,10 @@ const InitialState = {
 	historyData: [],
 	graphData: {},
 	trackerFromDate: null,
-	trackerToDate: null
+	trackerToDate: null,
+	footerConfirmBoxStatus: false,
+	serverStatus: { status: false },
+	isServerError: false
 };
 
 export default function patientReducer(state = InitialState, action) {
@@ -142,7 +145,18 @@ export default function patientReducer(state = InitialState, action) {
 			return {...state, clinicalScores: action.payload};
 		
 		case types.PATIENTS.ERROR:
-			return {...state, errorMsg: action.payload};
+			return {...state, ...action.payload};
+
+		case types.PATIENTS.CLEAR_HISTORY:
+			const intialPatient = Object.assign({}, InitialState.patient);
+			const initialUnits = Object.assign({}, InitialState.units);
+
+			return {
+				...state,
+				historyData: [],
+				patient: intialPatient,
+				units: initialUnits
+			};
 		
 		case types.OUTPUTS.GET:
 			return {...state, clinicalScores: action.payload};
@@ -159,8 +173,7 @@ export default function patientReducer(state = InitialState, action) {
 		case types.LOGIN_FAIL:
 			return {
 				...state,
-				errorMsg: action.payload,
-				success: false
+				...action.payload
 			};
 
 		case types.GET_GRAPH_SUCCESS:
@@ -171,7 +184,32 @@ export default function patientReducer(state = InitialState, action) {
 
 		case types.GET_GRAPH_FAIL:
 			return {
-				...state
+				...state,
+				...action.payload
+			};
+
+		case types.FOOTER_CONFIRM_STATUS:
+			return {
+				...state,
+				footerConfirmBoxStatus: action.payload.data
+			};
+
+		case types.SERVER_STATUS:
+			return {
+				...state,
+				serverStatus: action.payload
+			};
+
+		case types.SERVER_ERROR:
+			return {
+				...state,
+				...action.payload
+			};
+
+		case types.SERVER_SUCCESS:
+			return {
+				...state,
+				...action.payload
 			};
 
 		default:

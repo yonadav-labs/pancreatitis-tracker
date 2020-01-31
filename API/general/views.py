@@ -212,8 +212,9 @@ def get_graph_data(request):
     if not user:
         return HttpResponse('Unauthorized', status=401)
 
-    from_date = datetime.strptime(request.GET['from'], '%Y-%m-%dT%H:%M:%S.%fZ')
-    to_date = datetime.strptime(request.GET['to'], '%Y-%m-%dT%H:%M:%S.%fZ')
+    from_date = datetime.strptime(request.GET['from'].split('T')[0],'%Y-%m-%d')
+    to_date = datetime.strptime(request.GET['to'].split('T')[0], '%Y-%m-%d')
+    to_date = to_date + timedelta(days=1)
 
     qs = RunAlgorithm.objects.filter(user=user,
                                      run_at__range=[from_date, to_date]) \
@@ -255,5 +256,24 @@ def clear_input_history(request):
 
     return JsonResponse(res, safe=False)
 
+@csrf_exempt
+def server_status(request):
+    now = datetime.now()
+    items = Maintenance.objects.filter(start_at__lte=now,
+                                        end_at__gte=now,
+                                        status=True)
+    res = dict()
+    if len(items) > 0:
+        if items[0].start_at is None or items[0].end_at is None:
+            res['status'] = False
+        else:
+            res['title'] = items[0].title
+            res['start_at'] = items[0].start_at.strftime('%c')
+            res['end_at'] = items[0].end_at.strftime('%c')
+            res['status'] = True
+    else:
+        res['status'] = False
+
+    return JsonResponse(res, safe=False)    
 
 
