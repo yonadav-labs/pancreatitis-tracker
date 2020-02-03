@@ -193,6 +193,7 @@ export const getServerStatusApi = () => {
 			};
 		})
 		.catch(err => {
+			console.log('err', err);
 			return {
 				success: false,
 				msg: 'error catch'

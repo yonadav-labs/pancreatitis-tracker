@@ -44,7 +44,6 @@ class PatientData extends React.Component {
 	}
 
 	componentWillMount() {
-		this.props.changeFooterBoxStatus(true);
 		this.props.loadInputHistoryAction();
 	}
 
@@ -90,7 +89,6 @@ class PatientData extends React.Component {
 
 	changeStep = (step) => {
 		this.setState({ step });
-		this.props.changeFooterBoxStatus(true);
 	}
 
 	loadHisotryData = () => {

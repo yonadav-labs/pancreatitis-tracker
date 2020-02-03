@@ -32,9 +32,7 @@ export const loadInputHistoryAction = () => {
 			.then((res) => {
 				if (res.success) {
 					dispatch({ type: types.PATIENTS.GET_HISTORY, payload: res.data });
-				}
-
-				if (res.isServerError) {
+				} else {
 					dispatch({ type: types.SERVER_ERROR, payload: res });
 				}
 			})
@@ -56,9 +54,7 @@ export const getGraphDataAction = (fromDate, toDate) => {
 			.then((res) => {
 				if (res.success) {
 					dispatch({ type: types.GET_GRAPH_SUCCESS, payload: res.data });
-				}
-
-				if (res.isServerError) {
+				} else {
 					dispatch({ type: types.SERVER_ERROR, payload: res });
 				}
 			})
@@ -133,10 +129,7 @@ export const getScoresAction = (data, units) => {
 				if (res.success) {
 					dispatch({ type: types.PATIENTS.ADD, payload: res.data });
 				} else {
-					dispatch({ type: types.PATIENTS.ERROR, payload: res.msg });
-					if (res.isServerError) {
-						dispatch({ type: types.SERVER_ERROR, payload: res });
-					}
+					dispatch({ type: types.SERVER_ERROR, payload: res });
 				}
 
 				return { ...res };

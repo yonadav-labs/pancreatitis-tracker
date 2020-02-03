@@ -6,7 +6,7 @@ class FooterConfirmBox extends React.Component {
 	}
 
 	render() {
-		const buttonText = this.props.buttonText ? this.props.buttonText : 'Agree';
+		const buttonText = this.props.buttonText ? this.props.buttonText : 'I Agree';
 		const confirmText = this.props.confirmText ? this.props.confirmText : `ADAPT is a tool developed
 			and provided by Ariel Precision Medicine for research use only. Results and
 			suggestions are not approved for use in patient care. Please consider ADAPT as

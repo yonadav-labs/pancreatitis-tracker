@@ -79,4 +79,5 @@ const mapDispatchToProps = dispatch => {
 	);
 };
 
+
 export default withRouter(connect(mapStatetoProps, mapDispatchToProps)(withWrapper(RootComponent)));

@@ -9,6 +9,7 @@ function withWrapper(WrapComponent) {
 		}
 
 		_onClick = () => {
+			console.log('AAAAAaaaaaaaaaaaaaaaaa-', this.props);
 			this.props.changeFooterBoxStatus(false);
 		}
 
@@ -16,7 +17,9 @@ function withWrapper(WrapComponent) {
 			const {
 				footerConfirmBoxStatus,
 				serverStatus,
-				isServerError
+				isServerError,
+				success,
+				errorMsg
 			} = this.props;
 			const additionalClass = footerConfirmBoxStatus ? '' : 'hide';
 			if (isServerError) {
@@ -25,22 +28,27 @@ function withWrapper(WrapComponent) {
 
 			if (serverStatus && serverStatus.status) {
 				return (
-					<ServerStatus data={serverStatus} isOffline={false} />
+					<ServerStatus isOffline={false} />
 				);
 			}
 
-			return (
-				<div className={`hide-wrapper ${additionalClass}`}>
-					<div className="hide-wrapper__content">
-						<WrapComponent {...this.props} />
+			if (success === false) {
+				const errorMessage = errorMsg ? errorMsg : 'Server Error!';
+				return <ServerStatus text={errorMessage} isOffline={true} />;
+			}
+
+			if (footerConfirmBoxStatus) {
+				return (
+					<div className={`hide-wrapper ${additionalClass}`}>
+						<div className="hide-wrapper__content">
+							<WrapComponent {...this.props} />
+						</div>
+						<FooterConfirmBox onClick={this._onClick} />
 					</div>
-					{ !footerConfirmBoxStatus ? null
-						: (
-							<FooterConfirmBox onClick={this._onClick} />
-						)
-					}
-				</div>
-			);
+				);
+			}
+
+			return (<WrapComponent {...this.props} />);
 		}
 	};
 }
