@@ -9,7 +9,6 @@ function withWrapper(WrapComponent) {
 		}
 
 		_onClick = () => {
-			console.log('AAAAAaaaaaaaaaaaaaaaaa-', this.props);
 			this.props.changeFooterBoxStatus(false);
 		}
 
@@ -23,17 +22,18 @@ function withWrapper(WrapComponent) {
 			} = this.props;
 			const additionalClass = footerConfirmBoxStatus ? '' : 'hide';
 			if (isServerError) {
-				return <ServerStatus isOffline={true} />;
+				return <ServerStatus isOffline={true} contact_email="chris@adaptemail.com" />;
 			}
 
 			if (serverStatus && serverStatus.status) {
 				return (
-					<ServerStatus isOffline={false} />
+					<ServerStatus isOffline={false} contact_email="chris@adaptemail.com" />
 				);
 			}
 
 			if (success === false) {
-				const errorMessage = errorMsg ? errorMsg : 'Server Error!';
+				const errorMessage = `We are very sorry, it seems there is a problem with our servers.
+					We will correct it as soon as possible.`;
 				return <ServerStatus text={errorMessage} isOffline={true} />;
 			}
 

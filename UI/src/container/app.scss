@@ -293,6 +293,22 @@ a.green-button:hover {
 	box-shadow: 0 2px 2px #69dfd3;
 }
 
+.green-icon {
+	margin-left: 15px;
+	margin-right: 15px;
+}
+
+@media (max-width: 575px) {
+	.green-icon {
+		min-width: 85px;
+		font-size: 14px !important;
+
+		.fa {
+			font-size: 14px !important;
+		}
+	}
+}
+
 .vertical-bar {
 	width: 7px;
 	margin-top: -10px;

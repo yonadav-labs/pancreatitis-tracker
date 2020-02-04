@@ -12,7 +12,11 @@ class GreenButton extends React.Component {
 				}
 				onClick={this.props.onClick}
 			>
-				{this.props.text}
+				{
+					this.props.iconClassName
+						? (<i className={this.props.iconClassName} />)
+						: this.props.text
+				}
 			</button>
 		);
 	}

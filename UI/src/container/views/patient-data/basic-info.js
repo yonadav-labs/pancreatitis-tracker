@@ -518,7 +518,8 @@ class BasicInfo extends React.Component {
 						{historyData && historyData.length > 0 && (
 							<GreenButton
 								text="Clear Data"
-								className="ml-auto"
+								className="ml-3 green-icon"
+								iconClassName="fa fa-trash"
 								onClick={this.openModal}
 							/>
 						)}
