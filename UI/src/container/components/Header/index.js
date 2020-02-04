@@ -2,6 +2,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { withRouter } from 'react-router';
 import { isAuthenticated } from '../../actions/apiWrapper';
 import { BASE_ROUTES, ALL_ROUTES } from '../../reducers/constants';
 import './index.scss';
@@ -19,6 +20,11 @@ class Header extends React.Component {
 
 	toggle() {
 		this.setState({isToggle: !this.state.isToggle});
+	}
+
+	logout = () => {
+		window.localStorage.clear();
+		this.props.history.push('/');
 	}
 
 	render() {
@@ -68,6 +74,11 @@ class Header extends React.Component {
 									</li>
 								))
 							}
+							{ isAuthenticated() && (
+								<li>
+									<Link to="" onClick={this.logout}>Logout</Link>
+								</li>
+							)}
 						</ul>
 					</div>
 				</div>
@@ -76,8 +87,8 @@ class Header extends React.Component {
 	}
 }
 
-export default connect(state => ({
+export default withRouter(connect(state => ({
 	clinicalScores: state.clinicalScores.results
 }), {
 
-})(Header);
+})(Header));
