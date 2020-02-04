@@ -9,6 +9,7 @@ function withWrapper(WrapComponent) {
 		}
 
 		_onClick = () => {
+			window.localStorage.setItem('accept-demo', "1");
 			this.props.changeFooterBoxStatus(false);
 		}
 
@@ -20,6 +21,7 @@ function withWrapper(WrapComponent) {
 				success,
 				errorMsg
 			} = this.props;
+
 			const additionalClass = footerConfirmBoxStatus ? '' : 'hide';
 			if (isServerError) {
 				return <ServerStatus isOffline={true} contact_email="chris@adaptemail.com" />;
@@ -37,15 +39,18 @@ function withWrapper(WrapComponent) {
 				return <ServerStatus text={errorMessage} isOffline={true} />;
 			}
 
+			const acceptDemo = window.localStorage.getItem('accept-demo', null);
 			if (footerConfirmBoxStatus) {
-				return (
-					<div className={`hide-wrapper ${additionalClass}`}>
-						<div className="hide-wrapper__content">
-							<WrapComponent {...this.props} />
+				if (!acceptDemo || acceptDemo !== "1") {
+					return (
+						<div className={`hide-wrapper ${additionalClass}`}>
+							<div className="hide-wrapper__content">
+								<WrapComponent {...this.props} />
+							</div>
+							<FooterConfirmBox onClick={this._onClick} />
 						</div>
-						<FooterConfirmBox onClick={this._onClick} />
-					</div>
-				);
+					);
+				}
 			}
 
 			return (<WrapComponent {...this.props} />);
