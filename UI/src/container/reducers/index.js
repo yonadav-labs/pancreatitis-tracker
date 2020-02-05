@@ -104,7 +104,7 @@ const InitialState = {
 	graphData: {},
 	trackerFromDate: null,
 	trackerToDate: null,
-	footerConfirmBoxStatus: true,
+	footerConfirmBoxStatus: false,
 	serverStatus: { status: false },
 	isServerError: false
 };

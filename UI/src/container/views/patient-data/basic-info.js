@@ -181,6 +181,7 @@ class BasicInfo extends React.Component {
 
 	gotoStep = (delta) => {
 		if (this.isValidated()) {
+			this.props.changeFooterBoxStatus(false);
 			this.props.jumpToStep(this.props.step+delta);
 		}
 	}

@@ -8,6 +8,18 @@ function withWrapper(WrapComponent) {
 			super(props);
 		}
 
+		componentDidMount() {
+			if (this.props.location.pathname === '/') {
+				this.props.changeFooterBoxStatus(true);
+			}
+		}
+
+		componentWillReceiveProps(nextProps) {
+			if (nextProps.location.pathname === '/' && this.props.location !== nextProps.location) {
+				this.props.changeFooterBoxStatus(true);
+			}
+		}
+
 		_onClick = () => {
 			this.props.changeFooterBoxStatus(false);
 		}

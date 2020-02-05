@@ -3,6 +3,7 @@ import {Link} from 'react-router-dom';
 import {connect} from 'react-redux';
 import { bindActionCreators } from "redux";
 import { isAuthenticated } from '../../actions/apiWrapper';
+import { changeFooterBoxStatus } from '../../actions';
 
 const Home = (props) => {
 	const changeRoute = (event) => {
@@ -33,6 +34,7 @@ const Home = (props) => {
 const mapDispatchToProps = dispatch => {
 	return Object.assign(
 		bindActionCreators({
+			changeFooterBoxStatus
 		}, dispatch)
 	);
 };
