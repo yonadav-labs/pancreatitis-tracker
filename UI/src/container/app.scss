@@ -210,8 +210,18 @@ select:-moz-focusring {
 	background-color: #fffd;
 	padding-bottom: 10px;
 	.green-button {
+		@media only screen and (max-width: 991px) {
+			font-size: 22px;
+		}
 		@media only screen and (max-width: 480px) {
 			max-width: 140px;
+			font-size: 16px;
+		}
+		@media only screen and (max-width: 420px) {
+			max-width: 100px;
+		}
+		@media only screen and (max-width: 324px) {
+			font-size: 12px !important;
 		}
 	}
 	>div {
@@ -222,6 +232,7 @@ select:-moz-focusring {
 		}
 		background-repeat: no-repeat;
 		background-position: center;
+		background-position-x: 60%;
 	}
 	&.at-bottom >div {
 		background-image: none;
@@ -298,9 +309,17 @@ a.green-button:hover {
 	margin-right: 15px;
 }
 
+@media only screen and (max-width: 991px) {
+	.green-icon {
+		min-width: 63px;
+		padding: 5px;
+		font-size: 22px;
+	}
+}
+
 @media (max-width: 575px) {
 	.green-icon {
-		min-width: 85px;
+		min-width: 55px;
 		font-size: 14px !important;
 
 		.fa {

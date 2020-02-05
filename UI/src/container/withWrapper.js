@@ -34,8 +34,8 @@ function withWrapper(WrapComponent) {
 			}
 
 			if (success === false) {
-				const errorMessage = `We are very sorry, it seems there is a problem with our servers.
-					We will correct it as soon as possible.`;
+				const errorMessage = `Ooops!!! An unexpected error seems to have occured.
+					Why not try refreshing your page? Or you can contact us if the problem persists`;
 				return <ServerStatus text={errorMessage} isOffline={true} />;
 			}
 
