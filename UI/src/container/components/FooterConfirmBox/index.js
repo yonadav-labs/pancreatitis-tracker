@@ -15,8 +15,8 @@ class FooterConfirmBox extends React.Component {
 		return (
 			<div className="footer-confirmbox">
 				<div className="row p-4">
-					<div className="col-md-8 col-sm-8 col-xs-12 text-white confrimbox-text">{confirmText}</div>
-					<div className="col-md-4 col-sm-4 col-xs-12 d-flex">
+					<div className="col-lg-9 col-md-8 col-sm-8 col-xs-12 text-white confrimbox-text text-center">{confirmText}</div>
+					<div className="col-lg-3 col-md-4 col-sm-4 col-xs-12 d-flex">
 						<button
 							className="btn btn-agree m-auto"
 							onClick={this.props.onClick}
