@@ -23,12 +23,12 @@ function withWrapper(WrapComponent) {
 
 			const additionalClass = footerConfirmBoxStatus ? '' : 'hide';
 			if (isServerError) {
-				return <ServerStatus isOffline={true} contact_email="chris@adaptemail.com" />;
+				return <ServerStatus isOffline={true} contact_email="adapt@arielmedicine.com" />;
 			}
 
 			if (serverStatus && serverStatus.status) {
 				return (
-					<ServerStatus isOffline={false} contact_email="chris@adaptemail.com" />
+					<ServerStatus isOffline={false} contact_email="adapt@arielmedicine.com" />
 				);
 			}
 
