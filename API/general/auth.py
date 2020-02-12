@@ -55,6 +55,40 @@ def register(request):
 
 
 @csrf_exempt
+def reset_password(request):
+    """
+    body format: { "name": "John Doe", "email": "some@email.com" } 
+    """
+    data = json.loads(request.body.decode("ascii"))
+    email = data['email'].lower()
+    password = data['password']
+    user = User.objects.filter(email=email).first()
+
+    # print (data['url'])
+    if user and user.is_active:
+        user.set_password(password)
+        user.save()
+
+        jwt_code = jwt.encode({ 'email' : email }, settings.SECRET_KEY, algorithm='HS256').decode('ascii')
+        res = {
+            "status": "authenticated",
+            "jwt": jwt_code
+        }
+    elif user and not user.is_active:
+        res = {
+            "status": "unverified",
+            "msg": "Please verify your email."
+        }
+    else:
+        res = {
+            "status": "unregistered",
+            "msg": "Please register your account."
+        }
+
+    return JsonResponse(res, safe=True)
+
+
+@csrf_exempt
 def verify_email(request, jwt_code):
     try:
         email = jwt.decode(jwt_code, settings.SECRET_KEY, algorithms=['HS256'])['email']

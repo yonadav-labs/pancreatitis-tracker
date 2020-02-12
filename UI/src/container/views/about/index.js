@@ -30,9 +30,6 @@ class About extends React.Component {
 						automatically computes clinical scoring systems--including SIRS, HAPS, Panc 3,
 						BISAP, POP, Ranson, Glasgow, APACHE-II, and JSS--and predicts persistent organ
 						failure.</p>
-						<p>Future versions of this tool will feature longitudinal data trends and
-						integration with electronic medical records (EMR) to eliminate manual data
-						entry.</p>
 						<p>Please enter as much information as possible. ADAPT has been designed to work
 						with all levels of patient data.</p>
 						<p><strong>For the most informative set of results, please order a complete

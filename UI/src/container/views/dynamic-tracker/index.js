@@ -9,7 +9,8 @@ import Title from '../../components/Title';
 import { bindActionCreators } from "redux";
 import GreenButton from "../../components/GreenButton";
 import {
-	getGraphDataAction
+	getGraphDataAction,
+	clearGraphData
 } from '../../actions/index';
 
 const getSelected = (ci) => {
@@ -58,9 +59,22 @@ class DynamicTracker extends React.Component {
 		super(props);
 
 		this.state = {
-			fromDate: props.fromDate,
-			toDate: props.toDate
+			fromDate: props.graphData & props.graphData.from_date ? props.graphData.from_date : null,
+			toDate: props.graphData & props.graphData.to_date ? props.graphData.from_date : null
 		};
+	}
+
+	componentDidMount() {
+		this.props.getGraphDataAction('all', 'all');
+	}
+
+	componentWillReceiveProps(nextProps) {
+		if (this.props.graphData !== nextProps.graphData) {
+			this.setState({
+				fromDate: nextProps.graphData.from_date,
+				toDate: nextProps.graphData.to_date
+			});
+		}
 	}
 
 	goToPatientData = () => {
@@ -318,7 +332,8 @@ const mapStatetoProps = state => {
 const mapDispatchToProps = dispatch => {
 	return Object.assign(
 		bindActionCreators({
-			getGraphDataAction
+			getGraphDataAction,
+			clearGraphData
 		}, dispatch)
 	);
 };

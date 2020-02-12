@@ -11,7 +11,8 @@ import {
 	FEEDBACK_URL,
 	GET_GRAPH_DATA,
 	CLEAR_INPUT_HISOTRY,
-	SERVER_STATUS
+	SERVER_STATUS,
+	RESET_ACCOUNT_URL
 } from './api_url';
 
 export const loadInputHistoryApi = () => {
@@ -193,10 +194,41 @@ export const getServerStatusApi = () => {
 			};
 		})
 		.catch(err => {
-			console.log('err', err);
 			return {
 				success: false,
 				msg: 'error catch'
+			};
+		});
+};
+
+export const resetAccountApi = (data) => {
+	const params = JSON.stringify(data);
+
+	return postApiWithoutToken(RESET_ACCOUNT_URL, params)
+		.then(response => {
+			if (response) {
+				switch (response.status) {
+					case 'authenticated':
+						return {
+							success: true,
+							token: response.jwt
+						};
+
+
+					default:
+						return {
+							success: false,
+							msg: response.msg,
+							error: true
+						};
+				}
+			}
+		})
+		.catch((err) => {
+			return {
+				success: false,
+				msg: 'Server is not available!',
+				error: true
 			};
 		});
 };

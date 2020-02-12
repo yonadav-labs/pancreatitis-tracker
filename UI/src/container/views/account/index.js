@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import Title from '../../components/Title';
 import GreenButton from "../../components/GreenButton";
 import { checkValidity } from '../../utils/utils';
-import { createAccountAction } from '../../actions';
+import { createAccountAction, resetAccountAction } from '../../actions';
 import { toast } from "react-toastify";
 
 
@@ -171,6 +171,16 @@ class Account extends React.Component {
 							<div>
 								<GreenButton
 									text="Continue"
+									className="mt-3 mr-3"
+									onClick={this.createAccount}
+								/>
+								<GreenButton
+									text="Reset Account"
+									className="mt-3 mr-3"
+									onClick={this.resetAccountAction}
+								/>
+								<GreenButton
+									text="New Account"
 									className="mt-3"
 									onClick={this.createAccount}
 								/>

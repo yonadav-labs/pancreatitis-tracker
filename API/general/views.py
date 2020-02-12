@@ -212,20 +212,32 @@ def get_graph_data(request):
     if not user:
         return HttpResponse('Unauthorized', status=401)
 
-    from_date = datetime.strptime(request.GET['from'].split('T')[0],'%Y-%m-%d')
-    to_date = datetime.strptime(request.GET['to'].split('T')[0], '%Y-%m-%d')
-    to_date = to_date + timedelta(days=1)
-
-    qs = RunAlgorithm.objects.filter(user=user,
-                                     run_at__range=[from_date, to_date]) \
-                             .order_by('-run_at')
     res = {
         'sirs': [],
         'marshall': [],
         'bun': [],
         'creatinine': [],
-        'labels': []
+        'labels': [],
+        'from_date': '',
+        'to_date': ''
     }
+
+    if request.GET['from'] == "all" and request.GET['to'] == "all":
+        qs = RunAlgorithm.objects.filter(user=user).order_by('-run_at')
+        if len(qs) > 0:
+            res['from_date'] = qs[len(qs)-1].run_at.strftime("%Y-%m-%d")
+            res['to_date'] = qs[0].run_at.strftime("%Y-%m-%d")
+
+    else:
+        from_date = datetime.strptime(request.GET['from'].split('T')[0],'%Y-%m-%d')
+        to_date = datetime.strptime(request.GET['to'].split('T')[0], '%Y-%m-%d')
+        res['from_date'] = from_date.strftime("%Y-%m-%d")
+        res['to_date'] = to_date.strftime("%Y-%m-%d")
+        to_date = to_date + timedelta(days=1)
+
+        qs = RunAlgorithm.objects.filter(user=user,
+                                         run_at__range=[from_date, to_date]) \
+                                 .order_by('-run_at')
 
     now = datetime.now()
     for ii in qs:

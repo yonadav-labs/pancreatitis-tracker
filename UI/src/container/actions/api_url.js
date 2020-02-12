@@ -8,6 +8,7 @@ if (window.location.href.indexOf('localhost') !== -1) {
 export const BASE_URL = baseUrl;
 export const SAVE_PATIENT_DATA = BASE_URL + '/run_algorithms';
 export const CREATE_ACCOUNT_URL = BASE_URL + '/register';
+export const RESET_ACCOUNT_URL = BASE_URL + '/reset_password';
 export const LOAD_INPUT_HISOTRY = BASE_URL + '/load_input_history';
 export const CLEAR_INPUT_HISOTRY = BASE_URL + '/clear_input_history';
 export const FEEDBACK_URL = BASE_URL + '/leave_feedback';
