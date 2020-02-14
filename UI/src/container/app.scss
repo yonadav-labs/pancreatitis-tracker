@@ -835,12 +835,13 @@ ol.progtrckr li.progtrckr-done:before {
     border: none;
     color: $light-grey-color;
     box-shadow: 0 2px 2px 0 #24c9c9;
-    font-size: 32px;
+    font-size: 24px;
     outline: none !important;
   }
 
   .confrimbox-text {
   	align-self: center;
+  	font-size: 18px;
 
   	@media (max-width: 574px) {
   		margin-bottom: 15px;

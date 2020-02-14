@@ -57,6 +57,8 @@ class Account extends React.Component {
 		const errors = {};
 		const {physician} = this.state;
 
+		this.setState({pageError: {}});
+
 		let rules = Object.assign({}, this.state.rules);
 		if (actionType !== 1) {
 			delete rules['name'];

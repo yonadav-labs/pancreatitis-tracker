@@ -105,12 +105,13 @@ def reset_password(request):
 
     # print (data['url'])
     if user and user.is_active:
+        user.is_active = False
         user.set_password(password)
         user.save()
 
         jwt_code = jwt.encode({ 'email' : email }, settings.SECRET_KEY, algorithm='HS256').decode('ascii')
         url = f"{settings.BACKEND_URL}{reverse('verify_email', kwargs={ 'jwt_code': jwt_code })}"
-        email_body = f"Hi {data['name']}, \n\nPlease go ahead and verify your email here: \n{url}\n\nThank you."
+        email_body = f"Hi {data['name']}, \n\nYour password reset successfully. Please confirm it with the following link. \n{url}\n\nThank you."
         send_mail('Welcome to ADAPT', email_body, settings.POSTMARK_SENDER, [email], fail_silently=True)
 
         res = {
