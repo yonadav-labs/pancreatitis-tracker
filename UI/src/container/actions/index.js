@@ -7,7 +7,8 @@ import {
 	loadInputHistoryApi,
 	getGraphDataApi,
 	getServerStatusApi,
-	resetAccountApi
+	resetAccountApi,
+	loginAccountApi
 } from './api';
 
 import {
@@ -150,6 +151,29 @@ export const getScoresAction = (data, units) => {
 export const createAccountAction = (user) => {
 	return (dispatch) => {
 		return createAccountApi(user)
+			.then((res) => {
+				if (res.success) {
+					if (res && res.token) {
+						window.localStorage.setItem('token', res.token);
+					}
+					dispatch({ type: types.USER.CREATE_SUCCESS, payload: res.data });
+				} else {
+					dispatch({ type: types.USER.ERROR, payload: res.msg });
+
+					if (res.isServerError) {
+						dispatch({ type: types.SERVER_ERROR, payload: res });
+					}
+				}
+
+				return res;
+			});
+	};
+};
+
+
+export const loginAccountAction = (user) => {
+	return (dispatch) => {
+		return loginAccountApi(user)
 			.then((res) => {
 				if (res.success) {
 					if (res && res.token) {

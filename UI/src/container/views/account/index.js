@@ -4,7 +4,7 @@ import { bindActionCreators } from "redux";
 import Title from '../../components/Title';
 import GreenButton from "../../components/GreenButton";
 import { checkValidity } from '../../utils/utils';
-import { createAccountAction, resetAccountAction } from '../../actions';
+import { createAccountAction, resetAccountAction, loginAccountAction } from '../../actions';
 import { toast } from "react-toastify";
 
 
@@ -53,9 +53,14 @@ class Account extends React.Component {
 		}
 	}
 
-	createAccount = () => {
+	authenticateAccount = (actionType) => {
 		const errors = {};
-		const {rules, physician} = this.state;
+		const {physician} = this.state;
+
+		let rules = Object.assign({}, this.state.rules);
+		if (actionType !== 1) {
+			delete rules['name'];
+		}
 
 		Object.keys(physician).forEach((field) => {
 			const res = checkValidity(rules[field], physician[field], null);
@@ -67,22 +72,66 @@ class Account extends React.Component {
 		this.setState({ errors });
 		if (Object.keys(errors).length === 0) {
 			this.setState({ errors });
-			this.props.createAccountAction({
-				name: physician.name,
-				email: physician.email,
-				password: physician.password,
-				url: window.location.href
-			}).then((res) => {
-				if (res.success) {
-					toast.success('Welcome to ADAPT!', {
-						position: toast.POSITION.TOP_CENTER
+
+			switch (actionType) {
+				case 1:
+					this.props.createAccountAction({
+						name: physician.name,
+						email: physician.email,
+						password: physician.password,
+						url: window.location.href
+					}).then((res) => {
+						if (res.success) {
+							toast.success('Welcome to ADAPT!', {
+								position: toast.POSITION.TOP_CENTER
+							});
+
+							this.props.history.push('/about');
+						} else {
+							this.setState({ pageError: res });
+						}
+					});
+					break;
+
+				case 2:
+					this.props.resetAccountAction({
+						name: physician.name,
+						email: physician.email,
+						password: physician.password,
+						url: window.location.href
+					}).then((res) => {
+						if (res.success) {
+							// define codes after resetting
+						} else {
+							this.setState({ pageError: res });
+						}
+					});
+					break;
+
+				default:
+					this.props.loginAccountAction({
+						name: physician.name,
+						email: physician.email,
+						password: physician.password,
+						url: window.location.href
+					}).then((res) => {
+						if (res.success || (!res.success
+								&& res.status === "password_incorrect"
+								&& rules.password.isDefault === true
+								&& physician.password === rules.password.default)
+						) {
+							toast.success('Welcome to ADAPT!', {
+								position: toast.POSITION.TOP_CENTER
+							});
+
+							this.props.history.push('/about');
+						} else {
+							this.setState({ pageError: res });
+						}
 					});
 
-					this.props.history.push('/about');
-				} else {
-					this.setState({ pageError: res });
-				}
-			});
+
+			}
 		}
 	}
 
@@ -172,17 +221,17 @@ class Account extends React.Component {
 								<GreenButton
 									text="Continue"
 									className="mt-3 mr-3"
-									onClick={this.createAccount}
-								/>
-								<GreenButton
-									text="Reset Account"
-									className="mt-3 mr-3"
-									onClick={this.resetAccountAction}
+									onClick={() => this.authenticateAccount(0)}
 								/>
 								<GreenButton
 									text="New Account"
+									className="mt-3 mr-3"
+									onClick={() => this.authenticateAccount(1)}
+								/>
+								<GreenButton
+									text="Reset Account"
 									className="mt-3"
-									onClick={this.createAccount}
+									onClick={() => this.authenticateAccount(2)}
 								/>
 							</div>
 						</div>
@@ -200,7 +249,9 @@ const mapStatetoProps = state => {
 const mapDispatchToProps = dispatch => {
 	return Object.assign(
 		bindActionCreators({
-			createAccountAction
+			createAccountAction,
+			loginAccountAction,
+			resetAccountAction
 		}, dispatch)
 	);
 };

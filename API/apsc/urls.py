@@ -31,6 +31,7 @@ urlpatterns = [
     path('server_status', views.server_status),
 
     path('register', auth.register),
+    path('sign_in', auth.sign_in),
     path('reset_password', auth.reset_password),
     path('verify_email/<str:jwt_code>', auth.verify_email, name='verify_email'),
     path('leave_feedback', auth.leave_feedback),

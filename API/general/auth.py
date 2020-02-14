@@ -55,6 +55,45 @@ def register(request):
 
 
 @csrf_exempt
+def sign_in(request):
+    """
+    body format: { email": "some@email.com", "password": "Test1234" } 
+    """
+    data = json.loads(request.body.decode("ascii"))
+    email = data['email'].lower()
+    password = data['password']
+    user = User.objects.filter(email=email).first()
+    jwt_code = jwt.encode({ 'email' : email }, settings.SECRET_KEY, algorithm='HS256').decode('ascii')
+
+    # print (data['url'])
+    if user and user.is_active:
+        success = user.check_password(password)
+        if success:
+            res = {
+                "status": "authenticated",
+                "jwt": jwt_code
+            }
+        else:
+            res = {
+                "status": "password_incorrect",
+                "msg": "Your password is incorrect."
+            }
+
+    elif user and not user.is_active:
+        res = {
+            "status": "unverified",
+            "msg": "Please verify your email."
+        }
+    else:
+        res = {
+            "status": "unregistered",
+            "msg": "Please register your account."
+        }
+
+    return JsonResponse(res, safe=True)
+
+
+@csrf_exempt
 def reset_password(request):
     """
     body format: { "name": "John Doe", "email": "some@email.com" } 
@@ -70,9 +109,13 @@ def reset_password(request):
         user.save()
 
         jwt_code = jwt.encode({ 'email' : email }, settings.SECRET_KEY, algorithm='HS256').decode('ascii')
+        url = f"{settings.BACKEND_URL}{reverse('verify_email', kwargs={ 'jwt_code': jwt_code })}"
+        email_body = f"Hi {data['name']}, \n\nPlease go ahead and verify your email here: \n{url}\n\nThank you."
+        send_mail('Welcome to ADAPT', email_body, settings.POSTMARK_SENDER, [email], fail_silently=True)
+
         res = {
-            "status": "authenticated",
-            "jwt": jwt_code
+            "status": "email-sent",
+            "msg": "Verification email sent. Please check your email."
         }
     elif user and not user.is_active:
         res = {

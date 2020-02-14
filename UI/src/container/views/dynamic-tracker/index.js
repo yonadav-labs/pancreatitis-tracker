@@ -12,6 +12,7 @@ import {
 	getGraphDataAction,
 	clearGraphData
 } from '../../actions/index';
+import { convertDateToUTC } from '../../utils/utils';
 
 const getSelected = (ci) => {
 	let selected = [];
@@ -266,6 +267,9 @@ class DynamicTracker extends React.Component {
 	chartReference = {};
 
 	render () {
+		const fromDate = this.state.fromDate ? convertDateToUTC(new Date(this.state.fromDate)) : null;
+		const toDate = this.state.toDate ? convertDateToUTC(new Date(this.state.toDate)) : null;
+
 		return (
 			<div className="app-content">
 				<Title title="Dynamic Tracker" />
@@ -283,8 +287,8 @@ class DynamicTracker extends React.Component {
 									id="time_stamp1"
 									className="round-input"
 									placeholderText="From"
-									selected={this.state.fromDate ? new Date(this.state.fromDate) : null}
-									maxDate={this.state.toDate ? new Date(this.state.toDate) : new Date()}
+									selected={fromDate ? new Date(fromDate) : null}
+									maxDate={toDate ? new Date(toDate) : new Date()}
 									ref={el => this.onDatepickerRef(el)}
 									dateFormat="MM/dd/yyyy"
 									onChange={(date) => this.changeDate('fromDate', date)}
@@ -295,8 +299,8 @@ class DynamicTracker extends React.Component {
 									id="time_stamp2"
 									className="round-input"
 									placeholderText="To"
-									selected={this.state.toDate ? new Date(this.state.toDate) : null}
-									minDate={this.state.fromDate ? new Date(this.state.fromDate) : null}
+									selected={toDate ? new Date(toDate) : null}
+									minDate={fromDate ? new Date(fromDate) : null}
 									maxDate={new Date()}
 									ref={el => this.onDatepickerRef(el)}
 									dateFormat="MM/dd/yyyy"

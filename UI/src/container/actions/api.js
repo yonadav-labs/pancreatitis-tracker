@@ -12,7 +12,8 @@ import {
 	GET_GRAPH_DATA,
 	CLEAR_INPUT_HISOTRY,
 	SERVER_STATUS,
-	RESET_ACCOUNT_URL
+	RESET_ACCOUNT_URL,
+	LOGIN_ACCOUNT_URL
 } from './api_url';
 
 export const loadInputHistoryApi = () => {
@@ -123,8 +124,9 @@ export const createAccountApi = (data) => {
 				switch (response.status) {
 					case 'authenticated':
 						return {
-							success: true,
-							token: response.jwt
+							success: false,
+							msg: 'This email already exists.',
+							error: false
 						};
 
 					case 'email-sent':
@@ -201,6 +203,39 @@ export const getServerStatusApi = () => {
 		});
 };
 
+export const loginAccountApi = (data) => {
+	const params = JSON.stringify(data);
+
+	return postApiWithoutToken(LOGIN_ACCOUNT_URL, params)
+		.then(response => {
+			if (response) {
+				switch (response.status) {
+					case 'authenticated':
+						return {
+							success: true,
+							token: response.jwt
+						};
+
+
+					default:
+						return {
+							success: false,
+							msg: response.msg,
+							status: response.status,
+							error: true
+						};
+				}
+			}
+		})
+		.catch((err) => {
+			return {
+				success: false,
+				msg: 'Server is not available!',
+				error: true
+			};
+		});
+};
+
 export const resetAccountApi = (data) => {
 	const params = JSON.stringify(data);
 
@@ -214,6 +249,12 @@ export const resetAccountApi = (data) => {
 							token: response.jwt
 						};
 
+					case 'email-sent':
+						return {
+							success: false,
+							msg: response.msg,
+							error: false
+						};
 
 					default:
 						return {

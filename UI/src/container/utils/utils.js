@@ -182,3 +182,8 @@ export const validateStep = (data, units, rules) => {
 
 	return { data: _data, errors: errors };
 }
+
+
+export const convertDateToUTC = (date) => {
+	return new Date(date.getTime() + date.getTimezoneOffset() * 60000);
+}
