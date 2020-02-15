@@ -316,8 +316,9 @@ class DynamicTracker extends React.Component {
 							</label>
 						</div>
 					</div>
-					<div className="text-center mb-5">
+					<div className="text-center space-between-section mb-5">
 						<GreenButton text="Return to Patient Data" onClick={this.goToPatientData} />
+						<GreenButton text="Next" onClick={() => this.props.history.push('/feedback')} />
 					</div>
 				</div>
 			</div>

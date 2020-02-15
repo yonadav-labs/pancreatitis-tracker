@@ -243,6 +243,12 @@ class BasicInfo extends React.Component {
 		this.setState({modalIsOpen: false});
 	}
 
+	handleKeyPress = (e) => {
+		if (e.keyCode === 13) {
+			this.gotoStep(1);
+		}
+	}
+
 	render() {
 		const {basicInfo, errors, units, chronic_health_, modalIsOpen} = this.state;
 		const {historyData} = this.props;
@@ -326,6 +332,7 @@ class BasicInfo extends React.Component {
 									maxLength="7"
 									value={basicInfo.age}
 									onChange={this.changeInfo}
+									onKeyDown={event => this.handleKeyPress(event)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.age && errors.age.msg}
@@ -366,6 +373,7 @@ class BasicInfo extends React.Component {
 										className="round-input"
 										value={basicInfo.height}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select
 										className="input-inline-select"
@@ -396,6 +404,7 @@ class BasicInfo extends React.Component {
 										maxLength="5"
 										value={basicInfo.weight}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select
 										className="input-inline-select"

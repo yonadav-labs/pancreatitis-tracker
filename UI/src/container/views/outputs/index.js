@@ -401,8 +401,9 @@ class Outputs extends React.Component {
 							}
 						</div>
 						<div className="pt-3 text-center">
-							<div className="d-flex justify-content-between">
+							<div className="d-flex justify-content-between triple-wrapper">
 								<GreenButton text="Back" onClick={() => this.props.history.push('/patient')} />
+								<GreenButton text="View Graph" onClick={() => this.props.history.push('/dynamic-tracker')} />
 								<GreenButton text="Next" onClick={() => this.props.history.push('/feedback')} />
 							</div>
 						</div>

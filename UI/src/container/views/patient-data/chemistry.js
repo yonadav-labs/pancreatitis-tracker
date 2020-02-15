@@ -172,6 +172,12 @@ class Chemistry extends React.Component {
 		}
 	}
 
+	handleKeyPress = (e) => {
+		if (e.keyCode === 13) {
+			this.gotoStep(1);
+		}
+	}
+
 	render() {
 		const {chemistry, errors, units} = this.state;
 
@@ -193,6 +199,7 @@ class Chemistry extends React.Component {
 										className="round-input"
 										value={chemistry.sodium}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select
 										className="input-inline-select"
@@ -222,6 +229,7 @@ class Chemistry extends React.Component {
 										className="round-input"
 										value={chemistry.chloride}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="mmol/L">mmol/L</option>
@@ -247,6 +255,7 @@ class Chemistry extends React.Component {
 										className="round-input"
 										value={chemistry.potassium}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="mmol/L">mmol/L</option>
@@ -272,6 +281,7 @@ class Chemistry extends React.Component {
 										className="round-input"
 										value={chemistry.hco3_serum}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="mmol/L">mmol/L</option>
@@ -302,6 +312,7 @@ class Chemistry extends React.Component {
 										className="round-input"
 										value={chemistry.bun}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="mg/dL">mg/dL</option>
@@ -325,6 +336,7 @@ class Chemistry extends React.Component {
 										className="round-input"
 										value={chemistry.creatinine}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="mg/dL">mg/dL</option>
@@ -350,6 +362,7 @@ class Chemistry extends React.Component {
 										className="round-input"
 										value={chemistry.glucose}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select
 										className="input-inline-select"
@@ -378,6 +391,7 @@ class Chemistry extends React.Component {
 										className="round-input"
 										value={chemistry.calcium}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select
 										className="input-inline-select"
@@ -412,6 +426,7 @@ class Chemistry extends React.Component {
 										className="round-input"
 										value={chemistry.albumin}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select
 										className="input-inline-select"
@@ -442,6 +457,7 @@ class Chemistry extends React.Component {
 										className="round-input"
 										value={chemistry.ldh}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="U/L">U/L</option>
@@ -467,6 +483,7 @@ class Chemistry extends React.Component {
 										className="round-input"
 										value={chemistry.ast}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="U/L">U/L</option>
@@ -492,6 +509,7 @@ class Chemistry extends React.Component {
 										className="round-input"
 										value={chemistry.alt}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="U/L">U/L</option>

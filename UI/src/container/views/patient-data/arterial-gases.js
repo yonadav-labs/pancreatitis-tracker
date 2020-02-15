@@ -122,6 +122,12 @@ class ArterialGases extends React.Component {
 		this.setState({arterialGases: params});
 	}
 
+	handleKeyPress = (e) => {
+		if (e.keyCode === 13) {
+			this.submit();
+		}
+	}
+
 	render() {
 		const {arterialGases, errors} = this.state;
 		return (
@@ -140,6 +146,7 @@ class ArterialGases extends React.Component {
 									maxLength="7"
 									value={arterialGases.ph}
 									onChange={this.changeInfo}
+									onKeyDown={event => this.handleKeyPress(event)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.ph && errors.ph.msg}
@@ -161,6 +168,7 @@ class ArterialGases extends React.Component {
 										className="round-input"
 										value={arterialGases.paO2}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="mmHg">mmHg</option>
@@ -186,6 +194,7 @@ class ArterialGases extends React.Component {
 										className="round-input"
 										value={arterialGases.paCO2}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="mmHg">mmHg</option>
@@ -211,6 +220,7 @@ class ArterialGases extends React.Component {
 										maxLength="7"
 										value={arterialGases.hco3_artieral}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="mmol/L">mmol/L</option>
@@ -236,6 +246,7 @@ class ArterialGases extends React.Component {
 										className="round-input"
 										value={arterialGases.fiO2}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option>%</option>
@@ -261,6 +272,7 @@ class ArterialGases extends React.Component {
 										className="round-input"
 										value={arterialGases.base_excess}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="mEq/L">mEq/L</option>

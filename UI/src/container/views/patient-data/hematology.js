@@ -101,6 +101,12 @@ class Hematology extends React.Component {
 		}
 	}
 
+	handleKeyPress = (e) => {
+		if (e.keyCode === 13) {
+			this.gotoStep(1);
+		}
+	}
+
 	render() {
 		const {hematology, errors, units} = this.state;
 
@@ -125,6 +131,7 @@ class Hematology extends React.Component {
 										className="round-input"
 										value={hematology.wbc}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="10^9 cells/L">10^9 cells/L</option>
@@ -153,6 +160,7 @@ class Hematology extends React.Component {
 										className="round-input"
 										value={hematology.platelet_count}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select
 										className="input-inline-select"
@@ -187,6 +195,7 @@ class Hematology extends React.Component {
 										className="round-input"
 										value={hematology.hematocrit}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="%">%</option>
@@ -212,6 +221,7 @@ class Hematology extends React.Component {
 										className="round-input"
 										value={hematology.crp}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select
 										className="input-inline-select"

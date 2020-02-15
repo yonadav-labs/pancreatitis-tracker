@@ -116,6 +116,12 @@ class VitalSigns extends React.Component {
 		}
 	}
 
+	handleKeyPress = (e) => {
+		if (e.keyCode === 13) {
+			this.gotoStep(1);
+		}
+	}
+
 	render() {
 		const {vitalSigns, errors, units} = this.state;
 
@@ -137,6 +143,7 @@ class VitalSigns extends React.Component {
 										className="round-input"
 										value={vitalSigns.temperature}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select
 										className="input-inline-select"
@@ -172,6 +179,7 @@ class VitalSigns extends React.Component {
 										className="round-input"
 										value={vitalSigns.bp_systolic}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="mmHg">mmHg</option>
@@ -197,6 +205,7 @@ class VitalSigns extends React.Component {
 										className="round-input"
 										value={vitalSigns.bp_diastolic}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="mmHg">mmHg</option>
@@ -227,6 +236,7 @@ class VitalSigns extends React.Component {
 										className="round-input"
 										value={vitalSigns.heart_rate}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="bpm">bpm</option>
@@ -255,6 +265,7 @@ class VitalSigns extends React.Component {
 										className="round-input"
 										value={vitalSigns.resp_rate}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="bpm">bpm</option>
@@ -288,6 +299,7 @@ class VitalSigns extends React.Component {
 										className="round-input"
 										value={vitalSigns.spO2}
 										onChange={this.changeInfo}
+										onKeyDown={event => this.handleKeyPress(event)}
 									/>
 									<select className="input-inline-select">
 										<option value="%">%</option>
