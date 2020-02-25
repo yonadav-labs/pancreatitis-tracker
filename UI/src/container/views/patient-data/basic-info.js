@@ -243,8 +243,11 @@ class BasicInfo extends React.Component {
 		this.setState({modalIsOpen: false});
 	}
 
-	handleKeyPress = (e) => {
+	handleKeyPress = async (e, isSelect=false) => {
 		if (e.keyCode === 13) {
+			if (isSelect) {
+				await setTimeout(() => {}, 100);
+			}
 			this.gotoStep(1);
 		}
 	}
@@ -281,6 +284,7 @@ class BasicInfo extends React.Component {
 											: null
 									}
 									onChange={(date) => this.changeDate('onset_date', date)}
+									onKeyDown={event => this.handleKeyPress(event)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.onset_date && errors.onset_date.msg}
@@ -312,6 +316,7 @@ class BasicInfo extends React.Component {
 											: null
 									}
 									onChange={(date) => this.changeDate('admission_date', date)}
+									onKeyDown={event => this.handleKeyPress(event)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
 									{errors.admission_date && errors.admission_date.msg}
@@ -351,6 +356,7 @@ class BasicInfo extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('sex', e)}
+									onKeyDown={event => this.handleKeyPress(event, true)}
 									value={sexOption.filter(option => option.value === basicInfo.sex)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -463,6 +469,7 @@ class BasicInfo extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeChronicHealth(e)}
+									onKeyDown={event => this.handleKeyPress(event, true)}
 									value={chronicHealthOption1.filter(option => option.value === chronic_health_)}
 								/>
 							</div>
@@ -511,6 +518,7 @@ class BasicInfo extends React.Component {
 										className="patient-select"
 										classNamePrefix="newselect"
 										onChange={(e) => this.changeOption('chronic_health', e)}
+										onKeyDown={event => this.handleKeyPress(event, true)}
 										value={chronicHealthOption2.filter(option => option.value === basicInfo.chronic_health)}
 									/>
 								</div>

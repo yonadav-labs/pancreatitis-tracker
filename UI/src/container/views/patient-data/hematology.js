@@ -63,7 +63,7 @@ class Hematology extends React.Component {
 		this.setState({ hematology: params });
 	}
 
-	changeInfo(e) {
+	changeInfo = (e) => {
 		let params = this.state.hematology;
 		params[e.target.id] = e.target.value;
 
@@ -101,7 +101,7 @@ class Hematology extends React.Component {
 		}
 	}
 
-	handleKeyPress = (e) => {
+	handleKeyPress = (e, isSelect=false) => {
 		if (e.keyCode === 13) {
 			this.gotoStep(1);
 		}

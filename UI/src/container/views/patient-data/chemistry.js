@@ -134,7 +134,7 @@ class Chemistry extends React.Component {
 		this.setState({ chemistry: params });
 	}
 
-	changeInfo(e) {
+	changeInfo = (e) => {
 		let params = this.state.chemistry;
 		params[e.target.id] = e.target.value;
 
@@ -172,7 +172,7 @@ class Chemistry extends React.Component {
 		}
 	}
 
-	handleKeyPress = (e) => {
+	handleKeyPress = (e, isSelect=false) => {
 		if (e.keyCode === 13) {
 			this.gotoStep(1);
 		}

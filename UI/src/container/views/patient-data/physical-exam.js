@@ -46,7 +46,7 @@ const colourStyles = {
 	option: (styles, { data, isDisabled, isFocused, isSelected }) => {
 		return {
 			...styles,
-			backgroundColor: isSelected ? '#007bff' : data.background
+			backgroundColor: isSelected ? '#007bff' : (isFocused ? '#dbf4fd' : data.background)
 		};
 	}
 };
@@ -153,6 +153,15 @@ class PhysicalExam extends React.Component {
 		}
 	}
 
+	handleKeyPress = async (e, isSelect=false) => {
+		if (e.keyCode === 13) {
+			if (isSelect) {
+				await setTimeout(() => {}, 50);
+			}
+			this.gotoStep(1);
+		}
+	}
+
 	render() {
 		const {physicalExam, errors} = this.state;
 
@@ -179,6 +188,7 @@ class PhysicalExam extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('guarding', e)}
+									onKeyDown={event => this.handleKeyPress(event, true)}
 									value={booleanOption.filter(option => option.value === physicalExam.guarding)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -206,6 +216,7 @@ class PhysicalExam extends React.Component {
 									className="patient-select"
 									classNamePrefix="newselect"
 									onChange={(e) => this.changeOption('tenderness', e)}
+									onKeyDown={event => this.handleKeyPress(event, true)}
 									value={booleanOption.filter(option => option.value === physicalExam.tenderness)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -227,6 +238,7 @@ class PhysicalExam extends React.Component {
 									classNamePrefix="newselect"
 									styles={colourStyles}
 									onChange={(e) => this.changeOption('pleural_eff', e)}
+									onKeyDown={event => this.handleKeyPress(event, true)}
 									value={pleural_effOption.filter(option => option.value === physicalExam.pleural_eff)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -250,6 +262,7 @@ class PhysicalExam extends React.Component {
 									classNamePrefix="newselect"
 									styles={colourStyles}
 									onChange={(e) => this.changeOption('eye_score', e)}
+									onKeyDown={event => this.handleKeyPress(event, true)}
 									value={eyeResponseOption.filter(option => option.value === physicalExam.eye_score)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -270,6 +283,7 @@ class PhysicalExam extends React.Component {
 									classNamePrefix="newselect"
 									styles={colourStyles}
 									onChange={(e) => this.changeOption('verbal_score', e)}
+									onKeyDown={event => this.handleKeyPress(event, true)}
 									value={verbalResponseOption.filter(option => option.value === physicalExam.verbal_score)}
 								/>
 								<label className="color-danger pt-2 text-danger text-center warning-message">
@@ -290,6 +304,7 @@ class PhysicalExam extends React.Component {
 									classNamePrefix="newselect"
 									styles={colourStyles}
 									onChange={(e) => this.changeOption('motor_score', e)}
+									onKeyDown={event => this.handleKeyPress(event, true)}
 									value={motorResponseOption.filter(option => option.value === physicalExam.motor_score)}
 									
 								/>

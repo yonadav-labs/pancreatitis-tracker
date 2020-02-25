@@ -12,7 +12,7 @@ import "./app.scss";
 
 
 function initializeReactGA() {
-	ReactGA.initialize('UA-140942097-1');
+	ReactGA.initialize('UA-158621449-1');
 	ReactGA.pageview('/patient');
 }
 

@@ -116,7 +116,7 @@ class VitalSigns extends React.Component {
 		}
 	}
 
-	handleKeyPress = (e) => {
+	handleKeyPress = (e, isSelect=false) => {
 		if (e.keyCode === 13) {
 			this.gotoStep(1);
 		}
